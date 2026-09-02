@@ -1,0 +1,32 @@
+# Local environment and secrets
+.venv/
+.env
+.env.*
+!.env.example
+
+# Local tools, caches, and generated Python files
+.cache/
+.agents/
+.codex/
+__pycache__/
+*.py[cod]
+*.cache
+.ipynb_checkpoints/
+
+# Dataset payloads and generated experiment outputs
+data/raw/
+experiments/
+logs/
+runs/
+wandb/
+weights/
+
+# Large trained/deployment artifacts (retain locally; do not publish)
+artifacts/checkpoints/
+artifacts/openvino/
+*.pt
+*.pth
+*.onnx
+*.bin
+*.xml
+yolo11n.pt

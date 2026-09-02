@@ -1,0 +1,42 @@
+project:
+  seed: 42
+
+dataset:
+  workspace: humanoid-atom
+  project: advance_vision_human
+  version: null
+  type: object_detection
+
+classes:
+  0: ball
+  1: gawang
+  2: robot
+
+model:
+  architecture: yolo11n
+  pretrained: yolo11n.pt
+  imgsz: 640
+
+training:
+  epochs: 100
+  patience: 20
+  batch: 16
+  workers: 2
+  cache: false
+  device: 0
+  optimizer: AdamW
+  lr0: 0.001111
+  momentum: 0.9
+  weight_decay: 0.0005
+  amp: true
+
+qat:
+  epochs: 5
+  lr: 0.00001
+  warmup_epochs: 0.0
+  lrf: 1.0
+  framework: nncf
+  amp: false
+
+runtime:
+  cuda_visible_devices: null
