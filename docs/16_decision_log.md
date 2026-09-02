@@ -20,3 +20,4 @@ Merekam keputusan kronologis, alasan, bukti, dan dampaknya.
 | 6 | model dibekukan sebelum TEST; TEST sekali | manifest final test | tidak ada test tuning |
 | 7A | tolak strip artifact | divergence ~36,24% | no deploy artifact |
 | 7C/7D | acceptance memakai `[0,1]` + 32 VAL | CPU/CUDA representative pass | export QAT fail-closed |
+| 7F preparation | Memakai `QuantizationController.export_model(..., save_format="onnx")` sebagai jalur utama | Controller NNCF 2.13.0 terpasang menyediakan API ekspor ONNX resmi untuk compressed model. | Jalur ONNX dipisahkan dari diagnostik OpenVINO langsung; tidak ada fallback PTQ. |

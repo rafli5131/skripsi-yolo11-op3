@@ -40,3 +40,4 @@ Indeks dokumentasi teknis proyek `advance_vision`.
 - [18 Next steps](18_next_steps.md) — pekerjaan tersisa.
 - [19 Thesis mapping](19_thesis_method_mapping.md) — hubungan artefak dan bab skripsi.
 - [20 Timeline](20_experiment_timeline.md) — kronologi fase.
+- [21 QAT ONNX → OpenVINO](21_qat_onnx_openvino_export.md) — jalur Phase 7F yang terisolasi dan fail-closed.

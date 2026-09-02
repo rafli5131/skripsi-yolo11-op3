@@ -40,6 +40,7 @@ from nncf import NNCFConfig
 from nncf.torch import create_compressed_model, load_state
 from ultralytics import YOLO
 from ultralytics.data.augment import LetterBox
+from ultralytics.utils.export.openvino import torch2openvino
 
 from probe_qat_compatibility import (
     attach_ultralytics_training_args,
@@ -483,9 +484,13 @@ def candidate_from_direct_openvino(
     references: dict[str, dict[str, Any]],
     val_names: list[str],
 ) -> dict[str, Any]:
-    """Candidate A: direct OpenVINO conversion of the unstripped compressed model."""
+    """Candidate A: installed Ultralytics plain OpenVINO conversion of unstripped QAT."""
     report: dict[str, Any] = {
-        "export path": "ov.convert_model(compressed_model, input=..., example_input=...) without strip",
+        "export path": "ultralytics.utils.export.openvino.torch2openvino(compressed_model wrapper, quantize=None)",
+        "torch2openvino signature": str(inspect.signature(torch2openvino)),
+        "quantize": None,
+        "calibration_dataset": None,
+        "int8_detect": False,
         "success": False,
         "calibration occurred": False,
         "PTQ used": False,
@@ -497,9 +502,17 @@ def candidate_from_direct_openvino(
         # tracing Ultralytics' auxiliary feature dictionary. The compressed
         # NNCF model itself remains unstripped and fake quantization stays on.
         export_model = TensorOutputExportWrapper(model).eval().cpu()
-        ov_model = ov.convert_model(export_model, input=list(INPUT_SHAPE), example_input=example)
+        torch2openvino(
+            model=export_model,
+            im=example,
+            output_dir=DIRECT_QAT_DIR,
+            dynamic=False,
+            quantize=None,
+            calibration_dataset=None,
+            int8_detect=False,
+            prefix="QAT Candidate A:",
+        )
         xml_path = DIRECT_QAT_DIR / "model.xml"
-        ov.save_model(ov_model, xml_path, compress_to_fp16=False)
         report["files"] = file_sizes(xml_path)
         core = ov.Core()
         compiled = core.compile_model(core.read_model(xml_path), "CPU")

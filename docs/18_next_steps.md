@@ -8,7 +8,7 @@ Mencatat pekerjaan yang belum dilakukan dan dependensinya.
 
 **NOT YET EXECUTED** untuk seluruh item berikut.
 
-1. Jalankan Phase 7D direct QAT export pada host CUDA; Candidate B hanya bila A gagal.
+1. Jalankan ulang Phase 7F dengan ONNX Runtime untuk mengisolasi mismatch PyTorch QAT -> ONNX atau ONNX -> OpenVINO.
 2. Terima/promo hanya jika equivalence representatif dan graph quantization lulus.
 3. Setelah IR QAT valid, benchmark OpenVINO FP32 versus QAT INT8 pada deployment CPU: latency, FPS, CPU, RAM.
 4. Integrasikan ROS2, lalu deploy/ukur pada ROBOTIS OP3.

@@ -28,3 +28,7 @@ LetterBox 640, BGR->RGB, NCHW float32, lalu `/255`. Statistik agregatnya min
 Kesimpulan resmi Phase 7C: **"Mismatch is likely input-distribution-specific."** CPU
 backend bukan lagi export blocker. `torch.randn` atau input out-of-domain tidak
 boleh digunakan sebagai referensi equivalence export. TEST tidak digunakan.
+
+## Konsekuensi untuk Phase 7F
+
+Jalur QAT -> ONNX -> OpenVINO menggunakan 32 citra VAL representatif sebagai populasi acceptance. Tensor sintetik out-of-domain tidak dipakai sebagai dasar menerima atau menolak ekspor. `Detect.export` diisolasi pada instance model khusus ekspor agar forward referensi native tidak berubah.

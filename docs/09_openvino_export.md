@@ -14,7 +14,11 @@ Source adalah `artifacts/checkpoints/fp32/best.pt`; input NCHW `[1,3,640,640]`. 
 
 ## QAT
 
-Restore wajib: FP32 architecture -> `NNCFConfig` -> `create_compressed_model` -> compression state -> QAT state. Sebelum export: 1.323 entries dan 184 quantizer aktif. Candidate A adalah direct `ov.convert_model` tanpa `strip`; Candidate B adalah `compression_ctrl.export_model` hanya bila A gagal. Tidak ada `nncf.quantize()`, PTQ, calibration, atau TEST. Acceptance membutuhkan raw `[1,7,8400]`, representative relative MAE <=1%, dan graph FakeQuantize/I8/U8.
+Restore wajib: FP32 architecture -> `NNCFConfig` -> `create_compressed_model` -> compression state -> QAT state. Sebelum export: 1.323 entries dan 184 quantizer aktif. Candidate A memakai fungsi Ultralytics terpasang `torch2openvino(model, im, output_dir, dynamic=False, quantize=None, calibration_dataset=None, int8_detect=False)`. Implementasi 8.4.130 hanya memanggil `nncf.quantize()` pada cabang `quantize == 8`; parameter `None` tidak menjalankan cabang itu. Candidate B adalah `compression_ctrl.export_model` hanya bila A gagal. Tidak ada `strip`, PTQ, calibration, atau TEST. Acceptance membutuhkan raw `[1,7,8400]`, representative relative MAE <=1%, dan graph FakeQuantize/I8/U8.
+
+## Phase 7F: ONNX sebagai intermediate
+
+**NOT YET EXECUTED.** Jalur baru yang terpisah terdapat pada [`scripts/export_qat_onnx_openvino.py`](../scripts/export_qat_onnx_openvino.py): model QAT ter-restore -> `QuantizationController.export_model(..., save_format="onnx")` -> OpenVINO. Jalur ini memakai instance model export yang baru; `Detect.export=True` tidak pernah diterapkan ke instance referensi native. Referensi numerik memakai 32 citra VAL deterministik dengan raw output `[1,7,8400]`. Artefak hanya dipromosikan bila seluruh VAL memenuhi relative MAE <=1% dan graph IR tetap menunjukkan semantik kuantisasi. Detail dan status runtime dicatat di [Phase 7F](21_qat_onnx_openvino_export.md).
 
 ## Artefak terkait
 

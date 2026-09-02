@@ -15,3 +15,7 @@ Graph yang tampak terkuantisasi tidak membuktikan equivalence semantik. Oleh kar
 ## Artefak terkait
 
 [export script](../scripts/export_openvino.py), [diagnostic lama](../artifacts/openvino/qat_export_diagnostic.json), [Phase 7C](11_cpu_cuda_qat_diagnostic.md).
+
+## Tindak lanjut
+
+Phase 7F menambahkan jalur ONNX yang terisolasi tanpa memakai `strip`: [`scripts/export_qat_onnx_openvino.py`](../scripts/export_qat_onnx_openvino.py). Ini **bukan** rehabilitasi artefak lama. Artefak `qat_int8/model.{xml,bin}` yang berasal dari jalur strip tetap **REJECTED** sampai kandidat baru lulus verifikasi numerik dan struktur graph secara penuh.

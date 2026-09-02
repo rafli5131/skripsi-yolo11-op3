@@ -22,3 +22,4 @@ Memberikan kronologi input, aksi, hasil, dan artefak.
 | 7B | export diagnosis | synthetic old CPU/CUDA mismatch | STOPPED |
 | 7C | representative CPU/CUDA | `[0,1]` + 32 VAL pass | DONE |
 | 7D | direct QAT export preparation | script/docs prepared | NOT YET EXECUTED |
+| 7F preparation | QAT -> ONNX -> OpenVINO | controller NNCF resmi, checker ONNX, dan gate numerik/graph disiapkan | NOT YET EXECUTED |

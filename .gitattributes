@@ -1,0 +1,4 @@
+artifacts/checkpoints/**/*.pt filter=lfs diff=lfs merge=lfs -text
+artifacts/openvino/**/*.onnx filter=lfs diff=lfs merge=lfs -text
+artifacts/openvino/**/*.xml filter=lfs diff=lfs merge=lfs -text
+artifacts/openvino/**/*.bin filter=lfs diff=lfs merge=lfs -text

@@ -21,3 +21,5 @@ Merekam masalah tanpa menyembunyikan statusnya.
 | Synthetic CPU/CUDA | 29,46% pada input lama | input-distribution-specific | gunakan `[0,1]` dan VAL representatif | RESOLVED for representative inputs |
 | QAT IR lama | graph quantized tetapi tidak ekuivalen | jalur strip | DO NOT DEPLOY | REJECTED |
 | W&B index | UI dapat menunjukkan epoch 101 | convention/log indexing UNKNOWN | gunakan CSV/manifest untuk epoch aktual 100 | KNOWN |
+| Jalur QAT -> ONNX -> OpenVINO | ONNX export dan checker berhasil, tetapi kandidat OpenVINO gagal numerik. ONNX Runtime kemudian ditambahkan untuk mengisolasi lapisan kegagalan pada rerun berikutnya. | Jalankan ulang tanpa mengubah checkpoint; jangan memakai PTQ atau TEST. | UNRESOLVED |
+| ONNX Runtime custom NNCF op | ONNX Runtime tidak dapat memuat `org.openvinotoolkit::FakeQuantize`. | Stock ORT tidak mendaftarkan custom operator fake-quant NNCF 2.13.0. | Catat sebagai intermediate execution unavailable; jangan strip/PTQ; lanjut hanya ke OpenVINO importer. | EXPECTED LIMITATION |
