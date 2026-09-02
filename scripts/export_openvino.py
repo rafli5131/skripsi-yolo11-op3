@@ -6,14 +6,14 @@ the restored QAT model numerically, so this script never invokes it for QAT.
 It tests only direct conversion of the still-compressed model and the installed
 controller's official ONNX export, with no calibration data or PTQ stage.
 
-Run this only on the CUDA SSH host from the project root.  It reads one VAL
-image solely for a functional execution sanity check; it never loads TEST.
+Run this only on the CUDA SSH host from the project root. QAT diagnostics use
+exactly 32 deterministic VAL images and one deterministic in-domain synthetic
+input; they never load TEST.
 """
 
 from __future__ import annotations
 
 import argparse
-import copy
 import inspect
 import json
 import os
@@ -59,11 +59,14 @@ QAT_DIR = OPENVINO_ROOT / "qat_int8"
 MANIFEST_PATH = OPENVINO_ROOT / "export_manifest.json"
 GRAPH_REPORT_PATH = OPENVINO_ROOT / "graph_report.json"
 QAT_DIAGNOSTIC_PATH = OPENVINO_ROOT / "qat_export_diagnostic.json"
+CPU_CUDA_DIAGNOSTIC_PATH = OPENVINO_ROOT / "qat_cpu_cuda_diagnostic.json"
 DIRECT_QAT_DIR = OPENVINO_ROOT / "debug/direct_qat"
 CONTROLLER_QAT_DIR = OPENVINO_ROOT / "debug/controller_qat"
 EXPECTED_NAMES = {0: "ball", 1: "gawang", 2: "robot"}
 EXPECTED_QUANTIZERS = 184
 INPUT_SHAPE = (1, 3, 640, 640)
+REPRESENTATIVE_VAL_COUNT = 32
+REPRESENTATIVE_SEED = 42
 
 
 class ExportStop(RuntimeError):
@@ -169,6 +172,26 @@ def val_input(val_images: Path, device: torch.device) -> tuple[torch.Tensor, str
     return preprocess_deployment_image(image_path, device), str(image_path)
 
 
+def representative_qat_inputs(val_images: Path, device: torch.device) -> tuple[dict[str, torch.Tensor], list[str]]:
+    """Return the fixed Phase 7C-compatible [0, 1] synthetic and 32 VAL inputs."""
+    candidates = sorted(
+        image for image in val_images.iterdir() if image.is_file() and image.suffix.lower() in {".jpg", ".jpeg", ".png"}
+    )
+    if len(candidates) < REPRESENTATIVE_VAL_COUNT:
+        raise ExportStop(f"Need {REPRESENTATIVE_VAL_COUNT} VAL images, found {len(candidates)} at {val_images}")
+    generator = torch.Generator(device="cpu").manual_seed(REPRESENTATIVE_SEED)
+    inputs: dict[str, torch.Tensor] = {
+        "in_domain_synthetic": torch.rand(INPUT_SHAPE, generator=generator, dtype=torch.float32).to(device)
+    }
+    val_names: list[str] = []
+    for image_path in candidates[:REPRESENTATIVE_VAL_COUNT]:
+        if image_path.name in inputs:
+            raise ExportStop(f"Duplicate representative input key: {image_path.name}")
+        inputs[image_path.name] = preprocess_deployment_image(image_path, device)
+        val_names.append(image_path.name)
+    return inputs, val_names
+
+
 def tensor_leaves(value: Any) -> list[torch.Tensor]:
     if isinstance(value, torch.Tensor):
         return [value]
@@ -193,31 +216,39 @@ def output_summary(value: Any) -> dict[str, Any]:
 def compare_summaries(reference: dict[str, Any], candidate: dict[str, Any]) -> dict[str, Any]:
     """Require a conservative numerical check; this is compatibility, not accuracy tuning."""
     same_elements = reference["element_count"] == candidate["element_count"]
+    same_shapes = reference["tensor_shapes"] == candidate["tensor_shapes"]
     if same_elements:
         difference = (reference["flat"] - candidate["flat"]).abs()
         mean_abs_difference = float(difference.mean().item())
         max_abs_difference = float(difference.max().item())
         reference_mean_abs = float(reference["flat"].abs().mean().item())
         relative_mean_abs_difference = mean_abs_difference / max(reference_mean_abs, 1e-12)
+        cosine_similarity = float(
+            torch.nn.functional.cosine_similarity(reference["flat"], candidate["flat"], dim=0).item()
+        )
     else:
         mean_abs_difference = None
         max_abs_difference = None
         relative_mean_abs_difference = None
+        cosine_similarity = None
     # FP32 conversion is normally far below this. A 1% relative MAE bound is
     # a compatibility guard, not a model-selection or tuning parameter.
     status = bool(
         reference["finite"]
         and candidate["finite"]
         and same_elements
+        and same_shapes
         and relative_mean_abs_difference is not None
         and relative_mean_abs_difference <= 0.01
     )
     return {
         "status": status,
         "element_count_matches": same_elements,
+        "tensor_shapes_match": same_shapes,
         "max_absolute_difference": max_abs_difference,
         "mean_absolute_difference": mean_abs_difference,
         "relative_mean_absolute_difference": relative_mean_abs_difference,
+        "cosine_similarity": cosine_similarity,
         "maximum_allowed_relative_mean_absolute_difference": 0.01,
     }
 
@@ -367,6 +398,45 @@ def controller_api_report(controller: Any) -> dict[str, Any]:
     }
 
 
+def phase_7c_evidence() -> dict[str, Any]:
+    """Carry audited representative-input evidence into the export diagnostic."""
+    path = ROOT / CPU_CUDA_DIAGNOSTIC_PATH
+    if not path.is_file():
+        raise ExportStop(f"Phase 7C diagnostic is required before QAT export: {path}")
+    report = json.loads(path.read_text(encoding="utf-8"))
+    expected = "Mismatch is likely input-distribution-specific."
+    if report.get("classification") != expected:
+        raise ExportStop("Phase 7C did not establish representative CPU/CUDA compatibility.")
+    return {
+        "path": str(path),
+        "classification": expected,
+        "in-domain synthetic statistics": report.get("in-domain synthetic statistics"),
+        "VAL relative-MAE summary": report.get("VAL relative-MAE summary"),
+    }
+
+
+def representative_summary(numerical: dict[str, dict[str, Any]], val_names: list[str]) -> dict[str, Any]:
+    """Summarize the fixed acceptance population without using TEST data."""
+    values = [numerical[name]["relative_mean_absolute_difference"] for name in val_names]
+    if any(value is None for value in values):
+        raise ExportStop("A candidate did not produce comparable output for every representative VAL input.")
+    ordered = sorted(float(value) for value in values)
+    p95_index = (len(ordered) - 1) * 0.95
+    low, high = int(p95_index), min(int(p95_index) + 1, len(ordered) - 1)
+    p95 = ordered[low] + (ordered[high] - ordered[low]) * (p95_index - low)
+    return {
+        "VAL input count": len(val_names),
+        "minimum relative MAE": ordered[0],
+        "median relative MAE": (ordered[15] + ordered[16]) / 2,
+        "mean relative MAE": sum(ordered) / len(ordered),
+        "p95 relative MAE": p95,
+        "maximum relative MAE": ordered[-1],
+        "count relative MAE <= 1 percent": sum(value <= 0.01 for value in ordered),
+        "count relative MAE > 1 percent": sum(value > 0.01 for value in ordered),
+        "in-domain synthetic relative MAE": numerical["in_domain_synthetic"]["relative_mean_absolute_difference"],
+    }
+
+
 def qat_cuda_cpu_equivalence(
     model: torch.nn.Module,
     input_cases: dict[str, torch.Tensor],
@@ -378,7 +448,9 @@ def qat_cuda_cpu_equivalence(
         for name, input_tensor in input_cases.items():
             cuda_outputs[name] = output_summary(model(input_tensor))
     model.cpu().eval()
-    count_after_cpu = len(quantizers(model))
+    cpu_quantizers = quantizers(model)
+    count_after_cpu = len(cpu_quantizers)
+    enabled_after_cpu = quantizers_enabled(cpu_quantizers)
     cpu_outputs: dict[str, dict[str, Any]] = {}
     comparisons: dict[str, Any] = {}
     with torch.inference_mode():
@@ -389,18 +461,24 @@ def qat_cuda_cpu_equivalence(
                 "CPU candidate": compact_summary(cpu_outputs[name]),
                 **compare_summaries(cuda_outputs[name], cpu_outputs[name]),
             }
-    status = count_after_cpu == EXPECTED_QUANTIZERS and all(item["status"] for item in comparisons.values())
+    status = (
+        count_after_cpu == EXPECTED_QUANTIZERS
+        and enabled_after_cpu
+        and all(item["status"] for item in comparisons.values())
+    )
     return {
         "status": status,
         "quantizer count after model.cpu": count_after_cpu,
+        "quantizers enabled after model.cpu": enabled_after_cpu,
         "per input": comparisons,
-    }, cuda_outputs
+    }, cpu_outputs
 
 
 def candidate_from_direct_openvino(
     model: torch.nn.Module,
     input_cases: dict[str, torch.Tensor],
     references: dict[str, dict[str, Any]],
+    val_names: list[str],
 ) -> dict[str, Any]:
     """Candidate A: direct OpenVINO conversion of the unstripped compressed model."""
     report: dict[str, Any] = {
@@ -411,26 +489,30 @@ def candidate_from_direct_openvino(
     }
     try:
         DIRECT_QAT_DIR.mkdir(parents=True, exist_ok=True)
-        example = input_cases["synthetic"].cpu()
+        example = input_cases["in_domain_synthetic"].cpu()
         ov_model = ov.convert_model(model.eval().cpu(), input=list(INPUT_SHAPE), example_input=example)
         xml_path = DIRECT_QAT_DIR / "model.xml"
         ov.save_model(ov_model, xml_path, compress_to_fp16=False)
         report["files"] = file_sizes(xml_path)
-        report["graph"] = graph_report(xml_path)
         core = ov.Core()
         compiled = core.compile_model(core.read_model(xml_path), "CPU")
         numerical: dict[str, Any] = {}
         for name, input_tensor in input_cases.items():
             output = ov_output_summary(compiled, input_tensor.cpu())
             numerical[name] = {"candidate": compact_summary(output), **compare_summaries(references[name], output)}
+        report["numerical checks"] = numerical
+        report["representative numerical summary"] = representative_summary(numerical, val_names)
+        numerical_ok = all(item["status"] for item in numerical.values())
+        if not numerical_ok:
+            report.update({"numerical equivalence": False, "rejection reason": "Representative numerical equivalence exceeds 1%."})
+            return report
+        report["graph"] = graph_report(xml_path)
         graph_ok = (
             report["graph"]["FakeQuantize_op_count"] > 0
             and report["graph"]["int8_or_u8_graph_element_count"] > 0
         )
-        numerical_ok = all(item["status"] for item in numerical.values())
         report.update(
             {
-                "numerical checks": numerical,
                 "quantization graph visible": graph_ok,
                 "numerical equivalence": numerical_ok,
                 "success": graph_ok and numerical_ok,
@@ -446,6 +528,7 @@ def candidate_from_controller_export(
     model: torch.nn.Module,
     input_cases: dict[str, torch.Tensor],
     references: dict[str, dict[str, Any]],
+    val_names: list[str],
 ) -> dict[str, Any]:
     """Candidate B: installed controller export_model() to ONNX, then OpenVINO conversion."""
     report: dict[str, Any] = {
@@ -466,21 +549,25 @@ def candidate_from_controller_export(
         xml_path = CONTROLLER_QAT_DIR / "model.xml"
         ov.save_model(ov_model, xml_path, compress_to_fp16=False)
         report["files"] = {**file_sizes(xml_path), "ONNX bytes": onnx_path.stat().st_size}
-        report["graph"] = graph_report(xml_path)
         core = ov.Core()
         compiled = core.compile_model(core.read_model(xml_path), "CPU")
         numerical: dict[str, Any] = {}
         for name, input_tensor in input_cases.items():
             output = ov_output_summary(compiled, input_tensor.cpu())
             numerical[name] = {"candidate": compact_summary(output), **compare_summaries(references[name], output)}
+        report["numerical checks"] = numerical
+        report["representative numerical summary"] = representative_summary(numerical, val_names)
+        numerical_ok = all(item["status"] for item in numerical.values())
+        if not numerical_ok:
+            report.update({"numerical equivalence": False, "rejection reason": "Representative numerical equivalence exceeds 1%."})
+            return report
+        report["graph"] = graph_report(xml_path)
         graph_ok = (
             report["graph"]["FakeQuantize_op_count"] > 0
             and report["graph"]["int8_or_u8_graph_element_count"] > 0
         )
-        numerical_ok = all(item["status"] for item in numerical.values())
         report.update(
             {
-                "numerical checks": numerical,
                 "quantization graph visible": graph_ok,
                 "numerical equivalence": numerical_ok,
                 "success": graph_ok and numerical_ok,
@@ -515,16 +602,23 @@ def restore_qat_with_controller(qat_path: Path, fp32_path: Path, device: torch.d
     return controller, qat_model, {"loaded state entries": int(loaded_entries), "quantizer count": len(items)}
 
 
-def run_qat_export_diagnostics(qat_path: Path, fp32_path: Path, device: torch.device, val_tensor: torch.Tensor) -> dict[str, Any]:
+def run_qat_export_diagnostics(qat_path: Path, fp32_path: Path, device: torch.device, val_images: Path) -> dict[str, Any]:
     """Run only approved, unstripped candidates and promote solely on dual acceptance."""
-    synthetic = torch.linspace(-1.0, 1.0, steps=int(torch.tensor(INPUT_SHAPE).prod())).reshape(INPUT_SHAPE).to(device)
-    input_cases = {"synthetic": synthetic, "VAL": val_tensor}
+    input_cases, val_names = representative_qat_inputs(val_images, device)
     controller, reference_model, restored = restore_qat_with_controller(qat_path, fp32_path, device)
     diagnostic: dict[str, Any] = {
         "restored QAT": restored,
         "pre-export model training state": bool(reference_model.training),
         "controller API inspection": controller_api_report(controller),
         "strip route": "disabled after Phase 7A semantic mismatch; not invoked",
+        "Phase 7C evidence": phase_7c_evidence(),
+        "representative inputs": {
+            "in-domain synthetic": "torch.rand([1,3,640,640], seed=42, float32, [0,1])",
+            "VAL image count": len(val_names),
+            "VAL selection": "first 32 filenames in deterministic lexical sort",
+            "preprocessing": "cv2 decode -> LetterBox(640, auto=False, stride=32) -> BGR to RGB -> NCHW float32 / 255",
+            "TEST": "not loaded or used",
+        },
         "calibration occurred": False,
         "PTQ used": False,
         "test split": "not loaded or used",
@@ -538,15 +632,23 @@ def run_qat_export_diagnostics(qat_path: Path, fp32_path: Path, device: torch.de
 
     # Candidate A uses the same verified reference model after its CPU check;
     # no strip/replacement is performed.
-    diagnostic["candidate A direct OpenVINO"] = candidate_from_direct_openvino(reference_model, input_cases, references)
-
-    # Candidate B gets a fresh reconstruction because export_model() may set
-    # temporary NNCF export state internally.
-    controller_b, model_b, _ = restore_qat_with_controller(qat_path, fp32_path, device)
-    model_b.cpu().eval()
-    diagnostic["candidate B controller export"] = candidate_from_controller_export(
-        controller_b, model_b, input_cases, references
+    diagnostic["candidate A direct OpenVINO"] = candidate_from_direct_openvino(
+        reference_model, input_cases, references, val_names
     )
+
+    if diagnostic["candidate A direct OpenVINO"].get("success"):
+        diagnostic["candidate B controller export"] = {
+            "attempted": False,
+            "reason": "Candidate A was accepted; Candidate B is reserved for a failed or unsupported Candidate A.",
+        }
+    else:
+        # Candidate B gets a fresh reconstruction because export_model() may set
+        # temporary NNCF export state internally.
+        controller_b, model_b, _ = restore_qat_with_controller(qat_path, fp32_path, device)
+        model_b.cpu().eval()
+        diagnostic["candidate B controller export"] = candidate_from_controller_export(
+            controller_b, model_b, input_cases, references, val_names
+        )
     accepted = [
         ("direct OpenVINO", diagnostic["candidate A direct OpenVINO"], DIRECT_QAT_DIR),
         ("controller ONNX", diagnostic["candidate B controller export"], CONTROLLER_QAT_DIR),
@@ -625,7 +727,7 @@ def main() -> int:
             torch.cuda.empty_cache()
 
         if args.model == "qat-diagnostic":
-            diagnostic = run_qat_export_diagnostics(qat_path, fp32_path, device, input_tensor)
+            diagnostic = run_qat_export_diagnostics(qat_path, fp32_path, device, val_images)
             write_json(QAT_DIAGNOSTIC_PATH, diagnostic)
             manifest["QAT diagnostic"] = {
                 "path": str(ROOT / QAT_DIAGNOSTIC_PATH),
