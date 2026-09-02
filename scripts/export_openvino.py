@@ -442,11 +442,14 @@ def qat_cuda_cpu_equivalence(
     input_cases: dict[str, torch.Tensor],
 ) -> tuple[dict[str, Any], dict[str, dict[str, Any]]]:
     """Compare the identical restored model on CUDA then CPU before any export."""
-    model.eval()
+    # Phase 7C compared the restored model's native prediction tensor. Do not
+    # mutate Detect.export before this check: that is export preparation, not
+    # the validated CUDA/CPU reconstruction path.
+    prediction_model = TensorOutputExportWrapper(model).eval()
     cuda_outputs: dict[str, dict[str, Any]] = {}
     with torch.inference_mode():
         for name, input_tensor in input_cases.items():
-            cuda_outputs[name] = output_summary(model(input_tensor))
+            cuda_outputs[name] = output_summary(prediction_model(input_tensor))
     model.cpu().eval()
     cpu_quantizers = quantizers(model)
     count_after_cpu = len(cpu_quantizers)
@@ -455,7 +458,7 @@ def qat_cuda_cpu_equivalence(
     comparisons: dict[str, Any] = {}
     with torch.inference_mode():
         for name, input_tensor in input_cases.items():
-            cpu_outputs[name] = output_summary(model(input_tensor.cpu()))
+            cpu_outputs[name] = output_summary(prediction_model(input_tensor.cpu()))
             comparisons[name] = {
                 "CUDA reference": compact_summary(cuda_outputs[name]),
                 "CPU candidate": compact_summary(cpu_outputs[name]),
@@ -490,7 +493,11 @@ def candidate_from_direct_openvino(
     try:
         DIRECT_QAT_DIR.mkdir(parents=True, exist_ok=True)
         example = input_cases["in_domain_synthetic"].cpu()
-        ov_model = ov.convert_model(model.eval().cpu(), input=list(INPUT_SHAPE), example_input=example)
+        # The wrapper exposes only the raw YOLO prediction tensor and avoids
+        # tracing Ultralytics' auxiliary feature dictionary. The compressed
+        # NNCF model itself remains unstripped and fake quantization stays on.
+        export_model = TensorOutputExportWrapper(model).eval().cpu()
+        ov_model = ov.convert_model(export_model, input=list(INPUT_SHAPE), example_input=example)
         xml_path = DIRECT_QAT_DIR / "model.xml"
         ov.save_model(ov_model, xml_path, compress_to_fp16=False)
         report["files"] = file_sizes(xml_path)
@@ -595,7 +602,6 @@ def restore_qat_with_controller(qat_path: Path, fp32_path: Path, device: torch.d
     )
     loaded_entries = load_state(qat_model, saved["model_state_dict"], is_resume=True)
     qat_model.to(device).eval()
-    enable_ultralytics_detect_export(qat_model)
     items = quantizers(qat_model)
     if len(items) != EXPECTED_QUANTIZERS or not quantizers_enabled(items):
         raise ExportStop(f"Restored QAT quantizers invalid: count={len(items)}, enabled={quantizers_enabled(items)}")
