@@ -14,6 +14,7 @@ images, not a synthetic tensor, as the acceptance population.
 from __future__ import annotations
 
 import argparse
+import copy
 import importlib.util
 import inspect
 import json
@@ -36,6 +37,9 @@ import openvino as ov
 import torch
 import torchvision
 import ultralytics
+from nncf import NNCFConfig
+from nncf.torch import create_compressed_model, load_state
+from ultralytics import YOLO
 
 # These are proven Phase 5--7 restoration/preprocessing helpers.  Importing
 # them does not invoke the older export diagnostic's main() or mutate a model.
@@ -50,13 +54,22 @@ from export_openvino import (
     resolve_val_images,
     restore_qat_with_controller,
 )
-from probe_qat_compatibility import require_cuda, require_project_root
+from probe_qat_compatibility import (
+    attach_ultralytics_training_args,
+    require_cuda,
+    require_project_root,
+    restore_ultralytics_trainer_trainability,
+)
 from smoke_train_qat import quantizers, quantizers_enabled, sha256_file
 
 
 OPENVINO_ROOT = Path("artifacts/openvino")
 DEBUG_ONNX_DIR = OPENVINO_ROOT / "debug/qat_onnx"
 DEBUG_OV_DIR = OPENVINO_ROOT / "debug/qat_onnx_openvino"
+# Standard Q/DQ candidates use separate directories so that a new attempt
+# cannot overwrite the historical custom-NNCF-FakeQuantize diagnostics.
+DEBUG_QDQ_ONNX_DIR = OPENVINO_ROOT / "debug/qat_onnx_qdq"
+DEBUG_QDQ_OV_DIR = OPENVINO_ROOT / "debug/qat_onnx_qdq_openvino"
 FINAL_QAT_DIR = OPENVINO_ROOT / "qat_int8"
 DIAGNOSTIC_PATH = OPENVINO_ROOT / "qat_onnx_export_diagnostic.json"
 EXPECTED_STATE_ENTRIES = 1323
@@ -72,7 +85,70 @@ def parse_args() -> argparse.Namespace:
         default=VAL_COUNT,
         help="Fixed deterministic VAL-image count for compatibility checks (default: 32).",
     )
+    parser.add_argument(
+        "--standard-qdq",
+        action="store_true",
+        help=(
+            "Set NNCF's installed export_to_onnx_standard_ops=True so the official "
+            "controller exporter emits standard ONNX QuantizeLinear/DequantizeLinear pairs. "
+            "No calibration or PTQ is performed."
+        ),
+    )
     return parser.parse_args()
+
+
+def restore_qat_for_onnx_export(
+    qat_path: Path,
+    fp32_path: Path,
+    device: torch.device,
+    standard_qdq: bool,
+) -> tuple[Any, torch.nn.Module, dict[str, Any]]:
+    """Restore a fresh QAT model, optionally selecting NNCF's standard ONNX Q/DQ mode.
+
+    The checkpoint's trained compression state and weights are untouched.  The
+    ``export_to_onnx_standard_ops`` option only selects how NNCF fake quantizers
+    are represented while the controller's official ``export_model`` method
+    traces the model.  It is deliberately applied to a fresh export instance;
+    the native reference model uses the normal runtime fake-quant path.
+    """
+    saved = torch.load(qat_path, map_location="cpu", weights_only=False)
+    required = {"model_state_dict", "compression_state", "nncf_config"}
+    missing = sorted(required.difference(saved))
+    if missing:
+        raise ExportStop(f"QAT checkpoint lacks NNCF reconstruction state: {missing}")
+
+    config_dict = copy.deepcopy(saved["nncf_config"])
+    if standard_qdq:
+        compression = config_dict.get("compression")
+        if not isinstance(compression, dict):
+            raise ExportStop("Saved NNCF configuration has no dictionary compression section.")
+        # This is the exact NNCF 2.13.0 switch inspected in the installed
+        # quantization schema.  It emits standard 8-bit ONNX Q/DQ pairs.
+        compression["export_to_onnx_standard_ops"] = True
+
+    fp32_model = YOLO(str(fp32_path)).model
+    attach_ultralytics_training_args(fp32_model, ROOT)
+    restore_ultralytics_trainer_trainability(fp32_model)
+    controller, qat_model = create_compressed_model(
+        fp32_model,
+        NNCFConfig.from_dict(config_dict),
+        compression_state=saved["compression_state"],
+        dump_graphs=False,
+    )
+    loaded_entries = load_state(qat_model, saved["model_state_dict"], is_resume=True)
+    qat_model.to(device).eval()
+    items = quantizers(qat_model)
+    if len(items) != EXPECTED_QUANTIZERS or not quantizers_enabled(items):
+        raise ExportStop(
+            "Export QAT model quantizers invalid: "
+            f"count={len(items)}, enabled={quantizers_enabled(items)}"
+        )
+    return controller, qat_model, {
+        "loaded state entries": int(loaded_entries),
+        "quantizer count": len(items),
+        "enabled quantizer count": sum(item.is_enabled_quantization() for item in items),
+        "standard ONNX QDQ requested": bool(standard_qdq),
+    }
 
 
 def write_json(path: Path, payload: dict[str, Any]) -> None:
@@ -326,6 +402,11 @@ def main() -> int:
         "test split": "not loaded or used",
         "calibration occurred": False,
         "PTQ used": False,
+        "requested ONNX quantization representation": (
+            "standard QuantizeLinear/DequantizeLinear pairs"
+            if args.standard_qdq
+            else "NNCF FakeQuantize custom operator (historical diagnostic mode)"
+        ),
     }
     try:
         require_project_root(ROOT)
@@ -385,7 +466,9 @@ def main() -> int:
 
         # Fresh instance: Detect.export can be scoped to NNCF's ONNX export without
         # changing the reference model or reference forward path.
-        export_controller, export_model, export_restored = restore_qat_with_controller(qat_path, fp32_path, device)
+        export_controller, export_model, export_restored = restore_qat_for_onnx_export(
+            qat_path, fp32_path, device, standard_qdq=args.standard_qdq
+        )
         enable_ultralytics_detect_export(export_model)
         export_model.cpu().eval()
         export_items = quantizers(export_model)
@@ -394,14 +477,35 @@ def main() -> int:
             "Detect.export scoped to export model only": True,
             "model mode": "eval" if not export_model.training else "train",
             "NNCF state restore": export_restored,
+            "NNCF export representation": (
+                "ONNX standard QuantizeLinear/DequantizeLinear pairs"
+                if args.standard_qdq
+                else "NNCF FakeQuantize custom operator"
+            ),
             "quantizer count after CPU transfer": len(export_items),
             "enabled quantizer count after CPU transfer": sum(item.is_enabled_quantization() for item in export_items),
         }
         if len(export_items) != EXPECTED_QUANTIZERS or not quantizers_enabled(export_items):
             raise ExportStop("FAILURE: QAT checkpoint restore; quantizers changed during export-only CPU preparation.")
 
-        onnx_path = ROOT / DEBUG_ONNX_DIR / "model.onnx"
+        onnx_dir = DEBUG_QDQ_ONNX_DIR if args.standard_qdq else DEBUG_ONNX_DIR
+        ov_dir = DEBUG_QDQ_OV_DIR if args.standard_qdq else DEBUG_OV_DIR
+        onnx_path = ROOT / onnx_dir / "model.onnx"
         onnx_path.parent.mkdir(parents=True, exist_ok=True)
+        diagnostic["candidate directories"] = {
+            "ONNX": str(ROOT / onnx_dir),
+            "OpenVINO": str(ROOT / ov_dir),
+        }
+        diagnostic["NNCF export API used"] = {
+            "method": "QuantizationController.export_model(save_path, save_format='onnx')",
+            "representation": (
+                "standard ONNX QuantizeLinear/DequantizeLinear pairs"
+                if args.standard_qdq
+                else "NNCF FakeQuantize custom operator"
+            ),
+            "calibration": False,
+            "PTQ": False,
+        }
         diagnostic["ONNX export mechanism"] = "QuantizationController.export_model(save_path, save_format='onnx')"
         try:
             export_controller.export_model(str(onnx_path), save_format="onnx")
@@ -423,7 +527,7 @@ def main() -> int:
         if ort_result["execution available"] and ort_result["status"] != "passed":
             raise ExportStop("FAILURE: PyTorch QAT → ONNX numerical mismatch.")
 
-        xml_path = ROOT / DEBUG_OV_DIR / "model.xml"
+        xml_path = ROOT / ov_dir / "model.xml"
         xml_path.parent.mkdir(parents=True, exist_ok=True)
         try:
             ov_model = ov.convert_model(str(onnx_path))

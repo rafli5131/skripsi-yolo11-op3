@@ -14,6 +14,7 @@ Indeks dokumentasi teknis proyek `advance_vision`.
 | QAT held-out TEST | **DONE** |
 | OpenVINO FP32 export | **VALID** |
 | OpenVINO QAT INT8 export | **UNRESOLVED**; artefak strip sebelumnya **REJECTED** |
+| PTQ INT8 comparator | **DONE (VAL diagnostic)**; jalur terpisah dari QAT |
 | CPU deployment benchmark | **NOT YET EXECUTED** |
 | ROS2 / ROBOTIS OP3 deployment | **NOT YET EXECUTED** |
 
@@ -41,3 +42,4 @@ Indeks dokumentasi teknis proyek `advance_vision`.
 - [19 Thesis mapping](19_thesis_method_mapping.md) — hubungan artefak dan bab skripsi.
 - [20 Timeline](20_experiment_timeline.md) — kronologi fase.
 - [21 QAT ONNX → OpenVINO](21_qat_onnx_openvino_export.md) — jalur Phase 7F yang terisolasi dan fail-closed.
+- [22 PTQ comparator](22_ptq_comparison.md) — jalur PTQ terpisah untuk pembanding FP32/QAT.
