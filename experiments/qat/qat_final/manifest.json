@@ -1,0 +1,134 @@
+{
+  "AMP": false,
+  "CUDA_VISIBLE_DEVICES": "1",
+  "GPU": {
+    "logical_device": "cuda:0",
+    "name": "NVIDIA L40"
+  },
+  "QAT API": "nncf.torch.create_compressed_model (never nncf.quantize)",
+  "W&B": {
+    "enabled": true,
+    "name": "qat-yolo11n-5ep",
+    "project": "skripsi-yolo11-op3",
+    "run ID": "21oc2wbs"
+  },
+  "artifact freeze": {
+    "directory": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/checkpoints/qat",
+    "files": [
+      "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/checkpoints/qat/qat_best.pt",
+      "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/checkpoints/qat/qat_last.pt",
+      "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/checkpoints/qat/nncf_structure_config.json",
+      "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/checkpoints/qat/nncf_checkpoint_format.json",
+      "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/checkpoints/qat/data_train_val.yaml",
+      "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/checkpoints/qat/results.csv",
+      "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/checkpoints/qat/manifest.json"
+    ],
+    "sha256": {
+      "manifest.json": "5c3b5e089d51d1f08634b15a81b5d5d0efee68e1a3b684491f20f4dd218610b7",
+      "nncf_checkpoint_format.json": "55a1c2661b7ef2ad67321831faa43194cf2e00f8af398e795a65457605b66d65",
+      "nncf_structure_config.json": "8d8b9a3aad20be81bd3de4e33fb94aa1d944e26b3b2314633a08823a7326a2d3",
+      "qat_best.pt": "f96911a1b3f4f9a8987a7fb57611aac2455b2b5c7b93c27db146d69d5013a8c8",
+      "qat_last.pt": "63b66d75bd27e2b6b6da17d68c21074cad0e5c87396108a52b4699182ac6ef4f"
+    }
+  },
+  "batch": 16,
+  "best epoch": 1,
+  "best mAP50": 0.95852,
+  "best mAP50-95": 0.65134,
+  "best precision": 0.881,
+  "best recall": 0.93929,
+  "cache": false,
+  "checkpoint paths": {
+    "qat_best": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/experiments/qat/qat_final/weights/qat_best.pt",
+    "qat_last": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/experiments/qat/qat_final/weights/qat_last.pt"
+  },
+  "checkpoint reload verification status": true,
+  "class mapping": {
+    "0": "ball",
+    "1": "gawang",
+    "2": "robot"
+  },
+  "dataset YAML": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/experiments/qat/qat_final/data_train_val.yaml",
+  "dataset project": "advance_vision_human",
+  "dataset version": null,
+  "dataset workspace": "humanoid-atom",
+  "epochs": 5,
+  "expected quantizer count": 184,
+  "fake quant call count": 314460,
+  "final epoch metrics": {
+    "metrics/mAP50(B)": 0.96101,
+    "metrics/mAP50-95(B)": 0.65096,
+    "metrics/precision(B)": 0.87483,
+    "metrics/recall(B)": 0.94478,
+    "val/box_loss": 0.97705,
+    "val/cls_loss": 0.63607,
+    "val/dfl_loss": 1.09972
+  },
+  "imgsz": 640,
+  "learning rate": 1e-05,
+  "lrf": 1.0,
+  "momentum": 0.9,
+  "notes": [
+    "Final fixed five-epoch QAT only: no PTQ, OpenVINO export, test split, DDP, multi-GPU, cache=ram, or architecture changes.",
+    "Range initialization receives a deterministic first-16-images TRAIN-only subset."
+  ],
+  "optimizer": "AdamW",
+  "quantizer count after reload": 184,
+  "quantizer count after training": 184,
+  "quantizer count before training": 184,
+  "range initialization": {
+    "batch_size": 2,
+    "initializing_loader": "YoloTrainInitializingDataLoader over explicit TRAIN subset",
+    "method": "QuantizationController.init_range(PTRangeInitParams)",
+    "sample_count_requested": 16
+  },
+  "range initialization method": "QuantizationController.init_range(PTRangeInitParams)",
+  "range initialization sample count": 16,
+  "reload verification": {
+    "checkpoint": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/experiments/qat/qat_final/weights/qat_best.pt",
+    "controller_type": "QuantizationController",
+    "fake_quant_calls_forward_640": 198,
+    "fake_quant_enabled": true,
+    "forward_640_status": true,
+    "loaded_state_entries": 1323,
+    "quantizer_count": 184,
+    "status": true,
+    "trained_parameter_fingerprint": {
+      "changed_from_fp32_initialization": true,
+      "name": "model.0.conv.weight",
+      "reloaded_hash": "7261ffd5a5a4bee971d3af6c5bd8d98d6f0f7987ad699c4678709a8a611f278f",
+      "saved_hash": "7261ffd5a5a4bee971d3af6c5bd8d98d6f0f7987ad699c4678709a8a611f278f"
+    },
+    "trained_weights_restored": true,
+    "validation_inference_status": true,
+    "validation_metrics": {
+      "fitness": 0.65143,
+      "metrics/mAP50(B)": 0.95859,
+      "metrics/mAP50-95(B)": 0.65143,
+      "metrics/precision(B)": 0.87626,
+      "metrics/recall(B)": 0.93989,
+      "val/box_loss": 0.9944,
+      "val/cls_loss": 0.64649,
+      "val/dfl_loss": 1.10949
+    }
+  },
+  "reload_verified_at": "2026-09-02T13:02:48.005689+00:00",
+  "resume": false,
+  "seed": 42,
+  "source FP32 SHA256": "e05b2b21f7faa68f65671f0aaae37ad962aa5e25c6b8b26853fd0b389d420b8c",
+  "source FP32 checkpoint": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/checkpoints/fp32/best.pt",
+  "status": "passed",
+  "timestamp": "2026-09-02T12:44:35.254262+00:00",
+  "versions": {
+    "Python": "3.11.2",
+    "nncf": "2.13.0",
+    "openvino": "2024.4.0-16579-c3152d32c9c-releases/2024/4",
+    "torch": "2.4.1+cu121",
+    "torch CUDA": "12.1",
+    "torchvision": "0.19.1+cu121",
+    "ultralytics": "8.4.130"
+  },
+  "warmup_epochs": 0.0,
+  "weight decay": 0.0005,
+  "workers": 2
+}

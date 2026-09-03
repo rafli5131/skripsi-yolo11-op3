@@ -1,0 +1,82 @@
+{
+  "NNCF API used": {
+    "available": {
+      "nncf.quantize": true,
+      "nncf.torch.create_compressed_model": true,
+      "nncf.torch.register_default_init_args": true
+    },
+    "initialization_api": "nncf.torch.register_default_init_args",
+    "ptq_api_not_used": "nncf.quantize",
+    "ptq_purpose_from_installed_docstring": "Applies post-training quantization to the provided model.",
+    "runtime_range_initialization_api": "QuantizationController.init_range(PTRangeInitParams)",
+    "signatures": {
+      "nncf.quantize": "(model: ~TModel, calibration_dataset: nncf.data.dataset.Dataset, mode: Optional[nncf.parameters.QuantizationMode] = None, preset: Optional[nncf.common.quantization.structs.QuantizationPreset] = None, target_device: nncf.parameters.TargetDevice = <TargetDevice.ANY: 'ANY'>, subset_size: int = 300, fast_bias_correction: bool = True, model_type: Optional[nncf.parameters.ModelType] = None, ignored_scope: Optional[nncf.scopes.IgnoredScope] = None, advanced_parameters: Optional[nncf.quantization.advanced_parameters.AdvancedQuantizationParameters] = None) -> ~TModel",
+      "nncf.torch.create_compressed_model": "(model: torch.nn.modules.module.Module, config: nncf.config.config.NNCFConfig, compression_state: Optional[Dict[str, Any]] = None, dummy_forward_fn: Callable[[torch.nn.modules.module.Module], Any] = None, wrap_inputs_fn: Callable[[Tuple, Dict], Tuple[Tuple, Dict]] = None, wrap_outputs_fn: Callable[[Any], Any] = None, dump_graphs=True) -> Tuple[nncf.api.compression.CompressionAlgorithmController, nncf.torch.nncf_network.NNCFNetwork]",
+      "nncf.torch.register_default_init_args": "(nncf_config: nncf.config.config.NNCFConfig, train_loader: torch.utils.data.dataloader.DataLoader, criterion: torch.nn.modules.loss._Loss = None, criterion_fn: Callable[[Any, Any, torch.nn.modules.loss._Loss], torch.Tensor] = None, train_steps_fn: Callable[[torch.utils.data.dataloader.DataLoader, torch.nn.modules.module.Module, torch.optim.optimizer.Optimizer, nncf.api.compression.CompressionAlgorithmController, Optional[int]], NoneType] = None, validate_fn: Callable[[torch.nn.modules.module.Module, torch.utils.data.dataloader.DataLoader], Tuple[float, float]] = None, val_loader: torch.utils.data.dataloader.DataLoader = None, autoq_eval_fn: Callable[[torch.nn.modules.module.Module, torch.utils.data.dataloader.DataLoader], float] = None, model_eval_fn: Callable[[torch.nn.modules.module.Module, torch.utils.data.dataloader.DataLoader], float] = None, distributed_callbacks: Tuple[Callable, Callable] = None, execution_parameters: nncf.torch.structures.ExecutionParameters = None, legr_train_optimizer: torch.optim.optimizer.Optimizer = None, device: str = None) -> nncf.config.config.NNCFConfig"
+    },
+    "source_files": {
+      "create_compressed_model": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/.venv/lib/python3.11/site-packages/nncf/telemetry/decorator.py",
+      "quantize": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/.venv/lib/python3.11/site-packages/nncf/quantization/quantize_model.py",
+      "register_default_init_args": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/.venv/lib/python3.11/site-packages/nncf/torch/initialization.py"
+    },
+    "training_time_api": "nncf.torch.create_compressed_model",
+    "training_time_purpose_from_installed_docstring": "The main function used to produce a model ready for compression fine-tuning from an original PyTorch"
+  },
+  "backward_status": true,
+  "checkpoint": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/checkpoints/fp32/best.pt",
+  "controller_quantizers": {
+    "all": 184,
+    "non_weight": 96,
+    "weight": 88
+  },
+  "fake_quantizer_forward_calls": 193,
+  "forward_status": true,
+  "gpu": {
+    "cuda_visible_devices": "1",
+    "logical_device": "cuda:0",
+    "name": "NVIDIA L40",
+    "torch_cuda": "12.1"
+  },
+  "loss": 11.539701461791992,
+  "loss_components": [
+    2.817157745361328,
+    3.766498565673828,
+    4.956045150756836
+  ],
+  "loss_items": {
+    "box_loss": 1.408578872680664,
+    "cls_loss": 1.883249282836914,
+    "dfl_loss": 2.478022575378418
+  },
+  "notes": [
+    "QAT compatibility probe only: train split only, no validation/test loader, no PTQ, no checkpoint save.",
+    "At most one optimizer step is executed.",
+    "DetectionModel.loss() uses the installed trainer's model.args namespace convention with FP32 baseline box/cls/dfl gains.",
+    "The NNCF-wrapped DetectionModel accepted Ultralytics DetectionModel.loss(batch, preds), and one backward/step succeeded."
+  ],
+  "optimizer_step_status": true,
+  "quantizer_count": 184,
+  "quantizer_types": {
+    "SymmetricQuantizer": 184
+  },
+  "range_initialization": {
+    "method": "QuantizationController.init_range",
+    "train_loader_batch_size": 2,
+    "train_samples_requested": 2
+  },
+  "status": "passed",
+  "timestamp_utc": "2026-09-02T12:02:52.395252+00:00",
+  "trainable_parameters": 2599029,
+  "ultralytics_trainer_trainability": {
+    "parameters_intentionally_frozen": 16,
+    "parameters_restored": 2590409,
+    "policy": "Ultralytics BaseTrainer._setup_train(): restore floating-point gradients; freeze .dfl only",
+    "trainable_parameters_before_nncf": 2590409
+  },
+  "versions": {
+    "nncf": "2.13.0",
+    "python": "3.11.2",
+    "torch": "2.4.1+cu121",
+    "ultralytics": "8.4.130"
+  }
+}

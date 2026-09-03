@@ -1,0 +1,79 @@
+{
+  "CPU utilization": "NOT MEASURED \u2014 requires controlled ROBOTIS OP3 benchmark",
+  "RAM": "NOT MEASURED \u2014 requires controlled ROBOTIS OP3 benchmark",
+  "diagnostic FPS": 71.70103665478695,
+  "diagnostic latency_ms_per_image": 13.946799748720752,
+  "evaluator_configuration": {
+    "augment": false,
+    "batch": 1,
+    "cache": false,
+    "conf": "Ultralytics validation default from conf=None; not tuned",
+    "device": "cpu",
+    "fraction": 1.0,
+    "imgsz": 640,
+    "iou": 0.7,
+    "plots": false,
+    "split": "val",
+    "workers": 0
+  },
+  "evaluator_return": {
+    "fitness": 0.6510423230161192,
+    "metrics/mAP50(B)": 0.9612869853027908,
+    "metrics/mAP50-95(B)": 0.6510423230161192,
+    "metrics/precision(B)": 0.8873350308389872,
+    "metrics/recall(B)": 0.935880790443194
+  },
+  "file report": {
+    "BIN": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/openvino/qat_int8/model.bin",
+    "BIN SHA256": "8c21324a179baaf51d65b22c60e826a60ea6382af63e9f8b58245522ea4c104c",
+    "BIN bytes": 2744884,
+    "XML": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/openvino/qat_int8/model.xml",
+    "XML SHA256": "0c1ad74c440816fd83dc32a73abbaaeff1ad8a92d1ff99157644bdf2e516aba2",
+    "XML bytes": 738195,
+    "total bytes": 3483079
+  },
+  "model": "QAT INT8 (REJECTED diagnostic)",
+  "overall": {
+    "F1": 0.9109616100912491,
+    "mAP50": 0.9612869853027908,
+    "mAP50-95": 0.6510423230161192,
+    "precision": 0.8873350308389872,
+    "recall": 0.935880790443194
+  },
+  "per_class": {
+    "ball": {
+      "F1": 0.9558937054275605,
+      "mAP50": 0.9828127131604218,
+      "mAP50-95": 0.7065040004341971,
+      "precision": 0.9201680751226705,
+      "recall": 0.9945054945054945
+    },
+    "gawang": {
+      "F1": 0.8792247414009651,
+      "mAP50": 0.9381318728166403,
+      "mAP50-95": 0.5515272893796248,
+      "precision": 0.9025349339490865,
+      "recall": 0.8570883198455932
+    },
+    "robot": {
+      "F1": 0.8938794770000626,
+      "mAP50": 0.9629163699313101,
+      "mAP50-95": 0.6950956792345357,
+      "precision": 0.8393020834452047,
+      "recall": 0.9560485569784944
+    }
+  },
+  "reason": "Existing QAT IR failed the prior numerical equivalence gate; do not deploy.",
+  "source IR": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/openvino/qat_int8/model.xml",
+  "speed_label": "Diagnostic host-CPU validation timing; not the ROBOTIS OP3 deployment benchmark.",
+  "speed_ms_per_image": {
+    "inference": 12.917289922669566,
+    "loss": 0.0005954590926264694,
+    "postprocess": 0.5274032360067175,
+    "preprocess": 0.5015111309518425
+  },
+  "staged backend path": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/experiments/ptq/backend_models/qat_openvino_model",
+  "status": "REJECTED / diagnostic only",
+  "val_annotations": 1525,
+  "val_images": 1213
+}

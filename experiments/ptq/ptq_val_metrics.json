@@ -1,0 +1,77 @@
+{
+  "CPU utilization": "NOT MEASURED \u2014 requires controlled ROBOTIS OP3 benchmark",
+  "RAM": "NOT MEASURED \u2014 requires controlled ROBOTIS OP3 benchmark",
+  "diagnostic FPS": 83.40783540300517,
+  "diagnostic latency_ms_per_image": 11.989281284764887,
+  "evaluator_configuration": {
+    "augment": false,
+    "batch": 1,
+    "cache": false,
+    "conf": "Ultralytics validation default from conf=None; not tuned",
+    "device": "cpu",
+    "fraction": 1.0,
+    "imgsz": 640,
+    "iou": 0.7,
+    "plots": false,
+    "split": "val",
+    "workers": 0
+  },
+  "evaluator_return": {
+    "fitness": 0.76717861970828,
+    "metrics/mAP50(B)": 0.972145259145894,
+    "metrics/mAP50-95(B)": 0.76717861970828,
+    "metrics/precision(B)": 0.9341156433830985,
+    "metrics/recall(B)": 0.9502079198462958
+  },
+  "file report": {
+    "BIN": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/openvino/ptq_int8/model.bin",
+    "BIN SHA256": "82246726edcd780685657f673caa2b40719a8c22b67e3702ca3d1f226b8fcf81",
+    "BIN bytes": 2741080,
+    "XML": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/openvino/ptq_int8/model.xml",
+    "XML SHA256": "10cb9dfa3539650a0bc46d60ad708f9ff79fc1e2dc79c5ac4a73ff4943326657",
+    "XML bytes": 666400,
+    "total bytes": 3407480
+  },
+  "model": "PTQ INT8",
+  "overall": {
+    "F1": 0.9420930669398871,
+    "mAP50": 0.972145259145894,
+    "mAP50-95": 0.76717861970828,
+    "precision": 0.9341156433830985,
+    "recall": 0.9502079198462958
+  },
+  "per_class": {
+    "ball": {
+      "F1": 0.9706632889244308,
+      "mAP50": 0.9891912354909903,
+      "mAP50-95": 0.8795534960892626,
+      "precision": 0.9429988054250686,
+      "recall": 1.0
+    },
+    "gawang": {
+      "F1": 0.8898667654360505,
+      "mAP50": 0.9458072365953298,
+      "mAP50-95": 0.5970267721499483,
+      "precision": 0.8987761987245911,
+      "recall": 0.881132234115159
+    },
+    "robot": {
+      "F1": 0.9650111151836117,
+      "mAP50": 0.9814373053513619,
+      "mAP50-95": 0.8249555908856289,
+      "precision": 0.9605719259996356,
+      "recall": 0.9694915254237289
+    }
+  },
+  "source IR": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/openvino/ptq_int8/model.xml",
+  "speed_label": "Diagnostic host-CPU validation timing; not the ROBOTIS OP3 deployment benchmark.",
+  "speed_ms_per_image": {
+    "inference": 11.02107415714371,
+    "loss": 0.0006937785020369886,
+    "postprocess": 0.4872364051154794,
+    "preprocess": 0.4802769440036614
+  },
+  "staged backend path": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/experiments/ptq/backend_models/ptq_openvino_model",
+  "val_annotations": 1525,
+  "val_images": 1213
+}

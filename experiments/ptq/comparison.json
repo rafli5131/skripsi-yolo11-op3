@@ -1,0 +1,525 @@
+{
+  "QAT rejected diagnostic metrics": "experiments/ptq/qat_rejected_openvino_val_metrics.json",
+  "accuracy_rows": [
+    {
+      "FP32 OpenVINO": 0.9362229266091132,
+      "PTQ INT8": 0.9341156433830985,
+      "QAT INT8": 0.8873350308389872,
+      "absolute_delta": -0.0021072832260147223,
+      "class": "all",
+      "metric": "precision",
+      "relative_delta_percent": -0.22508348878477574,
+      "scope": "overall"
+    },
+    {
+      "FP32 OpenVINO": 0.9575635054125157,
+      "PTQ INT8": 0.9502079198462958,
+      "QAT INT8": 0.935880790443194,
+      "absolute_delta": -0.007355585566219847,
+      "class": "all",
+      "metric": "recall",
+      "relative_delta_percent": -0.7681564224872042,
+      "scope": "overall"
+    },
+    {
+      "FP32 OpenVINO": 0.9729727505332173,
+      "PTQ INT8": 0.972145259145894,
+      "QAT INT8": 0.9612869853027908,
+      "absolute_delta": -0.0008274913873232981,
+      "class": "all",
+      "metric": "mAP50",
+      "relative_delta_percent": -0.08504774536283866,
+      "scope": "overall"
+    },
+    {
+      "FP32 OpenVINO": 0.7713443557065539,
+      "PTQ INT8": 0.76717861970828,
+      "QAT INT8": 0.6510423230161192,
+      "absolute_delta": -0.004165735998273856,
+      "class": "all",
+      "metric": "mAP50-95",
+      "relative_delta_percent": -0.5400617723400631,
+      "scope": "overall"
+    },
+    {
+      "FP32 OpenVINO": 0.9467729753395424,
+      "PTQ INT8": 0.9420930669398871,
+      "QAT INT8": 0.9109616100912491,
+      "absolute_delta": -0.004679908399655264,
+      "class": "all",
+      "metric": "F1",
+      "relative_delta_percent": -0.4943010121277387,
+      "scope": "overall"
+    },
+    {
+      "FP32 OpenVINO": 0.9513313588468273,
+      "PTQ INT8": 0.9429988054250686,
+      "QAT INT8": 0.9201680751226705,
+      "absolute_delta": -0.008332553421758648,
+      "class": "ball",
+      "metric": "precision",
+      "relative_delta_percent": -0.875883396912207,
+      "scope": "per_class"
+    },
+    {
+      "FP32 OpenVINO": 1.0,
+      "PTQ INT8": 1.0,
+      "QAT INT8": 0.9945054945054945,
+      "absolute_delta": 0.0,
+      "class": "ball",
+      "metric": "recall",
+      "relative_delta_percent": 0.0,
+      "scope": "per_class"
+    },
+    {
+      "FP32 OpenVINO": 0.9891498836247521,
+      "PTQ INT8": 0.9891912354909903,
+      "QAT INT8": 0.9828127131604218,
+      "absolute_delta": 4.1351866238215074e-05,
+      "class": "ball",
+      "metric": "mAP50",
+      "relative_delta_percent": 0.004180546034811291,
+      "scope": "per_class"
+    },
+    {
+      "FP32 OpenVINO": 0.8835262349009444,
+      "PTQ INT8": 0.8795534960892626,
+      "QAT INT8": 0.7065040004341971,
+      "absolute_delta": -0.0039727388116818085,
+      "class": "ball",
+      "metric": "mAP50-95",
+      "relative_delta_percent": -0.4496458231517265,
+      "scope": "per_class"
+    },
+    {
+      "FP32 OpenVINO": 0.9750587510765295,
+      "PTQ INT8": 0.9706632889244308,
+      "QAT INT8": 0.9558937054275605,
+      "absolute_delta": -0.004395462152098739,
+      "class": "ball",
+      "metric": "F1",
+      "relative_delta_percent": -0.45078946753165977,
+      "scope": "per_class"
+    },
+    {
+      "FP32 OpenVINO": 0.8913343741279842,
+      "PTQ INT8": 0.8987761987245911,
+      "QAT INT8": 0.9025349339490865,
+      "absolute_delta": 0.007441824596606916,
+      "class": "gawang",
+      "metric": "precision",
+      "relative_delta_percent": 0.8349082917269345,
+      "scope": "per_class"
+    },
+    {
+      "FP32 OpenVINO": 0.8998091603053435,
+      "PTQ INT8": 0.881132234115159,
+      "QAT INT8": 0.8570883198455932,
+      "absolute_delta": -0.018676926190184573,
+      "class": "gawang",
+      "metric": "recall",
+      "relative_delta_percent": -2.0756541513587945,
+      "scope": "per_class"
+    },
+    {
+      "FP32 OpenVINO": 0.9479321857276101,
+      "PTQ INT8": 0.9458072365953298,
+      "QAT INT8": 0.9381318728166403,
+      "absolute_delta": -0.0021249491322802294,
+      "class": "gawang",
+      "metric": "mAP50",
+      "relative_delta_percent": -0.224166787906792,
+      "scope": "per_class"
+    },
+    {
+      "FP32 OpenVINO": 0.5983499223995888,
+      "PTQ INT8": 0.5970267721499483,
+      "QAT INT8": 0.5515272893796248,
+      "absolute_delta": -0.0013231502496405811,
+      "class": "gawang",
+      "metric": "mAP50-95",
+      "relative_delta_percent": -0.2211331864695986,
+      "scope": "per_class"
+    },
+    {
+      "FP32 OpenVINO": 0.8955517180136349,
+      "PTQ INT8": 0.8898667654360505,
+      "QAT INT8": 0.8792247414009651,
+      "absolute_delta": -0.00568495257758439,
+      "class": "gawang",
+      "metric": "F1",
+      "relative_delta_percent": -0.6347989137013565,
+      "scope": "per_class"
+    },
+    {
+      "FP32 OpenVINO": 0.9660030468525281,
+      "PTQ INT8": 0.9605719259996356,
+      "QAT INT8": 0.8393020834452047,
+      "absolute_delta": -0.005431120852892546,
+      "class": "robot",
+      "metric": "precision",
+      "relative_delta_percent": -0.5622260582498629,
+      "scope": "per_class"
+    },
+    {
+      "FP32 OpenVINO": 0.9728813559322034,
+      "PTQ INT8": 0.9694915254237289,
+      "QAT INT8": 0.9560485569784944,
+      "absolute_delta": -0.003389830508474523,
+      "class": "robot",
+      "metric": "recall",
+      "relative_delta_percent": -0.3484320557491234,
+      "scope": "per_class"
+    },
+    {
+      "FP32 OpenVINO": 0.9818361822472894,
+      "PTQ INT8": 0.9814373053513619,
+      "QAT INT8": 0.9629163699313101,
+      "absolute_delta": -0.0003988768959275468,
+      "class": "robot",
+      "metric": "mAP50",
+      "relative_delta_percent": -0.040625605690612444,
+      "scope": "per_class"
+    },
+    {
+      "FP32 OpenVINO": 0.8321569098191285,
+      "PTQ INT8": 0.8249555908856289,
+      "QAT INT8": 0.6950956792345357,
+      "absolute_delta": -0.007201318933499623,
+      "class": "robot",
+      "metric": "mAP50-95",
+      "relative_delta_percent": -0.8653799359864535,
+      "scope": "per_class"
+    },
+    {
+      "FP32 OpenVINO": 0.969430000784705,
+      "PTQ INT8": 0.9650111151836117,
+      "QAT INT8": 0.8938794770000626,
+      "absolute_delta": -0.00441888560109327,
+      "class": "robot",
+      "metric": "F1",
+      "relative_delta_percent": -0.455823071033123,
+      "scope": "per_class"
+    }
+  ],
+  "evaluation_split": "VAL only; TEST was not loaded",
+  "interpretation": "PTQ is an independent comparator. QAT INT8 values, when present, are diagnostic only because the existing QAT IR was rejected; they must not be used as a valid deployment claim.",
+  "models": {
+    "FP32 OpenVINO": {
+      "metrics": "experiments/ptq/fp32_openvino_val_metrics.json",
+      "status": "VALID"
+    },
+    "PTQ INT8": {
+      "metrics": "experiments/ptq/ptq_val_metrics.json",
+      "status": "VALID comparator"
+    },
+    "QAT INT8": {
+      "metrics": "experiments/ptq/qat_rejected_openvino_val_metrics.json",
+      "status": "REJECTED / diagnostic metrics displayed \u2014 not valid for deployment"
+    }
+  },
+  "resource_rows": [
+    {
+      "FP32 OpenVINO": 20.174743020285142,
+      "PTQ INT8": 11.989281284764887,
+      "QAT INT8": 13.946799748720752,
+      "absolute_delta": null,
+      "class": "all",
+      "metric": "Latency",
+      "relative_delta_percent": null,
+      "scope": "overall"
+    },
+    {
+      "FP32 OpenVINO": 49.56692627978101,
+      "PTQ INT8": 83.40783540300517,
+      "QAT INT8": 71.70103665478695,
+      "absolute_delta": null,
+      "class": "all",
+      "metric": "FPS",
+      "relative_delta_percent": null,
+      "scope": "overall"
+    },
+    {
+      "FP32 OpenVINO": "NOT MEASURED \u2014 requires controlled ROBOTIS OP3 benchmark",
+      "PTQ INT8": "NOT MEASURED \u2014 requires controlled ROBOTIS OP3 benchmark",
+      "QAT INT8": "NOT MEASURED \u2014 requires controlled ROBOTIS OP3 benchmark",
+      "absolute_delta": null,
+      "class": "all",
+      "metric": "CPU utilization",
+      "relative_delta_percent": null,
+      "scope": "overall"
+    },
+    {
+      "FP32 OpenVINO": "NOT MEASURED \u2014 requires controlled ROBOTIS OP3 benchmark",
+      "PTQ INT8": "NOT MEASURED \u2014 requires controlled ROBOTIS OP3 benchmark",
+      "QAT INT8": "NOT MEASURED \u2014 requires controlled ROBOTIS OP3 benchmark",
+      "absolute_delta": null,
+      "class": "all",
+      "metric": "RAM",
+      "relative_delta_percent": null,
+      "scope": "overall"
+    },
+    {
+      "FP32 OpenVINO": 10756936,
+      "PTQ INT8": 3407480,
+      "QAT INT8": 3483079,
+      "absolute_delta": null,
+      "class": "all",
+      "metric": "Ukuran model",
+      "relative_delta_percent": null,
+      "scope": "overall"
+    }
+  ],
+  "rows": [
+    {
+      "FP32 OpenVINO": 0.9362229266091132,
+      "PTQ INT8": 0.9341156433830985,
+      "QAT INT8": 0.8873350308389872,
+      "absolute_delta": -0.0021072832260147223,
+      "class": "all",
+      "metric": "precision",
+      "relative_delta_percent": -0.22508348878477574,
+      "scope": "overall"
+    },
+    {
+      "FP32 OpenVINO": 0.9575635054125157,
+      "PTQ INT8": 0.9502079198462958,
+      "QAT INT8": 0.935880790443194,
+      "absolute_delta": -0.007355585566219847,
+      "class": "all",
+      "metric": "recall",
+      "relative_delta_percent": -0.7681564224872042,
+      "scope": "overall"
+    },
+    {
+      "FP32 OpenVINO": 0.9729727505332173,
+      "PTQ INT8": 0.972145259145894,
+      "QAT INT8": 0.9612869853027908,
+      "absolute_delta": -0.0008274913873232981,
+      "class": "all",
+      "metric": "mAP50",
+      "relative_delta_percent": -0.08504774536283866,
+      "scope": "overall"
+    },
+    {
+      "FP32 OpenVINO": 0.7713443557065539,
+      "PTQ INT8": 0.76717861970828,
+      "QAT INT8": 0.6510423230161192,
+      "absolute_delta": -0.004165735998273856,
+      "class": "all",
+      "metric": "mAP50-95",
+      "relative_delta_percent": -0.5400617723400631,
+      "scope": "overall"
+    },
+    {
+      "FP32 OpenVINO": 0.9467729753395424,
+      "PTQ INT8": 0.9420930669398871,
+      "QAT INT8": 0.9109616100912491,
+      "absolute_delta": -0.004679908399655264,
+      "class": "all",
+      "metric": "F1",
+      "relative_delta_percent": -0.4943010121277387,
+      "scope": "overall"
+    },
+    {
+      "FP32 OpenVINO": 0.9513313588468273,
+      "PTQ INT8": 0.9429988054250686,
+      "QAT INT8": 0.9201680751226705,
+      "absolute_delta": -0.008332553421758648,
+      "class": "ball",
+      "metric": "precision",
+      "relative_delta_percent": -0.875883396912207,
+      "scope": "per_class"
+    },
+    {
+      "FP32 OpenVINO": 1.0,
+      "PTQ INT8": 1.0,
+      "QAT INT8": 0.9945054945054945,
+      "absolute_delta": 0.0,
+      "class": "ball",
+      "metric": "recall",
+      "relative_delta_percent": 0.0,
+      "scope": "per_class"
+    },
+    {
+      "FP32 OpenVINO": 0.9891498836247521,
+      "PTQ INT8": 0.9891912354909903,
+      "QAT INT8": 0.9828127131604218,
+      "absolute_delta": 4.1351866238215074e-05,
+      "class": "ball",
+      "metric": "mAP50",
+      "relative_delta_percent": 0.004180546034811291,
+      "scope": "per_class"
+    },
+    {
+      "FP32 OpenVINO": 0.8835262349009444,
+      "PTQ INT8": 0.8795534960892626,
+      "QAT INT8": 0.7065040004341971,
+      "absolute_delta": -0.0039727388116818085,
+      "class": "ball",
+      "metric": "mAP50-95",
+      "relative_delta_percent": -0.4496458231517265,
+      "scope": "per_class"
+    },
+    {
+      "FP32 OpenVINO": 0.9750587510765295,
+      "PTQ INT8": 0.9706632889244308,
+      "QAT INT8": 0.9558937054275605,
+      "absolute_delta": -0.004395462152098739,
+      "class": "ball",
+      "metric": "F1",
+      "relative_delta_percent": -0.45078946753165977,
+      "scope": "per_class"
+    },
+    {
+      "FP32 OpenVINO": 0.8913343741279842,
+      "PTQ INT8": 0.8987761987245911,
+      "QAT INT8": 0.9025349339490865,
+      "absolute_delta": 0.007441824596606916,
+      "class": "gawang",
+      "metric": "precision",
+      "relative_delta_percent": 0.8349082917269345,
+      "scope": "per_class"
+    },
+    {
+      "FP32 OpenVINO": 0.8998091603053435,
+      "PTQ INT8": 0.881132234115159,
+      "QAT INT8": 0.8570883198455932,
+      "absolute_delta": -0.018676926190184573,
+      "class": "gawang",
+      "metric": "recall",
+      "relative_delta_percent": -2.0756541513587945,
+      "scope": "per_class"
+    },
+    {
+      "FP32 OpenVINO": 0.9479321857276101,
+      "PTQ INT8": 0.9458072365953298,
+      "QAT INT8": 0.9381318728166403,
+      "absolute_delta": -0.0021249491322802294,
+      "class": "gawang",
+      "metric": "mAP50",
+      "relative_delta_percent": -0.224166787906792,
+      "scope": "per_class"
+    },
+    {
+      "FP32 OpenVINO": 0.5983499223995888,
+      "PTQ INT8": 0.5970267721499483,
+      "QAT INT8": 0.5515272893796248,
+      "absolute_delta": -0.0013231502496405811,
+      "class": "gawang",
+      "metric": "mAP50-95",
+      "relative_delta_percent": -0.2211331864695986,
+      "scope": "per_class"
+    },
+    {
+      "FP32 OpenVINO": 0.8955517180136349,
+      "PTQ INT8": 0.8898667654360505,
+      "QAT INT8": 0.8792247414009651,
+      "absolute_delta": -0.00568495257758439,
+      "class": "gawang",
+      "metric": "F1",
+      "relative_delta_percent": -0.6347989137013565,
+      "scope": "per_class"
+    },
+    {
+      "FP32 OpenVINO": 0.9660030468525281,
+      "PTQ INT8": 0.9605719259996356,
+      "QAT INT8": 0.8393020834452047,
+      "absolute_delta": -0.005431120852892546,
+      "class": "robot",
+      "metric": "precision",
+      "relative_delta_percent": -0.5622260582498629,
+      "scope": "per_class"
+    },
+    {
+      "FP32 OpenVINO": 0.9728813559322034,
+      "PTQ INT8": 0.9694915254237289,
+      "QAT INT8": 0.9560485569784944,
+      "absolute_delta": -0.003389830508474523,
+      "class": "robot",
+      "metric": "recall",
+      "relative_delta_percent": -0.3484320557491234,
+      "scope": "per_class"
+    },
+    {
+      "FP32 OpenVINO": 0.9818361822472894,
+      "PTQ INT8": 0.9814373053513619,
+      "QAT INT8": 0.9629163699313101,
+      "absolute_delta": -0.0003988768959275468,
+      "class": "robot",
+      "metric": "mAP50",
+      "relative_delta_percent": -0.040625605690612444,
+      "scope": "per_class"
+    },
+    {
+      "FP32 OpenVINO": 0.8321569098191285,
+      "PTQ INT8": 0.8249555908856289,
+      "QAT INT8": 0.6950956792345357,
+      "absolute_delta": -0.007201318933499623,
+      "class": "robot",
+      "metric": "mAP50-95",
+      "relative_delta_percent": -0.8653799359864535,
+      "scope": "per_class"
+    },
+    {
+      "FP32 OpenVINO": 0.969430000784705,
+      "PTQ INT8": 0.9650111151836117,
+      "QAT INT8": 0.8938794770000626,
+      "absolute_delta": -0.00441888560109327,
+      "class": "robot",
+      "metric": "F1",
+      "relative_delta_percent": -0.455823071033123,
+      "scope": "per_class"
+    },
+    {
+      "FP32 OpenVINO": 20.174743020285142,
+      "PTQ INT8": 11.989281284764887,
+      "QAT INT8": 13.946799748720752,
+      "absolute_delta": null,
+      "class": "all",
+      "metric": "Latency",
+      "relative_delta_percent": null,
+      "scope": "overall"
+    },
+    {
+      "FP32 OpenVINO": 49.56692627978101,
+      "PTQ INT8": 83.40783540300517,
+      "QAT INT8": 71.70103665478695,
+      "absolute_delta": null,
+      "class": "all",
+      "metric": "FPS",
+      "relative_delta_percent": null,
+      "scope": "overall"
+    },
+    {
+      "FP32 OpenVINO": "NOT MEASURED \u2014 requires controlled ROBOTIS OP3 benchmark",
+      "PTQ INT8": "NOT MEASURED \u2014 requires controlled ROBOTIS OP3 benchmark",
+      "QAT INT8": "NOT MEASURED \u2014 requires controlled ROBOTIS OP3 benchmark",
+      "absolute_delta": null,
+      "class": "all",
+      "metric": "CPU utilization",
+      "relative_delta_percent": null,
+      "scope": "overall"
+    },
+    {
+      "FP32 OpenVINO": "NOT MEASURED \u2014 requires controlled ROBOTIS OP3 benchmark",
+      "PTQ INT8": "NOT MEASURED \u2014 requires controlled ROBOTIS OP3 benchmark",
+      "QAT INT8": "NOT MEASURED \u2014 requires controlled ROBOTIS OP3 benchmark",
+      "absolute_delta": null,
+      "class": "all",
+      "metric": "RAM",
+      "relative_delta_percent": null,
+      "scope": "overall"
+    },
+    {
+      "FP32 OpenVINO": 10756936,
+      "PTQ INT8": 3407480,
+      "QAT INT8": 3483079,
+      "absolute_delta": null,
+      "class": "all",
+      "metric": "Ukuran model",
+      "relative_delta_percent": null,
+      "scope": "overall"
+    }
+  ]
+}

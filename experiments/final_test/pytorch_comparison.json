@@ -1,0 +1,215 @@
+{
+  "status": "passed",
+  "created_at": "2026-09-03T13:57:46.918863+00:00",
+  "comparison_type": "native PyTorch FP32 vs native NNCF-QAT PyTorch",
+  "split": "TEST (frozen existing reports; no re-evaluation)",
+  "images": 592,
+  "annotations": 734,
+  "class_mapping": {
+    "0": "ball",
+    "1": "gawang",
+    "2": "robot"
+  },
+  "source_reports": {
+    "FP32 PyTorch": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/experiments/final_test/fp32_test_metrics.json",
+    "QAT PyTorch": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/experiments/final_test/qat_test_metrics.json"
+  },
+  "checkpoint_metadata": {
+    "FP32 PyTorch": {
+      "path": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/checkpoints/fp32/best.pt",
+      "bytes": 5481875,
+      "sha256": "e05b2b21f7faa68f65671f0aaae37ad962aa5e25c6b8b26853fd0b389d420b8c"
+    },
+    "QAT PyTorch": {
+      "path": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/checkpoints/qat/qat_best.pt",
+      "bytes": 43041486,
+      "sha256": "f96911a1b3f4f9a8987a7fb57611aac2455b2b5c7b93c27db146d69d5013a8c8"
+    }
+  },
+  "overall_rows": [
+    {
+      "metric": "precision",
+      "FP32 PyTorch": 0.9313469051335113,
+      "QAT PyTorch": 0.8541507232570217,
+      "absolute_delta": -0.07719618187648958,
+      "relative_delta_percent": -8.288660374667083
+    },
+    {
+      "metric": "recall",
+      "FP32 PyTorch": 0.9505716686969364,
+      "QAT PyTorch": 0.9375203043384985,
+      "absolute_delta": -0.0130513643584379,
+      "relative_delta_percent": -1.3730016145262338
+    },
+    {
+      "metric": "F1",
+      "FP32 PyTorch": 0.9408610915046441,
+      "QAT PyTorch": 0.8938958477143529,
+      "absolute_delta": -0.04696524379029121,
+      "relative_delta_percent": -4.991729832847422
+    },
+    {
+      "metric": "mAP50",
+      "FP32 PyTorch": 0.9642317504749923,
+      "QAT PyTorch": 0.9511866596240314,
+      "absolute_delta": -0.01304509085096095,
+      "relative_delta_percent": -1.352899948019216
+    },
+    {
+      "metric": "mAP50-95",
+      "FP32 PyTorch": 0.7799081629168894,
+      "QAT PyTorch": 0.6567029302913939,
+      "absolute_delta": -0.12320523262549543,
+      "relative_delta_percent": -15.79740262811235
+    }
+  ],
+  "timing_rows": [
+    {
+      "metric": "Latency (ms/image; diagnostic GPU)",
+      "FP32 PyTorch": 2.352011264175982,
+      "QAT PyTorch": 16.26286518640464,
+      "absolute_delta": 13.910853922228657,
+      "relative_delta_percent": 591.445038300115
+    },
+    {
+      "metric": "FPS (derived; diagnostic GPU)",
+      "FP32 PyTorch": 425.1680318165254,
+      "QAT PyTorch": 61.489779847402026,
+      "absolute_delta": -363.6782519691234,
+      "relative_delta_percent": -85.53753451672091
+    }
+  ],
+  "per_class_rows": [
+    {
+      "metric": "precision",
+      "FP32 PyTorch": 0.9722085387628167,
+      "QAT PyTorch": 0.9198992710696917,
+      "absolute_delta": -0.05230926769312494,
+      "relative_delta_percent": -5.380457546658772,
+      "class": "ball"
+    },
+    {
+      "metric": "recall",
+      "FP32 PyTorch": 0.9879518072289156,
+      "QAT PyTorch": 0.9759036144578314,
+      "absolute_delta": -0.012048192771084265,
+      "relative_delta_percent": -1.2195121951219439,
+      "class": "ball"
+    },
+    {
+      "metric": "F1",
+      "FP32 PyTorch": 0.9800169509991293,
+      "QAT PyTorch": 0.9470742242532612,
+      "absolute_delta": -0.03294272674586818,
+      "relative_delta_percent": -3.361444586471999,
+      "class": "ball"
+    },
+    {
+      "metric": "mAP50",
+      "FP32 PyTorch": 0.9847619047619048,
+      "QAT PyTorch": 0.9835733018620509,
+      "absolute_delta": -0.0011886028998538967,
+      "relative_delta_percent": -0.12069952077820034,
+      "class": "ball"
+    },
+    {
+      "metric": "mAP50-95",
+      "FP32 PyTorch": 0.9129888910112578,
+      "QAT PyTorch": 0.7470486475653881,
+      "absolute_delta": -0.16594024344586966,
+      "relative_delta_percent": -18.17549425624101,
+      "class": "ball"
+    },
+    {
+      "metric": "precision",
+      "FP32 PyTorch": 0.8469513872455595,
+      "QAT PyTorch": 0.8650820977599312,
+      "absolute_delta": 0.01813071051437165,
+      "relative_delta_percent": 2.140702617341006,
+      "class": "gawang"
+    },
+    {
+      "metric": "recall",
+      "FP32 PyTorch": 0.8853383458646616,
+      "QAT PyTorch": 0.8677787392603158,
+      "absolute_delta": -0.017559606604345857,
+      "relative_delta_percent": -1.983378070809341,
+      "class": "gawang"
+    },
+    {
+      "metric": "F1",
+      "FP32 PyTorch": 0.8657195455005953,
+      "QAT PyTorch": 0.8664283202817988,
+      "absolute_delta": 0.0007087747812035694,
+      "relative_delta_percent": 0.08187117697495512,
+      "class": "gawang"
+    },
+    {
+      "metric": "mAP50",
+      "FP32 PyTorch": 0.9233522694330923,
+      "QAT PyTorch": 0.9131920160373229,
+      "absolute_delta": -0.010160253395769425,
+      "relative_delta_percent": -1.1003658876592661,
+      "class": "gawang"
+    },
+    {
+      "metric": "mAP50-95",
+      "FP32 PyTorch": 0.568273217075351,
+      "QAT PyTorch": 0.5282239030638171,
+      "absolute_delta": -0.04004931401153389,
+      "relative_delta_percent": -7.047545583381505,
+      "class": "gawang"
+    },
+    {
+      "metric": "precision",
+      "FP32 PyTorch": 0.9748807893921577,
+      "QAT PyTorch": 0.7774708009414424,
+      "absolute_delta": -0.19740998845071533,
+      "relative_delta_percent": -20.249654172978556,
+      "class": "robot"
+    },
+    {
+      "metric": "recall",
+      "FP32 PyTorch": 0.978424852997232,
+      "QAT PyTorch": 0.9688785592973485,
+      "absolute_delta": -0.009546293699883579,
+      "relative_delta_percent": -0.9756798052134705,
+      "class": "robot"
+    },
+    {
+      "metric": "F1",
+      "FP32 PyTorch": 0.9766496060330314,
+      "QAT PyTorch": 0.8626851037514048,
+      "absolute_delta": -0.11396450228162658,
+      "relative_delta_percent": -11.668924205532537,
+      "class": "robot"
+    },
+    {
+      "metric": "mAP50",
+      "FP32 PyTorch": 0.9845810772299799,
+      "QAT PyTorch": 0.9567946609727205,
+      "absolute_delta": -0.027786416257259416,
+      "relative_delta_percent": -2.822156234754553,
+      "class": "robot"
+    },
+    {
+      "metric": "mAP50-95",
+      "FP32 PyTorch": 0.8584623806640591,
+      "QAT PyTorch": 0.6948362402449769,
+      "absolute_delta": -0.1636261404190822,
+      "relative_delta_percent": -19.06037400177164,
+      "class": "robot"
+    }
+  ],
+  "limitations": [
+    "Timing is diagnostic GPU timing from the existing evaluator, not a ROBOTIS OP3 deployment benchmark.",
+    "CPU utilization and RAM were not measured.",
+    "This report does not assess QAT PyTorch to OpenVINO numerical equivalence."
+  ],
+  "outputs": {
+    "json": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/experiments/final_test/pytorch_comparison.json",
+    "csv": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/experiments/final_test/pytorch_comparison.csv",
+    "markdown": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/experiments/final_test/pytorch_comparison.md"
+  },
+  "statement": "No training, calibration, PTQ, OpenVINO conversion, or new TEST evaluation was performed."
+}

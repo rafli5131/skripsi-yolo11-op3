@@ -1,0 +1,71 @@
+{
+  "evaluator_configuration": {
+    "augment": false,
+    "batch": 16,
+    "cache": false,
+    "conf": 0.001,
+    "conf_source": "Ultralytics detection validation default resolved from conf=None; not tuned on TEST",
+    "device": "0",
+    "fraction": 1.0,
+    "imgsz": 640,
+    "iou": 0.7,
+    "plots": true,
+    "rect": true,
+    "split": "test",
+    "workers": 2
+  },
+  "evaluator_return": {
+    "fitness": 0.6567,
+    "metrics/mAP50(B)": 0.95119,
+    "metrics/mAP50-95(B)": 0.6567,
+    "metrics/precision(B)": 0.85415,
+    "metrics/recall(B)": 0.93752,
+    "val/box_loss": 0.9997,
+    "val/cls_loss": 0.69238,
+    "val/dfl_loss": 1.15956
+  },
+  "fake_quant_calls": 7398,
+  "model": "QAT NNCF fake-quantized PyTorch",
+  "overall": {
+    "F1": 0.8938958477143529,
+    "mAP50": 0.9511866596240314,
+    "mAP50-95": 0.6567029302913939,
+    "precision": 0.8541507232570217,
+    "recall": 0.9375203043384985
+  },
+  "per_class": {
+    "ball": {
+      "F1": 0.9470742242532612,
+      "mAP50": 0.9835733018620509,
+      "mAP50-95": 0.7470486475653881,
+      "precision": 0.9198992710696917,
+      "recall": 0.9759036144578314
+    },
+    "gawang": {
+      "F1": 0.8664283202817988,
+      "mAP50": 0.9131920160373229,
+      "mAP50-95": 0.5282239030638171,
+      "precision": 0.8650820977599312,
+      "recall": 0.8677787392603158
+    },
+    "robot": {
+      "F1": 0.8626851037514048,
+      "mAP50": 0.9567946609727205,
+      "mAP50-95": 0.6948362402449769,
+      "precision": 0.7774708009414424,
+      "recall": 0.9688785592973485
+    }
+  },
+  "test_annotations": 734,
+  "test_images": 592,
+  "timing": {
+    "label": "DIAGNOSTIC \u2014 NOT FINAL DEPLOYMENT BENCHMARK",
+    "unit": "milliseconds per image",
+    "values": {
+      "inference": 16.26286518640464,
+      "loss": 0.43187753416950236,
+      "postprocess": 0.6333220721776219,
+      "preprocess": 0.330695987842675
+    }
+  }
+}

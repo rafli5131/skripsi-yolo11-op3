@@ -1,0 +1,39 @@
+{
+  "CUDA_VISIBLE_DEVICES": "1",
+  "FP32 SHA256": "e05b2b21f7faa68f65671f0aaae37ad962aa5e25c6b8b26853fd0b389d420b8c",
+  "FP32 export API/path": "torch.jit.trace -> openvino.convert_model -> openvino.save_model(compress_to_fp16=False)",
+  "GPU": {
+    "logical device": "cuda:0",
+    "name": "NVIDIA L40"
+  },
+  "PTQ used": false,
+  "QAT SHA256": "f96911a1b3f4f9a8987a7fb57611aac2455b2b5c7b93c27db146d69d5013a8c8",
+  "QAT calibration occurred": false,
+  "QAT diagnostic": {
+    "path": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/openvino/qat_export_diagnostic.json",
+    "selected export route": null,
+    "status": "stopped: restored QAT CUDA-to-CPU mismatch"
+  },
+  "QAT export API/path": "Phase 7B diagnostics only: direct unstripped OpenVINO candidate and controller ONNX candidate",
+  "error": "ExportStop: stopped: restored QAT CUDA-to-CPU mismatch",
+  "input shape": [
+    1,
+    3,
+    640,
+    640
+  ],
+  "sanity VAL image": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/data/raw/advance_vision_human/valid/images/3dsense_2020_10_14__21_58_51_color_png_jpg.rf.3c78770d1d46d6b07735e4a544da6963.jpg",
+  "source FP32 checkpoint": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/checkpoints/fp32/best.pt",
+  "source QAT checkpoint": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/checkpoints/qat/qat_best.pt",
+  "status": "failed",
+  "test split": "not loaded or used",
+  "timestamp": "2026-09-02T15:24:37.372063+00:00",
+  "versions": {
+    "Python": "3.11.2",
+    "nncf": "2.13.0",
+    "openvino": "2024.4.0-16579-c3152d32c9c-releases/2024/4",
+    "torch": "2.4.1+cu121",
+    "torchvision": "0.19.1+cu121",
+    "ultralytics": "8.4.130"
+  }
+}

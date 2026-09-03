@@ -1,0 +1,69 @@
+{
+  "CUDA_VISIBLE_DEVICES": "1",
+  "FP32 SHA256": "e05b2b21f7faa68f65671f0aaae37ad962aa5e25c6b8b26853fd0b389d420b8c",
+  "FP32 checkpoint path": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/checkpoints/fp32/best.pt",
+  "GPU": {
+    "logical_device": "cuda:0",
+    "name": "NVIDIA L40"
+  },
+  "NNCF loaded state entries": 1323,
+  "NNCF reload status": true,
+  "QAT SHA256": "f96911a1b3f4f9a8987a7fb57611aac2455b2b5c7b93c27db146d69d5013a8c8",
+  "QAT checkpoint path": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/checkpoints/qat/qat_best.pt",
+  "QAT fake quantization active": true,
+  "batch": 16,
+  "class mapping": {
+    "0": "ball",
+    "1": "gawang",
+    "2": "robot"
+  },
+  "dataset version": null,
+  "exact evaluator configuration": {
+    "augmentation": false,
+    "batch": 16,
+    "cache": false,
+    "confidence": "Ultralytics detect validation default from conf=None (0.001), identical and untuned",
+    "device": "logical cuda:0",
+    "framework": "Ultralytics DetectionValidator native PyTorch path",
+    "imgsz": 640,
+    "iou": 0.7,
+    "rect": true,
+    "split": "test",
+    "workers": 2
+  },
+  "expected sanity reference": {
+    "test annotations": 734,
+    "test images": 592
+  },
+  "imgsz": 640,
+  "outputs": {
+    "FP32 metrics": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/experiments/final_test/fp32_test_metrics.json",
+    "FP32 plots": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/experiments/final_test/fp32_plots",
+    "QAT metrics": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/experiments/final_test/qat_test_metrics.json",
+    "QAT plots": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/experiments/final_test/qat_plots",
+    "comparison CSV": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/experiments/final_test/comparison.csv",
+    "comparison JSON": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/experiments/final_test/comparison.json"
+  },
+  "quantizer count for QAT": 184,
+  "resolved dataset splits": {
+    "test": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/data/raw/advance_vision_human/test/images",
+    "train": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/data/raw/advance_vision_human/train/images",
+    "val": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/data/raw/advance_vision_human/valid/images"
+  },
+  "sanity reference matched": true,
+  "statement": "Test split was used for final evaluation only and was not used for training, quantizer initialization, checkpoint selection, or hyperparameter tuning.",
+  "status": "passed",
+  "test annotation count": 734,
+  "test image count": 592,
+  "timestamp": "2026-09-02T13:18:05.597250+00:00",
+  "timing statement": "DIAGNOSTIC \u2014 NOT FINAL DEPLOYMENT BENCHMARK",
+  "versions": {
+    "Python": "3.11.2",
+    "nncf": "2.13.0",
+    "torch": "2.4.1+cu121",
+    "torch CUDA": "12.1",
+    "torchvision": "0.19.1+cu121",
+    "ultralytics": "8.4.130"
+  },
+  "workers": 2
+}

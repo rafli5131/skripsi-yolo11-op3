@@ -1,0 +1,815 @@
+{
+  "CUDA_VISIBLE_DEVICES": "1",
+  "GPU": {
+    "logical device": "cuda:0",
+    "name": "NVIDIA L40"
+  },
+  "NNCF controller API": {
+    "controller class": "nncf.torch.quantization.algo.QuantizationController",
+    "export-related public members": [
+      "export_model",
+      "prepare_for_export"
+    ],
+    "export_model available": true,
+    "export_model signature": "(save_path: str, save_format: Optional[str] = None, input_names: Optional[List[str]] = None, output_names: Optional[List[str]] = None, model_args: Optional[Tuple[Any, ...]] = None) -> None",
+    "export_model source path": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/.venv/lib/python3.11/site-packages/nncf/common/compression.py",
+    "export_model source summary": "    def export_model(",
+    "openvino.convert_model signature": "(input_model: [<class 'str'>, <class 'pathlib.Path'>, typing.Any, <class 'list'>], input: [<class 'list'>, <class 'dict'>, <class 'str'>] = None, output: [<class 'str'>, <class 'list'>] = None, example_input: Any = None, extension: [<class 'str'>, <class 'pathlib.Path'>, <class 'list'>, typing.Any] = None, verbose: bool = False, share_weights: bool = True) -> openvino.runtime.ie_api.Model"
+  },
+  "NNCF export API used": {
+    "PTQ": false,
+    "calibration": false,
+    "method": "QuantizationController.export_model(save_path, save_format='onnx')",
+    "representation": "standard ONNX QuantizeLinear/DequantizeLinear pairs"
+  },
+  "NNCF state restore": {
+    "loaded state entries": 1323,
+    "quantizer count": 184
+  },
+  "ONNX": {
+    "Cast count": 6,
+    "Clip count": 0,
+    "DequantizeLinear count": 198,
+    "INT8 initializer count": 0,
+    "IR version": 7,
+    "QuantizeLinear count": 198,
+    "Round count": 0,
+    "UINT8 initializer count": 0,
+    "checker status": "passed",
+    "export status": "passed",
+    "file size bytes": 10940932,
+    "initializer element-type counts": {
+      "FLOAT": 330
+    },
+    "inputs": [
+      "input.0"
+    ],
+    "node count": 1254,
+    "operator counts": {
+      "Add": 25,
+      "BatchNormalization": 81,
+      "Cast": 6,
+      "Concat": 25,
+      "Constant": 370,
+      "Conv": 88,
+      "DequantizeLinear": 198,
+      "Div": 10,
+      "Expand": 6,
+      "Gather": 9,
+      "MatMul": 2,
+      "MaxPool": 3,
+      "Mul": 96,
+      "QuantizeLinear": 198,
+      "Reshape": 14,
+      "Resize": 2,
+      "Shape": 9,
+      "Sigmoid": 77,
+      "Slice": 18,
+      "Softmax": 2,
+      "Split": 2,
+      "Sub": 2,
+      "Transpose": 4,
+      "Unsqueeze": 7
+    },
+    "opset imports": [
+      {
+        "domain": "",
+        "version": 13
+      }
+    ],
+    "outputs": [
+      "output.0"
+    ],
+    "path": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/openvino/debug/qat_onnx_qdq/model.onnx"
+  },
+  "ONNX Runtime": {
+    "available": true,
+    "error": "InvalidGraph: [ONNXRuntimeError] : 10 : INVALID_GRAPH : Load model from /mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/openvino/debug/qat_onnx_qdq/model.onnx failed:This is an invalid model. Type Error: Type 'tensor(double)' of input parameter (/model.23/Sub_output_0) of operator (QuantizeLinear) in node (/model.23/DetectionModel/Sequential[model]/Detect[23]/__sub___0|OUTPUT/QuantizeLinear) is invalid.",
+    "execution available": false,
+    "next step": "Continue only with OpenVINO ONNX import and native-QAT-to-OpenVINO comparison.",
+    "status": "NOT EXECUTABLE by installed ONNX Runtime; custom NNCF operator is unsupported."
+  },
+  "ONNX Runtime available": true,
+  "ONNX export mechanism": "QuantizationController.export_model(save_path, save_format='onnx')",
+  "ONNX package available": true,
+  "OpenVINO": {
+    "BIN bytes": 2848856,
+    "XML bytes": 790799,
+    "conversion status": "passed",
+    "numerical": {
+      "device": "CPU",
+      "per image": {
+        "3dsense_2020_10_14__21_58_51_color_png_jpg.rf.3c78770d1d46d6b07735e4a544da6963.jpg": {
+          "candidate shape": [
+            1,
+            7,
+            8400
+          ],
+          "cosine similarity": 0.9999578595161438,
+          "maximum absolute difference": 98.08212280273438,
+          "maximum allowed relative MAE": 0.01,
+          "mean absolute difference": 0.6240381598472595,
+          "mean absolute reference magnitude": 128.3769989013672,
+          "reference shape": [
+            1,
+            7,
+            8400
+          ],
+          "relative MAE": 0.004860981057258643,
+          "status": true
+        },
+        "3dsense_2020_10_14__21_59_13_color_png_jpg.rf.2244dc70190a7ba276020b3b82a1a2e4.jpg": {
+          "candidate shape": [
+            1,
+            7,
+            8400
+          ],
+          "cosine similarity": 0.8957667946815491,
+          "maximum absolute difference": 413.25048828125,
+          "maximum allowed relative MAE": 0.01,
+          "mean absolute difference": 41.406124114990234,
+          "mean absolute reference magnitude": 116.06736755371094,
+          "reference shape": [
+            1,
+            7,
+            8400
+          ],
+          "relative MAE": 0.3567421661030546,
+          "status": false
+        },
+        "3dsense_2020_10_14__21_59_51_color_png_jpg.rf.38e526b51bbbabe0278f06840cee69e9.jpg": {
+          "candidate shape": [
+            1,
+            7,
+            8400
+          ],
+          "cosine similarity": 0.8992049694061279,
+          "maximum absolute difference": 413.25048828125,
+          "maximum allowed relative MAE": 0.01,
+          "mean absolute difference": 40.86395263671875,
+          "mean absolute reference magnitude": 117.48568725585938,
+          "reference shape": [
+            1,
+            7,
+            8400
+          ],
+          "relative MAE": 0.34782068855524134,
+          "status": false
+        },
+        "3dsense_2020_10_14__22_00_01_color_png_jpg.rf.0a6647e340ed6ba762118bb4567aafbe.jpg": {
+          "candidate shape": [
+            1,
+            7,
+            8400
+          ],
+          "cosine similarity": 0.8972020745277405,
+          "maximum absolute difference": 413.25048828125,
+          "maximum allowed relative MAE": 0.01,
+          "mean absolute difference": 41.111412048339844,
+          "mean absolute reference magnitude": 115.29187774658203,
+          "reference shape": [
+            1,
+            7,
+            8400
+          ],
+          "relative MAE": 0.35658550152774005,
+          "status": false
+        },
+        "3dsense_2020_10_14__22_03_38_color_png_jpg.rf.bea3f1a5ee9cb08a3e31cf41d0de9196.jpg": {
+          "candidate shape": [
+            1,
+            7,
+            8400
+          ],
+          "cosine similarity": 0.9054736495018005,
+          "maximum absolute difference": 413.25048828125,
+          "maximum allowed relative MAE": 0.01,
+          "mean absolute difference": 39.34067916870117,
+          "mean absolute reference magnitude": 118.61248016357422,
+          "reference shape": [
+            1,
+            7,
+            8400
+          ],
+          "relative MAE": 0.33167402885807507,
+          "status": false
+        },
+        "3dsense_2020_10_14__22_03_57_color_png_jpg.rf.16dad4dc9debf872e1e30798bcd7876b.jpg": {
+          "candidate shape": [
+            1,
+            7,
+            8400
+          ],
+          "cosine similarity": 0.899501621723175,
+          "maximum absolute difference": 413.25048828125,
+          "maximum allowed relative MAE": 0.01,
+          "mean absolute difference": 40.82139587402344,
+          "mean absolute reference magnitude": 118.31307220458984,
+          "reference shape": [
+            1,
+            7,
+            8400
+          ],
+          "relative MAE": 0.34502861867566154,
+          "status": false
+        },
+        "3dsense_2020_10_14__22_04_02_color_png_jpg.rf.6c1bf19f7ca4eadff17f5d1fc193a7cc.jpg": {
+          "candidate shape": [
+            1,
+            7,
+            8400
+          ],
+          "cosine similarity": 0.8948987722396851,
+          "maximum absolute difference": 413.25048828125,
+          "maximum allowed relative MAE": 0.01,
+          "mean absolute difference": 41.521331787109375,
+          "mean absolute reference magnitude": 116.56900024414062,
+          "reference shape": [
+            1,
+            7,
+            8400
+          ],
+          "relative MAE": 0.3561953152222943,
+          "status": false
+        },
+        "3dsense_2020_10_14__22_04_05_color_png_jpg.rf.004d0a4cd9b8f35ef9f7e79d757a1817.jpg": {
+          "candidate shape": [
+            1,
+            7,
+            8400
+          ],
+          "cosine similarity": 0.8954839110374451,
+          "maximum absolute difference": 413.25048828125,
+          "maximum allowed relative MAE": 0.01,
+          "mean absolute difference": 41.343162536621094,
+          "mean absolute reference magnitude": 116.00093841552734,
+          "reference shape": [
+            1,
+            7,
+            8400
+          ],
+          "relative MAE": 0.35640369036089703,
+          "status": false
+        },
+        "3dsense_2020_10_14__22_04_14_color_png_jpg.rf.6b70d0020611293e5efaa4591fcad715.jpg": {
+          "candidate shape": [
+            1,
+            7,
+            8400
+          ],
+          "cosine similarity": 0.9020628929138184,
+          "maximum absolute difference": 413.25048828125,
+          "maximum allowed relative MAE": 0.01,
+          "mean absolute difference": 39.95076370239258,
+          "mean absolute reference magnitude": 120.78396606445312,
+          "reference shape": [
+            1,
+            7,
+            8400
+          ],
+          "relative MAE": 0.33076214504393675,
+          "status": false
+        },
+        "3dsense_2020_10_14__22_15_54_color_png_jpg.rf.bc9128db814057de8f88b99fd0140724.jpg": {
+          "candidate shape": [
+            1,
+            7,
+            8400
+          ],
+          "cosine similarity": 0.8952857255935669,
+          "maximum absolute difference": 413.25048828125,
+          "maximum allowed relative MAE": 0.01,
+          "mean absolute difference": 41.587928771972656,
+          "mean absolute reference magnitude": 115.60205078125,
+          "reference shape": [
+            1,
+            7,
+            8400
+          ],
+          "relative MAE": 0.35975078721283366,
+          "status": false
+        },
+        "3dsense_2020_10_14__22_16_32_color_png_jpg.rf.cda0c2d19b34a602e0775023b876f737.jpg": {
+          "candidate shape": [
+            1,
+            7,
+            8400
+          ],
+          "cosine similarity": 0.8930078148841858,
+          "maximum absolute difference": 413.25048828125,
+          "maximum allowed relative MAE": 0.01,
+          "mean absolute difference": 42.00598907470703,
+          "mean absolute reference magnitude": 114.98355102539062,
+          "reference shape": [
+            1,
+            7,
+            8400
+          ],
+          "relative MAE": 0.36532172384753786,
+          "status": false
+        },
+        "KakaoTalk_20250203_160502315_mp4-0013_jpg.rf.6469c1b00e8c371f8198f9fbb6ba64e4.jpg": {
+          "candidate shape": [
+            1,
+            7,
+            8400
+          ],
+          "cosine similarity": 0.8967347145080566,
+          "maximum absolute difference": 413.25048828125,
+          "maximum allowed relative MAE": 0.01,
+          "mean absolute difference": 40.68507766723633,
+          "mean absolute reference magnitude": 117.28031158447266,
+          "reference shape": [
+            1,
+            7,
+            8400
+          ],
+          "relative MAE": 0.34690458370697946,
+          "status": false
+        },
+        "KakaoTalk_20250203_160502315_mp4-0025_jpg.rf.a8a7324ebaad66e43fbe1c25daf78f65.jpg": {
+          "candidate shape": [
+            1,
+            7,
+            8400
+          ],
+          "cosine similarity": 0.8966759443283081,
+          "maximum absolute difference": 413.25048828125,
+          "maximum allowed relative MAE": 0.01,
+          "mean absolute difference": 40.48039245605469,
+          "mean absolute reference magnitude": 117.58808135986328,
+          "reference shape": [
+            1,
+            7,
+            8400
+          ],
+          "relative MAE": 0.3442559142722095,
+          "status": false
+        },
+        "KakaoTalk_20250203_160502315_mp4-0027_jpg.rf.03cb1e13f52e935f28d78dc121aec253.jpg": {
+          "candidate shape": [
+            1,
+            7,
+            8400
+          ],
+          "cosine similarity": 0.8961124420166016,
+          "maximum absolute difference": 413.25048828125,
+          "maximum allowed relative MAE": 0.01,
+          "mean absolute difference": 40.612735748291016,
+          "mean absolute reference magnitude": 116.9817123413086,
+          "reference shape": [
+            1,
+            7,
+            8400
+          ],
+          "relative MAE": 0.3471716641469424,
+          "status": false
+        },
+        "KakaoTalk_20250203_160503119_mp4-0023_jpg.rf.fe0d2a1d2e8340ddf6490d0642e21b70.jpg": {
+          "candidate shape": [
+            1,
+            7,
+            8400
+          ],
+          "cosine similarity": 0.9002566933631897,
+          "maximum absolute difference": 413.25048828125,
+          "maximum allowed relative MAE": 0.01,
+          "mean absolute difference": 40.277587890625,
+          "mean absolute reference magnitude": 117.95075988769531,
+          "reference shape": [
+            1,
+            7,
+            8400
+          ],
+          "relative MAE": 0.3414779856354853,
+          "status": false
+        },
+        "KakaoTalk_20250203_160505764_mp4-0001_jpg.rf.71a140f0948c02548d53940167a2c29d.jpg": {
+          "candidate shape": [
+            1,
+            7,
+            8400
+          ],
+          "cosine similarity": 0.8972089886665344,
+          "maximum absolute difference": 413.25048828125,
+          "maximum allowed relative MAE": 0.01,
+          "mean absolute difference": 40.60243225097656,
+          "mean absolute reference magnitude": 116.45838928222656,
+          "reference shape": [
+            1,
+            7,
+            8400
+          ],
+          "relative MAE": 0.3486432579157537,
+          "status": false
+        },
+        "KakaoTalk_20250203_160505764_mp4-0002_jpg.rf.edc95b6a526c48e73409986e6d63b948.jpg": {
+          "candidate shape": [
+            1,
+            7,
+            8400
+          ],
+          "cosine similarity": 0.8984197378158569,
+          "maximum absolute difference": 413.25048828125,
+          "maximum allowed relative MAE": 0.01,
+          "mean absolute difference": 40.39373016357422,
+          "mean absolute reference magnitude": 117.35257720947266,
+          "reference shape": [
+            1,
+            7,
+            8400
+          ],
+          "relative MAE": 0.3442082920042906,
+          "status": false
+        },
+        "KakaoTalk_20250203_160505764_mp4-0003_jpg.rf.99703037b44db0de35b66ca5d39cbf35.jpg": {
+          "candidate shape": [
+            1,
+            7,
+            8400
+          ],
+          "cosine similarity": 0.8980940580368042,
+          "maximum absolute difference": 413.25048828125,
+          "maximum allowed relative MAE": 0.01,
+          "mean absolute difference": 40.38438034057617,
+          "mean absolute reference magnitude": 116.86174011230469,
+          "reference shape": [
+            1,
+            7,
+            8400
+          ],
+          "relative MAE": 0.34557401166341173,
+          "status": false
+        },
+        "KakaoTalk_20250203_160505764_mp4-0006_jpg.rf.45dca245d5816c7eabf4545390e59396.jpg": {
+          "candidate shape": [
+            1,
+            7,
+            8400
+          ],
+          "cosine similarity": 0.8988305330276489,
+          "maximum absolute difference": 413.25048828125,
+          "maximum allowed relative MAE": 0.01,
+          "mean absolute difference": 40.230369567871094,
+          "mean absolute reference magnitude": 116.994140625,
+          "reference shape": [
+            1,
+            7,
+            8400
+          ],
+          "relative MAE": 0.3438665334259862,
+          "status": false
+        },
+        "KakaoTalk_20250203_160505764_mp4-0007_jpg.rf.5accf680e4af0b67cb711ce099fc69be.jpg": {
+          "candidate shape": [
+            1,
+            7,
+            8400
+          ],
+          "cosine similarity": 0.899698793888092,
+          "maximum absolute difference": 413.25048828125,
+          "maximum allowed relative MAE": 0.01,
+          "mean absolute difference": 39.980716705322266,
+          "mean absolute reference magnitude": 117.5303726196289,
+          "reference shape": [
+            1,
+            7,
+            8400
+          ],
+          "relative MAE": 0.3401734871947903,
+          "status": false
+        },
+        "KakaoTalk_20250203_160505764_mp4-0015_jpg.rf.e512fb69725c92e20eca7b6f29d202ce.jpg": {
+          "candidate shape": [
+            1,
+            7,
+            8400
+          ],
+          "cosine similarity": 0.905750572681427,
+          "maximum absolute difference": 413.25048828125,
+          "maximum allowed relative MAE": 0.01,
+          "mean absolute difference": 38.766632080078125,
+          "mean absolute reference magnitude": 121.06462860107422,
+          "reference shape": [
+            1,
+            7,
+            8400
+          ],
+          "relative MAE": 0.32021435598518116,
+          "status": false
+        },
+        "KakaoTalk_20250203_160505764_mp4-0016_jpg.rf.718ce9165537193aa3ff9a2955e0f94a.jpg": {
+          "candidate shape": [
+            1,
+            7,
+            8400
+          ],
+          "cosine similarity": 0.9054369330406189,
+          "maximum absolute difference": 413.25048828125,
+          "maximum allowed relative MAE": 0.01,
+          "mean absolute difference": 38.903018951416016,
+          "mean absolute reference magnitude": 121.0805892944336,
+          "reference shape": [
+            1,
+            7,
+            8400
+          ],
+          "relative MAE": 0.32129855972880117,
+          "status": false
+        },
+        "KakaoTalk_20250203_160505764_mp4-0019_jpg.rf.523979fe31b97a70a16eae4a1039011b.jpg": {
+          "candidate shape": [
+            1,
+            7,
+            8400
+          ],
+          "cosine similarity": 0.9057785272598267,
+          "maximum absolute difference": 413.25048828125,
+          "maximum allowed relative MAE": 0.01,
+          "mean absolute difference": 38.89889907836914,
+          "mean absolute reference magnitude": 120.99092102050781,
+          "reference shape": [
+            1,
+            7,
+            8400
+          ],
+          "relative MAE": 0.3215026280507099,
+          "status": false
+        },
+        "KakaoTalk_20250203_160505764_mp4-0023_jpg.rf.4a37031eddb16fa8c372dd73561da6eb.jpg": {
+          "candidate shape": [
+            1,
+            7,
+            8400
+          ],
+          "cosine similarity": 0.9072287678718567,
+          "maximum absolute difference": 413.25048828125,
+          "maximum allowed relative MAE": 0.01,
+          "mean absolute difference": 38.58446502685547,
+          "mean absolute reference magnitude": 121.01707458496094,
+          "reference shape": [
+            1,
+            7,
+            8400
+          ],
+          "relative MAE": 0.3188348847398964,
+          "status": false
+        },
+        "KakaoTalk_20250203_160505764_mp4-0024_jpg.rf.d98c63e47c9c7a040394e9072f126c98.jpg": {
+          "candidate shape": [
+            1,
+            7,
+            8400
+          ],
+          "cosine similarity": 0.9062275290489197,
+          "maximum absolute difference": 413.25048828125,
+          "maximum allowed relative MAE": 0.01,
+          "mean absolute difference": 38.8272590637207,
+          "mean absolute reference magnitude": 120.68082427978516,
+          "reference shape": [
+            1,
+            7,
+            8400
+          ],
+          "relative MAE": 0.32173511653934345,
+          "status": false
+        },
+        "KakaoTalk_20250203_160505764_mp4-0027_jpg.rf.5149908da0f0450504fab40dfce38233.jpg": {
+          "candidate shape": [
+            1,
+            7,
+            8400
+          ],
+          "cosine similarity": 0.9029619097709656,
+          "maximum absolute difference": 413.25048828125,
+          "maximum allowed relative MAE": 0.01,
+          "mean absolute difference": 39.40468215942383,
+          "mean absolute reference magnitude": 120.24606323242188,
+          "reference shape": [
+            1,
+            7,
+            8400
+          ],
+          "relative MAE": 0.3277003928457856,
+          "status": false
+        },
+        "KakaoTalk_20250203_160505764_mp4-0031_jpg.rf.132d145c38aa60b1b6b981bc231eb4e1.jpg": {
+          "candidate shape": [
+            1,
+            7,
+            8400
+          ],
+          "cosine similarity": 0.902400016784668,
+          "maximum absolute difference": 413.25048828125,
+          "maximum allowed relative MAE": 0.01,
+          "mean absolute difference": 39.52793502807617,
+          "mean absolute reference magnitude": 120.14128875732422,
+          "reference shape": [
+            1,
+            7,
+            8400
+          ],
+          "relative MAE": 0.3290120776706452,
+          "status": false
+        },
+        "KakaoTalk_20250203_160505764_mp4-0032_jpg.rf.eebc59b14d4f35c3739fce9641ba370c.jpg": {
+          "candidate shape": [
+            1,
+            7,
+            8400
+          ],
+          "cosine similarity": 0.9023770093917847,
+          "maximum absolute difference": 413.25048828125,
+          "maximum allowed relative MAE": 0.01,
+          "mean absolute difference": 39.57240676879883,
+          "mean absolute reference magnitude": 119.99740600585938,
+          "reference shape": [
+            1,
+            7,
+            8400
+          ],
+          "relative MAE": 0.3297771850740385,
+          "status": false
+        },
+        "KakaoTalk_20250203_160505764_mp4-0033_jpg.rf.45a8748535559788e23f3e8f631ba47a.jpg": {
+          "candidate shape": [
+            1,
+            7,
+            8400
+          ],
+          "cosine similarity": 0.902457594871521,
+          "maximum absolute difference": 413.25048828125,
+          "maximum allowed relative MAE": 0.01,
+          "mean absolute difference": 39.557613372802734,
+          "mean absolute reference magnitude": 119.94668579101562,
+          "reference shape": [
+            1,
+            7,
+            8400
+          ],
+          "relative MAE": 0.32979330034782606,
+          "status": false
+        },
+        "KakaoTalk_20250203_160511603_mp4-0003_jpg.rf.76841736efbaa465126b7549773c8dcf.jpg": {
+          "candidate shape": [
+            1,
+            7,
+            8400
+          ],
+          "cosine similarity": 0.8933521509170532,
+          "maximum absolute difference": 413.6981201171875,
+          "maximum allowed relative MAE": 0.01,
+          "mean absolute difference": 41.92977523803711,
+          "mean absolute reference magnitude": 112.81378173828125,
+          "reference shape": [
+            1,
+            7,
+            8400
+          ],
+          "relative MAE": 0.3716724551908982,
+          "status": false
+        },
+        "KakaoTalk_20250203_160511603_mp4-0005_jpg.rf.f56ca446d4e58ba049e652e6e5a28b37.jpg": {
+          "candidate shape": [
+            1,
+            7,
+            8400
+          ],
+          "cosine similarity": 0.8919411897659302,
+          "maximum absolute difference": 413.25048828125,
+          "maximum allowed relative MAE": 0.01,
+          "mean absolute difference": 42.160316467285156,
+          "mean absolute reference magnitude": 112.28433990478516,
+          "reference shape": [
+            1,
+            7,
+            8400
+          ],
+          "relative MAE": 0.3754781521896664,
+          "status": false
+        },
+        "KakaoTalk_20250203_160511603_mp4-0008_jpg.rf.861db1b2c2b6f43903f21ec4fad8cf94.jpg": {
+          "candidate shape": [
+            1,
+            7,
+            8400
+          ],
+          "cosine similarity": 0.901333749294281,
+          "maximum absolute difference": 413.25048828125,
+          "maximum allowed relative MAE": 0.01,
+          "mean absolute difference": 40.31401443481445,
+          "mean absolute reference magnitude": 115.91737365722656,
+          "reference shape": [
+            1,
+            7,
+            8400
+          ],
+          "relative MAE": 0.34778233118035434,
+          "status": false
+        }
+      },
+      "status": "failed",
+      "summary": {
+        "VAL input count": 32,
+        "count relative MAE <= 1 percent": 1,
+        "count relative MAE > 1 percent": 31,
+        "maximum relative MAE": 0.3754781521896664,
+        "mean relative MAE": 0.33213196299917275,
+        "median relative MAE": 0.3442559142722095,
+        "minimum relative MAE": 0.004860981057258643,
+        "p95 relative MAE": 0.36817955295205
+      }
+    },
+    "path": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/openvino/debug/qat_onnx_qdq_openvino/model.xml",
+    "total bytes": 3639655
+  },
+  "PTQ used": false,
+  "QAT SHA256": "f96911a1b3f4f9a8987a7fb57611aac2455b2b5c7b93c27db146d69d5013a8c8",
+  "calibration occurred": false,
+  "candidate directories": {
+    "ONNX": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/openvino/debug/qat_onnx_qdq",
+    "OpenVINO": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/openvino/debug/qat_onnx_qdq_openvino"
+  },
+  "export model preparation": {
+    "Detect.export scoped to export model only": true,
+    "NNCF export representation": "ONNX standard QuantizeLinear/DequantizeLinear pairs",
+    "NNCF state restore": {
+      "enabled quantizer count": 184,
+      "loaded state entries": 1323,
+      "quantizer count": 184,
+      "standard ONNX QDQ requested": true
+    },
+    "enabled quantizer count after CPU transfer": 184,
+    "fresh model instance": true,
+    "model mode": "eval",
+    "quantizer count after CPU transfer": 184
+  },
+  "failure": "ExportStop: FAILURE: PyTorch QAT \u2192 OpenVINO numerical mismatch.",
+  "input shape": [
+    1,
+    3,
+    640,
+    640
+  ],
+  "promotion": {
+    "status": "not promoted"
+  },
+  "reference enabled quantizer count": 184,
+  "reference model mode": "eval",
+  "reference quantizer count": 184,
+  "representative inputs": {
+    "filenames": [
+      "3dsense_2020_10_14__21_58_51_color_png_jpg.rf.3c78770d1d46d6b07735e4a544da6963.jpg",
+      "3dsense_2020_10_14__21_59_13_color_png_jpg.rf.2244dc70190a7ba276020b3b82a1a2e4.jpg",
+      "3dsense_2020_10_14__21_59_51_color_png_jpg.rf.38e526b51bbbabe0278f06840cee69e9.jpg",
+      "3dsense_2020_10_14__22_00_01_color_png_jpg.rf.0a6647e340ed6ba762118bb4567aafbe.jpg",
+      "3dsense_2020_10_14__22_03_38_color_png_jpg.rf.bea3f1a5ee9cb08a3e31cf41d0de9196.jpg",
+      "3dsense_2020_10_14__22_03_57_color_png_jpg.rf.16dad4dc9debf872e1e30798bcd7876b.jpg",
+      "3dsense_2020_10_14__22_04_02_color_png_jpg.rf.6c1bf19f7ca4eadff17f5d1fc193a7cc.jpg",
+      "3dsense_2020_10_14__22_04_05_color_png_jpg.rf.004d0a4cd9b8f35ef9f7e79d757a1817.jpg",
+      "3dsense_2020_10_14__22_04_14_color_png_jpg.rf.6b70d0020611293e5efaa4591fcad715.jpg",
+      "3dsense_2020_10_14__22_15_54_color_png_jpg.rf.bc9128db814057de8f88b99fd0140724.jpg",
+      "3dsense_2020_10_14__22_16_32_color_png_jpg.rf.cda0c2d19b34a602e0775023b876f737.jpg",
+      "KakaoTalk_20250203_160502315_mp4-0013_jpg.rf.6469c1b00e8c371f8198f9fbb6ba64e4.jpg",
+      "KakaoTalk_20250203_160502315_mp4-0025_jpg.rf.a8a7324ebaad66e43fbe1c25daf78f65.jpg",
+      "KakaoTalk_20250203_160502315_mp4-0027_jpg.rf.03cb1e13f52e935f28d78dc121aec253.jpg",
+      "KakaoTalk_20250203_160503119_mp4-0023_jpg.rf.fe0d2a1d2e8340ddf6490d0642e21b70.jpg",
+      "KakaoTalk_20250203_160505764_mp4-0001_jpg.rf.71a140f0948c02548d53940167a2c29d.jpg",
+      "KakaoTalk_20250203_160505764_mp4-0002_jpg.rf.edc95b6a526c48e73409986e6d63b948.jpg",
+      "KakaoTalk_20250203_160505764_mp4-0003_jpg.rf.99703037b44db0de35b66ca5d39cbf35.jpg",
+      "KakaoTalk_20250203_160505764_mp4-0006_jpg.rf.45dca245d5816c7eabf4545390e59396.jpg",
+      "KakaoTalk_20250203_160505764_mp4-0007_jpg.rf.5accf680e4af0b67cb711ce099fc69be.jpg",
+      "KakaoTalk_20250203_160505764_mp4-0015_jpg.rf.e512fb69725c92e20eca7b6f29d202ce.jpg",
+      "KakaoTalk_20250203_160505764_mp4-0016_jpg.rf.718ce9165537193aa3ff9a2955e0f94a.jpg",
+      "KakaoTalk_20250203_160505764_mp4-0019_jpg.rf.523979fe31b97a70a16eae4a1039011b.jpg",
+      "KakaoTalk_20250203_160505764_mp4-0023_jpg.rf.4a37031eddb16fa8c372dd73561da6eb.jpg",
+      "KakaoTalk_20250203_160505764_mp4-0024_jpg.rf.d98c63e47c9c7a040394e9072f126c98.jpg",
+      "KakaoTalk_20250203_160505764_mp4-0027_jpg.rf.5149908da0f0450504fab40dfce38233.jpg",
+      "KakaoTalk_20250203_160505764_mp4-0031_jpg.rf.132d145c38aa60b1b6b981bc231eb4e1.jpg",
+      "KakaoTalk_20250203_160505764_mp4-0032_jpg.rf.eebc59b14d4f35c3739fce9641ba370c.jpg",
+      "KakaoTalk_20250203_160505764_mp4-0033_jpg.rf.45a8748535559788e23f3e8f631ba47a.jpg",
+      "KakaoTalk_20250203_160511603_mp4-0003_jpg.rf.76841736efbaa465126b7549773c8dcf.jpg",
+      "KakaoTalk_20250203_160511603_mp4-0005_jpg.rf.f56ca446d4e58ba049e652e6e5a28b37.jpg",
+      "KakaoTalk_20250203_160511603_mp4-0008_jpg.rf.861db1b2c2b6f43903f21ec4fad8cf94.jpg"
+    ],
+    "preprocessing": "cv2 decode -> LetterBox(640, auto=False, stride=32) -> BGR to RGB -> NCHW float32 / 255",
+    "selection": "first 32 image filenames in deterministic lexical order",
+    "split": "VAL only"
+  },
+  "requested ONNX quantization representation": "standard QuantizeLinear/DequantizeLinear pairs",
+  "source FP32 checkpoint": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/checkpoints/fp32/best.pt",
+  "source QAT checkpoint": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/checkpoints/qat/qat_best.pt",
+  "statement": "No PTQ, calibration, nncf.quantize(), held-out TEST data, or retraining was used during this QAT export.",
+  "status": "REJECTED / UNRESOLVED",
+  "strip path": "disabled; historically rejected and not invoked",
+  "test split": "not loaded or used",
+  "timestamp": "2026-09-03T13:15:37.740748+00:00",
+  "versions": {
+    "Python": "3.11.2",
+    "nncf": "2.13.0",
+    "openvino": "2024.4.0-16579-c3152d32c9c-releases/2024/4",
+    "torch": "2.4.1+cu121",
+    "torchvision": "0.19.1+cu121",
+    "ultralytics": "8.4.130"
+  }
+}

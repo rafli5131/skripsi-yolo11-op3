@@ -1,0 +1,28 @@
+{
+  "batch": 16,
+  "class_mapping": {
+    "0": "ball",
+    "1": "gawang",
+    "2": "robot"
+  },
+  "cuda_visible_devices": "1",
+  "dataset_project": "advance_vision_human",
+  "dataset_version": null,
+  "dataset_workspace": "humanoid-atom",
+  "elapsed_seconds": 101.79698062501848,
+  "gpu_name": "NVIDIA L40",
+  "imgsz": 640,
+  "lr0": 0.001111,
+  "momentum": 0.9,
+  "numpy_version": "1.26.4",
+  "optimizer": "AdamW",
+  "python_version": "3.11.2",
+  "seed": 42,
+  "timestamp": "2026-09-02T09:37:02.423930+00:00",
+  "torch_cuda": "12.1",
+  "torch_version": "2.4.1+cu121",
+  "torchvision_version": "0.19.1+cu121",
+  "ultralytics_version": "8.4.130",
+  "weight_decay": 0.0005,
+  "workers": 4
+}

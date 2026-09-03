@@ -1,0 +1,158 @@
+{
+  "CUDA_VISIBLE_DEVICES": "1",
+  "GPU": {
+    "logical device": "cuda:0",
+    "name": "NVIDIA L40"
+  },
+  "QAT SHA256": "f96911a1b3f4f9a8987a7fb57611aac2455b2b5c7b93c27db146d69d5013a8c8",
+  "VAL image": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/data/raw/advance_vision_human/valid/images/3dsense_2020_10_14__21_58_51_color_png_jpg.rf.3c78770d1d46d6b07735e4a544da6963.jpg",
+  "cases": {
+    "Detect.export only": {
+      "after": {
+        "enabled quantizer count": 184,
+        "model mode": "eval",
+        "quantizer count": 184,
+        "quantizers valid": true
+      },
+      "before": {
+        "enabled quantizer count": 184,
+        "model mode": "eval",
+        "quantizer count": 184,
+        "quantizers valid": true
+      },
+      "comparison": {
+        "cosine similarity": 1.0000001192092896,
+        "maximum absolute difference": 0.0,
+        "maximum allowed relative MAE": 0.01,
+        "mean absolute difference": 0.0,
+        "mean absolute reference magnitude": 128.37701416015625,
+        "relative MAE": 0.0,
+        "status": true
+      },
+      "restore": {
+        "loaded state entries": 1323,
+        "quantizer count": 184
+      }
+    },
+    "Detect.export plus prepare_for_export": {
+      "after": {
+        "enabled quantizer count": 184,
+        "model mode": "eval",
+        "quantizer count": 184,
+        "quantizers valid": true
+      },
+      "before": {
+        "enabled quantizer count": 184,
+        "model mode": "eval",
+        "quantizer count": 184,
+        "quantizers valid": true
+      },
+      "comparison": {
+        "cosine similarity": 1.0000001192092896,
+        "maximum absolute difference": 0.0,
+        "maximum allowed relative MAE": 0.01,
+        "mean absolute difference": 0.0,
+        "mean absolute reference magnitude": 128.37701416015625,
+        "relative MAE": 0.0,
+        "status": true
+      },
+      "restore": {
+        "loaded state entries": 1323,
+        "quantizer count": 184
+      }
+    },
+    "NNCF prepare_for_export only": {
+      "after": {
+        "enabled quantizer count": 184,
+        "model mode": "eval",
+        "quantizer count": 184,
+        "quantizers valid": true
+      },
+      "before": {
+        "enabled quantizer count": 184,
+        "model mode": "eval",
+        "quantizer count": 184,
+        "quantizers valid": true
+      },
+      "comparison": {
+        "cosine similarity": 1.0000001192092896,
+        "maximum absolute difference": 0.0,
+        "maximum allowed relative MAE": 0.01,
+        "mean absolute difference": 0.0,
+        "mean absolute reference magnitude": 128.37701416015625,
+        "relative MAE": 0.0,
+        "status": true
+      },
+      "restore": {
+        "loaded state entries": 1323,
+        "quantizer count": 184
+      }
+    },
+    "fresh normal control": {
+      "after": {
+        "enabled quantizer count": 184,
+        "model mode": "eval",
+        "quantizer count": 184,
+        "quantizers valid": true
+      },
+      "before": {
+        "enabled quantizer count": 184,
+        "model mode": "eval",
+        "quantizer count": 184,
+        "quantizers valid": true
+      },
+      "comparison": {
+        "cosine similarity": 1.0000001192092896,
+        "maximum absolute difference": 0.0,
+        "maximum allowed relative MAE": 0.01,
+        "mean absolute difference": 0.0,
+        "mean absolute reference magnitude": 128.37701416015625,
+        "relative MAE": 0.0,
+        "status": true
+      },
+      "restore": {
+        "loaded state entries": 1323,
+        "quantizer count": 184
+      }
+    }
+  },
+  "first divergent state": null,
+  "native reference": {
+    "output shape": [
+      1,
+      7,
+      8400
+    ],
+    "restore": {
+      "loaded state entries": 1323,
+      "quantizer count": 184
+    },
+    "state": {
+      "enabled quantizer count": 184,
+      "model mode": "eval",
+      "quantizer count": 184,
+      "quantizers valid": true
+    }
+  },
+  "next step": "A single-image ONNX/OpenVINO retry may be justified before any 32-VAL acceptance run.",
+  "not performed": [
+    "ONNX export",
+    "OpenVINO conversion or inference",
+    "CPU model transfer",
+    "PTQ or calibration",
+    "training",
+    "TEST loading"
+  ],
+  "preprocessing": "cv2 decode -> LetterBox(640, auto=False, stride=32) -> BGR to RGB -> NCHW float32 / 255",
+  "scope": "One deterministic VAL image; QAT CUDA forward only.",
+  "source FP32 checkpoint": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/checkpoints/fp32/best.pt",
+  "source QAT checkpoint": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/checkpoints/qat/qat_best.pt",
+  "status": "PASS: export-state operations preserve one representative native QAT forward.",
+  "timestamp": "2026-09-02T16:32:12.917887+00:00",
+  "versions": {
+    "Python": "3.11.2",
+    "nncf": "2.13.0",
+    "torch": "2.4.1+cu121",
+    "ultralytics": "8.4.130"
+  }
+}

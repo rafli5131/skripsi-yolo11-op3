@@ -1,0 +1,71 @@
+{
+  "evaluator_configuration": {
+    "augment": false,
+    "batch": 16,
+    "cache": false,
+    "conf": 0.001,
+    "conf_source": "Ultralytics detection validation default resolved from conf=None; not tuned on TEST",
+    "device": "0",
+    "fraction": 1.0,
+    "imgsz": 640,
+    "iou": 0.7,
+    "plots": true,
+    "rect": true,
+    "split": "test",
+    "workers": 2
+  },
+  "evaluator_return": {
+    "fitness": 0.77991,
+    "metrics/mAP50(B)": 0.96423,
+    "metrics/mAP50-95(B)": 0.77991,
+    "metrics/precision(B)": 0.93135,
+    "metrics/recall(B)": 0.95057,
+    "val/box_loss": 1.00699,
+    "val/cls_loss": 0.68821,
+    "val/dfl_loss": 1.17054
+  },
+  "fake_quant_calls": null,
+  "model": "FP32 PyTorch",
+  "overall": {
+    "F1": 0.9408610915046441,
+    "mAP50": 0.9642317504749923,
+    "mAP50-95": 0.7799081629168894,
+    "precision": 0.9313469051335113,
+    "recall": 0.9505716686969364
+  },
+  "per_class": {
+    "ball": {
+      "F1": 0.9800169509991293,
+      "mAP50": 0.9847619047619048,
+      "mAP50-95": 0.9129888910112578,
+      "precision": 0.9722085387628167,
+      "recall": 0.9879518072289156
+    },
+    "gawang": {
+      "F1": 0.8657195455005953,
+      "mAP50": 0.9233522694330923,
+      "mAP50-95": 0.568273217075351,
+      "precision": 0.8469513872455595,
+      "recall": 0.8853383458646616
+    },
+    "robot": {
+      "F1": 0.9766496060330314,
+      "mAP50": 0.9845810772299799,
+      "mAP50-95": 0.8584623806640591,
+      "precision": 0.9748807893921577,
+      "recall": 0.978424852997232
+    }
+  },
+  "test_annotations": 734,
+  "test_images": 592,
+  "timing": {
+    "label": "DIAGNOSTIC \u2014 NOT FINAL DEPLOYMENT BENCHMARK",
+    "unit": "milliseconds per image",
+    "values": {
+      "inference": 2.352011264175982,
+      "loss": 1.46358525789519,
+      "postprocess": 0.7715268922667649,
+      "preprocess": 0.4127906883966077
+    }
+  }
+}
