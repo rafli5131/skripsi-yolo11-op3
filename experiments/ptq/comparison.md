@@ -2,7 +2,6 @@
 
 > Metrik akurasi dan timing di bawah adalah hasil evaluasi diagnostik pada VAL. CPU utilization/RAM final harus diukur pada ROBOTIS OP3; timing host bukan benchmark deployment akhir.
 
-Status QAT OpenVINO: **REJECTED / diagnostic metrics displayed — not valid for deployment**
 
 | Metrik | FP32 OpenVINO | QAT INT8 | PTQ INT8 |
 |---|---:|---:|---:|
