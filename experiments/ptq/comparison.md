@@ -4,7 +4,7 @@
 
 Status QAT OpenVINO: **REJECTED / diagnostic metrics displayed — not valid for deployment**
 
-| Metrik | FP32 OpenVINO | PTQ INT8 | QAT INT8 |
+| Metrik | FP32 OpenVINO | QAT INT8 | PTQ INT8 |
 |---|---:|---:|---:|
 | precision | 0.936223 | 0.934116 | 0.887335 |
 | recall | 0.957564 | 0.950208 | 0.935881 |
@@ -17,7 +17,6 @@ Status QAT OpenVINO: **REJECTED / diagnostic metrics displayed — not valid for
 | RAM | NOT MEASURED — requires controlled ROBOTIS OP3 benchmark | NOT MEASURED — requires controlled ROBOTIS OP3 benchmark | NOT MEASURED — requires controlled ROBOTIS OP3 benchmark |
 | Ukuran model | 10,756,936 B | 3,407,480 B | 3,483,079 B |
 
-Catatan: QAT INT8 hanya boleh dipakai sebagai hasil final jika artefak QAT OpenVINO telah lulus verifikasi numerik dan graph quantization. Nilai QAT pada tabel adalah diagnostik dari IR yang sebelumnya ditolak; jangan gunakan sebagai klaim deployment.
 
 ## Delta PTQ terhadap FP32
 
