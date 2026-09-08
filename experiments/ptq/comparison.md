@@ -18,7 +18,7 @@ Status QAT OpenVINO: **REJECTED / diagnostic metrics displayed — not valid for
 | Ukuran model | 10,756,936 B | 3,407,480 B | 3,483,079 B |
 
 
-## Delta PTQ terhadap FP32
+## Delta QAT terhadap FP32
 
 | Metrik | Delta absolut | Delta relatif |
 |---|---:|---:|
