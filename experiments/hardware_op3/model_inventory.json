@@ -1,4 +1,5 @@
 {
+  "audit_source_commit": "7aab807631732a263c12db802759fdda11b9d130",
   "dataset_accuracy": {
     "fp32": {
       "F1": 0.9408610915046441,
@@ -147,5 +148,6 @@
     "The existing historical qat_int8 model is never eligible for benchmarking unless all QAT gate checks pass.",
     "PTQ metrics are not relabeled or used as QAT results.",
     "Dataset P/R/F1/mAP metrics are not derived from camera observations."
-  ]
+  ],
+  "worktree_dirty_at_audit": true
 }
