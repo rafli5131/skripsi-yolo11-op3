@@ -1,4 +1,5 @@
 {
+  "benchmark_source_commit": "7aab807631732a263c12db802759fdda11b9d130",
   "command": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/../.venv-op3-vision/bin/python scripts/benchmark_op3.py --mode camera --seconds 60 --camera-device /dev/video0 --model-kind fp32 --model-xml .cache/hardware_models/fp32/model.xml --device CPU",
   "cpu_model": "12th Gen Intel(R) Core(TM) i5-1240P",
   "detection_observations": {
@@ -289,5 +290,6 @@
   },
   "ros_distro": "jazzy",
   "system_ram_total_bytes": 7875018752,
-  "timestamp_utc": "2026-09-23T13:23:52.960657+00:00"
+  "timestamp_utc": "2026-09-23T13:23:52.960657+00:00",
+  "worktree_dirty_at_run": true
 }

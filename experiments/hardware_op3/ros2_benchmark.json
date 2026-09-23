@@ -1,5 +1,6 @@
 {
   "accuracy_metrics": "not computed; live camera frames have no ground truth",
+  "benchmark_source_commit": "7aab807631732a263c12db802759fdda11b9d130",
   "command": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/../.venv-op3-vision/bin/python scripts/benchmark_op3_ros2.py --model-kind fp32 --model-xml .cache/hardware_models/fp32/model.xml --seconds 60 --warmup 30 --camera-fps 30",
   "cpu_model": "12th Gen Intel(R) Core(TM) i5-1240P",
   "effective_end_to_end_fps": 24.22169637093031,
@@ -223,6 +224,7 @@
     }
   },
   "ros_distro": "jazzy",
+  "ros_package_source_commit": "d13a18e3ef661f6600663236deb8bbd94fa6f024",
   "setup": {
     "batch": 1,
     "benchmark_topic": "/vision/benchmark",
@@ -263,5 +265,6 @@
   },
   "stability": null,
   "system_ram_total_bytes": 7875018752,
-  "timestamp_utc": "2026-09-23T13:35:16.403078+00:00"
+  "timestamp_utc": "2026-09-23T13:35:16.403078+00:00",
+  "worktree_dirty_at_run": true
 }

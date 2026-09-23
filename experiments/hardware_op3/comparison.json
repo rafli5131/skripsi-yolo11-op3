@@ -1,4 +1,5 @@
 {
+  "benchmark_source_commit": "7aab807631732a263c12db802759fdda11b9d130",
   "dataset_test_accuracy": {
     "annotations": 734,
     "fp32": {
@@ -119,5 +120,7 @@
     "status": "BLOCKED: no validated QAT OpenVINO artifact",
     "status_line": "BLOCKED \u2014 QAT OpenVINO artifact has not passed export/equivalence validation"
   },
-  "timestamp_utc": "2026-09-23T13:47:44.967821+00:00"
+  "ros_package_source_commit": "d13a18e3ef661f6600663236deb8bbd94fa6f024",
+  "timestamp_utc": "2026-09-23T13:47:44.967821+00:00",
+  "worktree_dirty_at_measurement": true
 }
