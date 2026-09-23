@@ -10,6 +10,7 @@ or system Python development headers cannot be installed.
 
 from __future__ import annotations
 
+import json
 import os
 import sys
 from pathlib import Path
@@ -24,6 +25,7 @@ import tune_qat_best as tuner  # noqa: E402
 
 
 _original_child_code = tuner.child_code
+_original_annotate_manifest = tuner.annotate_manifest
 
 
 def _child_code_with_reference_backend(candidate, resume):
@@ -40,10 +42,24 @@ def _child_code_with_reference_backend(candidate, resume):
     return code.replace(marker, injected, 1)
 
 
+def _annotate_manifest_with_backend(manifest_path: Path, candidate) -> None:
+    _original_annotate_manifest(manifest_path, candidate)
+    payload = json.loads(manifest_path.read_text(encoding="utf-8"))
+    payload["NNCF quantization execution backend"] = "pure-pytorch-nncf-reference"
+    payload["NNCF native CUDA extension used"] = False
+    payload["nvcc required for this run"] = False
+    payload["QAT semantics"] = "NNCF fake quantization during training; not PTQ"
+    payload["backend verification"] = (
+        "scripts/verify_nncf_reference_quant.py performs numerical reference and CUDA autograd checks"
+    )
+    manifest_path.write_text(json.dumps(payload, indent=2, sort_keys=True, default=str) + "\n", encoding="utf-8")
+
+
 def main() -> int:
     # Make the experiment provenance explicit for subprocesses and logs.
     os.environ["NNCF_QAT_REFERENCE_BACKEND"] = "1"
     tuner.child_code = _child_code_with_reference_backend
+    tuner.annotate_manifest = _annotate_manifest_with_backend
     return tuner.main()
 
 
