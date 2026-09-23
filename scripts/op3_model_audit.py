@@ -11,6 +11,7 @@ from typing import Any
 
 EXPECTED_CLASSES = {"0": "ball", "1": "gawang", "2": "robot"}
 RELATIVE_MAE_LIMIT = 0.01
+PTQ_XML_RELATIVE_PATH = Path("experiments/ptq/backend_models/ptq_openvino_model/model.xml")
 
 
 def read_json(path: Path) -> dict[str, Any] | None:
@@ -148,4 +149,76 @@ def qat_validation_gate(root: Path) -> dict[str, Any]:
             )
             if not condition
         ],
+    }
+
+
+def ptq_validation_gate(root: Path, model_xml: Path | None = None) -> dict[str, Any]:
+    """Validate the repository's existing PTQ comparator without calibrating or exporting anything."""
+    manifest = read_json(root / "experiments/ptq/manifest.json") or {}
+    comparison = read_json(root / "experiments/ptq/comparison.json") or {}
+    fp32_manifest = read_json(root / "artifacts/checkpoints/fp32/manifest.json") or {}
+    fp32_pointer = lfs_pointer(root / "artifacts/checkpoints/fp32/best.pt")
+    artifact_record = manifest.get("PTQ artifact", {})
+    file_record = artifact_record.get("files", {}) if isinstance(artifact_record, dict) else {}
+    candidate = (model_xml or (root / PTQ_XML_RELATIVE_PATH)).expanduser().resolve()
+    candidate_bin = candidate.with_suffix(".bin")
+    reasons: list[str] = []
+
+    ptq_only = (
+        manifest.get("PTQ only") is True
+        and manifest.get("QAT checkpoint used") is False
+        and manifest.get("QAT training") is False
+        and manifest.get("TEST split loaded") is False
+        and "quantize=8" in str(manifest.get("PTQ API", ""))
+        and "calibration_dataset" in str(manifest.get("PTQ API", ""))
+    )
+    if not ptq_only:
+        reasons.append("existing PTQ manifest does not prove PTQ-only provenance or TEST/QAT isolation")
+
+    source_hash = manifest.get("source FP32 SHA256")
+    source_valid = bool(
+        fp32_manifest.get("status") in {"completed", "passed"}
+        and fp32_pointer
+        and fp32_pointer.get("sha256") == source_hash
+        and fp32_manifest.get("class_mapping") == EXPECTED_CLASSES
+    )
+    if not source_valid:
+        reasons.append("PTQ source FP32 checkpoint hash or class mapping is not confirmed")
+
+    models = comparison.get("models", {})
+    comparison_valid = models.get("PTQ INT8", {}).get("status") == "VALID comparator"
+    if not comparison_valid:
+        reasons.append("repository comparison does not mark this PTQ artifact as a valid comparator")
+
+    expected_xml_hash = file_record.get("XML SHA256")
+    expected_bin_hash = file_record.get("BIN SHA256")
+    xml_hash = sha256_file(candidate) if candidate.is_file() else None
+    bin_hash = sha256_file(candidate_bin) if candidate_bin.is_file() else None
+    hashes_valid = bool(
+        candidate.is_file()
+        and candidate_bin.is_file()
+        and xml_hash == expected_xml_hash
+        and bin_hash == expected_bin_hash
+        and candidate.stat().st_size == file_record.get("XML bytes")
+        and candidate_bin.stat().st_size == file_record.get("BIN bytes")
+    )
+    if not hashes_valid:
+        reasons.append("PTQ IR XML/BIN is missing or SHA256/size does not match the PTQ manifest")
+
+    accepted = bool(ptq_only and source_valid and comparison_valid and hashes_valid)
+    return {
+        "accepted": accepted,
+        "status": "VALID EXISTING PTQ INT8 COMPARATOR" if accepted else "BLOCKED: PTQ provenance/hash gate failed",
+        "model_xml": str(candidate),
+        "xml_sha256": xml_hash,
+        "bin_sha256": bin_hash,
+        "ptq_only_provenance": ptq_only,
+        "qat_checkpoint_used": manifest.get("QAT checkpoint used"),
+        "test_split_loaded": manifest.get("TEST split loaded"),
+        "source_fp32_sha256": source_hash,
+        "source_checkpoint_valid": source_valid,
+        "comparison_status": models.get("PTQ INT8", {}).get("status"),
+        "artifact_hashes_match_manifest": hashes_valid,
+        "calibration_performed_during_benchmark": False,
+        "reasons": reasons,
     }

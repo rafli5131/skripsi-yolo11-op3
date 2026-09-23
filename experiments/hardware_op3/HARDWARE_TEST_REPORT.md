@@ -1,186 +1,196 @@
 # OP3 Hardware Test Report
 
+Updated 2026-09-23 with additional native PyTorch FP32 and existing PTQ INT8 runs. All measurements below are actual runs on the currently connected OP3 host. The host identity differs from the thesis target NUC11, so these results must be identified as NUC12 measurements.
+
 ## 1. Hardware
 
-Measurements were run on the currently connected host `humanoid-NUC12WSHi5`, which reports a 12th Gen Intel Core i5-1240P, 12 physical cores / 16 logical threads, and 7.33 GiB RAM. It exposes AVX, AVX2, and AVX-VNNI; AVX-512 is unavailable. Ubuntu 24.04.5 LTS and kernel 7.0.0-31-generic were detected. The configured target in the thesis is an Intel NUC11PAHi5; the connected host is a NUC12WSHi5, so these figures do **not** certify performance on the specified NUC11 configuration.
+The connected host is `humanoid-NUC12WSHi5`, with a 12th Gen Intel Core i5-1240P (12 cores, 16 logical CPUs), 7.33 GiB RAM, Ubuntu 24.04.5 LTS, and kernel 7.0.0-31-generic. CPU features include AVX, AVX2, and AVX-VNNI; AVX-512 is unavailable. The thesis target is Intel NUC11PAHi5, so this run does not establish NUC11 performance.
 
-The attached Logitech HD Pro Webcam C920 was identified by `v4l2-ctl` and `lsusb`. `/dev/video0` returned camera frames (640 x 480); `/dev/video1` was also enumerated but was not selected. Thermal-zone readings were available without `sudo`; `sensors` was not installed.
+The Logitech HD Pro Webcam C920 is `/dev/video0` (640 x 480, YUYV); `/dev/video1` is the second enumerated interface and was not selected. Camera observations have no ground truth.
 
 ## 2. Software
 
 | Component | Observed |
 | --- | --- |
-| OS | Ubuntu 24.04.5 LTS |
-| ROS 2 | Jazzy (`ROS_DISTRO=jazzy`; topics/nodes callable) |
-| Python runtime | 3.12.3 in `/home/humanoid/ros2_jazzy/.venv-op3-vision` |
-| OpenVINO runtime | 2026.3.1; available device `CPU` |
-| OpenCV / camera | V4L2 capture succeeded on `/dev/video0` |
-| Inference target | OpenVINO CPU, batch 1, 640 x 640 |
+| ROS 2 | Jazzy; workspace camera and detector launch succeeded |
+| OpenVINO | 2026.3.1; CPU device compiled and inferred successfully |
+| Native inference | Python 3.12.3, PyTorch 2.4.1+cpu, torchvision 0.19.1+cpu, Ultralytics 8.4.130 |
+| Native inference support | NumPy 1.26.4, OpenCV 4.6.0, psutil; no OpenVINO in the native PyTorch run |
+| Camera | C920 `/dev/video0`, V4L2/OpenCV and ROS `usb_cam` |
+| Input / batch | 640 x 640 model input, batch 1, CPU only |
 
-The repository's pinned runtime is OpenVINO 2024.4 and its project metadata requires Python below 3.12. The measurements use the already-installed ROS workspace virtual environment instead (Python 3.12.3 / OpenVINO 2026.3.1); repeat with the pinned stack before treating these measurements as directly comparable to a pinned-runtime experiment. No NVIDIA device was selected or used.
+The repository's main project metadata pins Python below 3.12 and OpenVINO 2024.4. The connected ROS runtime is Python 3.12.3 / OpenVINO 2026.3.1. The native PyTorch CPU packages were installed into the ignored `.cache/hardware_models/pytorch_venv`; the system NumPy/OpenCV/psutil packages were reused. No system package or model training was changed. No NVIDIA device was used.
 
 ## 3. Model provenance
 
-The tested deployment model was the repository's **YOLO11n FP32 OpenVINO IR**. The checkpoint is `artifacts/checkpoints/fp32/best.pt` (5,481,875 bytes; SHA256 `e05b2b21f7faa68f65671f0aaae37ad962aa5e25c6b8b26853fd0b389d420b8c`). Its manifest says `completed`, its class mapping is `0: ball`, `1: gawang`, `2: robot`, and the FP32 export provenance agrees with the repository's validation manifest. XML and BIN were hydrated from Git LFS into the ignored `.cache` directory; both runtime files match their Git LFS object IDs:
+The class map in every audited model is `0: ball`, `1: gawang`, `2: robot`.
 
-| File | Size | SHA256 |
-| --- | ---: | --- |
-| `model.xml` | 324,944 bytes | `233bb872e218ab3bf525188b0e105eea9f2a79e60ffecb4b767e63939ba257e7` |
-| `model.bin` | 10,431,992 bytes | `e85f45438b5f7c8858b1a168a03f61b12a73b8159391529d19b84e09ff854026` |
+| Model | Artifact and SHA256 | Provenance / disposition |
+| --- | --- | --- |
+| YOLO11n FP32 native PyTorch | `artifacts/checkpoints/fp32/best.pt`, 5,481,875 bytes; `e05b2b21f7faa68f65671f0aaae37ad962aa5e25c6b8b26853fd0b389d420b8c` | Frozen checkpoint; LFS OID, completed manifest, class map, and export provenance agree. Loaded directly with Ultralytics on CPU; no OpenVINO conversion in this run. |
+| YOLO11n FP32 OpenVINO | XML `233bb872e218ab3bf525188b0e105eea9f2a79e60ffecb4b767e63939ba257e7`; BIN `e85f45438b5f7c8858b1a168a03f61b12a73b8159391529d19b84e09ff854026` | Previously audited export of the frozen FP32 checkpoint; valid comparator. |
+| YOLO11n PTQ INT8 OpenVINO | XML `10cb9dfa3539650a0bc46d60ad708f9ff79fc1e2dc79c5ac4a73ff4943326657`; BIN `82246726edcd780685657f673caa2b40719a8c22b67e3702ca3d1f226b8fcf81` | Existing artifact only. Manifest records `quantize=8` with a calibration dataset, no QAT checkpoint/training, and no TEST split. XML/BIN hash and size match the manifest and the repository labels it `VALID comparator`. No new PTQ export or calibration was performed for these hardware runs. |
+| YOLO11n true QAT OpenVINO INT8 | Historical `artifacts/openvino/qat_int8/` candidate | **BLOCKED: no validated QAT OpenVINO artifact.** True-QAT checkpoint provenance exists, but selection acceptance and numerical-equivalence evidence do not. This candidate was not loaded or benchmarked. |
 
-The true-QAT checkpoint `artifacts/checkpoints/qat/qat_best.pt` is confirmed as NNCF QAT from its manifest (`create_compressed_model`), checkpoint hash, and matching LFS OID (SHA256 `f96911a1b3f4f9a8987a7fb57611aac2455b2b5c7b93c27db146d69d5013a8c8`). It was not deployed as OpenVINO. The required selection manifest is absent, and the available QAT export/equivalence diagnostics are rejected, unresolved, or stopped. The historical `artifacts/openvino/qat_int8/model.xml` is therefore not loaded or benchmarked.
-
-**BLOCKED: no validated QAT OpenVINO artifact.** The QAT INT8 artifact cannot be called valid because there is no accepted selection evidence and no accepted numerical-equivalence report for the export. No QAT OpenVINO hardware result is reported. No training, fine-tuning, PTQ, or calibration was performed.
+Full gates and hashes are recorded in `model_inventory.json`. The benchmark scripts refuse a QAT run unless the selection and accepted equivalence gates pass.
 
 ## 4. Experimental setup
 
-Standalone tests used CPU, batch 1, 640 x 640, 30 warmup inferences, and 300 measured inferences for the synthetic run. Model load and compilation are excluded from latency. Camera and ROS tests ran with visualization/debug-image publishing disabled. The standalone C920 test lasted 60 seconds. ROS benchmarking discarded 30 warmup callbacks; the stability test ran for 600.03 seconds after those warmups. Timing uses `time.perf_counter_ns()` and raw event/resource samples are retained as CSV.
+Standalone synthetic tests used 30 warmups and 300 measured iterations. Each direct-camera run used 30 warmups and a 60-second timed window. ROS 2 comparator runs used 30 warmup callbacks and a 60-second window. Resource samples were taken approximately every 0.2 seconds. Model load, OpenVINO compile, warmups, and evidence rendering are excluded from timed measurements. Camera dropped frames are not directly countable through the selected V4L2/OpenCV interface; ROS drop counts are estimates from configured 30 FPS.
 
-The benchmark scripts record the checked-out HEAD at measurement time (`c5fe60711f615e71aa73f54586d8b16ffac96122`), hostname, CPU, RAM, Python/OpenVINO/ROS versions, model SHA256, command, device, resolution, batch, warmup count, and iteration/duration. The benchmark scripts were uncommitted while measurements ran; their measured source is now committed in the thesis repository at `7aab807631732a263c12db802759fdda11b9d130`, and the ROS node/launch integration is committed in the workspace repository at `d13a18e3ef661f6600663236deb8bbd94fa6f024`. Result JSON distinguishes the measurement-time HEAD from those source commits and marks the worktree dirty. Process CPU is psutil's aggregate across cores (100% equals one logical core), so values above 100% indicate multicore use. Resource sampling interval was 0.2 seconds. The host also had other ROS workspace activity; system CPU is provided to show concurrent system load.
+Process CPU is aggregate across cores: 100% means one logical core, so values above 100% represent multicore use. Raw per-iteration and resource CSVs are retained. The additional runs were measured at repository HEAD `33b0b3b5ac395497e111bccdbec1d4eef0c5346e` with the benchmark additions present as uncommitted source at measurement time; source scripts and their measurement-time SHA256 values are identified in the JSON outputs. The source changes are included in the final commit.
 
-## 5. Standalone benchmark
+## 5. Standalone synthetic benchmark
 
-The 300-iteration synthetic run compiled the model on CPU and successfully inferred finite output with input `[1, 3, 640, 640]` (`f32`) and output `[1, 7, 8400]` (`f32`). The model's mean inference latency was 28.491 ms (P95 30.350 ms), corresponding to 35.10 inference FPS. Including the measured preprocessing and postprocessing stage sum, mean latency was 30.433 ms and effective loop throughput was 32.77 FPS.
+| Model | Mean inference / P95 (ms) | Mean pipeline / loop (ms) | Inference FPS | Effective FPS | Process CPU mean / P95 | RSS mean / peak (MiB) |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| FP32 OpenVINO | 28.491 / 30.350 | 30.504 | 35.10 | 32.77 | 873.5% / 901.3% | 227.5 / 227.6 |
+| FP32 native PyTorch (no OpenVINO) | 49.484 / 53.527 | 51.651 | 20.21 | 19.35 | 800.2% / 804.8% | 360.6 / 377.2 |
+| Existing PTQ INT8 OpenVINO | 11.276 / 11.616 | 13.041 | 88.69 | 76.60 | 340.4% / 343.8% | 215.9 / 216.0 |
 
-| Measurement | Inference latency mean / P95 | Effective FPS | Process CPU mean / P95 | Process RSS mean / peak |
-| --- | ---: | ---: | ---: | ---: |
-| Synthetic, 300 inferences | 28.491 / 30.350 ms | 32.77 | 873.5% / 901.3% | 227.5 / 227.6 MiB |
-
-Raw timings and 0.2-second resource samples: `benchmark_fp32.csv` and `resources_fp32.csv`; metadata and summaries: `benchmark_fp32.json`.
+The pipeline column is mean measured loop wall time for each engine. OpenVINO stage sums are also retained in each JSON file; they differ from loop wall time by small host/script overhead. FPS is computed from 300 completed iterations and is kept separate from the inverse mean inference latency. Outputs were finite and all three class IDs were checked against the expected mapping. Raw measurements: `benchmark_fp32.csv`, `benchmark_fp32_pytorch.csv`, and `benchmark_ptq_int8.csv`; resource CSVs use the corresponding `resources_*.csv` names.
 
 ## 6. Camera benchmark
 
-The standalone pipeline captured and processed 1,273 frames in 60.04 seconds. The camera source did not expose sequence numbers through this OpenCV/V4L2 path, so camera-side dropped frames cannot be counted reliably. Mean stage times were capture 7.837 ms, preprocessing 1.770 ms, inference 37.067 ms, and postprocessing 0.393 ms. The sum of those stages averaged 47.067 ms; observed effective throughput was 21.20 frames/s. Inference-only throughput was 26.98 FPS. The final observed frame contained a `ball` detection at confidence 0.938; this is a functional observation, not an accuracy measurement.
+| Model | Frames / duration | Mean inference / P95 (ms) | Mean pipeline wall (ms) | Inference FPS | Effective FPS | Process CPU mean / P95 | RSS mean / peak (MiB) |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| FP32 OpenVINO | 1,273 / 60.04 s | 37.067 / 60.078 | 47.145 | 26.98 | 21.20 | 716.2% / 818.2% | 229.1 / 229.8 |
+| FP32 native PyTorch (no OpenVINO) | 1,195 / 60.01 s | 39.502 / 44.674 | 50.179 | 25.32 | 19.91 | 719.7% / 781.1% | 358.0 / 373.6 |
+| Existing PTQ INT8 OpenVINO | 1,442 / 60.01 s | 12.377 / 15.076 | 41.597 | 80.79 | 24.03 | 128.4% / 154.2% | 217.8 / 218.5 |
 
-| Measurement | Inference latency mean / P95 | Effective FPS | Process CPU mean / P95 | Process RSS mean / peak |
-| --- | ---: | ---: | ---: | ---: |
-| C920 standalone, 60 s | 37.067 / 60.078 ms | 21.20 | 716.2% / 818.2% | 229.2 / 229.8 MiB |
-
-Raw timings and resource samples: `camera_benchmark.csv` and `resources_camera_benchmark.csv`; metadata: `camera_benchmark.json`.
+The direct-camera FPS is completed frames divided by the actual timed window. The V4L2 path has no source sequence counter, so dropped frames are unknown. Live detections are functional observations only and are not precision/recall measurements.
 
 ## 7. ROS 2 benchmark
 
-The existing `op3_advanced_detector` package was extended with a CPU-only YOLO11 OpenVINO node and launch files. The node subscribes to `/image_raw`, publishes `vision_msgs/Detection2DArray` on `/vision/detections`, and publishes timing telemetry on `/vision/benchmark`. Each detection carries its numeric ID and canonical class name as `class_id` (`0:ball`, `1:gawang`, `2:robot`) plus confidence and bounding box. Optional `/vision/debug_image` publishing is controlled by `publish_debug_image` and defaults to false. Parameters include model path, confidence threshold, IoU threshold, input topic, device, image size, and debug publishing.
+The existing Jazzy `usb_cam` + `yolo11_openvino_node` launch was run with debug image publication disabled, CPU device, and the same C920. Both valid OpenVINO artifacts loaded; the node logged `/image_raw` input and `/vision/detections` output. The benchmark subscriber records `/vision/benchmark` callback messages.
 
-The ROS package integration is committed locally in the workspace repository at `d13a18e3ef661f6600663236deb8bbd94fa6f024`; unrelated pre-existing workspace edits were left unstaged. The thesis repository commit contains the audit, benchmark, comparison, and report artifacts.
+| Model | Frames / duration | Mean inference / P95 (ms) | Callback latency mean / P95 (ms) | Effective FPS | Process CPU mean / P95 | RSS mean / peak (MiB) | Exceptions |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| FP32 OpenVINO | 1,454 / 60.03 s | 31.234 / 54.827 | 33.828 / 59.505 | 24.22 | 705.1% / 863.9% | 262.2 / 262.2 | 0 |
+| Existing PTQ INT8 OpenVINO | 776 / 60.01 s | 11.865 / 12.971 | 16.718 / 19.823 | 12.93 | 75.4% / 158.8% | 241.5 / 249.1 | 0 |
 
-The package built into the workspace install and the C920 launch was exercised. A 60.03-second run processed 1,454 measured frames with zero exceptions. Mean inference latency was 31.234 ms (P95 54.827 ms); callback latency was 33.828 ms (P95 59.505 ms); effective end-to-end throughput was 24.22 FPS. The node published detections on the requested topic. The ROS benchmark estimated 347 dropped frames against the camera's configured 30 FPS; this is an estimate based on configured source FPS and callback count, not a camera sequence-number count.
-
-| Measurement | Inference latency mean / P95 | Callback latency mean / P95 | Effective FPS | Process CPU mean / P95 | Process RSS mean / peak |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| C920 ROS 2, 60 s | 31.234 / 54.827 ms | 33.828 / 59.505 ms | 24.22 | 705.1% / 863.9% | 262.2 / 262.2 MiB |
-
-Raw timings and resource samples: `ros2_benchmark.csv` and `resources_ros2_benchmark.csv`; metadata: `ros2_benchmark.json`.
+The PTQ callback run observed an estimated 1,024 fewer callbacks than `30 FPS x 60 s`; that figure is an estimate, not camera-side ground truth. Image timestamps had a 36.0 ms median gap and a 77.2 ms mean gap, with a 236 ms P95 gap. Therefore the PTQ ROS throughput is reported as observed and should not be inferred from the 11.9 ms model inference time alone. The camera-to-node path and DDS scheduling limited completed callbacks in this run. Native PyTorch was benchmarked standalone with the live camera; the existing ROS detector node accepts OpenVINO IR, so no native PyTorch ROS node was added.
 
 ## 8. CPU utilization
 
-During standalone synthetic inference, process CPU averaged 873.5% (P95 901.3%). During direct camera inference it averaged 716.2% (P95 818.2%). The 60-second ROS run averaged 705.1% process CPU (P95 863.9%); system CPU averaged 46.8%. The stability run averaged 705.4% process CPU (P95 857.3%); system CPU averaged 47.2%. These process percentages are aggregate multicore use, not a percentage of the whole 16-thread host. The ROS process could consume roughly seven logical cores on average in the measured camera workloads.
+CPU was sampled throughout each run, not read once. The synthetic native PyTorch benchmark averaged 800.2% process CPU and the PTQ OpenVINO benchmark averaged 340.4%; camera runs averaged 719.7% and 128.4% respectively. ROS PTQ averaged 75.4% process CPU. System CPU and per-core samples are retained in the corresponding resource CSVs and JSON summaries. Values can vary with the active robot ROS processes and host power state.
 
 ## 9. RAM utilization
 
-The synthetic benchmark process used a mean 227.5 MiB RSS and a 227.6 MiB peak. The direct camera run used 229.2 MiB mean and 229.8 MiB peak. ROS averaged 262.2 MiB, peaking at 262.2 MiB during the 60-second run and 262.4 MiB during the stability run. System memory use averaged 62.3% during stability. RSS remained effectively flat during the 10-minute test; the measured first-to-last sample increase was 28,672 bytes (0.0104%).
+Peak process RSS was 377.2 MiB for native PyTorch synthetic inference, 373.6 MiB for its camera run, and 249.1 MiB for PTQ INT8 in the ROS node. Corresponding means and full sample distributions appear in benchmark JSON and raw resource CSVs. These are process RSS measurements; live camera observations are not model accuracy results.
 
 ## 10. Stability
 
-The camera-backed ROS node completed 600.03 seconds with 14,455 successfully processed measured frames, 30 warmup callbacks, and zero callback exceptions. Effective throughput was 24.09 FPS. Mean inference latency was 31.497 ms (P95 55.022 ms), and mean callback latency was 34.213 ms (P95 59.226 ms). Peak sampled thermal-zone temperature was 76 °C, below the 90 °C abort threshold. The estimated camera frame shortfall was 3,546 against configured 30 FPS; it is an estimate rather than a sequence-number count. RSS increased by 28.7 kB from first to last sample, with no material memory growth observed during this run.
-
-Raw callbacks and resource samples: `stability_test.csv` and `resources_stability_test.csv`; metadata: `stability_test.json`.
+The previously completed 10-minute C920 + ROS 2 stability test applies to FP32 OpenVINO only: 600.03 seconds, 14,455 processed frames, 24.09 effective FPS, zero recorded exceptions, peak RSS 262.4 MiB, and RSS growth of 28,672 bytes (0.0104%). Peak sampled thermal zone was 76 °C, below the runner's 90 °C abort threshold. No 10-minute stability claim is made for native PyTorch or PTQ; their camera runs were 60 seconds.
 
 ## 11. Limitations
 
-- The connected host reports NUC12WSHi5 / i5-1240P, not the specified NUC11PAHi5. Hardware numbers must be re-measured on the intended NUC11 before claiming OP3 NUC11 performance.
-- Runtime Python/OpenVINO versions differ from the repository pins, as described above.
-- Direct camera dropped-frame counts are unavailable through the selected V4L2/OpenCV capture interface; ROS dropped-frame figures are estimates based on the configured 30 FPS.
-- Concurrent processes in the ROS workspace were active during measurements. The system CPU and process CPU records are retained to contextualize load.
-- Camera observations have no labels and were not used for precision, recall, F1, or mAP.
-- QAT OpenVINO remains blocked by missing checkpoint-selection acceptance and missing accepted numerical-equivalence evidence. Only the valid FP32 OpenVINO artifact was used for deployment benchmarks.
-- `ros2 --version` is not supported by the installed Jazzy CLI. ROS distro, nodes, topics, imports, launch, and publication were verified independently.
+- Hardware measurements are from NUC12WSHi5 / i5-1240P, not the specified NUC11PAHi5.
+- The runtime differs from repository pins: Python 3.12.3 and OpenVINO 2026.3.1 were used on this host.
+- The PTQ artifact is a valid existing comparator, not QAT. PTQ TEST accuracy is unavailable; existing dataset results are VAL diagnostics only.
+- Live camera images have no ground truth. Camera detection count/confidence is not P, R, F1, or mAP.
+- Direct V4L2 camera dropped frames are unknown. ROS camera dropped-frame counts are estimates from the configured 30 FPS and callback count.
+- ROS 2 testing measured the existing OpenVINO node. Native PyTorch was tested using standalone live-camera inference, not a ROS PyTorch node.
+- Only FP32 OpenVINO has a completed 10-minute stability run.
+- QAT OpenVINO remains blocked pending accepted checkpoint-selection and numerical-equivalence evidence.
 
 ## 12. Final results
 
-Dataset accuracy comes only from the repository's existing held-out TEST evaluation (`experiments/final_test/`). These values are separate from live hardware observations:
+Dataset accuracy and OP3 hardware performance are reported separately. Existing results from the same VAL split:
 
-| Model/evaluation artifact | Precision | Recall | F1 | mAP@0.5 | mAP@0.5:0.95 |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| YOLO11n FP32, TEST | 0.93135 | 0.95057 | 0.94086 | 0.96423 | 0.77991 |
-| YOLO11n true QAT native PyTorch, TEST | 0.85415 | 0.93752 | 0.89390 | 0.95119 | 0.65670 |
+| Evaluated model | Split | Precision | Recall | F1 | mAP@0.5 | mAP@0.5:0.95 | Source |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | --- |
+| FP32 OpenVINO comparator | VAL | 0.93622 | 0.95756 | 0.94677 | 0.97297 | 0.77134 | `experiments/ptq/fp32_openvino_val_metrics.json` |
+| Existing PTQ INT8 OpenVINO comparator | VAL | 0.93412 | 0.95021 | 0.94209 | 0.97215 | 0.76718 | `experiments/ptq/ptq_val_metrics.json` |
 
-Hardware performance for the valid deployed FP32 OpenVINO model:
+Existing held-out TEST results, kept separate from VAL diagnostics:
 
-| Context | Inference latency mean / P95 | End-to-end FPS | Process CPU mean | Process RSS peak |
-| --- | ---: | ---: | ---: | ---: |
-| Synthetic standalone | 28.491 / 30.350 ms | 32.77 | 873.5% | 227.6 MiB |
-| C920 standalone | 37.067 / 60.078 ms | 21.20 | 716.2% | 229.8 MiB |
-| C920 through ROS 2 (60 s) | 31.234 / 54.827 ms | 24.22 | 705.1% | 262.2 MiB |
-| C920 through ROS 2 (600 s) | 31.497 / 55.022 ms | 24.09 | 705.4% | 262.4 MiB |
+| Model checkpoint | Split | Precision | Recall | F1 | mAP@0.5 | mAP@0.5:0.95 | Source |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | --- |
+| FP32 PyTorch checkpoint | TEST | 0.93135 | 0.95057 | 0.94086 | 0.96423 | 0.77991 | `experiments/final_test/fp32_test_metrics.json` |
+| True QAT native PyTorch checkpoint | TEST | 0.85415 | 0.93752 | 0.89390 | 0.95119 | 0.65670 | `experiments/final_test/qat_test_metrics.json` |
 
-No QAT OpenVINO latency, FPS, CPU, or RAM value is available or inferred. The artifact status remains **BLOCKED — QAT OpenVINO artifact has not passed export/equivalence validation**.
+The PTQ INT8 hardware rows do not inherit TEST accuracy from FP32 or QAT. The valid PTQ result is the existing VAL comparator above. There is no accepted QAT OpenVINO hardware row.
+
+| Hardware model | Context | Inference mean / P95 (ms) | Effective FPS | Process CPU mean | RSS peak |
+| --- | --- | ---: | ---: | ---: | ---: |
+| FP32 OpenVINO | Synthetic | 28.491 / 30.350 | 32.77 | 873.5% | 227.6 MiB |
+| FP32 native PyTorch | Synthetic | 49.484 / 53.527 | 19.35 | 800.2% | 377.2 MiB |
+| PTQ INT8 OpenVINO | Synthetic | 11.276 / 11.616 | 76.60 | 340.4% | 216.0 MiB |
+| FP32 OpenVINO | C920 direct | 37.067 / 60.078 | 21.20 | 716.2% | 229.8 MiB |
+| FP32 native PyTorch | C920 direct | 39.502 / 44.674 | 19.91 | 719.7% | 373.6 MiB |
+| PTQ INT8 OpenVINO | C920 direct | 12.377 / 15.076 | 24.03 | 128.4% | 218.5 MiB |
+| FP32 OpenVINO | C920 ROS 2 | 31.234 / 54.827 | 24.22 | 705.1% | 262.2 MiB |
+| PTQ INT8 OpenVINO | C920 ROS 2 | 11.865 / 12.971 | 12.93 | 75.4% | 249.1 MiB |
+
+QAT OpenVINO latency, FPS, CPU, and RAM are intentionally absent because its deployment export has not passed validation.
 
 ## 13. Reproduction commands
 
-Run from the thesis repository root. First hydrate the validated FP32 IR (Git LFS is preferred; direct media URLs are included for this host because the Git LFS client was unavailable):
+Run from the thesis repository root. The FP32 checkpoint is tracked through Git LFS; download its exact object into the ignored runtime cache and verify the frozen SHA before inference:
 
 ```bash
-mkdir -p .cache/hardware_models/fp32
-curl -fL https://media.githubusercontent.com/media/rafli5131/skripsi-yolo11-op3/main/artifacts/openvino/fp32/model.xml -o .cache/hardware_models/fp32/model.xml
-curl -fL https://media.githubusercontent.com/media/rafli5131/skripsi-yolo11-op3/main/artifacts/openvino/fp32/model.bin -o .cache/hardware_models/fp32/model.bin
-sha256sum .cache/hardware_models/fp32/model.xml .cache/hardware_models/fp32/model.bin
+mkdir -p .cache/hardware_models/fp32_pytorch
+curl -fL https://media.githubusercontent.com/media/rafli5131/skripsi-yolo11-op3/main/artifacts/checkpoints/fp32/best.pt -o .cache/hardware_models/fp32_pytorch/best.pt
+sha256sum .cache/hardware_models/fp32_pytorch/best.pt
 ```
 
-The two hashes must match the values in section 3. Activate the same runtime and workspace overlays used for the ROS test:
+The SHA must equal `e05b2b21f7faa68f65671f0aaae37ad962aa5e25c6b8b26853fd0b389d420b8c`. Create/use a CPU PyTorch runtime; the tested environment used Torch 2.4.1+cpu, torchvision 0.19.1+cpu, and Ultralytics 8.4.130:
+
+```bash
+python3 -m venv --system-site-packages .cache/hardware_models/pytorch_venv
+.cache/hardware_models/pytorch_venv/bin/python -m pip install --no-deps --index-url https://download.pytorch.org/whl/cpu 'torch==2.4.1+cpu' 'torchvision==0.19.1+cpu'
+.cache/hardware_models/pytorch_venv/bin/python -m pip install --no-deps 'ultralytics==8.4.130' 'filelock>=3.12'
+.cache/hardware_models/pytorch_venv/bin/python scripts/benchmark_op3_pytorch.py --mode synthetic --device cpu --warmup 30 --iterations 300
+.cache/hardware_models/pytorch_venv/bin/python scripts/benchmark_op3_pytorch.py --mode camera --seconds 60 --camera-device /dev/video0 --device cpu --warmup 30
+```
+
+For OpenVINO, use the installed ROS virtual environment and the repository's existing model artifacts:
 
 ```bash
 source /opt/ros/jazzy/setup.bash
 source /home/humanoid/ros2_jazzy/install/setup.bash
 source /home/humanoid/ros2_jazzy/.venv-op3-vision/bin/activate
-```
-
-Synthetic standalone benchmark (30 warmups, 300 measured iterations):
-
-```bash
 python scripts/benchmark_op3.py --model-kind fp32 --model-xml .cache/hardware_models/fp32/model.xml --device CPU --warmup 30 --iterations 300
+python scripts/benchmark_op3.py --mode camera --seconds 60 --camera-device /dev/video0 --model-kind fp32 --model-xml .cache/hardware_models/fp32/model.xml --device CPU --warmup 30
+python scripts/benchmark_op3.py --model-kind ptq_int8 --device CPU --warmup 30 --iterations 300
+python scripts/benchmark_op3.py --mode camera --seconds 60 --camera-device /dev/video0 --model-kind ptq_int8 --device CPU --warmup 30 --result-stem camera_benchmark_ptq_int8
 ```
 
-Standalone camera benchmark (visualization remains off):
+The PTQ ROS 2 run used the existing launch and comparator path:
 
 ```bash
-python scripts/benchmark_op3.py --mode camera --seconds 60 --camera-device /dev/video0 --model-kind fp32 --model-xml .cache/hardware_models/fp32/model.xml --device CPU
+ros2 launch op3_advanced_detector yolo11_openvino_camera.launch.py model_path:=/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/experiments/ptq/backend_models/ptq_openvino_model/model.xml video_device:=/dev/video0 input_topic:=/image_raw python_prefix:=/home/humanoid/ros2_jazzy/.venv-op3-vision/bin/python publish_debug_image:=false
+python scripts/benchmark_op3_ros2.py --model-kind ptq_int8 --model-xml experiments/ptq/backend_models/ptq_openvino_model/model.xml --seconds 60 --warmup 30 --camera-fps 30 --result-stem ros2_benchmark_ptq_int8
 ```
 
-In a separate terminal, start ROS camera and detector, then measure the node from the first terminal:
+For FP32 OpenVINO ROS 2 and stability reproduction, use the same launch arguments with `.cache/hardware_models/fp32/model.xml`, then run:
 
 ```bash
-ros2 launch op3_advanced_detector yolo11_openvino_camera.launch.py model_path:=/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/.cache/hardware_models/fp32/model.xml video_device:=/dev/video0 input_topic:=/image_raw python_prefix:=/home/humanoid/ros2_jazzy/.venv-op3-vision/bin/python publish_debug_image:=false
-python scripts/benchmark_op3_ros2.py --model-kind fp32 --model-xml .cache/hardware_models/fp32/model.xml --seconds 60 --warmup 30 --camera-fps 30
-```
-
-For the 10-minute stability run, use the same launch and replace the monitor command with:
-
-```bash
+python scripts/benchmark_op3_ros2.py --model-kind fp32 --model-xml .cache/hardware_models/fp32/model.xml --seconds 60 --warmup 30 --camera-fps 30 --result-stem ros2_benchmark
 python scripts/benchmark_op3_ros2.py --model-kind fp32 --model-xml .cache/hardware_models/fp32/model.xml --seconds 600 --warmup 30 --camera-fps 30 --result-stem stability_test
 ```
 
-Hardware audit and model provenance gate:
+Evidence and provenance commands:
 
 ```bash
+python scripts/capture_op3_evidence.py --model-kind ptq_int8 --camera-device /dev/video0 --capture-seconds 15
 python scripts/audit_hardware_op3.py
 python scripts/audit_op3_models.py
 ```
 
-The QAT benchmark runner intentionally exits with `BLOCKED: no validated QAT OpenVINO artifact` until the repository contains accepted selected-checkpoint provenance and accepted numerical-equivalence evidence.
+The QAT runner remains intentionally blocked until accepted QAT selection and numerical-equivalence evidence are present.
 
 ## 14. Visual evidence
 
-The detection image is a real C920 frame processed by the audited FP32 OpenVINO model on the CPU at capture time. In an 8.24-second capture window, 223 frames were inferred; the selected frame shows model predictions `ball` (confidence 0.915) and `robot` (0.834). Its side panel records capture-window process CPU (mean 744.2%, P95 850.4%) and RSS (mean 255.1 MiB, peak 256.2 MiB), sampled every 0.2 seconds. These live predictions are functional evidence, not ground-truth accuracy measurements.
+The two new detection cards below are selected real C920 frames. The images show predicted class and confidence; their adjacent resource cards are rendered from the actual sampled CPU/RAM rows. Neither image is a dataset accuracy evaluation.
 
-![Live camera detections with capture-time resource samples](evidence/live_detection_evidence.png)
+![Live camera detection from native PyTorch FP32](evidence/live_detection_fp32_pytorch.png)
 
-The resource plot summarizes the actual 10-minute ROS 2 stability run. Each plotted point is a five-second mean from the original 0.2-second resource samples; the complete unaggregated samples remain available as CSV.
+![Camera-run CPU and RSS samples from native PyTorch FP32](evidence/resource_utilization_camera_benchmark_fp32_pytorch.png)
 
-![CPU and RAM utilization during the 10-minute ROS 2 run](evidence/resource_utilization_10min.png)
+![Live camera detection from the existing PTQ INT8 OpenVINO comparator](evidence/live_detection_ptq_int8_openvino.png)
 
-Capture metadata and raw capture-time resource samples are `evidence/live_capture_metadata.json` and `evidence/live_capture_resources.csv`. Recreate the camera image and resource plot with:
+![Capture-time CPU and RSS samples from PTQ INT8 OpenVINO](evidence/resource_utilization_capture_ptq_int8_openvino.png)
 
-```bash
-python scripts/capture_op3_evidence.py --model-xml .cache/hardware_models/fp32/model.xml --camera-device /dev/video0 --capture-seconds 8
-```
+The previously recorded FP32 OpenVINO image and the 10-minute ROS 2 resource plot remain available as `evidence/live_detection_evidence.png` and `evidence/resource_utilization_10min.png`.

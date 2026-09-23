@@ -8,7 +8,14 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from op3_model_audit import EXPECTED_CLASSES, lfs_pointer, read_json, sha256_file, qat_validation_gate
+from op3_model_audit import (
+    EXPECTED_CLASSES,
+    lfs_pointer,
+    ptq_validation_gate,
+    qat_validation_gate,
+    read_json,
+    sha256_file,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -46,6 +53,7 @@ def main() -> int:
     fp32_checkpoint_pointer = lfs_pointer(ROOT / "artifacts/checkpoints/fp32/best.pt")
     qat_manifest = read_json(ROOT / "artifacts/checkpoints/qat/manifest.json") or {}
     qat_gate = qat_validation_gate(ROOT)
+    ptq_gate = ptq_validation_gate(ROOT)
     export_manifest = read_json(ROOT / "artifacts/openvino/export_manifest.json") or {}
     ptq_manifest = read_json(ROOT / "experiments/ptq/manifest.json") or {}
     ptq_comparison = read_json(ROOT / "experiments/ptq/comparison.json") or {}
@@ -53,6 +61,8 @@ def main() -> int:
 
     fp32_xml_cache = ROOT / ".cache/hardware_models/fp32/model.xml"
     fp32_bin_cache = ROOT / ".cache/hardware_models/fp32/model.bin"
+    fp32_native_cache = ROOT / ".cache/hardware_models/fp32_pytorch/best.pt"
+    fp32_native = inspect_blob("artifacts/checkpoints/fp32/best.pt", fp32_native_cache)
     fp32_xml = inspect_blob("artifacts/openvino/fp32/model.xml", fp32_xml_cache)
     fp32_bin = inspect_blob("artifacts/openvino/fp32/model.bin", fp32_bin_cache)
     ptq_fp32 = ptq_manifest.get("PTQ artifact")
@@ -66,6 +76,13 @@ def main() -> int:
         and fp32_xml.get("sha256") == ptq_manifest.get("source FP32 OpenVINO SHA256")
         and fp32_bin.get("runtime_copy", {}).get("matches_repository_lfs_sha256") is True
         and fp32_xml.get("runtime_copy", {}).get("matches_repository_lfs_sha256") is True
+    )
+    fp32_native_valid = bool(
+        fp32_manifest.get("status") in {"completed", "passed"}
+        and fp32_manifest.get("class_mapping") == EXPECTED_CLASSES
+        and fp32_checkpoint_pointer
+        and fp32_native.get("sha256") == fp32_checkpoint_pointer.get("sha256")
+        and fp32_native.get("runtime_copy", {}).get("matches_repository_lfs_sha256") is True
     )
 
     fp32_test = read_json(ROOT / "experiments/final_test/fp32_test_metrics.json") or {}
@@ -106,6 +123,19 @@ def main() -> int:
                 "downloaded XML/BIN match Git LFS OIDs",
             ],
         },
+        "fp32_native_pytorch": {
+            "name": "YOLO11n FP32 native PyTorch (no OpenVINO)",
+            "format": "PyTorch checkpoint",
+            "checkpoint": fp32_native,
+            "quantization_method": "none (FP32)",
+            "class_mapping": fp32_manifest.get("class_mapping"),
+            "validity": "valid" if fp32_native_valid else "unknown",
+            "validity_evidence": [
+                "FP32 checkpoint manifest status completed",
+                "class mapping matches expected three classes",
+                "runtime PyTorch checkpoint copy SHA256 matches repository Git LFS OID",
+            ],
+        },
         "true_qat_checkpoint": {
             "name": "YOLO11n true NNCF QAT best checkpoint",
             "format": "PyTorch checkpoint",
@@ -130,6 +160,16 @@ def main() -> int:
             "validity": "valid" if qat_gate["accepted"] else "rejected_or_unresolved",
             "gate": qat_gate,
         },
+        "ptq_openvino_int8": {
+            "name": "YOLO11n existing calibrated PTQ INT8 OpenVINO comparator",
+            "format": "OpenVINO IR XML + BIN",
+            "xml": inspect_blob("experiments/ptq/backend_models/ptq_openvino_model/model.xml"),
+            "bin": inspect_blob("experiments/ptq/backend_models/ptq_openvino_model/model.bin"),
+            "quantization_method": ptq_manifest.get("PTQ API"),
+            "validity": "valid comparator" if ptq_gate["accepted"] else "blocked",
+            "gate": ptq_gate,
+            "accuracy_metrics": "existing VAL diagnostic/comparator only; not held-out TEST metrics",
+        },
         "dataset_accuracy": accuracy,
         "ptq_comparison_status": ptq_comparison.get("models", {}).get("PTQ INT8", {}).get("status"),
         "warnings": [
@@ -142,6 +182,8 @@ def main() -> int:
     OUT.write_text(json.dumps(inventory, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     print(f"Wrote {OUT.relative_to(ROOT)}")
     print(f"FP32 OpenVINO: {inventory['fp32_baseline']['validity']}")
+    print(f"FP32 native PyTorch: {inventory['fp32_native_pytorch']['validity']}")
+    print(f"PTQ OpenVINO: {ptq_gate['status']}")
     print(f"QAT OpenVINO: {qat_gate['status']}")
     if not qat_gate["accepted"]:
         print("BLOCKED: no validated QAT OpenVINO artifact")

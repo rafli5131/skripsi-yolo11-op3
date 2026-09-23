@@ -29,18 +29,20 @@ import openvino as ov
 import psutil
 
 from op3_model_audit import EXPECTED_CLASSES, qat_validation_gate, sha256_file
+from op3_model_audit import ptq_validation_gate
 
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_FP32 = ROOT / ".cache/hardware_models/fp32/model.xml"
+DEFAULT_PTQ = ROOT / "experiments/ptq/backend_models/ptq_openvino_model/model.xml"
 OUTPUT_DIR = ROOT / "experiments/hardware_op3"
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--mode", choices=("synthetic", "camera"), default="synthetic")
-    parser.add_argument("--model-kind", choices=("fp32", "qat_int8"), required=True)
-    parser.add_argument("--model-xml", type=Path, default=DEFAULT_FP32)
+    parser.add_argument("--model-kind", choices=("fp32", "ptq_int8", "qat_int8"), required=True)
+    parser.add_argument("--model-xml", type=Path, help="Defaults to the audited artifact for model-kind.")
     parser.add_argument("--device", default="CPU", help="OpenVINO device; official OP3 runs must use CPU.")
     parser.add_argument("--imgsz", type=int, default=640)
     parser.add_argument("--warmup", type=int, default=30)
@@ -291,8 +293,13 @@ def main() -> int:
         gate = qat_validation_gate(ROOT)
         if not gate["accepted"]:
             raise SystemExit("BLOCKED: no validated QAT OpenVINO artifact")
+    if args.model_kind == "ptq_int8":
+        gate = ptq_validation_gate(ROOT, args.model_xml or DEFAULT_PTQ)
+        if not gate["accepted"]:
+            raise SystemExit("BLOCKED: existing PTQ artifact failed provenance/hash validation")
 
-    model_xml = args.model_xml.expanduser().resolve()
+    default_model = DEFAULT_PTQ if args.model_kind == "ptq_int8" else DEFAULT_FP32
+    model_xml = (args.model_xml or default_model).expanduser().resolve()
     model_bin = model_xml.with_suffix(".bin")
     if not model_xml.is_file() or not model_bin.is_file():
         raise SystemExit(f"OpenVINO IR XML/BIN pair not found: {model_xml} and {model_bin}")
@@ -432,7 +439,12 @@ def main() -> int:
 
     if processed == 0:
         raise SystemExit("No frames were processed.")
-    stem = args.result_stem or ("benchmark_fp32" if args.mode == "synthetic" else "camera_benchmark")
+    if args.result_stem:
+        stem = args.result_stem
+    elif args.mode == "synthetic":
+        stem = "benchmark_fp32" if args.model_kind == "fp32" else f"benchmark_{args.model_kind}"
+    else:
+        stem = "camera_benchmark" if args.model_kind == "fp32" else f"camera_benchmark_{args.model_kind}"
     csv_path = OUTPUT_DIR / f"{stem}.csv"
     if args.mode == "synthetic" and stem == "benchmark_fp32":
         resource_name = "resources_fp32.csv"

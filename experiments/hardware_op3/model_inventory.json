@@ -1,5 +1,4 @@
 {
-  "audit_source_commit": "7aab807631732a263c12db802759fdda11b9d130",
   "dataset_accuracy": {
     "fp32": {
       "F1": 0.9408610915046441,
@@ -79,8 +78,75 @@
       "downloaded XML/BIN match Git LFS OIDs"
     ]
   },
-  "git_commit": "c5fe60711f615e71aa73f54586d8b16ffac96122",
+  "fp32_native_pytorch": {
+    "checkpoint": {
+      "exists": true,
+      "repository_path": "artifacts/checkpoints/fp32/best.pt",
+      "runtime_copy": {
+        "exists": true,
+        "matches_repository_lfs_sha256": true,
+        "path": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/.cache/hardware_models/fp32_pytorch/best.pt",
+        "sha256": "e05b2b21f7faa68f65671f0aaae37ad962aa5e25c6b8b26853fd0b389d420b8c",
+        "size_bytes": 5481875
+      },
+      "sha256": "e05b2b21f7faa68f65671f0aaae37ad962aa5e25c6b8b26853fd0b389d420b8c",
+      "size_bytes": 5481875,
+      "storage": "Git LFS"
+    },
+    "class_mapping": {
+      "0": "ball",
+      "1": "gawang",
+      "2": "robot"
+    },
+    "format": "PyTorch checkpoint",
+    "name": "YOLO11n FP32 native PyTorch (no OpenVINO)",
+    "quantization_method": "none (FP32)",
+    "validity": "valid",
+    "validity_evidence": [
+      "FP32 checkpoint manifest status completed",
+      "class mapping matches expected three classes",
+      "runtime PyTorch checkpoint copy SHA256 matches repository Git LFS OID"
+    ]
+  },
+  "git_commit": "33b0b3b5ac395497e111bccdbec1d4eef0c5346e",
   "ptq_comparison_status": "VALID comparator",
+  "ptq_openvino_int8": {
+    "accuracy_metrics": "existing VAL diagnostic/comparator only; not held-out TEST metrics",
+    "bin": {
+      "exists": true,
+      "repository_path": "experiments/ptq/backend_models/ptq_openvino_model/model.bin",
+      "sha256": "82246726edcd780685657f673caa2b40719a8c22b67e3702ca3d1f226b8fcf81",
+      "size_bytes": 2741080,
+      "storage": "Git blob"
+    },
+    "format": "OpenVINO IR XML + BIN",
+    "gate": {
+      "accepted": true,
+      "artifact_hashes_match_manifest": true,
+      "bin_sha256": "82246726edcd780685657f673caa2b40719a8c22b67e3702ca3d1f226b8fcf81",
+      "calibration_performed_during_benchmark": false,
+      "comparison_status": "VALID comparator",
+      "model_xml": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/experiments/ptq/backend_models/ptq_openvino_model/model.xml",
+      "ptq_only_provenance": true,
+      "qat_checkpoint_used": false,
+      "reasons": [],
+      "source_checkpoint_valid": true,
+      "source_fp32_sha256": "e05b2b21f7faa68f65671f0aaae37ad962aa5e25c6b8b26853fd0b389d420b8c",
+      "status": "VALID EXISTING PTQ INT8 COMPARATOR",
+      "test_split_loaded": false,
+      "xml_sha256": "10cb9dfa3539650a0bc46d60ad708f9ff79fc1e2dc79c5ac4a73ff4943326657"
+    },
+    "name": "YOLO11n existing calibrated PTQ INT8 OpenVINO comparator",
+    "quantization_method": "ultralytics.utils.export.openvino.torch2openvino(..., quantize=8, calibration_dataset=nncf.Dataset(...))",
+    "validity": "valid comparator",
+    "xml": {
+      "exists": true,
+      "repository_path": "experiments/ptq/backend_models/ptq_openvino_model/model.xml",
+      "sha256": "10cb9dfa3539650a0bc46d60ad708f9ff79fc1e2dc79c5ac4a73ff4943326657",
+      "size_bytes": 666400,
+      "storage": "Git blob"
+    }
+  },
   "qat_openvino_int8": {
     "bin": {
       "exists": true,
@@ -126,7 +192,7 @@
       "storage": "Git LFS"
     }
   },
-  "timestamp_utc": "2026-09-23T13:47:44.938644+00:00",
+  "timestamp_utc": "2026-09-23T14:37:55.043143+00:00",
   "true_qat_checkpoint": {
     "class_mapping": {
       "0": "ball",
@@ -148,6 +214,5 @@
     "The existing historical qat_int8 model is never eligible for benchmarking unless all QAT gate checks pass.",
     "PTQ metrics are not relabeled or used as QAT results.",
     "Dataset P/R/F1/mAP metrics are not derived from camera observations."
-  ],
-  "worktree_dirty_at_audit": true
+  ]
 }

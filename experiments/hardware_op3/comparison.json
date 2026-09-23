@@ -1,4 +1,45 @@
 {
+  "accuracy_validation": {
+    "fp32_checkpoint_heldout_test": {
+      "metrics": {
+        "F1": 0.9408610915046441,
+        "mAP50": 0.9642317504749923,
+        "mAP50-95": 0.7799081629168894,
+        "precision": 0.9313469051335113,
+        "recall": 0.9505716686969364
+      },
+      "note": "Existing checkpoint-level TEST evaluation; not derived from live or synthetic benchmark inputs.",
+      "source_file": "experiments/final_test/fp32_test_metrics.json",
+      "split": "test",
+      "test_annotations": 734,
+      "test_images": 592
+    },
+    "ptq_test_metrics": null,
+    "ptq_test_metrics_note": "No PTQ INT8 TEST result is claimed; the repository contains existing VAL comparator metrics only.",
+    "same_validation_split": {
+      "existing_ptq_int8_openvino": {
+        "F1": 0.9420930669398871,
+        "mAP50": 0.972145259145894,
+        "mAP50-95": 0.76717861970828,
+        "precision": 0.9341156433830985,
+        "recall": 0.9502079198462958
+      },
+      "fp32_openvino": {
+        "F1": 0.9467729753395424,
+        "mAP50": 0.9729727505332173,
+        "mAP50-95": 0.7713443557065539,
+        "precision": 0.9362229266091132,
+        "recall": 0.9575635054125157
+      },
+      "note": "Existing validation diagnostics, same VAL split. Not TEST results and no live-camera frame contributes.",
+      "source_files": [
+        "experiments/ptq/fp32_openvino_val_metrics.json",
+        "experiments/ptq/ptq_val_metrics.json"
+      ],
+      "split": "val"
+    }
+  },
+  "added_runs_worktree_dirty_at_measurement": true,
   "benchmark_source_commit": "7aab807631732a263c12db802759fdda11b9d130",
   "dataset_test_accuracy": {
     "annotations": 734,
@@ -21,13 +62,21 @@
     "source": "experiments/final_test/{fp32_test_metrics,qat_test_metrics}.json",
     "split": "test"
   },
+  "evidence": {
+    "native_pytorch_detection": "experiments/hardware_op3/evidence/live_detection_fp32_pytorch.png",
+    "native_pytorch_resources_camera": "experiments/hardware_op3/evidence/resource_utilization_camera_benchmark_fp32_pytorch.png",
+    "ptq_int8_detection": "experiments/hardware_op3/evidence/live_detection_ptq_int8_openvino.png",
+    "ptq_int8_resources_capture": "experiments/hardware_op3/evidence/resource_utilization_capture_ptq_int8_openvino.png"
+  },
   "hardware": {
     "fp32_openvino_camera_standalone": {
-      "end_to_end_mean_ms": 47.0666107077769,
+      "end_to_end_mean_ms": 47.144962398271794,
       "fps_effective": 21.203486426132297,
       "fps_inference": 26.978139060369507,
       "latency_mean_ms": 37.067048908091124,
       "latency_p95_ms": 60.078294199999995,
+      "loop_wall_mean_ms": 47.144962398271794,
+      "pipeline_stage_sum_mean_ms": 47.0666107077769,
       "process_cpu_mean_percent": 716.1538461538462,
       "process_cpu_p95_percent": 818.1799999999998,
       "raw_measurements_csv": "experiments/hardware_op3/camera_benchmark.csv",
@@ -81,11 +130,13 @@
       "system_cpu_mean_percent": 47.23732347007398
     },
     "fp32_openvino_synthetic": {
-      "end_to_end_mean_ms": 30.43255295333333,
+      "end_to_end_mean_ms": 30.50351351666667,
       "fps_effective": 32.76649459185845,
       "fps_inference": 35.09925328644654,
       "latency_mean_ms": 28.490634596666666,
       "latency_p95_ms": 30.34956805,
+      "loop_wall_mean_ms": 30.50351351666667,
+      "pipeline_stage_sum_mean_ms": 30.43255295333333,
       "process_cpu_mean_percent": 873.5066666666668,
       "process_cpu_p95_percent": 901.3,
       "raw_measurements_csv": "experiments/hardware_op3/benchmark_fp32.csv",
@@ -93,6 +144,96 @@
       "rss_mean_bytes": 238571793.06666666,
       "rss_peak_bytes": 238690304.0,
       "system_cpu_mean_percent": 55.70000000000002
+    },
+    "fp32_pytorch_native_camera_60s": {
+      "duration_seconds": 60.006140387,
+      "fps_effective": 19.91462860788977,
+      "fps_inference": 25.315252936763994,
+      "frames_processed": 1195,
+      "inference_mean_ms": 39.50187669457386,
+      "inference_p95_ms": 44.67356899949664,
+      "loop_wall_mean_ms": 50.17931724769875,
+      "pipeline_stage_sum_mean_ms": 49.79414859247128,
+      "pipeline_wall_mean_ms": 50.17931724769875,
+      "process_cpu_mean_percent": 719.6906040268456,
+      "process_cpu_p95_percent": 781.115,
+      "raw_measurements_csv": "experiments/hardware_op3/camera_benchmark_fp32_pytorch.csv",
+      "raw_resources_csv": "experiments/hardware_op3/resources_camera_benchmark_fp32_pytorch.csv",
+      "rss_mean_bytes": 375421299.11409396,
+      "rss_peak_bytes": 391720960.0,
+      "system_cpu_mean_percent": 47.22315436241611
+    },
+    "fp32_pytorch_native_synthetic": {
+      "fps_effective": 19.34998458752443,
+      "fps_inference": 20.20864028720843,
+      "frames_processed": 300,
+      "inference_mean_ms": 49.4837844500095,
+      "inference_p95_ms": 53.52711214964074,
+      "loop_wall_mean_ms": 51.65119968999999,
+      "model_call_wall_mean_ms": 51.65119968999999,
+      "pipeline_stage_sum_mean_ms": 51.048087693373716,
+      "process_cpu_mean_percent": 800.2454545454545,
+      "process_cpu_p95_percent": 804.8000000000001,
+      "raw_measurements_csv": "experiments/hardware_op3/benchmark_fp32_pytorch.csv",
+      "raw_resources_csv": "experiments/hardware_op3/resources_fp32_pytorch.csv",
+      "rss_mean_bytes": 378232672.41558444,
+      "rss_peak_bytes": 395563008.0,
+      "system_cpu_mean_percent": 51.901298701298714
+    },
+    "ptq_int8_openvino_camera_60s": {
+      "duration_seconds": 60.00526275,
+      "fps_effective": 24.03122549446715,
+      "fps_inference": 80.79475627800225,
+      "frames_processed": 1442,
+      "inference_mean_ms": 12.377040863384188,
+      "inference_p95_ms": 15.07565365,
+      "loop_wall_mean_ms": 41.597179511789186,
+      "pipeline_stage_sum_mean_ms": 41.51587280443828,
+      "pipeline_wall_mean_ms": 41.597179511789186,
+      "process_cpu_mean_percent": 128.39026845637585,
+      "process_cpu_p95_percent": 154.23,
+      "raw_measurements_csv": "experiments/hardware_op3/camera_benchmark_ptq_int8.csv",
+      "raw_resources_csv": "experiments/hardware_op3/resources_camera_benchmark_ptq_int8.csv",
+      "rss_mean_bytes": 228449396.83221477,
+      "rss_peak_bytes": 229089280.0,
+      "system_cpu_mean_percent": 10.534563758389263
+    },
+    "ptq_int8_openvino_ros2_camera_60s": {
+      "callback_latency_mean_ms": 16.718104269329896,
+      "callback_latency_p95_ms": 19.82328025,
+      "duration_seconds": 60.00512889399943,
+      "estimated_dropped_frames": 1024,
+      "exceptions": 0,
+      "fps_effective": 12.93222786623496,
+      "fps_inference": 84.27990545164374,
+      "frames_processed": 776,
+      "inference_mean_ms": 11.865224511597937,
+      "inference_p95_ms": 12.971322,
+      "process_cpu_mean_percent": 75.36148648648648,
+      "process_cpu_p95_percent": 158.82500000000002,
+      "raw_measurements_csv": "experiments/hardware_op3/ros2_benchmark_ptq_int8.csv",
+      "raw_resources_csv": "experiments/hardware_op3/resources_ros2_benchmark_ptq_int8.csv",
+      "rss_mean_bytes": 253224088.2162162,
+      "rss_peak_bytes": 261222400.0,
+      "system_cpu_mean_percent": 8.003378378378379
+    },
+    "ptq_int8_openvino_synthetic": {
+      "end_to_end_stage_sum_mean_ms": 12.967967673333332,
+      "fps_effective": 76.59773716726609,
+      "fps_inference": 88.68687414299268,
+      "frames_processed": 300,
+      "inference_mean_ms": 11.27562573,
+      "inference_p95_ms": 11.6163351,
+      "loop_wall_mean_ms": 13.041003686666667,
+      "pipeline_stage_sum_mean_ms": 12.967967673333334,
+      "pipeline_wall_mean_ms": 13.041003686666667,
+      "process_cpu_mean_percent": 340.4368421052631,
+      "process_cpu_p95_percent": 343.81,
+      "raw_measurements_csv": "experiments/hardware_op3/benchmark_ptq_int8.csv",
+      "raw_resources_csv": "experiments/hardware_op3/resources_benchmark_ptq_int8.csv",
+      "rss_mean_bytes": 226444773.0526316,
+      "rss_peak_bytes": 226533376.0,
+      "system_cpu_mean_percent": 22.163157894736845
     }
   },
   "host": {
@@ -107,6 +248,7 @@
     "The existing ROS environment had substantial background load; CPU values are process aggregate percentages where 100% equals one logical core."
   ],
   "measurement_commit": "c5fe60711f615e71aa73f54586d8b16ffac96122",
+  "measurement_head_for_added_runs": "33b0b3b5ac395497e111bccdbec1d4eef0c5346e",
   "qat_openvino_int8": {
     "checkpoint_sha256": "f96911a1b3f4f9a8987a7fb57611aac2455b2b5c7b93c27db146d69d5013a8c8",
     "checkpoint_true_nncf_qat_provenance": true,
@@ -121,6 +263,6 @@
     "status_line": "BLOCKED \u2014 QAT OpenVINO artifact has not passed export/equivalence validation"
   },
   "ros_package_source_commit": "d13a18e3ef661f6600663236deb8bbd94fa6f024",
-  "timestamp_utc": "2026-09-23T13:47:44.967821+00:00",
+  "timestamp_utc": "2026-09-23T14:33:02.775841+00:00",
   "worktree_dirty_at_measurement": true
 }
