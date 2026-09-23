@@ -1,9 +1,9 @@
 """Tune true NNCF-QAT candidates on validation data and promote the best one.
 
 This script intentionally does NOT use PTQ metrics and does NOT read the TEST
-split for model selection.  Every candidate executes the repository's existing
-true-QAT training path in ``scripts/train_qat.py`` with a different set of QAT
-fine-tuning hyperparameters.  The winner is selected by full-validation
+split for model selection. Every candidate executes the repository's existing
+true-QAT training path in ``scripts/train_qat.py`` with different QAT
+fine-tuning hyperparameters. The winner is selected by full-validation
 mAP50-95, with mAP50/precision/recall as deterministic tie breakers.
 
 Run from the repository root on the CUDA host, for example:
@@ -12,13 +12,14 @@ Run from the repository root on the CUDA host, for example:
     env -u PYTHONPATH -u VIRTUAL_ENV uv run python scripts/tune_qat_best.py
 
 After selection, the winning candidate artifacts are copied to the canonical
-``artifacts/checkpoints/qat`` directory.  Only then should the frozen TEST split
+``artifacts/checkpoints/qat`` directory. Only then should the frozen TEST split
 be evaluated once with ``scripts/evaluate_final_test.py``.
 """
 
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import re
@@ -64,6 +65,24 @@ def parse_args() -> argparse.Namespace:
         help="Validate the search configuration and print candidates without training.",
     )
     return parser.parse_args()
+
+
+def sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for block in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
+def write_sha256s(directory: Path) -> None:
+    tracked = sorted(
+        path for path in directory.iterdir() if path.is_file() and path.suffix in {".pt", ".json"}
+    )
+    (directory / "SHA256SUMS.txt").write_text(
+        "".join(f"{sha256_file(path)}  {path.name}\n" for path in tracked),
+        encoding="utf-8",
+    )
 
 
 def load_config(path: Path) -> dict[str, Any]:
@@ -141,7 +160,7 @@ def passed_manifest(path: Path) -> dict[str, Any] | None:
     return data if data.get("status") == "passed" else None
 
 
-def child_code(candidate: dict[str, Any]) -> str:
+def child_code(candidate: dict[str, Any], resume: bool) -> str:
     name = candidate["name"]
     run_rel = Path("experiments/qat/qat_best_search/runs") / name
     artifact_rel = Path("artifacts/checkpoints/qat_search") / name
@@ -163,13 +182,14 @@ def child_code(candidate: dict[str, Any]) -> str:
         "RANGE_INIT_BATCH": candidate["range_init_batch"],
     }
     assignments = "\n".join(f"q.{key} = {value!r}" for key, value in values.items())
+    argv = ["train_qat.py", "--resume"] if resume else ["train_qat.py"]
     return f"""
 from pathlib import Path
 import sys
 sys.path.insert(0, str(Path.cwd() / 'scripts'))
 import train_qat as q
 {assignments}
-sys.argv = ['train_qat.py']
+sys.argv = {argv!r}
 raise SystemExit(q.main())
 """
 
@@ -181,7 +201,7 @@ def run_candidate(candidate: dict[str, Any], force: bool) -> dict[str, Any]:
     existing = passed_manifest(manifest_path)
     if existing is not None and not force:
         print(f"[SKIP] {name}: existing passed manifest")
-        annotate_manifest(manifest_path, artifact_dir, candidate)
+        annotate_manifest(manifest_path, candidate)
         return json.loads(manifest_path.read_text(encoding="utf-8"))
 
     if force:
@@ -190,13 +210,15 @@ def run_candidate(candidate: dict[str, Any], force: bool) -> dict[str, Any]:
 
     run_dir.parent.mkdir(parents=True, exist_ok=True)
     artifact_dir.parent.mkdir(parents=True, exist_ok=True)
+    resume = (run_dir / "weights" / "qat_last.pt").is_file() and not force
 
+    action = "RESUME" if resume else "RUN"
     print(
-        f"[RUN] {name}: epochs={candidate['epochs']} lr0={candidate['lr0']} "
+        f"[{action}] {name}: epochs={candidate['epochs']} lr0={candidate['lr0']} "
         f"lrf={candidate['lrf']} range_init_samples={candidate['range_init_samples']}"
     )
     completed = subprocess.run(
-        [sys.executable, "-c", child_code(candidate)],
+        [sys.executable, "-c", child_code(candidate, resume)],
         cwd=ROOT,
         env=os.environ.copy(),
         check=False,
@@ -206,14 +228,14 @@ def run_candidate(candidate: dict[str, Any], force: bool) -> dict[str, Any]:
     if not manifest_path.is_file():
         raise TuneStop(f"Candidate {name} completed without manifest: {manifest_path}")
 
-    annotate_manifest(manifest_path, artifact_dir, candidate)
+    annotate_manifest(manifest_path, candidate)
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     if manifest.get("status") != "passed":
         raise TuneStop(f"Candidate {name} manifest status is not passed.")
     return manifest
 
 
-def annotate_manifest(manifest_path: Path, artifact_dir: Path, candidate: dict[str, Any]) -> None:
+def annotate_manifest(manifest_path: Path, candidate: dict[str, Any]) -> None:
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     manifest["QAT tuning candidate"] = candidate
     manifest["selection eligibility"] = "validation-only true-QAT candidate"
@@ -229,10 +251,6 @@ def annotate_manifest(manifest_path: Path, artifact_dir: Path, candidate: dict[s
     )
     manifest["notes"] = notes
     manifest_path.write_text(json.dumps(manifest, indent=2, sort_keys=True, default=str) + "\n", encoding="utf-8")
-
-    artifact_manifest = artifact_dir / "manifest.json"
-    if artifact_manifest.is_file():
-        shutil.copy2(manifest_path, artifact_manifest)
 
 
 def metric(manifest: dict[str, Any], key: str) -> float:
@@ -271,27 +289,32 @@ def select_best(
 
 def promote(candidate: dict[str, Any], manifest: dict[str, Any]) -> dict[str, Any]:
     name = candidate["name"]
-    _, source_artifacts, _ = candidate_paths(name)
-    required = [
+    _, source_artifacts, run_manifest = candidate_paths(name)
+    artifact_files = [
         "qat_best.pt",
         "qat_last.pt",
         "nncf_structure_config.json",
         "nncf_checkpoint_format.json",
         "data_train_val.yaml",
         "results.csv",
-        "manifest.json",
     ]
-    missing = [filename for filename in required if not (source_artifacts / filename).is_file()]
+    missing = [filename for filename in artifact_files if not (source_artifacts / filename).is_file()]
+    if not run_manifest.is_file():
+        missing.append("run manifest.json")
     if missing:
         raise TuneStop(f"Cannot promote {name}; missing artifacts: {missing}")
 
     CANONICAL_QAT_DIR.mkdir(parents=True, exist_ok=True)
     copied: list[str] = []
-    for filename in required:
+    for filename in artifact_files:
         source = source_artifacts / filename
         destination = CANONICAL_QAT_DIR / filename
         shutil.copy2(source, destination)
         copied.append(str(destination))
+
+    canonical_manifest = CANONICAL_QAT_DIR / "manifest.json"
+    shutil.copy2(run_manifest, canonical_manifest)
+    copied.append(str(canonical_manifest))
 
     promotion = {
         "promoted": True,
@@ -364,6 +387,7 @@ def write_selection_manifest(
         (CANONICAL_QAT_DIR / "selection_manifest.json").write_text(
             json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8"
         )
+        write_sha256s(CANONICAL_QAT_DIR)
 
 
 def main() -> int:
