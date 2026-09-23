@@ -1,0 +1,325 @@
+{
+  "cameras": {
+    "capture_test": {
+      "device": "/dev/video0",
+      "first_frame_dtype": "uint8",
+      "first_frame_shape": [
+        480,
+        640,
+        3
+      ],
+      "status": "passed"
+    },
+    "devices": [
+      "/dev/video0",
+      "/dev/video1"
+    ],
+    "v4l2_devices": {
+      "available": true,
+      "command": [
+        "v4l2-ctl",
+        "--list-devices"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "HD Pro Webcam C920 (usb-0000:00:14.0-7):\n\t/dev/video0\n\t/dev/video1\n\t/dev/media0"
+    }
+  },
+  "cpu": {
+    "architecture": "x86_64",
+    "flags": [
+      "3dnowprefetch",
+      "abm",
+      "acpi",
+      "adx",
+      "aes",
+      "aperfmperf",
+      "apic",
+      "arat",
+      "arch_capabilities",
+      "arch_lbr",
+      "arch_perfmon",
+      "art",
+      "avx",
+      "avx2",
+      "avx_vnni",
+      "bmi1",
+      "bmi2",
+      "bts",
+      "clflush",
+      "clflushopt",
+      "clwb",
+      "cmov",
+      "constant_tsc",
+      "cpuid",
+      "cpuid_fault",
+      "cx16",
+      "cx8",
+      "de",
+      "ds_cpl",
+      "dtes64",
+      "dtherm",
+      "dts",
+      "epb",
+      "ept",
+      "ept_ad",
+      "erms",
+      "est",
+      "f16c",
+      "flexpriority",
+      "flush_l1d",
+      "fma",
+      "fpu",
+      "fsgsbase",
+      "fsrm",
+      "fxsr",
+      "gfni",
+      "hfi",
+      "ht",
+      "hwp",
+      "hwp_act_window",
+      "hwp_epp",
+      "hwp_notify",
+      "hwp_pkg_req",
+      "ibpb",
+      "ibrs",
+      "ibrs_enhanced",
+      "ibt",
+      "ida",
+      "intel_pt",
+      "invpcid",
+      "lahf_lm",
+      "lm",
+      "mca",
+      "mce",
+      "md_clear",
+      "mmx",
+      "monitor",
+      "movbe",
+      "movdir64b",
+      "movdiri",
+      "msr",
+      "mtrr",
+      "nonstop_tsc",
+      "nopl",
+      "nx",
+      "ospke",
+      "pae",
+      "pat",
+      "pbe",
+      "pcid",
+      "pclmulqdq",
+      "pdcm",
+      "pdpe1gb",
+      "pebs",
+      "pge",
+      "pku",
+      "pln",
+      "pni",
+      "popcnt",
+      "pse",
+      "pse36",
+      "pts",
+      "rdpid",
+      "rdrand",
+      "rdseed",
+      "rdtscp",
+      "rep_good",
+      "sdbg",
+      "sep",
+      "serialize",
+      "sha_ni",
+      "smap",
+      "smep",
+      "smx",
+      "split_lock_detect",
+      "ss",
+      "ssbd",
+      "sse",
+      "sse2",
+      "sse4_1",
+      "sse4_2",
+      "ssse3",
+      "stibp",
+      "syscall",
+      "tm",
+      "tm2",
+      "tpr_shadow",
+      "tsc",
+      "tsc_adjust",
+      "tsc_deadline_timer",
+      "tsc_known_freq",
+      "umip",
+      "user_shstk",
+      "vaes",
+      "vme",
+      "vmx",
+      "vnmi",
+      "vpclmulqdq",
+      "vpid",
+      "waitpkg",
+      "x2apic",
+      "xgetbv1",
+      "xsave",
+      "xsavec",
+      "xsaveopt",
+      "xsaves",
+      "xtopology",
+      "xtpr"
+    ],
+    "instruction_sets": {
+      "avx": true,
+      "avx2": true,
+      "avx512f": false,
+      "avx_vnni": true
+    },
+    "logical_cpus": 16,
+    "lscpu": {
+      "available": true,
+      "command": [
+        "lscpu"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "Architecture:                            x86_64\nCPU op-mode(s):                          32-bit, 64-bit\nAddress sizes:                           39 bits physical, 48 bits virtual\nByte Order:                              Little Endian\nCPU(s):                                  16\nOn-line CPU(s) list:                     0-15\nVendor ID:                               GenuineIntel\nModel name:                              12th Gen Intel(R) Core(TM) i5-1240P\nCPU family:                              6\nModel:                                   154\nThread(s) per core:                      2\nCore(s) per socket:                      12\nSocket(s):                               1\nStepping:                                3\nCPU(s) scaling MHz:                      26%\nCPU max MHz:                             4400.0000\nCPU min MHz:                             400.0000\nBogoMIPS:                                4224.00\nFlags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb intel_pt sha_ni xsaveopt xsavec xgetbv1 xsaves split_lock_detect user_shstk avx_vnni dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp hwp_pkg_req hfi vnmi umip pku ospke waitpkg gfni vaes vpclmulqdq rdpid movdiri movdir64b fsrm md_clear serialize arch_lbr ibt flush_l1d arch_capabilities\nVirtualization:                          VT-x\nL1d cache:                               448 KiB (12 instances)\nL1i cache:                               640 KiB (12 instances)\nL2 cache:                                9 MiB (6 instances)\nL3 cache:                                12 MiB (1 instance)\nNUMA node(s):                            1\nNUMA node0 CPU(s):                       0-15\nVulnerability Gather data sampling:      Not affected\nVulnerability Ghostwrite:                Not affected\nVulnerability Indirect target selection: Not affected\nVulnerability Itlb multihit:             Not affected\nVulnerability L1tf:                      Not affected\nVulnerability Mds:                       Not affected\nVulnerability Meltdown:                  Not affected\nVulnerability Mmio stale data:           Not affected\nVulnerability Old microcode:             Not affected\nVulnerability Reg file data sampling:    Mitigation; Clear Register File\nVulnerability Retbleed:                  Not affected\nVulnerability Spec rstack overflow:      Not affected\nVulnerability Spec store bypass:         Mitigation; Speculative Store Bypass disabled via prctl\nVulnerability Spectre v1:                Mitigation; usercopy/swapgs barriers and __user pointer sanitization\nVulnerability Spectre v2:                Mitigation; Enhanced / Automatic IBRS; IBPB conditional; PBRSB-eIBRS SW sequence; BHI BHI_DIS_S\nVulnerability Srbds:                     Not affected\nVulnerability Tsa:                       Not affected\nVulnerability Tsx async abort:           Not affected\nVulnerability Vmscape:                   Mitigation; IBPB before exit to userspace"
+    },
+    "max_mhz": "4400.0000",
+    "model": "12th Gen Intel(R) Core(TM) i5-1240P",
+    "physical_cores": 12,
+    "threads_per_core": "2",
+    "vendor": "GenuineIntel"
+  },
+  "disk": {
+    "free_bytes": 104291762176,
+    "total_bytes": 106663641088,
+    "used_bytes": 2371878912
+  },
+  "host_matches_requested_nuc11": false,
+  "hostname": "humanoid-NUC12WSHi5",
+  "lsblk": {
+    "available": true,
+    "command": [
+      "lsblk",
+      "-o",
+      "NAME,TYPE,SIZE,FSTYPE,MOUNTPOINTS"
+    ],
+    "returncode": 0,
+    "stderr": "",
+    "stdout": "NAME        TYPE   SIZE FSTYPE     MOUNTPOINTS\nloop0       loop 518.4M squashfs   /snap/code/263\nloop1       loop     4K squashfs   /snap/bare/5\nloop2       loop  63.8M squashfs   /snap/core20/2922\nloop3       loop    74M squashfs   /snap/core22/2292\nloop4       loop 251.7M squashfs   /snap/firefox/7766\nloop5       loop    74M squashfs   /snap/core22/2955\nloop6       loop  66.8M squashfs   /snap/core24/2124\nloop7       loop  18.5M squashfs   /snap/firmware-updater/210\nloop8       loop  16.5M squashfs   /snap/firmware-updater/226\nloop9       loop 614.5M squashfs   /snap/gnome-46-2404/164\nloop10      loop  91.7M squashfs   /snap/gtk-common-themes/1535\nloop11      loop 531.4M squashfs   /snap/gnome-42-2204/247\nloop12      loop  11.8M squashfs   /snap/snap-store/1390\nloop13      loop   402M squashfs   /snap/mesa-2404/1839\nloop14      loop  48.1M squashfs   /snap/snapd/25935\nloop15      loop  11.8M squashfs   /snap/snap-store/1419\nloop16      loop  50.3M squashfs   /snap/snapd/27738\nloop17      loop   576K squashfs   /snap/snapd-desktop-integration/343\nloop18      loop   828K squashfs   /snap/snapd-desktop-integration/391\nloop19      loop 221.4M squashfs   /snap/thunderbird/1255\nloop20      loop 222.1M squashfs   /snap/thunderbird/1259\nnvme0n1     disk 119.2G            \n\u251c\u2500nvme0n1p1 part     1G vfat       /boot/efi\n\u251c\u2500nvme0n1p2 part     2G zfs_member \n\u251c\u2500nvme0n1p3 part     4G swap       [SWAP]\n\u2514\u2500nvme0n1p4 part 112.2G zfs_member"
+  },
+  "lsusb": {
+    "available": true,
+    "command": [
+      "lsusb"
+    ],
+    "returncode": 0,
+    "stderr": "",
+    "stdout": "Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub\nBus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub\nBus 003 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub\nBus 003 Device 002: ID 046d:08e5 Logitech, Inc. C920 PRO HD Webcam\nBus 003 Device 003: ID 0403:6014 Future Technology Devices International, Ltd FT232H Single HS USB-UART/FIFO IC\nBus 003 Device 004: ID 8087:0033 Intel Corp. AX211 Bluetooth\nBus 004 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub"
+  },
+  "memory": {
+    "available_bytes": 3255250944,
+    "percent": 58.7,
+    "total_bytes": 7875018752,
+    "used_bytes": 4240871424
+  },
+  "openvino": {
+    "available": true,
+    "devices": [
+      "CPU"
+    ],
+    "version": "2026.3.1-22476-759c5a6ab8c-releases/2026/3"
+  },
+  "os": {
+    "BUG_REPORT_URL": "https://bugs.launchpad.net/ubuntu/",
+    "HOME_URL": "https://www.ubuntu.com/",
+    "ID": "ubuntu",
+    "ID_LIKE": "debian",
+    "LOGO": "ubuntu-logo",
+    "NAME": "Ubuntu",
+    "PRETTY_NAME": "Ubuntu 24.04.5 LTS",
+    "PRIVACY_POLICY_URL": "https://www.ubuntu.com/legal/terms-and-policies/privacy-policy",
+    "SUPPORT_URL": "https://help.ubuntu.com/",
+    "UBUNTU_CODENAME": "noble",
+    "VERSION": "24.04.5 LTS (Noble Numbat)",
+    "VERSION_CODENAME": "noble",
+    "VERSION_ID": "24.04"
+  },
+  "python": {
+    "executable": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/../.venv-op3-vision/bin/python",
+    "version": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]"
+  },
+  "ros2": {
+    "distro_environment": "jazzy",
+    "image_topics": [
+      "/soccer_camera/camera_info [sensor_msgs/msg/CameraInfo]"
+    ],
+    "node_list": {
+      "available": true,
+      "command": [
+        "ros2",
+        "node",
+        "list"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "/atom_game_controller\n/op3_behavior_node\n/op3_fall_detector\n/op3_game_state_machine\n/op3_manager\n/op3_motion_gateway\n/robotis_controller\n/zmp_node\n/zmp_visualizer"
+    },
+    "topic_list": {
+      "available": true,
+      "command": [
+        "ros2",
+        "topic",
+        "list",
+        "-t"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "/ball_detector_node/circle_set [op3_ball_detector_msgs/msg/CircleSetStamped]\n/ball_position [geometry_msgs/msg/Point]\n/ball_tracker/command [std_msgs/msg/String]\n/game_controller [std_msgs/msg/Int32]\n/localization/pose [geometry_msgs/msg/PoseStamped]\n/op3/fall_state [std_msgs/msg/Int32]\n/op3/fall_state_str [std_msgs/msg/String]\n/parameter_events [rcl_interfaces/msg/ParameterEvent]\n/robotis/action/page_num [std_msgs/msg/Int32]\n/robotis/base/ini_pose [std_msgs/msg/String]\n/robotis/behavior/ball_observation [op3_ball_detector_msgs/msg/BallObservation]\n/robotis/behavior/ball_relative [geometry_msgs/msg/Point]\n/robotis/behavior/intent_str [std_msgs/msg/String]\n/robotis/competition/health_ready [std_msgs/msg/Bool]\n/robotis/dxl_torque [std_msgs/msg/String]\n/robotis/enable_ctrl_module [std_msgs/msg/String]\n/robotis/fall_state [std_msgs/msg/Int32]\n/robotis/fall_state_str [std_msgs/msg/String]\n/robotis/game/behavior_state [std_msgs/msg/String]\n/robotis/game/is_our_kickoff [std_msgs/msg/Bool]\n/robotis/game/penalty [std_msgs/msg/Bool]\n/robotis/game/status [op3_game_msgs/msg/GameStatus]\n/robotis/head_control/set_joint_states [sensor_msgs/msg/JointState]\n/robotis/match/permission [op3_game_msgs/msg/MatchPermission]\n/robotis/motion/action_intent [std_msgs/msg/Int32]\n/robotis/motion/balance_command [std_msgs/msg/String]\n/robotis/motion/command [op3_game_msgs/msg/MotionCommand]\n/robotis/motion/head_intent [sensor_msgs/msg/JointState]\n/robotis/motion/recovery_intent [std_msgs/msg/Int32]\n/robotis/motion/status [std_msgs/msg/String]\n/robotis/motion/velocity_intent [geometry_msgs/msg/Twist]\n/robotis/open_cr/button [std_msgs/msg/String]\n/robotis/open_cr/imu [sensor_msgs/msg/Imu]\n/robotis/present_joint_ctrl_modules [robotis_controller_msgs/msg/JointCtrlModule]\n/robotis/present_joint_states [sensor_msgs/msg/JointState]\n/robotis/set_joint_ctrl_modules [robotis_controller_msgs/msg/JointCtrlModule]\n/robotis/team/shared_ball [geometry_msgs/msg/Point]\n/robotis/walking/cmd_vel [geometry_msgs/msg/Twist]\n/robotis/walking/command [std_msgs/msg/String]\n/robotis/walking/set_params [op3_walking_module_msgs/msg/WalkingParam]\n/robotis/zmp_com [op3_zmp_msgs/msg/ZmpCom]\n/robotis/zmp_markers [visualization_msgs/msg/Marker]\n/robotis_op3/com [geometry_msgs/msg/Vector3]\n/robotis_op3/imu [sensor_msgs/msg/Imu]\n/robotis_op3/joint_states [sensor_msgs/msg/JointState]\n/rosout [rcl_interfaces/msg/Log]\n/soccer_camera/camera_info [sensor_msgs/msg/CameraInfo]"
+    },
+    "version_command": {
+      "available": true,
+      "command": [
+        "ros2",
+        "--version"
+      ],
+      "returncode": 2,
+      "stderr": "usage: ros2 [-h] [--use-python-default-buffering]\n            Call `ros2 <command> -h` for more detailed usage. ...\nros2: error: unrecognized arguments: --version",
+      "stdout": ""
+    }
+  },
+  "ros_python": "importable",
+  "thermal": {
+    "sensors": {
+      "available": false,
+      "command": [
+        "sensors"
+      ],
+      "error": "sensors not found"
+    },
+    "thermal_zones": [
+      {
+        "path": "/sys/class/thermal/thermal_zone0/temp",
+        "temperature_millidegrees": "55000"
+      },
+      {
+        "path": "/sys/class/thermal/thermal_zone1/temp",
+        "temperature_millidegrees": "45000"
+      },
+      {
+        "path": "/sys/class/thermal/thermal_zone2/temp",
+        "temperature_millidegrees": "46000"
+      }
+    ]
+  },
+  "timestamp_utc": "2026-09-23T13:23:04.711786+00:00",
+  "uname": {
+    "available": true,
+    "command": [
+      "uname",
+      "-a"
+    ],
+    "returncode": 0,
+    "stderr": "",
+    "stdout": "Linux humanoid-NUC12WSHi5 7.0.0-31-generic #31~24.04.1-Ubuntu SMP PREEMPT_DYNAMIC Mon Aug 10 09:38:02 UTC 2 x86_64 x86_64 x86_64 GNU/Linux"
+  }
+}
