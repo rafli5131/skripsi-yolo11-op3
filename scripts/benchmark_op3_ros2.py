@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+from importlib.metadata import PackageNotFoundError, version as distribution_version
 import json
 import os
 import platform
@@ -21,7 +22,7 @@ import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String
 
-from op3_model_audit import qat_validation_gate, sha256_file
+from op3_model_audit import qat_validation_gate, ptq_validation_gate, sha256_file
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -61,6 +62,13 @@ def git_value(*args: str) -> str | None:
     except (OSError, subprocess.TimeoutExpired):
         return None
     return result.stdout.strip() if result.returncode == 0 else None
+
+
+def package_version(name: str) -> str | None:
+    try:
+        return distribution_version(name)
+    except PackageNotFoundError:
+        return None
 
 
 def detector_pid(explicit_pid: int | None) -> int:
@@ -187,7 +195,7 @@ def save_csv(path: Path, rows: list[dict[str, Any]], columns: list[str]) -> None
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--model-kind", choices=("fp32", "qat_int8"), default="fp32")
+    parser.add_argument("--model-kind", choices=("fp32", "ptq_int8", "qat_int8"), default="fp32")
     parser.add_argument("--model-xml", type=Path, required=True)
     parser.add_argument("--seconds", type=float, default=60.0)
     parser.add_argument("--warmup", type=int, default=30)
@@ -203,6 +211,8 @@ def main() -> int:
     args = parse_args()
     if args.model_kind == "qat_int8" and not qat_validation_gate(ROOT)["accepted"]:
         raise SystemExit("BLOCKED: no validated QAT OpenVINO artifact")
+    if args.model_kind == "ptq_int8" and not ptq_validation_gate(ROOT, args.model_xml)["accepted"]:
+        raise SystemExit("BLOCKED: existing PTQ artifact failed provenance/hash validation")
     if args.warmup < 30:
         raise SystemExit("ROS 2 benchmark requires at least 30 warmup callbacks.")
     if args.result_stem == "stability_test" and args.seconds < 600:
@@ -299,6 +309,7 @@ def main() -> int:
         "cpu_model": cpu_model,
         "system_ram_total_bytes": memory.total,
         "python_version": platform.python_version(),
+        "openvino_version": package_version("openvino"),
         "ros_distro": os.environ.get("ROS_DISTRO"),
         "command": " ".join([sys.executable, *sys.argv]),
         "model": {

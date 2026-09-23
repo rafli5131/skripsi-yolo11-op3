@@ -1,0 +1,297 @@
+{
+  "benchmark_script_path": "scripts/benchmark_op3.py",
+  "benchmark_script_sha256_at_measurement": "6c278137e4aaf9c01a8a8603bc171062c3ca300ee0f0cbc61fc051b069da78ed",
+  "command": "/home/humanoid/ros2_jazzy/.venv-op3-vision/bin/python scripts/benchmark_op3.py --model-kind ptq_int8 --device CPU --warmup 30 --iterations 300",
+  "cpu_model": "12th Gen Intel(R) Core(TM) i5-1240P",
+  "detection_observations": {
+    "accuracy_metrics": "not computed; live frames have no ground truth",
+    "last_frame": [
+      {
+        "class_id": 2,
+        "class_name": "robot",
+        "confidence": 0.6876558065414429,
+        "x1": 0.0,
+        "x2": 640.0,
+        "y1": 0.0,
+        "y2": 625.6383056640625
+      }
+    ],
+    "last_frame_count": 1,
+    "mean_per_frame": 1.0,
+    "total_over_processed_frames": 300
+  },
+  "effective_end_to_end_fps": 76.59773716726609,
+  "experimental_setup": {
+    "batch": 1,
+    "camera_device": null,
+    "camera_dropped_frames": null,
+    "camera_frame_shape": [
+      640,
+      640,
+      3
+    ],
+    "camera_frames_processed": null,
+    "camera_frames_received": null,
+    "compile_time_ms_excluded_from_inference": 316.499279,
+    "confidence_threshold": 0.25,
+    "device": "CPU",
+    "duration_measured_seconds": 3.916564785,
+    "duration_requested_seconds": null,
+    "input_resolution": [
+      640,
+      640
+    ],
+    "iou_threshold": 0.45,
+    "iterations_processed": 300,
+    "iterations_requested": 300,
+    "mode": "synthetic",
+    "resource_sample_interval_seconds": 0.2,
+    "visualization_enabled": false,
+    "warmups": 30
+  },
+  "fps_from_mean_inference_latency": 88.68687414299268,
+  "git_branch": "main",
+  "git_commit": "33b0b3b5ac395497e111bccdbec1d4eef0c5346e",
+  "git_worktree_dirty_at_measurement": true,
+  "hostname": "humanoid-NUC12WSHi5",
+  "input": {
+    "dtype": "f32",
+    "shape": [
+      1,
+      3,
+      640,
+      640
+    ]
+  },
+  "latency_ms": {
+    "capture_ms": {
+      "max": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "min": 0.0,
+      "p50": 0.0,
+      "p90": 0.0,
+      "p95": 0.0,
+      "p99": 0.0,
+      "std": 0.0
+    },
+    "end_to_end_stage_sum_ms": {
+      "max": 14.212918,
+      "mean": 12.967967673333332,
+      "median": 12.911050499999998,
+      "min": 12.53006,
+      "p50": 12.911050499999998,
+      "p90": 13.222850600000001,
+      "p95": 13.311594,
+      "p99": 13.648512229999998,
+      "std": 0.2120483023655536
+    },
+    "inference_ms": {
+      "max": 12.28683,
+      "mean": 11.27562573,
+      "median": 11.221242499999999,
+      "min": 10.962357,
+      "p50": 11.221242499999999,
+      "p90": 11.4860831,
+      "p95": 11.6163351,
+      "p99": 11.78125798,
+      "std": 0.16959049170295612
+    },
+    "loop_wall_ms": {
+      "max": 14.287221,
+      "mean": 13.041003686666667,
+      "median": 12.987504,
+      "min": 12.597641,
+      "p50": 12.987504,
+      "p90": 13.295598,
+      "p95": 13.3838933,
+      "p99": 13.722909399999997,
+      "std": 0.21210835611960654
+    },
+    "postprocess_ms": {
+      "max": 0.414785,
+      "mean": 0.28084478333333335,
+      "median": 0.277555,
+      "min": 0.26188,
+      "p50": 0.277555,
+      "p90": 0.2968905,
+      "p95": 0.30467795000000003,
+      "p99": 0.3192166999999999,
+      "std": 0.01383988274118398
+    },
+    "preprocess_ms": {
+      "max": 2.296418,
+      "mean": 1.41149716,
+      "median": 1.364118,
+      "min": 1.213834,
+      "p50": 1.364118,
+      "p90": 1.6071658000000002,
+      "p95": 1.6569792,
+      "p99": 1.74565584,
+      "std": 0.11938475469894695
+    }
+  },
+  "measurement_head": "33b0b3b5ac395497e111bccdbec1d4eef0c5346e",
+  "model": {
+    "bin_path": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/experiments/ptq/backend_models/ptq_openvino_model/model.bin",
+    "bin_sha256": "82246726edcd780685657f673caa2b40719a8c22b67e3702ca3d1f226b8fcf81",
+    "bin_size_bytes": 2741080,
+    "kind": "ptq_int8",
+    "xml_path": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/experiments/ptq/backend_models/ptq_openvino_model/model.xml",
+    "xml_sha256": "10cb9dfa3539650a0bc46d60ad708f9ff79fc1e2dc79c5ac4a73ff4943326657",
+    "xml_size_bytes": 666400
+  },
+  "official_minimums_met": true,
+  "openvino_version": "2026.3.1-22476-759c5a6ab8c-releases/2026/3",
+  "output": {
+    "dtype": "f32",
+    "finite": true,
+    "shape": [
+      1,
+      7,
+      8400
+    ]
+  },
+  "python_version": "3.12.3",
+  "raw_measurements_csv": "experiments/hardware_op3/benchmark_ptq_int8.csv",
+  "raw_resource_samples_csv": "experiments/hardware_op3/resources_benchmark_ptq_int8.csv",
+  "resource_summary": {
+    "per_core_cpu_percent": {
+      "mean_by_core": [
+        0.0,
+        94.47368421052632,
+        1.2789473684210526,
+        74.58947368421055,
+        0.7789473684210527,
+        74.8,
+        0.5052631578947369,
+        74.98421052631578,
+        5.773684210526315,
+        3.8736842105263154,
+        5.931578947368421,
+        1.8473684210526315,
+        4.38421052631579,
+        4.094736842105263,
+        2.81578947368421,
+        3.3263157894736834
+      ],
+      "p95_by_core": [
+        0.0,
+        100.0,
+        5.44999999999999,
+        81.0,
+        5.0,
+        81.0,
+        4.8,
+        81.0,
+        14.3,
+        9.549999999999999,
+        10.049999999999999,
+        5.76999999999999,
+        10.0,
+        13.669999999999998,
+        9.5,
+        9.5
+      ],
+      "peak_by_core": [
+        0.0,
+        100.0,
+        9.5,
+        81.0,
+        5.0,
+        81.0,
+        4.8,
+        81.0,
+        14.3,
+        10.0,
+        10.5,
+        10.0,
+        10.0,
+        14.3,
+        9.5,
+        9.5
+      ]
+    },
+    "process_cpu_percent": {
+      "max": 343.9,
+      "mean": 340.4368421052631,
+      "median": 338.9,
+      "min": 333.6,
+      "p50": 338.9,
+      "p90": 343.71999999999997,
+      "p95": 343.81,
+      "p99": 343.882,
+      "std": 3.3066457048154567
+    },
+    "rss_bytes": {
+      "max": 226533376.0,
+      "mean": 226444773.0526316,
+      "median": 226447360.0,
+      "min": 226349056.0,
+      "p50": 226447360.0,
+      "p90": 226518630.4,
+      "p95": 226526003.2,
+      "p99": 226531901.44,
+      "std": 54940.91964577537
+    },
+    "sample_count": 19,
+    "system_cpu_percent": {
+      "max": 24.0,
+      "mean": 22.163157894736845,
+      "median": 23.4,
+      "min": 0.0,
+      "p50": 23.4,
+      "p90": 23.72,
+      "p95": 23.82,
+      "p99": 23.964,
+      "std": 5.232309596336149
+    },
+    "system_memory_available_bytes": {
+      "max": 2344837120.0,
+      "mean": 2340952818.5263157,
+      "median": 2340737024.0,
+      "min": 2340737024.0,
+      "p50": 2340737024.0,
+      "p90": 2340737024.0,
+      "p95": 2341147033.6,
+      "p99": 2344099102.72,
+      "std": 915538.6374050017
+    },
+    "system_memory_percent": {
+      "max": 70.3,
+      "mean": 70.29473684210525,
+      "median": 70.3,
+      "min": 70.2,
+      "p50": 70.3,
+      "p90": 70.3,
+      "p95": 70.3,
+      "p99": 70.3,
+      "std": 0.02232968782694233
+    },
+    "system_memory_used_bytes": {
+      "max": 5154594816.0,
+      "mean": 5154379021.473684,
+      "median": 5154594816.0,
+      "min": 5150494720.0,
+      "p50": 5154594816.0,
+      "p90": 5154594816.0,
+      "p95": 5154594816.0,
+      "p99": 5154594816.0,
+      "std": 915538.6374050017
+    },
+    "vms_bytes": {
+      "max": 2127605760.0,
+      "mean": 2127605760.0,
+      "median": 2127605760.0,
+      "min": 2127605760.0,
+      "p50": 2127605760.0,
+      "p90": 2127605760.0,
+      "p95": 2127605760.0,
+      "p99": 2127605760.0,
+      "std": 0.0
+    }
+  },
+  "ros_distro": "jazzy",
+  "system_ram_total_bytes": 7875018752,
+  "timestamp_utc": "2026-09-23T14:25:27.769936+00:00"
+}

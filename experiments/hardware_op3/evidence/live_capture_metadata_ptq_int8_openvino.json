@@ -1,0 +1,94 @@
+{
+  "camera_device": "/dev/video0",
+  "camera_frames_captured": 433,
+  "capture_duration_seconds": 15.223337445000652,
+  "capture_started_at_utc": "2026-09-23T14:27:18.073545+00:00",
+  "captured_at_utc": "2026-09-23 14:27:33 UTC",
+  "detection_image": "experiments/hardware_op3/evidence/live_detection_ptq_int8_openvino.png",
+  "device": "CPU",
+  "git_commit": "33b0b3b5ac395497e111bccdbec1d4eef0c5346e",
+  "host": "humanoid-NUC12WSHi5",
+  "model": {
+    "bin_sha256": "82246726edcd780685657f673caa2b40719a8c22b67e3702ca3d1f226b8fcf81",
+    "name": "YOLO11n PTQ INT8 OpenVINO",
+    "quantization_method": "existing calibrated PTQ INT8 comparator",
+    "xml_path": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/experiments/ptq/backend_models/ptq_openvino_model/model.xml",
+    "xml_sha256": "10cb9dfa3539650a0bc46d60ad708f9ff79fc1e2dc79c5ac4a73ff4943326657"
+  },
+  "openvino_version": "2026.3.1-22476-759c5a6ab8c-releases/2026/3",
+  "python_version": "3.12.3",
+  "resource_plot_source_csv": null,
+  "resource_plot_source_json": null,
+  "resource_samples_csv": "experiments/hardware_op3/evidence/live_capture_resources_ptq_int8_openvino.csv",
+  "resource_summary_during_capture": {
+    "process_cpu_percent": {
+      "max": 159.5,
+      "mean": 143.27599999999998,
+      "median": 149.4,
+      "min": 0.0,
+      "p50": 149.4,
+      "p90": 154.4,
+      "p95": 154.5,
+      "p99": 159.056,
+      "std": 27.36042806682673
+    },
+    "resource_sample_count": 75,
+    "rss_bytes": {
+      "max": 255950848.0,
+      "mean": 255142570.66666666,
+      "median": 255574016.0,
+      "min": 238907392.0,
+      "p50": 255574016.0,
+      "p90": 255876300.8,
+      "p95": 255916441.6,
+      "p99": 255941754.88,
+      "std": 2692298.4700904437
+    },
+    "system_cpu_percent": {
+      "max": 100.0,
+      "mean": 12.46,
+      "median": 11.3,
+      "min": 3.4,
+      "p50": 11.3,
+      "p90": 12.5,
+      "p95": 12.79,
+      "p99": 36.43400000000044,
+      "std": 10.266424239562022
+    },
+    "system_memory_percent": {
+      "max": 70.3,
+      "mean": 70.29733333333334,
+      "median": 70.3,
+      "min": 70.2,
+      "p50": 70.3,
+      "p90": 70.3,
+      "p95": 70.3,
+      "p99": 70.3,
+      "std": 0.01611072796479185
+    }
+  },
+  "selected_frame_detections": [
+    {
+      "class_id": 0,
+      "class_name": "ball",
+      "confidence": 0.9170588254928589,
+      "x1": 307.859619140625,
+      "x2": 334.1773681640625,
+      "y1": 283.18817138671875,
+      "y2": 312.3171081542969
+    },
+    {
+      "class_id": 2,
+      "class_name": "robot",
+      "confidence": 0.791456937789917,
+      "x1": 454.7412109375,
+      "x2": 508.2992858886719,
+      "y1": 200.3287353515625,
+      "y2": 292.52447509765625
+    }
+  ],
+  "selected_frame_has_detection": true,
+  "selected_frame_index": 13,
+  "selected_frame_inference_ms": 12.444628,
+  "warmup_inferences": 30
+}

@@ -1,0 +1,277 @@
+{
+  "accuracy_metrics": "not computed; live camera frames have no ground truth",
+  "benchmark_script_path": "scripts/benchmark_op3_ros2.py",
+  "benchmark_script_sha256_at_measurement": "989cef1ff962142171ec6edf20a5e3c181c5b1e7c3627f6e3447072b5d0a88a4",
+  "command": "/home/humanoid/ros2_jazzy/.venv-op3-vision/bin/python scripts/benchmark_op3_ros2.py --model-kind ptq_int8 --model-xml experiments/ptq/backend_models/ptq_openvino_model/model.xml --seconds 60 --warmup 30 --camera-fps 30 --result-stem ros2_benchmark_ptq_int8",
+  "cpu_model": "12th Gen Intel(R) Core(TM) i5-1240P",
+  "effective_end_to_end_fps": 12.93222786623496,
+  "fps_from_mean_inference_latency": 84.27990545164374,
+  "git_branch": "main",
+  "git_commit": "33b0b3b5ac395497e111bccdbec1d4eef0c5346e",
+  "git_worktree_dirty_at_measurement": true,
+  "hostname": "humanoid-NUC12WSHi5",
+  "latency_ms": {
+    "callback_latency_ms": {
+      "max": 23.390001,
+      "mean": 16.718104269329896,
+      "median": 15.673767999999999,
+      "min": 14.527964,
+      "p50": 15.673767999999999,
+      "p90": 19.3401455,
+      "p95": 19.82328025,
+      "p99": 21.48815225,
+      "std": 1.8754324554696096
+    },
+    "image_age_at_callback_ms": {
+      "max": 58.73811,
+      "mean": 49.19590820103093,
+      "median": 48.78472,
+      "min": 43.523773,
+      "p50": 48.78472,
+      "p90": 53.8471385,
+      "p95": 54.64510225,
+      "p99": 56.43889425,
+      "std": 3.2149824540756526
+    },
+    "inference_ms": {
+      "max": 15.057716,
+      "mean": 11.865224511597937,
+      "median": 11.6688015,
+      "min": 10.987102,
+      "p50": 11.6688015,
+      "p90": 12.636187,
+      "p95": 12.971322,
+      "p99": 14.23171275,
+      "std": 0.6063521820203164
+    },
+    "postprocess_ms": {
+      "max": 0.694682,
+      "mean": 0.45148107087628864,
+      "median": 0.439676,
+      "min": 0.41323,
+      "p50": 0.439676,
+      "p90": 0.481601,
+      "p95": 0.5162909999999999,
+      "p99": 0.6424135,
+      "std": 0.03532656074169224
+    },
+    "preprocess_ms": {
+      "max": 8.577326,
+      "mean": 4.294390009020618,
+      "median": 3.401268,
+      "min": 2.590547,
+      "p50": 3.401268,
+      "p90": 6.238985,
+      "p95": 6.54014475,
+      "p99": 7.00988275,
+      "std": 1.409418013555166
+    }
+  },
+  "measurement_head": "33b0b3b5ac395497e111bccdbec1d4eef0c5346e",
+  "model": {
+    "bin_path": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/experiments/ptq/backend_models/ptq_openvino_model/model.bin",
+    "bin_sha256": "82246726edcd780685657f673caa2b40719a8c22b67e3702ca3d1f226b8fcf81",
+    "kind": "ptq_int8",
+    "xml_path": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/experiments/ptq/backend_models/ptq_openvino_model/model.xml",
+    "xml_sha256": "10cb9dfa3539650a0bc46d60ad708f9ff79fc1e2dc79c5ac4a73ff4943326657"
+  },
+  "node_software": {
+    "openvino_version_source": "OpenVINO CPU ready launch log",
+    "ros_package_commit": "d13a18e3ef661f6600663236deb8bbd94fa6f024",
+    "ros_package_worktree_dirty_at_measurement": true
+  },
+  "openvino_version": "2026.3.1-22476-759c5a6ab8c-releases/2026/3",
+  "python_version": "3.12.3",
+  "raw_measurements_csv": "experiments/hardware_op3/ros2_benchmark_ptq_int8.csv",
+  "raw_resource_samples_csv": "experiments/hardware_op3/resources_ros2_benchmark_ptq_int8.csv",
+  "resource_summary": {
+    "per_core_cpu_percent": {
+      "mean_by_core": [
+        6.092229729729722,
+        24.43243243243247,
+        8.597635135135137,
+        15.683108108108122,
+        8.571283783783784,
+        17.00506756756758,
+        9.37094594594595,
+        15.672635135135142,
+        5.049324324324318,
+        3.7148648648648592,
+        2.61689189189189,
+        2.443918918918918,
+        2.2658783783783787,
+        1.7260135135135148,
+        1.916216216216217,
+        1.965540540540541
+      ],
+      "p95_by_core": [
+        15.0,
+        52.4,
+        15.0,
+        33.3,
+        18.2,
+        35.0,
+        19.0,
+        33.3,
+        10.125,
+        9.625,
+        9.5,
+        9.5,
+        9.5,
+        9.1,
+        5.0,
+        9.1
+      ],
+      "peak_by_core": [
+        19.0,
+        55.0,
+        20.0,
+        38.1,
+        35.0,
+        36.4,
+        84.2,
+        68.4,
+        15.0,
+        14.3,
+        14.3,
+        20.0,
+        21.1,
+        10.0,
+        14.3,
+        13.6
+      ]
+    },
+    "process_cpu_percent": {
+      "max": 168.1,
+      "mean": 75.36148648648648,
+      "median": 64.45,
+      "min": 0.0,
+      "p50": 64.45,
+      "p90": 157.9,
+      "p95": 158.82500000000002,
+      "p99": 163.70499999999998,
+      "std": 49.17604754191223
+    },
+    "rss_bytes": {
+      "max": 261222400.0,
+      "mean": 253224088.2162162,
+      "median": 250626048.0,
+      "min": 250576896.0,
+      "p50": 250626048.0,
+      "p90": 260931584.0,
+      "p95": 260952064.0,
+      "p99": 261222400.0,
+      "std": 4383698.682325439
+    },
+    "rss_first_sample_bytes": 250576896,
+    "rss_growth_bytes": 327680,
+    "rss_growth_percent": 0.13077023669412843,
+    "rss_last_sample_bytes": 250904576,
+    "sample_count": 296,
+    "system_cpu_percent": {
+      "max": 13.5,
+      "mean": 8.003378378378379,
+      "median": 7.75,
+      "min": 0.0,
+      "p50": 7.75,
+      "p90": 12.1,
+      "p95": 12.4,
+      "p99": 12.905000000000001,
+      "std": 2.5396694704216856
+    },
+    "system_memory_available_bytes": {
+      "max": 2256539648.0,
+      "mean": 2229251196.5405407,
+      "median": 2236854272.0,
+      "min": 2175082496.0,
+      "p50": 2236854272.0,
+      "p90": 2245146624.0,
+      "p95": 2246800384.0,
+      "p99": 2253174988.8,
+      "std": 19783230.939483795
+    },
+    "system_memory_percent": {
+      "max": 72.4,
+      "mean": 71.69087837837837,
+      "median": 71.6,
+      "min": 71.3,
+      "p50": 71.6,
+      "p90": 72.2,
+      "p95": 72.3,
+      "p99": 72.3,
+      "std": 0.250306377276886
+    },
+    "system_memory_used_bytes": {
+      "max": 5317578752.0,
+      "mean": 5263973804.972973,
+      "median": 5256474624.0,
+      "min": 5236789248.0,
+      "p50": 5256474624.0,
+      "p90": 5305368576.0,
+      "p95": 5307762688.0,
+      "p99": 5312281395.2,
+      "std": 19557639.568864387
+    },
+    "thermal_zone_temperature_c": {
+      "last_sample": [
+        43.0,
+        45.0,
+        47.0
+      ],
+      "maximum_sampled": 59.0
+    },
+    "vms_bytes": {
+      "max": 2956312576.0,
+      "mean": 2947975693.8378377,
+      "median": 2945167360.0,
+      "min": 2945167360.0,
+      "p50": 2945167360.0,
+      "p90": 2955653120.0,
+      "p95": 2955817984.0,
+      "p99": 2956312576.0,
+      "std": 4555987.998715617
+    }
+  },
+  "ros_distro": "jazzy",
+  "setup": {
+    "batch": 1,
+    "benchmark_topic": "/vision/benchmark",
+    "camera_drop_estimate_method": "configured source FPS * measured interval minus successful detector callbacks; estimate only",
+    "camera_fps_configured": 30.0,
+    "camera_frames_estimated_dropped": 1024,
+    "debug_image_enabled": false,
+    "debug_topic": "/vision/debug_image",
+    "detection_topic": "/vision/detections",
+    "device": "CPU",
+    "duration_measured_seconds": 60.00512889399943,
+    "duration_requested_seconds": 60.0,
+    "exception_messages": [],
+    "exceptions": 0,
+    "frames_processed_successfully": 776,
+    "frames_received_by_detector_callback": 806,
+    "image_topic": "/image_raw",
+    "input_resolution": [
+      640,
+      640
+    ],
+    "node_pid": 27778,
+    "resource_sample_interval_seconds": 0.2,
+    "thermal_abort": false,
+    "thermal_abort_threshold_c": null,
+    "thermal_final_c": [
+      52.0,
+      45.0,
+      47.0
+    ],
+    "thermal_initial_c": [
+      52.0,
+      43.0,
+      48.0
+    ],
+    "warmup_callbacks": 30,
+    "warmup_callbacks_observed": 30
+  },
+  "stability": null,
+  "system_ram_total_bytes": 7875018752,
+  "timestamp_utc": "2026-09-23T14:29:02.289883+00:00"
+}
