@@ -1,0 +1,275 @@
+{
+  "accuracy_metrics": "not computed; live camera frames have no ground truth",
+  "command": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/../.venv-op3-vision/bin/python scripts/benchmark_op3_ros2.py --model-kind fp32 --model-xml .cache/hardware_models/fp32/model.xml --seconds 600 --warmup 30 --camera-fps 30 --result-stem stability_test --resource-interval 0.2",
+  "cpu_model": "12th Gen Intel(R) Core(TM) i5-1240P",
+  "effective_end_to_end_fps": 24.09054745765394,
+  "fps_from_mean_inference_latency": 31.74921481859323,
+  "git_branch": "main",
+  "git_commit": "c5fe60711f615e71aa73f54586d8b16ffac96122",
+  "hostname": "humanoid-NUC12WSHi5",
+  "latency_ms": {
+    "callback_latency_ms": {
+      "max": 75.245098,
+      "mean": 34.212501396610165,
+      "median": 32.107422,
+      "min": 28.17307,
+      "p50": 32.107422,
+      "p90": 36.220651600000004,
+      "p95": 59.225974999999956,
+      "p99": 68.94392905999993,
+      "std": 7.9362395167009465
+    },
+    "image_age_at_callback_ms": {
+      "max": 124.598741,
+      "mean": 81.69517541736424,
+      "median": 78.557506,
+      "min": 57.32492,
+      "p50": 78.557506,
+      "p90": 102.94804260000001,
+      "p95": 106.5080972,
+      "p99": 113.06524929999999,
+      "std": 15.76638510952984
+    },
+    "inference_ms": {
+      "max": 69.529135,
+      "mean": 31.49684191290211,
+      "median": 29.509316,
+      "min": 25.85731,
+      "p50": 29.509316,
+      "p90": 33.3834626,
+      "p95": 55.02205539999996,
+      "p99": 64.15486793999997,
+      "std": 7.456144573135297
+    },
+    "postprocess_ms": {
+      "max": 0.985147,
+      "mean": 0.5432484947768939,
+      "median": 0.497286,
+      "min": 0.37052,
+      "p50": 0.497286,
+      "p90": 0.6843254,
+      "p95": 0.7095433999999999,
+      "p99": 0.7965521199999999,
+      "std": 0.09726807955360436
+    },
+    "preprocess_ms": {
+      "max": 7.273159,
+      "mean": 2.054108271601522,
+      "median": 1.810105,
+      "min": 1.473679,
+      "p50": 1.810105,
+      "p90": 2.5848778,
+      "p95": 3.318195799999996,
+      "p99": 4.92214098,
+      "std": 0.6397325446297145
+    }
+  },
+  "model": {
+    "bin_path": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/.cache/hardware_models/fp32/model.bin",
+    "bin_sha256": "e85f45438b5f7c8858b1a168a03f61b12a73b8159391529d19b84e09ff854026",
+    "kind": "fp32",
+    "xml_path": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/.cache/hardware_models/fp32/model.xml",
+    "xml_sha256": "233bb872e218ab3bf525188b0e105eea9f2a79e60ffecb4b767e63939ba257e7"
+  },
+  "python_version": "3.12.3",
+  "raw_measurements_csv": "experiments/hardware_op3/stability_test.csv",
+  "raw_resource_samples_csv": "experiments/hardware_op3/resources_stability_test.csv",
+  "resource_summary": {
+    "per_core_cpu_percent": {
+      "mean_by_core": [
+        49.56032279757911,
+        8.757800941492818,
+        50.39694014794882,
+        7.6897780766643375,
+        49.944788164088635,
+        7.924714189643484,
+        49.518493611297885,
+        8.219502353732258,
+        63.47676529926033,
+        64.86893073301955,
+        65.04361129791542,
+        64.89583053127109,
+        65.84351042367187,
+        65.67511768661738,
+        65.5974445191662,
+        66.82925353059856
+      ],
+      "p95_by_core": [
+        70.0,
+        15.0,
+        71.4,
+        14.3,
+        73.7,
+        14.3,
+        73.7,
+        15.0,
+        77.3,
+        80.0,
+        80.0,
+        80.0,
+        81.0,
+        81.0,
+        81.0,
+        83.3
+      ],
+      "peak_by_core": [
+        90.0,
+        35.0,
+        95.0,
+        23.8,
+        95.0,
+        23.8,
+        94.7,
+        23.8,
+        85.0,
+        85.7,
+        90.0,
+        90.0,
+        95.2,
+        90.5,
+        95.0,
+        100.0
+      ]
+    },
+    "process_cpu_percent": {
+      "max": 898.2,
+      "mean": 705.4331540013451,
+      "median": 819.0,
+      "min": 0.0,
+      "p50": 819.0,
+      "p90": 849.5,
+      "p95": 857.275,
+      "p99": 868.527,
+      "std": 202.37456496073037
+    },
+    "rss_bytes": {
+      "max": 275140608.0,
+      "mean": 275136408.70477474,
+      "median": 275140608.0,
+      "min": 275111936.0,
+      "p50": 275140608.0,
+      "p90": 275140608.0,
+      "p95": 275140608.0,
+      "p99": 275140608.0,
+      "std": 7156.671310819506
+    },
+    "rss_first_sample_bytes": 275111936,
+    "rss_growth_bytes": 28672,
+    "rss_growth_percent": 0.010421939671857786,
+    "rss_last_sample_bytes": 275140608,
+    "sample_count": 2974,
+    "system_cpu_percent": {
+      "max": 58.6,
+      "mean": 47.23732347007398,
+      "median": 53.9,
+      "min": 0.0,
+      "p50": 53.9,
+      "p90": 56.2,
+      "p95": 56.7,
+      "p99": 57.7,
+      "std": 12.415068792344062
+    },
+    "system_memory_available_bytes": {
+      "max": 2984849408.0,
+      "mean": 2971447114.2004037,
+      "median": 2971426816.0,
+      "min": 2957025280.0,
+      "p50": 2971426816.0,
+      "p90": 2979446784.0,
+      "p95": 2981498880.0,
+      "p99": 2984075264.0,
+      "std": 5539290.420573719
+    },
+    "system_memory_percent": {
+      "max": 62.5,
+      "mean": 62.2649293880296,
+      "median": 62.3,
+      "min": 62.1,
+      "p50": 62.3,
+      "p90": 62.4,
+      "p95": 62.4,
+      "p99": 62.4,
+      "std": 0.07460304088513503
+    },
+    "system_memory_used_bytes": {
+      "max": 4535988224.0,
+      "mean": 4521564171.018157,
+      "median": 4521582592.0,
+      "min": 4508164096.0,
+      "p50": 4521582592.0,
+      "p90": 4528586752.0,
+      "p95": 4530731827.2,
+      "p99": 4534464512.0,
+      "std": 5539792.73067031
+    },
+    "thermal_zone_temperature_c": {
+      "last_sample": [
+        69.0,
+        69.0,
+        66.0
+      ],
+      "maximum_sampled": 76.0
+    },
+    "vms_bytes": {
+      "max": 2983907328.0,
+      "mean": 2983907328.0,
+      "median": 2983907328.0,
+      "min": 2983907328.0,
+      "p50": 2983907328.0,
+      "p90": 2983907328.0,
+      "p95": 2983907328.0,
+      "p99": 2983907328.0,
+      "std": 0.0
+    }
+  },
+  "ros_distro": "jazzy",
+  "setup": {
+    "batch": 1,
+    "benchmark_topic": "/vision/benchmark",
+    "camera_drop_estimate_method": "configured source FPS * measured interval minus successful detector callbacks; estimate only",
+    "camera_fps_configured": 30.0,
+    "camera_frames_estimated_dropped": 3546,
+    "debug_image_enabled": false,
+    "debug_topic": "/vision/debug_image",
+    "detection_topic": "/vision/detections",
+    "device": "CPU",
+    "duration_measured_seconds": 600.0278750580001,
+    "duration_requested_seconds": 600.0,
+    "exception_messages": [],
+    "exceptions": 0,
+    "frames_processed_successfully": 14455,
+    "frames_received_by_detector_callback": 14485,
+    "image_topic": "/image_raw",
+    "input_resolution": [
+      640,
+      640
+    ],
+    "node_pid": 22458,
+    "resource_sample_interval_seconds": 0.2,
+    "thermal_abort": false,
+    "thermal_abort_threshold_c": 90.0,
+    "thermal_final_c": [
+      71.0,
+      69.0,
+      66.0
+    ],
+    "thermal_initial_c": [
+      73.0,
+      64.0,
+      60.0
+    ],
+    "warmup_callbacks": 30,
+    "warmup_callbacks_observed": 30
+  },
+  "stability": {
+    "completed_full_duration": true,
+    "estimated_dropped_frames": 3546,
+    "exceptions": 0,
+    "rss_end_bytes": 275140608,
+    "rss_growth_bytes": 28672,
+    "rss_growth_percent": 0.010421939671857786,
+    "rss_start_bytes": 275111936
+  },
+  "system_ram_total_bytes": 7875018752,
+  "timestamp_utc": "2026-09-23T13:46:44.956397+00:00"
+}
