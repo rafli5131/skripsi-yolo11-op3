@@ -1,0 +1,60 @@
+# Validation-only search space for selecting the strongest true-QAT checkpoint.
+#
+# IMPORTANT:
+# - Selection uses TRAIN + VAL only.
+# - TEST is evaluated once after the best QAT candidate is frozen.
+# - PTQ metrics are never copied/relabelled as QAT metrics.
+# - All candidates use the existing NNCF create_compressed_model() QAT path.
+
+selection_metric: mAP50-95
+secondary_metrics:
+  - mAP50
+  - precision
+  - recall
+
+common:
+  batch: 16
+  workers: 2
+  imgsz: 640
+  seed: 42
+  optimizer: AdamW
+  weight_decay: 0.0005
+  momentum: 0.9
+  amp: false
+  range_init_batch: 4
+
+candidates:
+  - name: qat_lr1e5_r128_e10
+    epochs: 10
+    lr0: 0.00001
+    lrf: 0.20
+    warmup_epochs: 0.0
+    range_init_samples: 128
+
+  - name: qat_lr3e5_r128_e10
+    epochs: 10
+    lr0: 0.00003
+    lrf: 0.20
+    warmup_epochs: 0.0
+    range_init_samples: 128
+
+  - name: qat_lr5e5_r256_e15
+    epochs: 15
+    lr0: 0.00005
+    lrf: 0.10
+    warmup_epochs: 0.0
+    range_init_samples: 256
+
+  - name: qat_lr1e4_r256_e15
+    epochs: 15
+    lr0: 0.00010
+    lrf: 0.10
+    warmup_epochs: 0.0
+    range_init_samples: 256
+
+  - name: qat_lr3e5_r512_e20
+    epochs: 20
+    lr0: 0.00003
+    lrf: 0.10
+    warmup_epochs: 0.0
+    range_init_samples: 512
