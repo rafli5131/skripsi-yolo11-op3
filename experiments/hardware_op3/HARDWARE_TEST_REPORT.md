@@ -168,3 +168,19 @@ python scripts/audit_op3_models.py
 ```
 
 The QAT benchmark runner intentionally exits with `BLOCKED: no validated QAT OpenVINO artifact` until the repository contains accepted selected-checkpoint provenance and accepted numerical-equivalence evidence.
+
+## 14. Visual evidence
+
+The detection image is a real C920 frame processed by the audited FP32 OpenVINO model on the CPU at capture time. In an 8.24-second capture window, 223 frames were inferred; the selected frame shows model predictions `ball` (confidence 0.915) and `robot` (0.834). Its side panel records capture-window process CPU (mean 744.2%, P95 850.4%) and RSS (mean 255.1 MiB, peak 256.2 MiB), sampled every 0.2 seconds. These live predictions are functional evidence, not ground-truth accuracy measurements.
+
+![Live camera detections with capture-time resource samples](evidence/live_detection_evidence.png)
+
+The resource plot summarizes the actual 10-minute ROS 2 stability run. Each plotted point is a five-second mean from the original 0.2-second resource samples; the complete unaggregated samples remain available as CSV.
+
+![CPU and RAM utilization during the 10-minute ROS 2 run](evidence/resource_utilization_10min.png)
+
+Capture metadata and raw capture-time resource samples are `evidence/live_capture_metadata.json` and `evidence/live_capture_resources.csv`. Recreate the camera image and resource plot with:
+
+```bash
+python scripts/capture_op3_evidence.py --model-xml .cache/hardware_models/fp32/model.xml --camera-device /dev/video0 --capture-seconds 8
+```
