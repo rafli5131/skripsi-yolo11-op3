@@ -6,7 +6,7 @@ Merangkum metrik validasi dan held-out TEST tanpa menarik kesimpulan deployment.
 
 ## Status
 
-**FP32/QAT TEST selesai; benchmark diagnostik server FP32/PTQ/QAT selesai; benchmark final OP3 tetap terpisah.**
+**FP32/QAT TEST selesai; benchmark latency server dan evaluasi deteksi VAL server selesai; benchmark final OP3 tetap terpisah.**
 
 | Ruang evaluasi | Precision | Recall | mAP50 | mAP50-95 |
 |---|---:|---:|---:|---:|
@@ -15,7 +15,20 @@ Merangkum metrik validasi dan held-out TEST tanpa menarik kesimpulan deployment.
 | FP32 TEST | 0,9313 | 0,9506 | 0,9642 | 0,7799 |
 | QAT TEST | 0,8542 | 0,9375 | 0,9512 | 0,6567 |
 
+## Evaluasi server pada VAL (empat model)
+
+| Model | Precision | Recall | F1 | mAP50 | mAP50-95 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| FP32 native PyTorch | 0,9474 | 0,9465 | 0,9470 | 0,9734 | 0,7783 |
+| FP32 OpenVINO | 0,9362 | 0,9576 | 0,9468 | 0,9730 | 0,7713 |
+| PTQ INT8 OpenVINO | 0,9341 | 0,9502 | 0,9421 | 0,9721 | 0,7672 |
+| QAT INT8 OpenVINO | 0,8657 | 0,9305 | 0,8970 | 0,9614 | 0,6549 |
+
+Sumber: [raw VAL comparison](../experiments/server_openvino/val_comparison.json) dan [analisis](28_server_val_detection_comparison.md). Ini VAL CPU, bukan FINAL TEST di tabel sebelumnya dan bukan benchmark latency sintetis.
+
 ## Perbandingan OpenVINO (VAL diagnostik)
+
+Tabel berikut berasal dari eksperimen PTQ historis. Evaluasi VAL empat model terbaru dengan konfigurasi sama dan FP32 native tambahan tersedia di [laporan server VAL](28_server_val_detection_comparison.md).
 
 | Metrik | FP32 OpenVINO | PTQ INT8 | Delta PTQ |
 |---|---:|---:|---:|

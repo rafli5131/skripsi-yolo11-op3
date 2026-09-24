@@ -10,11 +10,12 @@ Repository penelitian deteksi objek `ball`, `gawang`, dan `robot` dengan tiga mo
 | PTQ INT8 OpenVINO | Comparator existing; gate provenance accepted | [Provenance](docs/26_provenance_dan_verifikasi.md) |
 | QAT INT8 OpenVINO | Direct OpenVINO; gate equivalence/provenance accepted | [Provenance](docs/26_provenance_dan_verifikasi.md) |
 | Benchmark CPU server | FP32/PTQ/QAT selesai; diagnostik host | [Laporan server](docs/23_server_openvino_benchmark.md) |
+| Evaluasi deteksi VAL server | FP32 native/OV, PTQ, QAT selesai | [Perbandingan precision/F1/mAP](docs/28_server_val_detection_comparison.md) |
 | Benchmark final ROBOTIS OP3 | Perlu pengukuran langsung pada OP3 | [Next steps](docs/18_next_steps.md) |
 
 IR QAT lama yang ditolak telah dibersihkan dari worktree. JSON diagnostiknya tetap ada sebagai bukti; penjelasan kegagalan ada di [dokumen pembersihan](docs/25_kegagalan_dan_pembersihan.md). IR QAT final saat ini adalah artifact berbeda yang lolos audit.
 
-[Tahapan eksperimen](docs/20_experiment_timeline.md) menempatkan seleksi QAT best sebelum FINAL TEST dan export final. [Ringkasan hasil server di samping raw JSON/CSV](experiments/server_openvino/README.md) memudahkan pemeriksaan angka tanpa membuka dokumentasi panjang.
+[Tahapan eksperimen](docs/20_experiment_timeline.md) menempatkan seleksi QAT best sebelum FINAL TEST dan export final. [Ringkasan hasil server di samping raw JSON/CSV](experiments/server_openvino/README.md) mencakup kualitas deteksi VAL empat model dan benchmark latency sintetis tiga IR sebagai dua run terpisah.
 
 ## Peta cepat
 

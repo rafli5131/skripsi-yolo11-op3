@@ -1,6 +1,6 @@
 # Langkah Berikutnya
 
-FP32, PTQ INT8 comparator, dan QAT INT8 direct OpenVINO sudah tersedia dan lolos pemeriksaan provenance. FINAL TEST PyTorch telah dilakukan setelah pemilihan QAT best. Benchmark diagnostik server ketiga IR juga selesai; lihat [ringkasan hasil di direktori eksperimen](../experiments/server_openvino/README.md) dan [laporan lengkap](23_server_openvino_benchmark.md). Urutan tahapan ada di [timeline](20_experiment_timeline.md). Tidak ada kebutuhan untuk mengulang training, QAT tuning, FINAL TEST, PTQ, atau calibration hanya untuk melanjutkan tahap deployment.
+FP32, PTQ INT8 comparator, dan QAT INT8 direct OpenVINO sudah tersedia dan lolos pemeriksaan provenance. FINAL TEST PyTorch telah dilakukan setelah pemilihan QAT best. Benchmark latency sintetis server tiga IR dan evaluasi kualitas deteksi VAL empat model juga selesai; lihat [ringkasan hasil di direktori eksperimen](../experiments/server_openvino/README.md), [laporan latency](23_server_openvino_benchmark.md), dan [laporan precision/F1/mAP](28_server_val_detection_comparison.md). Urutan tahapan ada di [timeline](20_experiment_timeline.md). Tidak ada kebutuhan untuk mengulang training, QAT tuning, FINAL TEST, PTQ, atau calibration hanya untuk melanjutkan tahap deployment.
 
 ## Pengukuran pada ROBOTIS OP3
 

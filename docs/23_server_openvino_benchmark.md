@@ -131,6 +131,8 @@ Tail latency tidak bergerak seragam: p95 PTQ 25.855 ms dan QAT 23.120 ms, keduan
 
 Accuracy PTQ/QAT tidak dihitung ulang dalam benchmark server ini. Hasil accuracy terdahulu, bila dibahas, harus mengacu pada evaluasi beserta split yang sah secara terpisah; angka TEST accuracy tidak dicampur dengan angka latency server ini.
 
+Evaluasi kualitas deteksi **VAL** empat model di server telah dilakukan sebagai run terpisah setelah benchmark sintetis ini; baca [laporan VAL](../experiments/server_openvino/VAL_METRICS_REPORT.md) atau [analisis di docs](28_server_val_detection_comparison.md). Angka precision/F1/mAP dari VAL tidak berasal dari 300 frame sintetis pada tabel latency di atas.
+
 ## 10. Validitas dan Batasan
 
 > Hasil ini merupakan benchmark diagnostik pada server dan tidak merepresentasikan kinerja deployment akhir pada ROBOTIS OP3 karena terdapat perbedaan arsitektur CPU, konfigurasi hardware, sistem operasi, beban sistem, serta lingkungan runtime. Benchmark final latency, FPS, CPU, dan RAM tetap harus dilakukan langsung pada ROBOTIS OP3.

@@ -1,0 +1,91 @@
+{
+  "accuracy_context": "VAL detection quality on server; not FINAL TEST or ROBOTIS OP3 deployment",
+  "command": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/.venv/bin/python3 scripts/evaluate_server_val.py",
+  "dataset_yaml": "data/dataset/data.yaml",
+  "dataset_yaml_sha256": "abab15a8c9b19047bf020cab20aa5cf4dc36477948318ec222a05e2ade10614c",
+  "evaluator_configuration": {
+    "amp": false,
+    "augment": false,
+    "batch": 1,
+    "cache": false,
+    "conf": null,
+    "device": "cpu",
+    "fraction": 1.0,
+    "imgsz": 640,
+    "iou": 0.7,
+    "plots": false,
+    "rect": true,
+    "save_json": false,
+    "save_txt": false,
+    "split": "val",
+    "workers": 0
+  },
+  "evaluator_return": {
+    "fitness": 0.778270132581133,
+    "metrics/mAP50(B)": 0.9734462300705696,
+    "metrics/mAP50-95(B)": 0.778270132581133,
+    "metrics/precision(B)": 0.9474222797911365,
+    "metrics/recall(B)": 0.9464973128785138
+  },
+  "evaluator_script_sha256": "6fb17d38f21a635857ed796428ca18ca1a1cbff85ad97681998d53a9ab58716e",
+  "evaluator_speed_ms_per_image_diagnostic_only": {
+    "inference": 61.581437178846734,
+    "loss": 0.0009882253858046598,
+    "postprocess": 0.5832085146369859,
+    "preprocess": 0.7418512296843706
+  },
+  "git_commit_at_evaluation": "078715d08541aaa241d8f2cda7afd5dc10f7c2d6",
+  "hostname": "labkc-l40-debian",
+  "model": {
+    "files": [
+      {
+        "path": "artifacts/checkpoints/fp32/best.pt",
+        "sha256": "e05b2b21f7faa68f65671f0aaae37ad962aa5e25c6b8b26853fd0b389d420b8c",
+        "size_bytes": 5481875
+      }
+    ],
+    "format": "PyTorch checkpoint",
+    "label": "FP32 native PyTorch",
+    "slug": "fp32_native"
+  },
+  "openvino_version": "2024.4.0-16579-c3152d32c9c-releases/2024/4",
+  "os": "Linux-6.1.0-43-amd64-x86_64-with-glibc2.36",
+  "overall": {
+    "F1": 0.9469595704636233,
+    "mAP50": 0.9734462300705696,
+    "mAP50-95": 0.778270132581133,
+    "precision": 0.9474222797911365,
+    "recall": 0.9464973128785138
+  },
+  "per_class": {
+    "ball": {
+      "F1": 0.9835182326203546,
+      "mAP50": 0.9902964940669681,
+      "mAP50-95": 0.8985124217797875,
+      "precision": 0.967570953245658,
+      "recall": 1.0
+    },
+    "gawang": {
+      "F1": 0.8893877711797968,
+      "mAP50": 0.9477083115266491,
+      "mAP50-95": 0.6034441009663807,
+      "precision": 0.8955244326460013,
+      "recall": 0.8833346413513589
+    },
+    "robot": {
+      "F1": 0.9675275378081417,
+      "mAP50": 0.9823338846180915,
+      "mAP50-95": 0.8328538749972306,
+      "precision": 0.9791714534817498,
+      "recall": 0.9561572972841828
+    }
+  },
+  "python_version": "3.11.2",
+  "split": "val",
+  "timestamp_utc": "2026-09-24T06:15:13.805211+00:00",
+  "torch_version": "2.4.1+cu121",
+  "ultralytics_version": "8.4.130",
+  "val_annotations": 1525,
+  "val_images": 1213,
+  "val_images_path": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/data/raw/advance_vision_human/valid/images"
+}
