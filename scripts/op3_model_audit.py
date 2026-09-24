@@ -45,6 +45,23 @@ def lfs_pointer(path: Path) -> dict[str, Any] | None:
     return {"sha256": oid_match.group(1), "size_bytes": int(size_match.group(1))}
 
 
+def _valid_numerical_summary(summary: Any) -> bool:
+    if not isinstance(summary, dict):
+        return False
+    n_total = summary.get("VAL input count")
+    n_passed = summary.get("count relative MAE <= 1 percent")
+    n_failed = summary.get("count relative MAE > 1 percent")
+    max_error = summary.get("maximum relative MAE")
+    return bool(
+        isinstance(n_total, int)
+        and n_total > 0
+        and n_passed == n_total
+        and n_failed == 0
+        and isinstance(max_error, (int, float))
+        and max_error <= RELATIVE_MAE_LIMIT
+    )
+
+
 def qat_validation_gate(root: Path) -> dict[str, Any]:
     """Require selected true-QAT provenance and a passed export/equivalence gate."""
     qat_manifest_path = root / "artifacts/checkpoints/qat/manifest.json"
@@ -80,53 +97,83 @@ def qat_validation_gate(root: Path) -> dict[str, Any]:
     )
 
     export_candidates = [
-        root / "artifacts/openvino/qat_onnx_export_diagnostic.json",
         root / "artifacts/openvino/qat_export_diagnostic.json",
+        root / "artifacts/openvino/qat_onnx_export_diagnostic.json",
     ]
     export_records = [(path, read_json(path)) for path in export_candidates if path.is_file()]
+    accepted_statuses = {"passed", "accepted", "valid", "accepted and promoted"}
     export_record = next(
         (
             (path, value)
             for path, value in export_records
-            if value and str(value.get("status", "")).lower() in {"passed", "accepted", "valid"}
+            if value and str(value.get("status", "")).lower() in accepted_statuses
         ),
         None,
     )
+
     export_accepted = False
     export_path = None
+    export_route = None
     if export_record:
         export_path, diagnostic = export_record
-        promotion = diagnostic.get("promotion")
-        export_hash = diagnostic.get("QAT SHA256") or diagnostic.get("QAT checkpoint SHA256")
-        export_accepted = bool(
-            isinstance(promotion, dict)
-            and str(promotion.get("status", "")).lower() in {"passed", "accepted", "promoted", "valid"}
-            and export_hash == qat_hash
-            and diagnostic.get("calibration occurred") is False
-            and diagnostic.get("PTQ used") is False
+        status = str(diagnostic.get("status", "")).lower()
+        export_route = diagnostic.get("selected export route")
+        phase_7c = diagnostic.get("Phase 7C evidence")
+        phase_7c = phase_7c if isinstance(phase_7c, dict) else {}
+        export_hash = (
+            diagnostic.get("QAT SHA256")
+            or diagnostic.get("QAT checkpoint SHA256")
+            or phase_7c.get("QAT SHA256")
         )
-        if export_accepted:
-            summary = diagnostic.get("OpenVINO numerical summary") or diagnostic.get("numerical summary")
-            if not isinstance(summary, dict):
-                export_accepted = False
-            else:
-                n_total = summary.get("VAL input count")
-                n_passed = summary.get("count relative MAE <= 1 percent")
-                n_failed = summary.get("count relative MAE > 1 percent")
-                max_error = summary.get("maximum relative MAE")
-                export_accepted = bool(
-                    isinstance(n_total, int)
-                    and n_total > 0
-                    and n_passed == n_total
-                    and n_failed == 0
-                    and isinstance(max_error, (int, float))
-                    and max_error <= RELATIVE_MAE_LIMIT
-                )
+
+        # Current final-QAT diagnostic schema: an accepted candidate is promoted
+        # only after 32 deterministic real VAL images pass <=1% relative MAE,
+        # quantization is visible in the graph, and no PTQ/calibration is used.
+        if status == "accepted and promoted":
+            candidate_key = {
+                "direct OpenVINO": "candidate A direct OpenVINO",
+                "controller ONNX": "candidate B controller export",
+            }.get(str(export_route))
+            candidate = diagnostic.get(candidate_key, {}) if candidate_key else {}
+            candidate = candidate if isinstance(candidate, dict) else {}
+            graph = candidate.get("graph") if isinstance(candidate.get("graph"), dict) else {}
+            summary = candidate.get("representative numerical summary")
+            cpu_cuda = diagnostic.get("QAT CUDA to CPU equivalence")
+            cpu_cuda = cpu_cuda if isinstance(cpu_cuda, dict) else {}
+            export_accepted = bool(
+                export_hash == qat_hash
+                and diagnostic.get("calibration occurred") is False
+                and diagnostic.get("PTQ used") is False
+                and cpu_cuda.get("status") is True
+                and cpu_cuda.get("VAL pass count") == 32
+                and cpu_cuda.get("VAL fail count") == 0
+                and candidate.get("success") is True
+                and candidate.get("numerical equivalence") is True
+                and candidate.get("quantization graph visible") is True
+                and _valid_numerical_summary(summary)
+                and isinstance(graph.get("FakeQuantize_op_count"), int)
+                and graph.get("FakeQuantize_op_count", 0) > 0
+                and isinstance(graph.get("int8_or_u8_graph_element_count"), int)
+                and graph.get("int8_or_u8_graph_element_count", 0) > 0
+            )
+        else:
+            # Backward compatibility with the older diagnostic schema.
+            promotion = diagnostic.get("promotion")
+            export_accepted = bool(
+                isinstance(promotion, dict)
+                and str(promotion.get("status", "")).lower() in {"passed", "accepted", "promoted", "valid"}
+                and export_hash == qat_hash
+                and diagnostic.get("calibration occurred") is False
+                and diagnostic.get("PTQ used") is False
+            )
+            if export_accepted:
+                summary = diagnostic.get("OpenVINO numerical summary") or diagnostic.get("numerical summary")
+                export_accepted = _valid_numerical_summary(summary)
 
     rejected_records = [
         {"path": str(path.relative_to(root)), "status": value.get("status")}
         for path, value in export_records
-        if value and str(value.get("status", "")).lower() not in {"passed", "accepted", "valid"}
+        if value and str(value.get("status", "")).lower() not in accepted_statuses
     ]
     accepted = bool(true_qat and selection_accepted and export_accepted)
     return {
@@ -138,6 +185,7 @@ def qat_validation_gate(root: Path) -> dict[str, Any]:
         "selection_manifest": str(selection_path.relative_to(root)) if selection_path else None,
         "selection_accepted": selection_accepted,
         "export_diagnostic": str(export_path.relative_to(root)) if export_path else None,
+        "export_route": export_route,
         "export_equivalence_accepted": export_accepted,
         "rejected_or_unresolved_diagnostics": rejected_records,
         "reasons": [
