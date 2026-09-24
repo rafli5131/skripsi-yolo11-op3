@@ -10,7 +10,7 @@
 | Benchmark server | `experiments/server_openvino/` | Satu frame sintetis 640×640, 300 iterasi | Berapa latency/FPS/resource ketiga IR pada host server? |
 | Benchmark hardware OP3 | `experiments/hardware_op3/` | Sesuai laporan hardware setempat | Apa yang sudah diukur pada perangkat/lingkungan hardware tersebut? |
 
-Jangan menggabungkan mAP dari TEST dengan latency dari benchmark server menjadi satu hasil eksperimen. Model, split, evaluator, dan hardware harus disebut setiap kali mengutip angka. Benchmark server terbaru dibandingkan dalam [laporan FP32/PTQ/QAT](23_server_openvino_benchmark.md). Hasil server tidak menggantikan benchmark final langsung di ROBOTIS OP3.
+Jangan menggabungkan mAP dari TEST dengan latency dari benchmark server menjadi satu hasil eksperimen. Model, split, evaluator, dan hardware harus disebut setiap kali mengutip angka. Benchmark server terbaru diringkas [di direktori raw result](../experiments/server_openvino/README.md) dan dibahas lengkap dalam [laporan FP32/PTQ/QAT](23_server_openvino_benchmark.md). Hasil server tidak menggantikan benchmark final langsung di ROBOTIS OP3. [Timeline](20_experiment_timeline.md) menempatkan tiap hasil pada tahapnya.
 
 ## Metrik deteksi
 

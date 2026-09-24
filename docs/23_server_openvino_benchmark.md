@@ -4,6 +4,8 @@
 
 Benchmark ini adalah diagnostic benchmark pada host server: sanity check runtime OpenVINO CPU, pembanding awal FP32/PTQ/QAT, dan persiapan pengujian di ROBOTIS OP3. Hasil ini **bukan** hasil deployment final OP3. Ketiga model menjalankan input sintetis yang sama; accuracy tidak dihitung ulang di sini.
 
+[Ringkasan hasil dan tautan seluruh raw file](../experiments/server_openvino/README.md) tersedia langsung di direktori eksperimen.
+
 ## 2. Model yang Dibandingkan
 
 | Model | Precision | Method | Artifact XML |

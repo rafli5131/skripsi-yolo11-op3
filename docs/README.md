@@ -13,6 +13,8 @@ Mulai dari [panduan repository](24_panduan_repositori.md), lalu [provenance](26_
 | Benchmark server OpenVINO CPU | Selesai; diagnostik, terpisah dari OP3 |
 | Benchmark final ROBOTIS OP3 | Masih perlu dilakukan langsung di OP3 |
 
+Urutan tahap final ada di [timeline eksperimen](20_experiment_timeline.md). [Ringkasan di direktori raw server](../experiments/server_openvino/README.md) dapat dibuka saat menelusuri JSON/CSV tanpa berpindah ke `docs/`.
+
 ## Memahami proyek
 
 - [00 Gambaran proyek](00_project_overview.md)
@@ -47,6 +49,7 @@ Mulai dari [panduan repository](24_panduan_repositori.md), lalu [provenance](26_
 - [20 Timeline eksperimen](20_experiment_timeline.md)
 - [21 Percobaan ONNX historis](21_qat_onnx_openvino_export.md)
 - [23 Benchmark server FP32/PTQ/QAT](23_server_openvino_benchmark.md)
+- [Ringkasan hasil di direktori server](../experiments/server_openvino/README.md)
 - [25 Kegagalan dan pembersihan](25_kegagalan_dan_pembersihan.md)
 - [18 Langkah berikutnya](18_next_steps.md)
 
