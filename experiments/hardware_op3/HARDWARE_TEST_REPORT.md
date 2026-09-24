@@ -101,14 +101,14 @@ Dataset accuracy and OP3 hardware performance are reported separately. Existing 
 | Evaluated model | Split | Precision | Recall | F1 | mAP@0.5 | mAP@0.5:0.95 | Source |
 | --- | --- | ---: | ---: | ---: | ---: | ---: | --- |
 | FP32 OpenVINO comparator | VAL | 0.93622 | 0.95756 | 0.94677 | 0.97297 | 0.77134 | `experiments/ptq/fp32_openvino_val_metrics.json` |
-| Existing PTQ INT8 OpenVINO comparator | VAL | 0.93412 | 0.95021 | 0.94209 | 0.97215 | 0.76718 | `experiments/ptq/ptq_val_metrics.json` |
+| Existing PTQ INT8 OpenVINO comparator | VAL | 0.85415 | 0.93752 | 0.89390 | 0.95119 | 0.65670 | `experiments/ptq/ptq_val_metrics.json` |
 
 Existing held-out TEST results, kept separate from VAL diagnostics:
 
 | Model checkpoint | Split | Precision | Recall | F1 | mAP@0.5 | mAP@0.5:0.95 | Source |
 | --- | --- | ---: | ---: | ---: | ---: | ---: | --- |
 | FP32 PyTorch checkpoint | TEST | 0.93135 | 0.95057 | 0.94086 | 0.96423 | 0.77991 | `experiments/final_test/fp32_test_metrics.json` |
-| True QAT native PyTorch checkpoint | TEST | 0.85415 | 0.93752 | 0.89390 | 0.95119 | 0.65670 | `experiments/final_test/qat_test_metrics.json` |
+| True QAT native PyTorch checkpoint | TEST | 0.93412 | 0.95021 | 0.94209 | 0.97215 | 0.76718 | `experiments/final_test/qat_test_metrics.json` |
 
 The PTQ INT8 hardware rows do not inherit TEST accuracy from FP32 or QAT. The valid PTQ result is the existing VAL comparator above. There is no accepted QAT OpenVINO hardware row.
 

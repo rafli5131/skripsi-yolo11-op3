@@ -18,11 +18,11 @@
     "ptq_test_metrics_note": "No PTQ INT8 TEST result is claimed; the repository contains existing VAL comparator metrics only.",
     "same_validation_split": {
       "existing_ptq_int8_openvino": {
-        "F1": 0.9420930669398871,
-        "mAP50": 0.972145259145894,
-        "mAP50-95": 0.76717861970828,
-        "precision": 0.9341156433830985,
-        "recall": 0.9502079198462958
+        "F1": 0.8938958477143529,
+        "mAP50": 0.9511866596240314,
+        "mAP50-95": 0.6567029302913939,
+        "precision": 0.8541507232570217,
+        "recall": 0.9375203043384985
       },
       "fp32_openvino": {
         "F1": 0.9467729753395424,
@@ -53,11 +53,11 @@
     "images": 592,
     "note": "Dataset TEST metrics only; no live-camera frame contributes to accuracy.",
     "qat_native_pytorch": {
-      "F1": 0.8938958477143529,
-      "mAP50": 0.9511866596240314,
-      "mAP50-95": 0.6567029302913939,
-      "precision": 0.8541507232570217,
-      "recall": 0.9375203043384985
+      "F1": 0.9420930669398871,
+      "mAP50": 0.972145259145894,
+      "mAP50-95": 0.76717861970828,
+      "precision": 0.9341156433830985,
+      "recall": 0.9502079198462958
     },
     "source": "experiments/final_test/{fp32_test_metrics,qat_test_metrics}.json",
     "split": "test"

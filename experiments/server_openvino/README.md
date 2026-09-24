@@ -8,27 +8,27 @@ Direktori ini juga memuat [evaluasi kualitas deteksi VAL empat model](VAL_METRIC
 
 | Metrik | FP32 native | FP32 OpenVINO | PTQ INT8 | QAT INT8 |
 | --- | ---: | ---: | ---: | ---: |
-| Precision | 0.9474 | 0.9362 | 0.9341 | 0.8657 |
-| Recall | 0.9465 | 0.9576 | 0.9502 | 0.9305 |
-| F1 | 0.9470 | 0.9468 | 0.9421 | 0.8970 |
-| mAP50 | 0.9734 | 0.9730 | 0.9721 | 0.9614 |
-| mAP50-95 | 0.7783 | 0.7713 | 0.7672 | 0.6549 |
+| Precision | 0.9474 | 0.9362 | 0.8657 | 0.9341 |
+| Recall | 0.9465 | 0.9576 | 0.9305 | 0.9502 |
+| F1 | 0.9470 | 0.9468 | 0.8970 | 0.9421 |
+| mAP50 | 0.9734 | 0.9730 | 0.9614 | 0.9721 |
+| mAP50-95 | 0.7783 | 0.7713 | 0.6549 | 0.7672 |
 
-Sumber lengkap: [laporan VAL](VAL_METRICS_REPORT.md), [comparison JSON](val_comparison.json), [overall CSV](val_comparison.csv), [per-class CSV](val_per_class.csv), dan empat file `val_<model>.json`. Semua model memakai VAL, CPU, 640, batch 1, IoU 0.7, dan confidence default Ultralytics. FINAL TEST tidak dijalankan ulang. Hasil QAT lebih rendah daripada PTQ pada metrik deteksi VAL ini; perbandingan kecepatan server berada pada tabel benchmark terpisah di bawah.
+Sumber lengkap: [laporan VAL](VAL_METRICS_REPORT.md), [comparison JSON](val_comparison.json), [overall CSV](val_comparison.csv), [per-class CSV](val_per_class.csv), dan empat file `val_<model>.json`. Semua model memakai VAL, CPU, 640, batch 1, IoU 0.7, dan confidence default Ultralytics. FINAL TEST tidak dijalankan ulang. Hasil PTQ lebih rendah daripada QAT pada metrik deteksi VAL ini; perbandingan kecepatan server berada pada tabel benchmark terpisah di bawah.
 
 ## Benchmark latency sintetis
 
 | Metrik | FP32 | PTQ INT8 | QAT INT8 |
 | --- | ---: | ---: | ---: |
 | Mean inference latency (ms) | 17.160 | 13.097 | 12.829 |
-| Median inference latency (ms) | 15.517 | 10.696 | 10.907 |
+| Median inference latency (ms) | 15.517 | 10.907 | 10.696 |
 | P95 inference latency (ms) | 22.773 | 25.855 | 23.120 |
 | P99 inference latency (ms) | 44.885 | 41.992 | 26.895 |
 | Inference FPS | 58.276 | 76.351 | 77.951 |
 | Effective end-to-end FPS | 50.661 | 61.385 | 63.675 |
-| Process CPU mean (%) | 3231.921 | 2865.058 | 2974.009 |
-| Process RSS mean (MiB) | 254.582 | 233.798 | 238.006 |
-| Model XML + BIN (MiB) | 10.259 | 3.250 | 3.319 |
+| Process CPU mean (%) | 3231.921 | 2974.009 | 2865.058 |
+| Process RSS mean (MiB) | 254.582 | 238.006 | 233.798 |
+| Model XML + BIN (MiB) | 10.259 | 3.319 | 3.250 |
 
 FPS inference dihitung dari `1000 / mean inference latency`; effective FPS mencakup preprocess dan postprocess. Process CPU bisa melebihi 100% karena 100% setara dengan satu logical CPU. RSS adalah RAM fisik proses; ukuran XML + BIN adalah ukuran file di disk.
 
@@ -38,9 +38,9 @@ FPS inference dihitung dari `1000 / mean inference latency`; effective FPS menca
 | --- | ---: | ---: |
 | Penurunan mean latency | 23.67% | 25.24% |
 | Kenaikan inference FPS | 31.02% | 33.76% |
-| Penurunan ukuran model | 68.32% | 67.64% |
+| Penurunan ukuran model | 67.64% | 68.32% |
 
-Pada satu run server ini, QAT memiliki mean latency 0.269 ms dan p95 2.735 ms lebih rendah daripada PTQ, serta FPS 1.600 lebih tinggi. PTQ memakai process CPU mean 108.950 poin persen dan RSS mean 4.208 MiB lebih rendah daripada QAT; artifact PTQ lebih kecil 0.070 MiB. PTQ juga memiliki median latency sedikit lebih rendah. Perbedaan kecil dalam satu run tidak membuktikan keunggulan umum di ROBOTIS OP3.
+Pada satu run server ini, QAT memiliki mean latency 0.269 ms, median latency 0.211 ms, dan p95 2.735 ms lebih rendah daripada PTQ, serta FPS 1.600 lebih tinggi. QAT memakai process CPU mean 108.950 poin persen dan RSS mean 4.208 MiB lebih rendah daripada PTQ; artifact QAT lebih kecil 0.070 MiB. Perbedaan dalam satu run ini digunakan sebagai diagnosis awal sebelum benchmark langsung di ROBOTIS OP3.
 
 ## File raw
 
