@@ -1,26 +1,20 @@
-# Inventaris Artefak
+# Inventaris Artifact Penting
 
-## Tujuan
+Daftar ini membedakan artifact final, comparator, hasil evaluasi, dan diagnostic historis. Hash lengkap dan perintah audit ada di [provenance](26_provenance_dan_verifikasi.md).
 
-Mencatat artefak yang ditemukan tanpa membaca checkpoint biner.
+| Artifact | Lokasi | Status saat ini |
+| --- | --- | --- |
+| FP32 checkpoint final | `artifacts/checkpoints/fp32/best.pt` | Beku; SHA256 `e05b2b21...d420b8c` |
+| QAT checkpoint final | `artifacts/checkpoints/qat/qat_best.pt` | Beku; SHA256 `b9e520cb...fc35430d` |
+| QAT selection manifest | `artifacts/checkpoints/qat/selection_manifest.json` | Winner dipilih dari VAL; TEST/PTQ metrics tidak dipakai |
+| QAT search candidates | `artifacts/checkpoints/qat_search/` | Riwayat pemilihan VAL; bukan file final untuk deployment |
+| FP32 OpenVINO IR | `artifacts/openvino/fp32/model.{xml,bin}` | Baseline valid |
+| PTQ OpenVINO IR canonical | `experiments/ptq/backend_models/ptq_openvino_model/model.{xml,bin}` | Existing comparator valid |
+| QAT OpenVINO IR final | `artifacts/openvino/qat_int8/model.{xml,bin}` | Direct OpenVINO; valid setelah audit numerical/provenance |
+| Final TEST PyTorch | `experiments/final_test/` | Hasil held-out yang telah dibekukan |
+| PTQ VAL diagnostic | `experiments/ptq/` | Evaluasi pembanding, bukan TEST |
+| Server benchmark | `experiments/server_openvino/` | CPU host diagnostic FP32/PTQ/QAT |
+| Hardware OP3 | `experiments/hardware_op3/` | Bukti pengukuran hardware terpisah |
+| Diagnostic export | `artifacts/openvino/*diagnostic.json` | Bukti accepted maupun rejected; baca status masing-masing |
 
-## Status
-
-**CURRENT INVENTORY**.
-
-| Artefak | Lokasi | Tujuan/status | SHA256 bila tersedia |
-|---|---|---|---|
-| FP32 best/last | `artifacts/checkpoints/fp32/` | baseline final / DONE | best `e05b...20b8c` |
-| QAT best/last | `artifacts/checkpoints/qat/` | final QAT / DONE | best `f969...3a8c8` |
-| NNCF config/format | `artifacts/checkpoints/qat/*.json` | restore QAT / VALID | tercatat di manifest |
-| FP32 IR | `artifacts/openvino/fp32/{model.xml,model.bin}` | OpenVINO FP32 / VALID | **SHA256 UNRESOLVED** |
-| QAT IR | `artifacts/openvino/qat_int8/{model.xml,model.bin}` | **REJECTED / DO NOT DEPLOY** | **UNRESOLVED** |
-| Final TEST metrics | `experiments/final_test/` | evaluasi final / DONE | n/a |
-| FP32/QAT manifests | `experiments/fp32`, `experiments/qat` | provenance run / DONE | n/a |
-| QAT diagnostics | `artifacts/openvino/*diagnostic.json` | debugging / lihat status masing-masing | n/a |
-
-`experiments/` menyimpan run debug, FP32, QAT, dan final test; `artifacts/` menyimpan checkpoint freeze serta OpenVINO. Jalur absolute lama `.../skripsi/...` pada beberapa debug args adalah issue historis, bukan project root aktif.
-
-## Artefak terkait
-
-[kegagalan export](10_openvino_export_failure_analysis.md), [hasil](17_research_results_summary.md).
+Salinan valid `artifacts/openvino/ptq_int8/` memiliki hash IR yang sama dengan comparator PTQ canonical. File model kandidat ONNX dan IR QAT lama yang rejected telah dibersihkan dari worktree; JSON diagnosticnya tetap disimpan. Baca [analisis kegagalan](25_kegagalan_dan_pembersihan.md) untuk daftar penghapusan dan alasan ilmiahnya.

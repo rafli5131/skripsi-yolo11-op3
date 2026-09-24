@@ -6,7 +6,7 @@ Merangkum metrik validasi dan held-out TEST tanpa menarik kesimpulan deployment.
 
 ## Status
 
-**FP32/QAT TEST DONE; deployment benchmark NOT YET EXECUTED**.
+**FP32/QAT TEST selesai; benchmark diagnostik server FP32/PTQ/QAT selesai; benchmark final OP3 tetap terpisah.**
 
 | Ruang evaluasi | Precision | Recall | mAP50 | mAP50-95 |
 |---|---:|---:|---:|---:|
@@ -28,12 +28,11 @@ Merangkum metrik validasi dan held-out TEST tanpa menarik kesimpulan deployment.
 | FPS host diagnostik | 45,527 | 75,580 | +66,011% |
 | Ukuran IR | 10.756.936 B | 3.407.480 B | −68,323% |
 
-IR QAT OpenVINO belum valid (status **REJECTED**), sehingga tidak diberi
-angka pada tabel deployment. Timing tersebut bukan benchmark CPU ROBOTIS OP3.
+Tabel VAL PTQ di atas dibuat saat hanya IR QAT lama yang rejected tersedia. IR QAT final sekarang berbeda dan valid melalui direct OpenVINO; lihat [provenance](26_provenance_dan_verifikasi.md). Angka QAT final tidak ditambahkan ke tabel VAL historis ini karena tidak dievaluasi dalam run PTQ yang sama. Timing tabel adalah diagnostik host lama, bukan benchmark final ROBOTIS OP3.
 
 TEST delta QAT terhadap FP32: P -0,0772 (-8,29%), R -0,0131 (-1,37%), mAP50 -0,0130 (-1,35%), mAP50-95 -0,1232 (-15,80%), F1 -0,0470 (-4,99%). Per-class mAP50-95: ball 0,9130/0,7470; gawang 0,5683/0,5282; robot 0,8585/0,6948 (FP32/QAT).
 
-Tidak ada kesimpulan latency, FPS, CPU, RAM, atau manfaat deployment karena benchmark OpenVINO CPU dan deployment OP3 belum dilakukan.
+Benchmark server OpenVINO CPU terbaru mencatat latency, FPS, CPU, dan RSS ketiga IR pada [laporan server](23_server_openvino_benchmark.md). Angka itu tidak membuktikan manfaat deployment OP3; pengukuran final perlu dilakukan langsung pada robot.
 
 ## Artefak terkait
 

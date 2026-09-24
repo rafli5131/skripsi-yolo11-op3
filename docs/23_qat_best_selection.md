@@ -1,5 +1,7 @@
 # QAT Best-Model Selection
 
+> Status terkini: selection manifest berstatus passed; `qat_lr1e4_r256_e15` dipromosikan ke checkpoint final SHA256 `b9e520cbd5d56597014c932701f471505d2243e02763a2245a51fd83fc35430d`. FINAL TEST PyTorch dan export direct OpenVINO berikutnya sudah dilakukan. Bagian perintah di bawah menjelaskan workflow historis, bukan pekerjaan yang perlu diulang untuk memakai artifact final.
+
 ## Tujuan
 
 Eksperimen utama penelitian diarahkan ke **true Quantization-Aware Training (QAT)**. PTQ tetap dipertahankan hanya sebagai eksperimen pembanding dan provenance lama; hasil PTQ tidak digunakan sebagai hasil QAT.

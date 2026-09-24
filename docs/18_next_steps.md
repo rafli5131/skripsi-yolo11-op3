@@ -1,18 +1,14 @@
-# Next Steps
+# Langkah Berikutnya
 
-## Tujuan
+FP32, PTQ INT8 comparator, dan QAT INT8 direct OpenVINO sudah tersedia dan lolos pemeriksaan provenance. FINAL TEST PyTorch telah dilakukan sebelumnya. Benchmark diagnostik server ketiga IR juga selesai; lihat [laporan server](23_server_openvino_benchmark.md). Tidak ada kebutuhan untuk mengulang training, QAT tuning, FINAL TEST, PTQ, atau calibration hanya untuk melanjutkan tahap deployment.
 
-Mencatat pekerjaan yang belum dilakukan dan dependensinya.
+## Pengukuran pada ROBOTIS OP3
 
-## Status
+1. Materialize artifact FP32, PTQ INT8, dan QAT INT8 di OP3; verifikasi hash serta gate yang relevan.
+2. Jalankan benchmark synthetic OpenVINO CPU dengan konfigurasi sama untuk ketiga model.
+3. Jalankan benchmark kamera nyata dengan kondisi yang dicatat jelas.
+4. Ukur latency mean dan p95/p99, FPS, process CPU, RSS/RAM, serta stabilitas run panjang.
+5. Buat perbandingan akhir OP3 yang terpisah dari [hasil server](27_cara_membaca_hasil.md).
+6. Susun tabel dan kesimpulan tesis dari artifact valid, dengan split dan perangkat disebut eksplisit.
 
-**NOT YET EXECUTED** untuk seluruh item berikut.
-
-1. Jalankan ulang Phase 7F dengan ONNX Runtime untuk mengisolasi mismatch PyTorch QAT -> ONNX atau ONNX -> OpenVINO.
-2. Terima/promo hanya jika equivalence representatif dan graph quantization lulus.
-3. Setelah kandidat IR valid, benchmark OpenVINO FP32 versus PTQ INT8 pada deployment CPU: latency, FPS, CPU, RAM.
-4. Integrasikan ROS2, lalu deploy/ukur pada ROBOTIS OP3.
-5. Jalankan eksperimen jarak/pencahayaan jika disyaratkan rencana penelitian.
-6. Susun tabel/figur dan kesimpulan tesis dari artefak valid.
-
-Dependency utama: PTQ hanya comparator terisolasi, bukan fallback untuk mengubah hasil QAT. Jangan memakai QAT IR rejected, melakukan retrain, atau retune menggunakan TEST.
+Jalur ONNX lama sudah ditolak dan tidak perlu diulang untuk memakai QAT IR final direct OpenVINO yang accepted. Jika ada kebutuhan penelitian baru untuk menelusuri akar mismatch ONNX, baca [analisis kegagalan](25_kegagalan_dan_pembersihan.md); jangan campurkan percobaan itu dengan benchmark deployment.

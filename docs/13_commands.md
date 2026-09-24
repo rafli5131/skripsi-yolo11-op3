@@ -1,33 +1,33 @@
-# Cookbook Perintah
+# Perintah Baca dan Verifikasi
 
-## Tujuan
+Perintah di sini untuk memeriksa hasil yang sudah ada. Jalankan dari root repository dengan environment proyek. Training, export, PTQ calibration, dan FINAL TEST adalah tahap historis yang sudah selesai; jangan menjalankannya hanya untuk membaca laporan.
 
-Menyediakan perintah reproduksi; jangan menjalankan tahap yang statusnya belum diizinkan.
-
-## Status
-
-**REFERENCE ONLY** — perintah training/evaluasi/export tidak dijalankan oleh dokumentasi ini.
+## Siapkan file LFS dan environment
 
 ```bash
-cd /mnt/nas-hpg9/rafli5131/rafli/advance_vision
-set -a; source .env; set +a                 # opsional; .env tidak di-Git
+git lfs pull
 export UV_CACHE_DIR="$PWD/.cache/uv"
-nvidia-smi
-env -u PYTHONPATH -u VIRTUAL_ENV uv run python scripts/verify_torch_cuda.py
-env -u PYTHONPATH -u VIRTUAL_ENV uv run python scripts/audit_dataset.py
-env -u PYTHONPATH -u VIRTUAL_ENV uv run python scripts/train_fp32.py
-env -u PYTHONPATH -u VIRTUAL_ENV uv run python scripts/train_fp32.py --resume
-env -u PYTHONPATH -u VIRTUAL_ENV uv run python scripts/probe_qat_compatibility.py --train-images "$PWD/data/raw/advance_vision_human/train/images" --batch 2 --max-train-images 4 --init-samples 2
-env -u PYTHONPATH -u VIRTUAL_ENV uv run python scripts/smoke_train_qat.py
-env -u PYTHONPATH -u VIRTUAL_ENV uv run python scripts/train_qat.py
-env -u PYTHONPATH -u VIRTUAL_ENV uv run python scripts/train_qat.py --resume
-env -u PYTHONPATH -u VIRTUAL_ENV uv run python scripts/evaluate_final_test.py
-# PTQ comparator: FP32 -> calibrated OpenVINO INT8; TRAIN calibration, VAL evaluation only
-env -u PYTHONPATH -u VIRTUAL_ENV uv run python scripts/export_ptq_openvino.py --calibration-samples 300 --val-fraction 1.0 --overwrite
+export TORCH_HOME="$PWD/.cache/torch"
+export YOLO_CONFIG_DIR="$PWD/.cache/ultralytics"
+env -u PYTHONPATH -u VIRTUAL_ENV uv run python -c 'import openvino as ov; print(ov.__version__)'
 ```
 
-Untuk QAT CUDA extension, siapkan `CC=/usr/bin/gcc-11`, `CXX=/usr/bin/g++-11`, `CPLUS_INCLUDE_PATH`, `LIBRARY_PATH`, `LD_LIBRARY_PATH`, `TORCH_EXTENSIONS_DIR`, `TORCH_CUDA_ARCH_LIST=8.9`, dan `MPLCONFIGDIR` seperti run host tervalidasi. Diagnostic OpenVINO: `uv run python scripts/export_openvino.py --model qat-diagnostic`. Jangan masukkan API key ke command history atau dokumentasi.
+OpenVINO yang tercatat pada benchmark server adalah versi 2024.4.0. Bila model hanya berupa Git LFS pointer kecil, ulangi `git lfs pull` sebelum audit.
 
-## Artefak terkait
+## Periksa provenance PTQ dan QAT tanpa mengubah artifact
 
-[README root](../README.md), [known issues](15_known_issues.md).
+```bash
+env -u PYTHONPATH -u VIRTUAL_ENV uv run python -c 'import sys; from pathlib import Path; sys.path.insert(0, "scripts"); from op3_model_audit import qat_validation_gate, ptq_validation_gate; root = Path.cwd(); print("QAT:", qat_validation_gate(root)); print("PTQ:", ptq_validation_gate(root, root / "experiments/ptq/backend_models/ptq_openvino_model/model.xml"))'
+```
+
+Kedua hasil harus memiliki `accepted: True` dan `reasons: []`. [Provenance](26_provenance_dan_verifikasi.md) menjelaskan syarat gate dan hash final.
+
+## Lihat hasil
+
+```bash
+ls experiments/server_openvino/
+ls experiments/hardware_op3/
+git status --short
+```
+
+JSON server berisi ringkasan; CSV timing memiliki 300 baris data per model, dan CSV resource berisi sampling proses. Lihat [laporan server](23_server_openvino_benchmark.md) untuk tabel yang sudah dihitung dan [cara membaca hasil](27_cara_membaca_hasil.md) untuk batas perbandingan. Perintah benchmark ulang dan konfigurasi tepatnya ada di laporan server, tetapi menjalankannya lagi akan membuat pengukuran baru yang berbeda waktunya.
