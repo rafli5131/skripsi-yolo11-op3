@@ -8,7 +8,7 @@
     "loaded state entries": 1323,
     "quantizer count": 184
   },
-  "QAT SHA256": "f96911a1b3f4f9a8987a7fb57611aac2455b2b5c7b93c27db146d69d5013a8c8",
+  "QAT SHA256": "b9e520cbd5d56597014c932701f471505d2243e02763a2245a51fd83fc35430d",
   "VAL filenames": [
     "3dsense_2020_10_14__21_58_51_color_png_jpg.rf.3c78770d1d46d6b07735e4a544da6963.jpg",
     "3dsense_2020_10_14__21_59_13_color_png_jpg.rf.2244dc70190a7ba276020b3b82a1a2e4.jpg",
@@ -48,13 +48,13 @@
     "count_relative_MAE_gt_1_percent": 0,
     "count_relative_MAE_le_1_percent": 32,
     "maximum_filename": "3dsense_2020_10_14__22_04_14_color_png_jpg.rf.6b70d0020611293e5efaa4591fcad715.jpg",
-    "maximum_relative_MAE": 0.008402485676247375,
-    "mean_relative_MAE": 0.007499752523882512,
-    "median_nearest_filename": "KakaoTalk_20250203_160502315_mp4-0025_jpg.rf.a8a7324ebaad66e43fbe1c25daf78f65.jpg",
-    "median_relative_MAE": 0.007485316141335942,
+    "maximum_relative_MAE": 0.009710314971047337,
+    "mean_relative_MAE": 0.00827588886090791,
+    "median_nearest_filename": "KakaoTalk_20250203_160505764_mp4-0003_jpg.rf.99703037b44db0de35b66ca5d39cbf35.jpg",
+    "median_relative_MAE": 0.008350539537377587,
     "minimum_filename": "KakaoTalk_20250203_160511603_mp4-0005_jpg.rf.f56ca446d4e58ba049e652e6e5a28b37.jpg",
-    "minimum_relative_MAE": 0.00597057585943051,
-    "p95_relative_MAE": 0.008164718451330301
+    "minimum_relative_MAE": 0.006702934499437404,
+    "p95_relative_MAE": 0.008975867807328518
   },
   "VAL selection": {
     "count": 32,
@@ -75,449 +75,449 @@
     "tensor_count": 32,
     "value_count": 39321600
   },
-  "classification": "Mismatch is likely input-distribution-specific.",
+  "classification": "CPU/CUDA QAT backend equivalence remains unresolved.",
   "comparisons": {
     "3dsense_2020_10_14__21_58_51_color_png_jpg.rf.3c78770d1d46d6b07735e4a544da6963.jpg": {
-      "cosine_similarity": 0.999933660030365,
-      "max_absolute_error": 124.16748046875,
-      "mean_absolute_error": 0.820770800113678,
-      "mean_absolute_reference_magnitude": 114.76411437988281,
+      "cosine_similarity": 0.999914288520813,
+      "max_absolute_error": 82.370849609375,
+      "mean_absolute_error": 0.9055477976799011,
+      "mean_absolute_reference_magnitude": 113.84548950195312,
       "output_shape": [
         1,
         7,
         8400
       ],
       "passes_relative_MAE_le_1_percent": true,
-      "relative_MAE": 0.0071518070308705505
+      "relative_MAE": 0.00795418247698224
     },
     "3dsense_2020_10_14__21_59_13_color_png_jpg.rf.2244dc70190a7ba276020b3b82a1a2e4.jpg": {
-      "cosine_similarity": 0.9999342560768127,
-      "max_absolute_error": 72.43104553222656,
-      "mean_absolute_error": 0.8310735821723938,
-      "mean_absolute_reference_magnitude": 116.06736755371094,
+      "cosine_similarity": 0.999925434589386,
+      "max_absolute_error": 61.77813720703125,
+      "mean_absolute_error": 0.8932037949562073,
+      "mean_absolute_reference_magnitude": 115.89546966552734,
       "output_shape": [
         1,
         7,
         8400
       ],
       "passes_relative_MAE_le_1_percent": true,
-      "relative_MAE": 0.007160269072078412
+      "relative_MAE": 0.007706977654380974
     },
     "3dsense_2020_10_14__21_59_51_color_png_jpg.rf.38e526b51bbbabe0278f06840cee69e9.jpg": {
-      "cosine_similarity": 0.99993497133255,
-      "max_absolute_error": 51.73646545410156,
-      "mean_absolute_error": 0.8696678280830383,
-      "mean_absolute_reference_magnitude": 117.48568725585938,
+      "cosine_similarity": 0.9999263286590576,
+      "max_absolute_error": 72.07449340820312,
+      "mean_absolute_error": 0.9488418102264404,
+      "mean_absolute_reference_magnitude": 117.67301177978516,
       "output_shape": [
         1,
         7,
         8400
       ],
       "passes_relative_MAE_le_1_percent": true,
-      "relative_MAE": 0.007402330006284789
+      "relative_MAE": 0.008063376605012164
     },
     "3dsense_2020_10_14__22_00_01_color_png_jpg.rf.0a6647e340ed6ba762118bb4567aafbe.jpg": {
-      "cosine_similarity": 0.9999395608901978,
-      "max_absolute_error": 41.389129638671875,
-      "mean_absolute_error": 0.8089039325714111,
-      "mean_absolute_reference_magnitude": 115.29187774658203,
+      "cosine_similarity": 0.9999299049377441,
+      "max_absolute_error": 51.481781005859375,
+      "mean_absolute_error": 0.8592977523803711,
+      "mean_absolute_reference_magnitude": 114.93563079833984,
       "output_shape": [
         1,
         7,
         8400
       ],
       "passes_relative_MAE_le_1_percent": true,
-      "relative_MAE": 0.00701613980430978
+      "relative_MAE": 0.007476339116179306
     },
     "3dsense_2020_10_14__22_03_38_color_png_jpg.rf.bea3f1a5ee9cb08a3e31cf41d0de9196.jpg": {
-      "cosine_similarity": 0.9999274611473083,
-      "max_absolute_error": 72.4310302734375,
-      "mean_absolute_error": 0.9151991009712219,
-      "mean_absolute_reference_magnitude": 118.61248016357422,
+      "cosine_similarity": 0.9999120235443115,
+      "max_absolute_error": 75.50662231445312,
+      "mean_absolute_error": 1.0240099430084229,
+      "mean_absolute_reference_magnitude": 118.65961456298828,
       "output_shape": [
         1,
         7,
         8400
       ],
       "passes_relative_MAE_le_1_percent": true,
-      "relative_MAE": 0.007715875257891106
+      "relative_MAE": 0.008629810123518022
     },
     "3dsense_2020_10_14__22_03_57_color_png_jpg.rf.16dad4dc9debf872e1e30798bcd7876b.jpg": {
-      "cosine_similarity": 0.9999364614486694,
-      "max_absolute_error": 31.04193115234375,
-      "mean_absolute_error": 0.8851408958435059,
-      "mean_absolute_reference_magnitude": 118.31307220458984,
+      "cosine_similarity": 0.9999192953109741,
+      "max_absolute_error": 61.778167724609375,
+      "mean_absolute_error": 0.985555112361908,
+      "mean_absolute_reference_magnitude": 117.80055236816406,
       "output_shape": [
         1,
         7,
         8400
       ],
       "passes_relative_MAE_le_1_percent": true,
-      "relative_MAE": 0.007481344870437467
+      "relative_MAE": 0.008366302980326746
     },
     "3dsense_2020_10_14__22_04_02_color_png_jpg.rf.6c1bf19f7ca4eadff17f5d1fc193a7cc.jpg": {
-      "cosine_similarity": 0.9999379515647888,
-      "max_absolute_error": 55.185546875,
-      "mean_absolute_error": 0.8260895013809204,
-      "mean_absolute_reference_magnitude": 116.56900024414062,
+      "cosine_similarity": 0.9999289512634277,
+      "max_absolute_error": 54.91389465332031,
+      "mean_absolute_error": 0.8736539483070374,
+      "mean_absolute_reference_magnitude": 115.66285705566406,
       "output_shape": [
         1,
         7,
         8400
       ],
       "passes_relative_MAE_le_1_percent": true,
-      "relative_MAE": 0.0070866997199149784
+      "relative_MAE": 0.007553452945456652
     },
     "3dsense_2020_10_14__22_04_05_color_png_jpg.rf.004d0a4cd9b8f35ef9f7e79d757a1817.jpg": {
-      "cosine_similarity": 0.9999300837516785,
-      "max_absolute_error": 63.80828857421875,
-      "mean_absolute_error": 0.8970714807510376,
-      "mean_absolute_reference_magnitude": 116.00093841552734,
+      "cosine_similarity": 0.9999176859855652,
+      "max_absolute_error": 72.07449340820312,
+      "mean_absolute_error": 0.9501105546951294,
+      "mean_absolute_reference_magnitude": 115.65901184082031,
       "output_shape": [
         1,
         7,
         8400
       ],
       "passes_relative_MAE_le_1_percent": true,
-      "relative_MAE": 0.007733312273195885
+      "relative_MAE": 0.008214755941393929
     },
     "3dsense_2020_10_14__22_04_14_color_png_jpg.rf.6b70d0020611293e5efaa4591fcad715.jpg": {
-      "cosine_similarity": 0.9999127984046936,
-      "max_absolute_error": 112.09565734863281,
-      "mean_absolute_error": 1.0148855447769165,
-      "mean_absolute_reference_magnitude": 120.78396606445312,
+      "cosine_similarity": 0.9998909831047058,
+      "max_absolute_error": 72.07449340820312,
+      "mean_absolute_error": 1.1672438383102417,
+      "mean_absolute_reference_magnitude": 120.20658874511719,
       "output_shape": [
         1,
         7,
         8400
       ],
       "passes_relative_MAE_le_1_percent": true,
-      "relative_MAE": 0.008402485676247375
+      "relative_MAE": 0.009710314971047337
     },
     "3dsense_2020_10_14__22_15_54_color_png_jpg.rf.bc9128db814057de8f88b99fd0140724.jpg": {
-      "cosine_similarity": 0.999937117099762,
-      "max_absolute_error": 82.77828979492188,
-      "mean_absolute_error": 0.8320039510726929,
-      "mean_absolute_reference_magnitude": 115.60205078125,
+      "cosine_similarity": 0.9999292492866516,
+      "max_absolute_error": 58.346038818359375,
+      "mean_absolute_error": 0.891269862651825,
+      "mean_absolute_reference_magnitude": 115.42073059082031,
       "output_shape": [
         1,
         7,
         8400
       ],
       "passes_relative_MAE_le_1_percent": true,
-      "relative_MAE": 0.00719713833318638
+      "relative_MAE": 0.007721921860046776
     },
     "3dsense_2020_10_14__22_16_32_color_png_jpg.rf.cda0c2d19b34a602e0775023b876f737.jpg": {
-      "cosine_similarity": 0.999930202960968,
-      "max_absolute_error": 96.57472229003906,
-      "mean_absolute_error": 0.839843213558197,
-      "mean_absolute_reference_magnitude": 114.98355102539062,
+      "cosine_similarity": 0.999915361404419,
+      "max_absolute_error": 106.39569091796875,
+      "mean_absolute_error": 0.9073922634124756,
+      "mean_absolute_reference_magnitude": 114.3608169555664,
       "output_shape": [
         1,
         7,
         8400
       ],
       "passes_relative_MAE_le_1_percent": true,
-      "relative_MAE": 0.00730402919433879
+      "relative_MAE": 0.007934468182096255
     },
     "KakaoTalk_20250203_160502315_mp4-0013_jpg.rf.6469c1b00e8c371f8198f9fbb6ba64e4.jpg": {
-      "cosine_similarity": 0.9999363422393799,
-      "max_absolute_error": 51.7364501953125,
-      "mean_absolute_error": 0.8974870443344116,
-      "mean_absolute_reference_magnitude": 117.28031158447266,
+      "cosine_similarity": 0.9999235272407532,
+      "max_absolute_error": 41.185455322265625,
+      "mean_absolute_error": 0.9641804695129395,
+      "mean_absolute_reference_magnitude": 117.48432922363281,
       "output_shape": [
         1,
         7,
         8400
       ],
       "passes_relative_MAE_le_1_percent": true,
-      "relative_MAE": 0.007652495395085858
+      "relative_MAE": 0.008206885768378611
     },
     "KakaoTalk_20250203_160502315_mp4-0025_jpg.rf.a8a7324ebaad66e43fbe1c25daf78f65.jpg": {
-      "cosine_similarity": 0.9999356865882874,
-      "max_absolute_error": 41.38916015625,
-      "mean_absolute_error": 0.8806509375572205,
-      "mean_absolute_reference_magnitude": 117.58808135986328,
+      "cosine_similarity": 0.9999188780784607,
+      "max_absolute_error": 41.1854248046875,
+      "mean_absolute_error": 0.9942075610160828,
+      "mean_absolute_reference_magnitude": 118.08319091796875,
       "output_shape": [
         1,
         7,
         8400
       ],
       "passes_relative_MAE_le_1_percent": true,
-      "relative_MAE": 0.007489287412234416
+      "relative_MAE": 0.008419551955593317
     },
     "KakaoTalk_20250203_160502315_mp4-0027_jpg.rf.03cb1e13f52e935f28d78dc121aec253.jpg": {
-      "cosine_similarity": 0.9999382495880127,
-      "max_absolute_error": 51.73645782470703,
-      "mean_absolute_error": 0.8594706058502197,
-      "mean_absolute_reference_magnitude": 116.9817123413086,
+      "cosine_similarity": 0.9999260902404785,
+      "max_absolute_error": 44.6175537109375,
+      "mean_absolute_error": 0.9271017909049988,
+      "mean_absolute_reference_magnitude": 117.59134674072266,
       "output_shape": [
         1,
         7,
         8400
       ],
       "passes_relative_MAE_le_1_percent": true,
-      "relative_MAE": 0.007347050993257887
+      "relative_MAE": 0.007884098758977283
     },
     "KakaoTalk_20250203_160503119_mp4-0023_jpg.rf.fe0d2a1d2e8340ddf6490d0642e21b70.jpg": {
-      "cosine_similarity": 0.9999279379844666,
-      "max_absolute_error": 62.083709716796875,
-      "mean_absolute_error": 0.9431259036064148,
-      "mean_absolute_reference_magnitude": 117.95075988769531,
+      "cosine_similarity": 0.9999052286148071,
+      "max_absolute_error": 41.185455322265625,
+      "mean_absolute_error": 1.0820927619934082,
+      "mean_absolute_reference_magnitude": 118.56484985351562,
       "output_shape": [
         1,
         7,
         8400
       ],
       "passes_relative_MAE_le_1_percent": true,
-      "relative_MAE": 0.007995929017366189
+      "relative_MAE": 0.009126589906960714
     },
     "KakaoTalk_20250203_160505764_mp4-0001_jpg.rf.71a140f0948c02548d53940167a2c29d.jpg": {
-      "cosine_similarity": 0.999936580657959,
-      "max_absolute_error": 41.38917541503906,
-      "mean_absolute_error": 0.8564377427101135,
-      "mean_absolute_reference_magnitude": 116.45838928222656,
+      "cosine_similarity": 0.9999207854270935,
+      "max_absolute_error": 65.21023559570312,
+      "mean_absolute_error": 0.9640167355537415,
+      "mean_absolute_reference_magnitude": 117.02701568603516,
       "output_shape": [
         1,
         7,
         8400
       ],
       "passes_relative_MAE_le_1_percent": true,
-      "relative_MAE": 0.007354023595797918
+      "relative_MAE": 0.008237557199100461
     },
     "KakaoTalk_20250203_160505764_mp4-0002_jpg.rf.edc95b6a526c48e73409986e6d63b948.jpg": {
-      "cosine_similarity": 0.9999346733093262,
-      "max_absolute_error": 56.91007995605469,
-      "mean_absolute_error": 0.8695223331451416,
-      "mean_absolute_reference_magnitude": 117.35257720947266,
+      "cosine_similarity": 0.9999140501022339,
+      "max_absolute_error": 41.18544006347656,
+      "mean_absolute_error": 1.0227993726730347,
+      "mean_absolute_reference_magnitude": 117.9340591430664,
       "output_shape": [
         1,
         7,
         8400
       ],
       "passes_relative_MAE_le_1_percent": true,
-      "relative_MAE": 0.0074094864707833115
+      "relative_MAE": 0.008672637744387918
     },
     "KakaoTalk_20250203_160505764_mp4-0003_jpg.rf.99703037b44db0de35b66ca5d39cbf35.jpg": {
-      "cosine_similarity": 0.999940812587738,
-      "max_absolute_error": 41.38916015625,
-      "mean_absolute_error": 0.8384132385253906,
-      "mean_absolute_reference_magnitude": 116.86174011230469,
+      "cosine_similarity": 0.9999210238456726,
+      "max_absolute_error": 41.18544006347656,
+      "mean_absolute_error": 0.9775176644325256,
+      "mean_absolute_reference_magnitude": 117.28181457519531,
       "output_shape": [
         1,
         7,
         8400
       ],
       "passes_relative_MAE_le_1_percent": true,
-      "relative_MAE": 0.007174403168390882
+      "relative_MAE": 0.008334776094428429
     },
     "KakaoTalk_20250203_160505764_mp4-0006_jpg.rf.45dca245d5816c7eabf4545390e59396.jpg": {
-      "cosine_similarity": 0.9999379515647888,
-      "max_absolute_error": 31.0418701171875,
-      "mean_absolute_error": 0.8631879687309265,
-      "mean_absolute_reference_magnitude": 116.994140625,
+      "cosine_similarity": 0.9999254941940308,
+      "max_absolute_error": 41.1854248046875,
+      "mean_absolute_error": 0.9551373720169067,
+      "mean_absolute_reference_magnitude": 117.17608642578125,
       "output_shape": [
         1,
         7,
         8400
       ],
       "passes_relative_MAE_le_1_percent": true,
-      "relative_MAE": 0.007378044439829625
+      "relative_MAE": 0.008151299477149597
     },
     "KakaoTalk_20250203_160505764_mp4-0007_jpg.rf.5accf680e4af0b67cb711ce099fc69be.jpg": {
-      "cosine_similarity": 0.9999377727508545,
-      "max_absolute_error": 62.08375549316406,
-      "mean_absolute_error": 0.8572351932525635,
-      "mean_absolute_reference_magnitude": 117.5303726196289,
+      "cosine_similarity": 0.9999187588691711,
+      "max_absolute_error": 37.75331115722656,
+      "mean_absolute_error": 1.0069061517715454,
+      "mean_absolute_reference_magnitude": 117.92206573486328,
       "output_shape": [
         1,
         7,
         8400
       ],
       "passes_relative_MAE_le_1_percent": true,
-      "relative_MAE": 0.007293733306086664
+      "relative_MAE": 0.008538742477896202
     },
     "KakaoTalk_20250203_160505764_mp4-0015_jpg.rf.e512fb69725c92e20eca7b6f29d202ce.jpg": {
-      "cosine_similarity": 0.9999337792396545,
-      "max_absolute_error": 31.0418701171875,
-      "mean_absolute_error": 0.9369785785675049,
-      "mean_absolute_reference_magnitude": 121.06462860107422,
+      "cosine_similarity": 0.9999182224273682,
+      "max_absolute_error": 41.1854248046875,
+      "mean_absolute_error": 1.056222677230835,
+      "mean_absolute_reference_magnitude": 121.4638442993164,
       "output_shape": [
         1,
         7,
         8400
       ],
       "passes_relative_MAE_le_1_percent": true,
-      "relative_MAE": 0.007739490794251617
+      "relative_MAE": 0.008695778429571567
     },
     "KakaoTalk_20250203_160505764_mp4-0016_jpg.rf.718ce9165537193aa3ff9a2955e0f94a.jpg": {
-      "cosine_similarity": 0.9999274611473083,
-      "max_absolute_error": 41.38916015625,
-      "mean_absolute_error": 0.9705737829208374,
-      "mean_absolute_reference_magnitude": 121.0805892944336,
+      "cosine_similarity": 0.9999220371246338,
+      "max_absolute_error": 51.481781005859375,
+      "mean_absolute_error": 1.0368629693984985,
+      "mean_absolute_reference_magnitude": 121.47177124023438,
       "output_shape": [
         1,
         7,
         8400
       ],
       "passes_relative_MAE_le_1_percent": true,
-      "relative_MAE": 0.008015932104201092
+      "relative_MAE": 0.008535834777183726
     },
     "KakaoTalk_20250203_160505764_mp4-0019_jpg.rf.523979fe31b97a70a16eae4a1039011b.jpg": {
-      "cosine_similarity": 0.9999243021011353,
-      "max_absolute_error": 58.6346435546875,
-      "mean_absolute_error": 0.9925143122673035,
-      "mean_absolute_reference_magnitude": 120.99092102050781,
+      "cosine_similarity": 0.9999135732650757,
+      "max_absolute_error": 36.03724670410156,
+      "mean_absolute_error": 1.0695759057998657,
+      "mean_absolute_reference_magnitude": 121.54058074951172,
       "output_shape": [
         1,
         7,
         8400
       ],
       "passes_relative_MAE_le_1_percent": true,
-      "relative_MAE": 0.00820321313281906
+      "relative_MAE": 0.008800154641388471
     },
     "KakaoTalk_20250203_160505764_mp4-0023_jpg.rf.4a37031eddb16fa8c372dd73561da6eb.jpg": {
-      "cosine_similarity": 0.9999242424964905,
-      "max_absolute_error": 51.7364501953125,
-      "mean_absolute_error": 0.9842588305473328,
-      "mean_absolute_reference_magnitude": 121.01707458496094,
+      "cosine_similarity": 0.9999130368232727,
+      "max_absolute_error": 41.185455322265625,
+      "mean_absolute_error": 1.0791014432907104,
+      "mean_absolute_reference_magnitude": 121.89724731445312,
       "output_shape": [
         1,
         7,
         8400
       ],
       "passes_relative_MAE_le_1_percent": true,
-      "relative_MAE": 0.008133222802839499
+      "relative_MAE": 0.008852549725811268
     },
     "KakaoTalk_20250203_160505764_mp4-0024_jpg.rf.d98c63e47c9c7a040394e9072f126c98.jpg": {
-      "cosine_similarity": 0.9999286532402039,
-      "max_absolute_error": 41.38916015625,
-      "mean_absolute_error": 0.9414162635803223,
-      "mean_absolute_reference_magnitude": 120.68082427978516,
+      "cosine_similarity": 0.9999151229858398,
+      "max_absolute_error": 41.1854248046875,
+      "mean_absolute_error": 1.0604565143585205,
+      "mean_absolute_reference_magnitude": 121.63715362548828,
       "output_shape": [
         1,
         7,
         8400
       ],
       "passes_relative_MAE_le_1_percent": true,
-      "relative_MAE": 0.0078008769760948326
+      "relative_MAE": 0.008718195738315178
     },
     "KakaoTalk_20250203_160505764_mp4-0027_jpg.rf.5149908da0f0450504fab40dfce38233.jpg": {
-      "cosine_similarity": 0.9999297857284546,
-      "max_absolute_error": 58.6346435546875,
-      "mean_absolute_error": 0.9481631517410278,
-      "mean_absolute_reference_magnitude": 120.24606323242188,
+      "cosine_similarity": 0.9999159574508667,
+      "max_absolute_error": 61.77813720703125,
+      "mean_absolute_error": 1.0465900897979736,
+      "mean_absolute_reference_magnitude": 120.78958129882812,
       "output_shape": [
         1,
         7,
         8400
       ],
       "passes_relative_MAE_le_1_percent": true,
-      "relative_MAE": 0.007885190801700817
+      "relative_MAE": 0.008664572544620016
     },
     "KakaoTalk_20250203_160505764_mp4-0031_jpg.rf.132d145c38aa60b1b6b981bc231eb4e1.jpg": {
-      "cosine_similarity": 0.9999331831932068,
-      "max_absolute_error": 31.041900634765625,
-      "mean_absolute_error": 0.9272660613059998,
-      "mean_absolute_reference_magnitude": 120.14128875732422,
+      "cosine_similarity": 0.9999193549156189,
+      "max_absolute_error": 41.1854248046875,
+      "mean_absolute_error": 1.0132321119308472,
+      "mean_absolute_reference_magnitude": 120.55342102050781,
       "output_shape": [
         1,
         7,
         8400
       ],
       "passes_relative_MAE_le_1_percent": true,
-      "relative_MAE": 0.00771812980281078
+      "relative_MAE": 0.008404839143954963
     },
     "KakaoTalk_20250203_160505764_mp4-0032_jpg.rf.eebc59b14d4f35c3739fce9641ba370c.jpg": {
-      "cosine_similarity": 0.9999352097511292,
-      "max_absolute_error": 36.21551513671875,
-      "mean_absolute_error": 0.9128264784812927,
-      "mean_absolute_reference_magnitude": 119.99740600585938,
+      "cosine_similarity": 0.9999235272407532,
+      "max_absolute_error": 41.1854248046875,
+      "mean_absolute_error": 0.9988832473754883,
+      "mean_absolute_reference_magnitude": 120.37499237060547,
       "output_shape": [
         1,
         7,
         8400
       ],
       "passes_relative_MAE_le_1_percent": true,
-      "relative_MAE": 0.0076070517594082005
+      "relative_MAE": 0.008298096038919517
     },
     "KakaoTalk_20250203_160505764_mp4-0033_jpg.rf.45a8748535559788e23f3e8f631ba47a.jpg": {
-      "cosine_similarity": 0.9999328255653381,
-      "max_absolute_error": 41.38917541503906,
-      "mean_absolute_error": 0.9327861070632935,
-      "mean_absolute_reference_magnitude": 119.94668579101562,
+      "cosine_similarity": 0.9999195337295532,
+      "max_absolute_error": 41.1854248046875,
+      "mean_absolute_error": 1.0241578817367554,
+      "mean_absolute_reference_magnitude": 120.3116226196289,
       "output_shape": [
         1,
         7,
         8400
       ],
       "passes_relative_MAE_le_1_percent": true,
-      "relative_MAE": 0.007776672618437299
+      "relative_MAE": 0.00851254317277958
     },
     "KakaoTalk_20250203_160511603_mp4-0003_jpg.rf.76841736efbaa465126b7549773c8dcf.jpg": {
-      "cosine_similarity": 0.9999460577964783,
-      "max_absolute_error": 62.08375549316406,
-      "mean_absolute_error": 0.7208318710327148,
-      "mean_absolute_reference_magnitude": 112.81378173828125,
+      "cosine_similarity": 0.999930739402771,
+      "max_absolute_error": 51.481781005859375,
+      "mean_absolute_error": 0.8100789189338684,
+      "mean_absolute_reference_magnitude": 113.27914428710938,
       "output_shape": [
         1,
         7,
         8400
       ],
       "passes_relative_MAE_le_1_percent": true,
-      "relative_MAE": 0.006389572797984787
+      "relative_MAE": 0.007151174419897622
     },
     "KakaoTalk_20250203_160511603_mp4-0005_jpg.rf.f56ca446d4e58ba049e652e6e5a28b37.jpg": {
-      "cosine_similarity": 0.9999545812606812,
-      "max_absolute_error": 35.35324478149414,
-      "mean_absolute_error": 0.6704021692276001,
-      "mean_absolute_reference_magnitude": 112.28433990478516,
+      "cosine_similarity": 0.9999406337738037,
+      "max_absolute_error": 41.1854248046875,
+      "mean_absolute_error": 0.7544161677360535,
+      "mean_absolute_reference_magnitude": 112.55013275146484,
       "output_shape": [
         1,
         7,
         8400
       ],
       "passes_relative_MAE_le_1_percent": true,
-      "relative_MAE": 0.00597057585943051
+      "relative_MAE": 0.006702934499437404
     },
     "KakaoTalk_20250203_160511603_mp4-0008_jpg.rf.861db1b2c2b6f43903f21ec4fad8cf94.jpg": {
-      "cosine_similarity": 0.9999277591705322,
-      "max_absolute_error": 51.736480712890625,
-      "mean_absolute_error": 0.9280653595924377,
-      "mean_absolute_reference_magnitude": 115.91737365722656,
+      "cosine_similarity": 0.9999179840087891,
+      "max_absolute_error": 41.1854248046875,
+      "mean_absolute_error": 0.994849443435669,
+      "mean_absolute_reference_magnitude": 115.84547424316406,
       "output_shape": [
         1,
         7,
         8400
       ],
       "passes_relative_MAE_le_1_percent": true,
-      "relative_MAE": 0.008006266276673703
+      "relative_MAE": 0.008587728177860812
     },
     "in_domain_synthetic": {
-      "cosine_similarity": 0.9999092817306519,
-      "max_absolute_error": 39.66461181640625,
-      "mean_absolute_error": 1.1972784996032715,
-      "mean_absolute_reference_magnitude": 126.38179779052734,
-      "output_shape": [
-        1,
-        7,
-        8400
-      ],
-      "passes_relative_MAE_le_1_percent": true,
-      "relative_MAE": 0.00947350425879929
-    },
-    "original_synthetic": {
-      "cosine_similarity": 0.9074205160140991,
-      "max_absolute_error": 413.25048828125,
-      "mean_absolute_error": 39.72230529785156,
-      "mean_absolute_reference_magnitude": 134.81442260742188,
+      "cosine_similarity": 0.9998763799667358,
+      "max_absolute_error": 51.481781005859375,
+      "mean_absolute_error": 1.3703999519348145,
+      "mean_absolute_reference_magnitude": 126.7315673828125,
       "output_shape": [
         1,
         7,
         8400
       ],
       "passes_relative_MAE_le_1_percent": false,
-      "relative_MAE": 0.29464433055150546
+      "relative_MAE": 0.010813406479818145
+    },
+    "original_synthetic": {
+      "cosine_similarity": 0.914153516292572,
+      "max_absolute_error": 410.91973876953125,
+      "mean_absolute_error": 37.879638671875,
+      "mean_absolute_reference_magnitude": 138.27040100097656,
+      "output_shape": [
+        1,
+        7,
+        8400
+      ],
+      "passes_relative_MAE_le_1_percent": false,
+      "relative_MAE": 0.2739533435764569
     }
   },
   "in-domain synthetic generation method": "torch.Generator(device='cpu').manual_seed(42); torch.rand([1,3,640,640], dtype=torch.float32).to(cuda:0)",
@@ -561,7 +561,7 @@
   "source QAT checkpoint": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/checkpoints/qat/qat_best.pt",
   "status": "passed",
   "test split": "not loaded or used",
-  "timestamp": "2026-09-02T14:02:52.376209+00:00",
+  "timestamp": "2026-09-24T04:12:39.155956+00:00",
   "versions": {
     "Python": "3.11.2",
     "nncf": "2.13.0",
