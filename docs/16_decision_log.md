@@ -20,4 +20,8 @@ Merekam keputusan kronologis, alasan, bukti, dan dampaknya.
 | 6 | model dibekukan sebelum TEST; TEST sekali | manifest final test | tidak ada test tuning |
 | 7A | tolak strip artifact | divergence ~36,24% | no deploy artifact |
 | 7C/7D | acceptance memakai `[0,1]` + 32 VAL | CPU/CUDA representative pass | export QAT fail-closed |
-| 7F preparation | Memakai `QuantizationController.export_model(..., save_format="onnx")` sebagai jalur utama | Controller NNCF 2.13.0 terpasang menyediakan API ekspor ONNX resmi untuk compressed model. | Jalur ONNX dipisahkan dari diagnostik OpenVINO langsung; tidak ada fallback PTQ. |
+| 7F historis | Uji `QuantizationController.export_model(..., save_format="onnx")` | ONNX/checker lulus, tetapi OpenVINO gagal numerik pada 31/32 VAL | Kandidat ONNX tidak dipromosikan |
+| Seleksi QAT | Pilih `qat_lr1e4_r256_e15` dari VAL | Selection manifest passed; TEST/PTQ metrics tidak dipakai memilih | Checkpoint final SHA256 `b9e520...35430d` |
+| Export final | Pakai direct OpenVINO untuk QAT terpilih | 32/32 VAL lulus equivalence, graph quantized, gate accepted | QAT IR final valid |
+| Benchmark server | Ukur FP32/PTQ/QAT pada CPU host | 30 warmup, 300 iterasi per model | Hasil diagnostik server terpisah dari OP3 |
+| Pembersihan | Hapus binary kandidat rejected, simpan JSON diagnostic | Model gagal tidak boleh tertukar dengan final | Repository lebih jelas tanpa kehilangan bukti keputusan |

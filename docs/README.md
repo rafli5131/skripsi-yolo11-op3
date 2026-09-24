@@ -1,45 +1,56 @@
-# Dokumentasi Teknis Proyek
+# Indeks Dokumentasi
 
-## Tujuan
+Mulai dari [panduan repository](24_panduan_repositori.md), lalu [provenance](26_provenance_dan_verifikasi.md), [kegagalan dan pembersihan](25_kegagalan_dan_pembersihan.md), dan [cara membaca hasil](27_cara_membaca_hasil.md). Dokumen fase lama mencatat keadaan pada waktu penulisannya; status artifact final saat ini ada pada provenance dan manifest terkini.
 
-Indeks dokumentasi teknis proyek `advance_vision`.
+## Status terkini
 
-## Status saat ini
+| Bidang | Status |
+| --- | --- |
+| FP32 baseline dan held-out TEST | Selesai |
+| True NNCF QAT checkpoint dan held-out TEST | Selesai |
+| PTQ INT8 comparator | Valid; provenance/hash gate accepted |
+| QAT INT8 direct OpenVINO | Valid; export/equivalence gate accepted |
+| Benchmark server OpenVINO CPU | Selesai; diagnostik, terpisah dari OP3 |
+| Benchmark final ROBOTIS OP3 | Masih perlu dilakukan langsung di OP3 |
 
-| Tahap | Status |
-|---|---|
-| FP32 training | **DONE** |
-| FP32 held-out TEST | **DONE** |
-| True NNCF QAT | **DONE** |
-| QAT held-out TEST | **DONE** |
-| OpenVINO FP32 export | **VALID** |
-| OpenVINO QAT INT8 export | **UNRESOLVED**; artefak strip sebelumnya **REJECTED** |
-| PTQ INT8 comparator | **DONE (VAL diagnostic)**; jalur terpisah dari QAT |
-| CPU deployment benchmark | **NOT YET EXECUTED** |
-| ROS2 / ROBOTIS OP3 deployment | **NOT YET EXECUTED** |
+## Memahami proyek
 
-## Indeks
+- [00 Gambaran proyek](00_project_overview.md)
+- [01 Lingkungan](01_environment.md)
+- [02 Dataset dan split](02_dataset.md)
+- [04 Desain true QAT](04_qat_design.md)
+- [12 Reproducibility](12_reproducibility.md)
+- [14 Inventaris artifact](14_artifact_inventory.md)
+- [19 Pemetaan ke tesis](19_thesis_method_mapping.md)
+- [24 Panduan repository](24_panduan_repositori.md)
+- [26 Provenance dan verifikasi](26_provenance_dan_verifikasi.md)
+- [27 Cara membaca hasil](27_cara_membaca_hasil.md)
 
-- [00 Gambaran proyek](00_project_overview.md) — tujuan, pipeline, kelas, dan batas PTQ/QAT.
-- [01 Lingkungan](01_environment.md) — server, versi, GPU mapping, dan safety.
-- [02 Dataset](02_dataset.md) — struktur, audit, anomali, isolasi split.
-- [03 FP32 training](03_fp32_training.md) — baseline dan konfigurasi.
-- [04 QAT design](04_qat_design.md) — konsep dan API true QAT.
-- [05 QAT implementation](05_qat_implementation.md) — DetectionTrainer dan checkpoint NNCF.
-- [06 Smoke QAT](06_qat_smoke_and_validation.md) — bukti integrasi diagnostik.
-- [07 Final QAT](07_final_qat_training.md) — konfigurasi dan hasil QAT final.
-- [08 Final TEST](08_final_test_evaluation.md) — held-out comparison yang dibekukan.
-- [09 OpenVINO export](09_openvino_export.md) — jalur FP32 valid dan QAT saat ini.
-- [10 Export failure](10_openvino_export_failure_analysis.md) — strip QAT yang ditolak.
-- [11 CPU/CUDA diagnostic](11_cpu_cuda_qat_diagnostic.md) — evidence representatif.
-- [12 Reproducibility](12_reproducibility.md) — seed, lockfile, hash, batas.
-- [13 Commands](13_commands.md) — cookbook host.
-- [14 Artifact inventory](14_artifact_inventory.md) — status file penting.
-- [15 Known issues](15_known_issues.md) — masalah dan workaround.
-- [16 Decision log](16_decision_log.md) — keputusan penelitian.
-- [17 Results summary](17_research_results_summary.md) — tabel hasil.
-- [18 Next steps](18_next_steps.md) — pekerjaan tersisa.
-- [19 Thesis mapping](19_thesis_method_mapping.md) — hubungan artefak dan bab skripsi.
-- [20 Timeline](20_experiment_timeline.md) — kronologi fase.
-- [21 QAT ONNX → OpenVINO](21_qat_onnx_openvino_export.md) — jalur Phase 7F yang terisolasi dan fail-closed.
-- [22 PTQ comparator](22_ptq_comparison.md) — jalur PTQ terpisah untuk pembanding FP32/QAT.
+## Training, pemilihan, dan evaluasi
+
+- [03 FP32 training](03_fp32_training.md)
+- [05 Implementasi QAT](05_qat_implementation.md)
+- [06 Smoke test QAT](06_qat_smoke_and_validation.md)
+- [07 QAT final historis](07_final_qat_training.md)
+- [23 Seleksi QAT best terbaru](23_qat_best_selection.md)
+- [08 Held-out FINAL TEST](08_final_test_evaluation.md)
+- [17 Ringkasan hasil](17_research_results_summary.md)
+- [22 PTQ comparator](22_ptq_comparison.md)
+
+## Export, kegagalan, dan deployment
+
+- [09 Export OpenVINO saat ini](09_openvino_export.md)
+- [10 Kegagalan export QAT lama](10_openvino_export_failure_analysis.md)
+- [11 Diagnostik QAT CPU/CUDA](11_cpu_cuda_qat_diagnostic.md)
+- [15 Known issues](15_known_issues.md)
+- [16 Decision log](16_decision_log.md)
+- [20 Timeline eksperimen](20_experiment_timeline.md)
+- [21 Percobaan ONNX historis](21_qat_onnx_openvino_export.md)
+- [23 Benchmark server FP32/PTQ/QAT](23_server_openvino_benchmark.md)
+- [25 Kegagalan dan pembersihan](25_kegagalan_dan_pembersihan.md)
+- [18 Langkah berikutnya](18_next_steps.md)
+
+## Referensi operasional
+
+- [13 Perintah proyek](13_commands.md)
+- [Analisis dukungan Ultralytics QAT](ultralytics_qat_support_analysis.md)
