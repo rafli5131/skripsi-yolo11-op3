@@ -1,0 +1,13 @@
+{
+  "format": "nncf_qat_final_v1",
+  "reconstruction": [
+    "load FP32 YOLO architecture from artifacts/checkpoints/fp32/best.pt",
+    "create_compressed_model(fp32_model, NNCFConfig.from_dict(nncf_config), compression_state=...) ",
+    "nncf.torch.load_state(qat_model, model_state_dict, is_resume=True)"
+  ],
+  "embedded_checkpoint_fields": [
+    "compression_state",
+    "nncf_config",
+    "model_state_dict"
+  ]
+}

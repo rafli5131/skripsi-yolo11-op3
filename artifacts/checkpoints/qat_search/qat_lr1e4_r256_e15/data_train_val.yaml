@@ -1,0 +1,7 @@
+train: /mnt/nas-hpg9/rafli5131/rafli/advance_vision/data/raw/advance_vision_human/train/images
+val: /mnt/nas-hpg9/rafli5131/rafli/advance_vision/data/raw/advance_vision_human/valid/images
+nc: 3
+names:
+  0: ball
+  1: gawang
+  2: robot

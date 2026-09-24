@@ -5,29 +5,7 @@
     "logical_device": "cuda:0",
     "name": "NVIDIA L40"
   },
-  "NNCF native CUDA extension used": false,
-  "NNCF quantization execution backend": "pure-pytorch-nncf-reference",
-  "PTQ metrics used for selection": false,
   "QAT API": "nncf.torch.create_compressed_model (never nncf.quantize)",
-  "QAT semantics": "NNCF fake quantization during training; not PTQ",
-  "QAT tuning candidate": {
-    "amp": false,
-    "batch": 16,
-    "epochs": 15,
-    "imgsz": 640,
-    "lr0": 0.0001,
-    "lrf": 0.1,
-    "momentum": 0.9,
-    "name": "qat_lr1e4_r256_e15",
-    "optimizer": "AdamW",
-    "range_init_batch": 4,
-    "range_init_samples": 256,
-    "seed": 42,
-    "warmup_epochs": 0.0,
-    "weight_decay": 0.0005,
-    "workers": 2
-  },
-  "TEST split used for selection": false,
   "W&B": {
     "enabled": false,
     "project": null
@@ -51,7 +29,6 @@
       "qat_last.pt": "f718779d27441abe3ef27e5dd8073850d51bd52b366f02996cc7798750bdc106"
     }
   },
-  "backend verification": "scripts/verify_nncf_reference_quant.py performs numerical reference and CUDA autograd checks",
   "batch": 16,
   "best epoch": 5,
   "best mAP50": 0.96072,
@@ -90,10 +67,9 @@
   "lrf": 0.1,
   "momentum": 0.9,
   "notes": [
-    "Range initialization receives a deterministic first-16-images TRAIN-only subset.",
-    "Validation-driven QAT tuning candidate; epoch count and range initialization are defined by configs/qat_best_search.yaml."
+    "Final fixed five-epoch QAT only: no PTQ, OpenVINO export, test split, DDP, multi-GPU, cache=ram, or architecture changes.",
+    "Range initialization receives a deterministic first-16-images TRAIN-only subset."
   ],
-  "nvcc required for this run": false,
   "optimizer": "AdamW",
   "quantizer count after training": 184,
   "quantizer count before training": 184,
@@ -135,7 +111,6 @@
   },
   "resume": false,
   "seed": 42,
-  "selection eligibility": "validation-only true-QAT candidate",
   "source FP32 SHA256": "e05b2b21f7faa68f65671f0aaae37ad962aa5e25c6b8b26853fd0b389d420b8c",
   "source FP32 checkpoint": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/checkpoints/fp32/best.pt",
   "status": "passed",
