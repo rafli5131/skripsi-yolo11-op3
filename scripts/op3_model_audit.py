@@ -71,15 +71,26 @@ def qat_validation_gate(root: Path) -> dict[str, Any]:
         if isinstance(qat_manifest.get("artifact freeze"), dict)
         else None
     )
-    pointer = lfs_pointer(root / "artifacts/checkpoints/qat/qat_best.pt")
+    checkpoint_path = root / "artifacts/checkpoints/qat/qat_best.pt"
+    pointer = lfs_pointer(checkpoint_path)
+    materialized_hash = (
+        sha256_file(checkpoint_path)
+        if checkpoint_path.is_file() and pointer is None
+        else None
+    )
+    checkpoint_hash_matches = bool(
+        isinstance(qat_hash, str)
+        and (
+            (pointer is not None and pointer.get("sha256") == qat_hash)
+            or materialized_hash == qat_hash
+        )
+    )
     qat_api = str(qat_manifest.get("QAT API", ""))
     true_qat = (
         qat_manifest.get("status") == "passed"
         and "create_compressed_model" in qat_api
         and not qat_api.lstrip().startswith("nncf.quantize")
-        and isinstance(qat_hash, str)
-        and pointer is not None
-        and pointer["sha256"] == qat_hash
+        and checkpoint_hash_matches
         and qat_manifest.get("quantizer count after reload") == qat_manifest.get("expected quantizer count")
     )
 
@@ -181,7 +192,9 @@ def qat_validation_gate(root: Path) -> dict[str, Any]:
         "status": "VALID QAT INT8 OpenVINO" if accepted else "BLOCKED: no validated QAT OpenVINO artifact",
         "true_nncf_qat_provenance": true_qat,
         "checkpoint_sha256": qat_hash,
+        "checkpoint_hash_matches_manifest": checkpoint_hash_matches,
         "checkpoint_lfs_pointer_matches_manifest": bool(pointer and pointer.get("sha256") == qat_hash),
+        "checkpoint_materialized_sha256": materialized_hash,
         "selection_manifest": str(selection_path.relative_to(root)) if selection_path else None,
         "selection_accepted": selection_accepted,
         "export_diagnostic": str(export_path.relative_to(root)) if export_path else None,
