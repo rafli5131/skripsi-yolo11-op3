@@ -11,6 +11,7 @@ Repository ini mencatat penelitian deteksi objek YOLO11n untuk ROBOTIS OP3. Ada 
 | Model mana yang boleh dipakai dan cara memeriksanya | [26 Provenance dan verifikasi](26_provenance_dan_verifikasi.md) |
 | Perbedaan VAL, TEST, server, dan OP3 | [27 Cara membaca hasil](27_cara_membaca_hasil.md) |
 | Angka benchmark server FP32/PTQ/QAT | [Ringkasan dekat raw result](../experiments/server_openvino/README.md) dan [laporan lengkap](23_server_openvino_benchmark.md) |
+| Precision, recall, F1, dan mAP empat model pada VAL | [Laporan evaluasi VAL](28_server_val_detection_comparison.md) |
 | Hasil final TEST PyTorch | [08 Final TEST](08_final_test_evaluation.md) |
 | Riwayat pemilihan checkpoint QAT | [23 QAT best selection](23_qat_best_selection.md) |
 
@@ -28,7 +29,7 @@ Repository ini mencatat penelitian deteksi objek YOLO11n untuk ROBOTIS OP3. Ada 
 | `artifacts/openvino/*diagnostic.json` | Bukti export, termasuk percobaan yang ditolak | Simpan untuk provenance; baca status di dalamnya |
 | `experiments/final_test/` | Evaluasi held-out TEST PyTorch yang dibekukan | Bukan benchmark server/OP3 |
 | `experiments/ptq/` | PTQ comparator dan evaluasi VAL | Canonical PTQ IR ada di `backend_models/ptq_openvino_model/` |
-| `experiments/server_openvino/` | Raw benchmark diagnostik server dan `README.md` hasil | Bukan hasil deployment OP3 |
+| `experiments/server_openvino/` | Raw benchmark latency sintetis, evaluasi deteksi VAL, dan laporan hasil | Keduanya diagnostik server; bukan hasil deployment OP3 |
 | `experiments/hardware_op3/` | Hasil pengujian hardware yang sudah ada | Jangan campur dengan benchmark server |
 | `experiments/debug/` | Smoke test dan eksplorasi awal yang berhasil/berguna | Bukan final model |
 | `docs/` | Penjelasan metode, status, kegagalan, dan hasil | Dokumen bertanggal fase lama perlu dibaca bersama status terkini |

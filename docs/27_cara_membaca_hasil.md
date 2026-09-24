@@ -7,10 +7,13 @@
 | Seleksi checkpoint | `artifacts/checkpoints/qat/selection_manifest.json` | TRAIN untuk belajar, VAL untuk memilih | Kandidat QAT mana yang dipromosikan? |
 | Final TEST | `experiments/final_test/` | Held-out TEST, evaluator PyTorch | Seberapa baik deteksi FP32 dan QAT final pada split TEST? |
 | Evaluasi PTQ diagnostik | `experiments/ptq/` | VAL, OpenVINO | Apakah PTQ comparator mempertahankan metrik VAL terhadap FP32? |
+| Evaluasi empat model server | `experiments/server_openvino/val_*.json` | VAL yang sama, Ultralytics CPU | Bagaimana precision, recall, F1, dan mAP FP32 native/OV, PTQ, QAT? |
 | Benchmark server | `experiments/server_openvino/` | Satu frame sintetis 640×640, 300 iterasi | Berapa latency/FPS/resource ketiga IR pada host server? |
 | Benchmark hardware OP3 | `experiments/hardware_op3/` | Sesuai laporan hardware setempat | Apa yang sudah diukur pada perangkat/lingkungan hardware tersebut? |
 
 Jangan menggabungkan mAP dari TEST dengan latency dari benchmark server menjadi satu hasil eksperimen. Model, split, evaluator, dan hardware harus disebut setiap kali mengutip angka. Benchmark server terbaru diringkas [di direktori raw result](../experiments/server_openvino/README.md) dan dibahas lengkap dalam [laporan FP32/PTQ/QAT](23_server_openvino_benchmark.md). Hasil server tidak menggantikan benchmark final langsung di ROBOTIS OP3. [Timeline](20_experiment_timeline.md) menempatkan tiap hasil pada tahapnya.
+
+Evaluasi kualitas deteksi pada VAL dan benchmark latency sintetis sama-sama berlangsung di server, tetapi memakai input serta tujuan berbeda. [Laporan VAL empat model](../experiments/server_openvino/VAL_METRICS_REPORT.md) memuat accuracy; [laporan benchmark sintetis](23_server_openvino_benchmark.md) memuat latency/resource tiga IR. FP32 native PyTorch hanya ada pada evaluasi VAL yang baru, sehingga tabel latency tiga IR tidak boleh dibaca sebagai perbandingan kecepatan empat model.
 
 ## Metrik deteksi
 

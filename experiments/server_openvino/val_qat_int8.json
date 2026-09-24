@@ -1,0 +1,96 @@
+{
+  "accuracy_context": "VAL detection quality on server; not FINAL TEST or ROBOTIS OP3 deployment",
+  "command": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/.venv/bin/python3 scripts/evaluate_server_val.py",
+  "dataset_yaml": "data/dataset/data.yaml",
+  "dataset_yaml_sha256": "abab15a8c9b19047bf020cab20aa5cf4dc36477948318ec222a05e2ade10614c",
+  "evaluator_configuration": {
+    "amp": false,
+    "augment": false,
+    "batch": 1,
+    "cache": false,
+    "conf": null,
+    "device": "cpu",
+    "fraction": 1.0,
+    "imgsz": 640,
+    "iou": 0.7,
+    "plots": false,
+    "rect": true,
+    "save_json": false,
+    "save_txt": false,
+    "split": "val",
+    "workers": 0
+  },
+  "evaluator_return": {
+    "fitness": 0.6549417443117462,
+    "metrics/mAP50(B)": 0.9613881849442766,
+    "metrics/mAP50-95(B)": 0.6549417443117462,
+    "metrics/precision(B)": 0.8657323978853336,
+    "metrics/recall(B)": 0.9305262734054622
+  },
+  "evaluator_script_sha256": "6fb17d38f21a635857ed796428ca18ca1a1cbff85ad97681998d53a9ab58716e",
+  "evaluator_speed_ms_per_image_diagnostic_only": {
+    "inference": 14.76424061351587,
+    "loss": 0.0006528425369003246,
+    "postprocess": 0.5272353990871063,
+    "preprocess": 0.8621057011770593
+  },
+  "git_commit_at_evaluation": "078715d08541aaa241d8f2cda7afd5dc10f7c2d6",
+  "hostname": "labkc-l40-debian",
+  "model": {
+    "files": [
+      {
+        "path": "artifacts/openvino/qat_int8/model.xml",
+        "sha256": "0a97a52f7a72ae9667c6f501ac1e0f44ff04bb5a860ac072e4f39ad406c424b2",
+        "size_bytes": 735797
+      },
+      {
+        "path": "artifacts/openvino/qat_int8/model.bin",
+        "sha256": "4a88143019b418edd879932820589c18557dfe9954196fa92025749505bc6352",
+        "size_bytes": 2744884
+      }
+    ],
+    "format": "OpenVINO IR",
+    "label": "QAT INT8 OpenVINO",
+    "slug": "qat_int8"
+  },
+  "openvino_version": "2024.4.0-16579-c3152d32c9c-releases/2024/4",
+  "os": "Linux-6.1.0-43-amd64-x86_64-with-glibc2.36",
+  "overall": {
+    "F1": 0.896960727144847,
+    "mAP50": 0.9613881849442766,
+    "mAP50-95": 0.6549417443117462,
+    "precision": 0.8657323978853336,
+    "recall": 0.9305262734054622
+  },
+  "per_class": {
+    "ball": {
+      "F1": 0.9237231721393596,
+      "mAP50": 0.9845675322664845,
+      "mAP50-95": 0.7119147571782279,
+      "precision": 0.8623470160321357,
+      "recall": 0.9945054945054945
+    },
+    "gawang": {
+      "F1": 0.8773500885661655,
+      "mAP50": 0.9431216600525535,
+      "mAP50-95": 0.5557759906321261,
+      "precision": 0.9194717794873295,
+      "recall": 0.8389185991712332
+    },
+    "robot": {
+      "F1": 0.8810195369037689,
+      "mAP50": 0.9564753625137914,
+      "mAP50-95": 0.6971344851248845,
+      "precision": 0.8153783981365358,
+      "recall": 0.9581547265396592
+    }
+  },
+  "python_version": "3.11.2",
+  "split": "val",
+  "timestamp_utc": "2026-09-24T06:16:32.261968+00:00",
+  "torch_version": "2.4.1+cu121",
+  "ultralytics_version": "8.4.130",
+  "val_annotations": 1525,
+  "val_images": 1213,
+  "val_images_path": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/data/raw/advance_vision_human/valid/images"
+}

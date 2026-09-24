@@ -2,7 +2,21 @@
 
 Benchmark diagnostik host untuk tiga model YOLO11n: FP32, PTQ INT8, dan QAT INT8. Pengukuran menggunakan OpenVINO CPU, input sintetis 640×640 yang sama, 30 warmup, dan 300 iterasi terukur per model. Ini **bukan benchmark final ROBOTIS OP3**. Metode, provenance, seluruh statistik, dan batasan dijelaskan dalam [laporan lengkap](../../docs/23_server_openvino_benchmark.md).
 
-## Ringkasan hasil
+Direktori ini juga memuat [evaluasi kualitas deteksi VAL empat model](VAL_METRICS_REPORT.md): FP32 native PyTorch, FP32 OpenVINO, PTQ INT8, dan QAT INT8. Evaluasi VAL memakai 1.213 gambar berlabel dan berbeda dari benchmark latency sintetis di bawah.
+
+## Kualitas deteksi pada VAL
+
+| Metrik | FP32 native | FP32 OpenVINO | PTQ INT8 | QAT INT8 |
+| --- | ---: | ---: | ---: | ---: |
+| Precision | 0.9474 | 0.9362 | 0.9341 | 0.8657 |
+| Recall | 0.9465 | 0.9576 | 0.9502 | 0.9305 |
+| F1 | 0.9470 | 0.9468 | 0.9421 | 0.8970 |
+| mAP50 | 0.9734 | 0.9730 | 0.9721 | 0.9614 |
+| mAP50-95 | 0.7783 | 0.7713 | 0.7672 | 0.6549 |
+
+Sumber lengkap: [laporan VAL](VAL_METRICS_REPORT.md), [comparison JSON](val_comparison.json), [overall CSV](val_comparison.csv), [per-class CSV](val_per_class.csv), dan empat file `val_<model>.json`. Semua model memakai VAL, CPU, 640, batch 1, IoU 0.7, dan confidence default Ultralytics. FINAL TEST tidak dijalankan ulang. Hasil QAT lebih rendah daripada PTQ pada metrik deteksi VAL ini; perbandingan kecepatan server berada pada tabel benchmark terpisah di bawah.
+
+## Benchmark latency sintetis
 
 | Metrik | FP32 | PTQ INT8 | QAT INT8 |
 | --- | ---: | ---: | ---: |

@@ -1,0 +1,439 @@
+{
+  "accuracy_context": "VAL detection quality on server; not FINAL TEST or ROBOTIS OP3 deployment",
+  "command": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/.venv/bin/python3 scripts/evaluate_server_val.py",
+  "dataset_yaml": "data/dataset/data.yaml",
+  "dataset_yaml_sha256": "abab15a8c9b19047bf020cab20aa5cf4dc36477948318ec222a05e2ade10614c",
+  "delta_vs_fp32_native": {
+    "fp32_openvino": {
+      "F1": -0.00018659512408092382,
+      "mAP50": -0.00047347953735232817,
+      "mAP50-95": -0.00692577687457907,
+      "precision": -0.011199353182023253,
+      "recall": 0.011066192534001873
+    },
+    "ptq_int8": {
+      "F1": -0.0048665035237361876,
+      "mAP50": -0.0013009709246756263,
+      "mAP50-95": -0.011091512872852927,
+      "precision": -0.013306636408037975,
+      "recall": 0.0037106069677820264
+    },
+    "qat_int8": {
+      "F1": -0.049998843318776354,
+      "mAP50": -0.012058045126293049,
+      "mAP50-95": -0.12332838826938675,
+      "precision": -0.08168988190580284,
+      "recall": -0.015971039473051563
+    }
+  },
+  "evaluator_configuration": {
+    "amp": false,
+    "augment": false,
+    "batch": 1,
+    "cache": false,
+    "conf": null,
+    "device": "cpu",
+    "fraction": 1.0,
+    "imgsz": 640,
+    "iou": 0.7,
+    "plots": false,
+    "rect": true,
+    "save_json": false,
+    "save_txt": false,
+    "split": "val",
+    "workers": 0
+  },
+  "evaluator_script_sha256": "6fb17d38f21a635857ed796428ca18ca1a1cbff85ad97681998d53a9ab58716e",
+  "git_commit_at_evaluation": "078715d08541aaa241d8f2cda7afd5dc10f7c2d6",
+  "hostname": "labkc-l40-debian",
+  "openvino_version": "2024.4.0-16579-c3152d32c9c-releases/2024/4",
+  "os": "Linux-6.1.0-43-amd64-x86_64-with-glibc2.36",
+  "python_version": "3.11.2",
+  "results": {
+    "fp32_native": {
+      "accuracy_context": "VAL detection quality on server; not FINAL TEST or ROBOTIS OP3 deployment",
+      "command": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/.venv/bin/python3 scripts/evaluate_server_val.py",
+      "dataset_yaml": "data/dataset/data.yaml",
+      "dataset_yaml_sha256": "abab15a8c9b19047bf020cab20aa5cf4dc36477948318ec222a05e2ade10614c",
+      "evaluator_configuration": {
+        "amp": false,
+        "augment": false,
+        "batch": 1,
+        "cache": false,
+        "conf": null,
+        "device": "cpu",
+        "fraction": 1.0,
+        "imgsz": 640,
+        "iou": 0.7,
+        "plots": false,
+        "rect": true,
+        "save_json": false,
+        "save_txt": false,
+        "split": "val",
+        "workers": 0
+      },
+      "evaluator_return": {
+        "fitness": 0.778270132581133,
+        "metrics/mAP50(B)": 0.9734462300705696,
+        "metrics/mAP50-95(B)": 0.778270132581133,
+        "metrics/precision(B)": 0.9474222797911365,
+        "metrics/recall(B)": 0.9464973128785138
+      },
+      "evaluator_script_sha256": "6fb17d38f21a635857ed796428ca18ca1a1cbff85ad97681998d53a9ab58716e",
+      "evaluator_speed_ms_per_image_diagnostic_only": {
+        "inference": 61.581437178846734,
+        "loss": 0.0009882253858046598,
+        "postprocess": 0.5832085146369859,
+        "preprocess": 0.7418512296843706
+      },
+      "git_commit_at_evaluation": "078715d08541aaa241d8f2cda7afd5dc10f7c2d6",
+      "hostname": "labkc-l40-debian",
+      "model": {
+        "files": [
+          {
+            "path": "artifacts/checkpoints/fp32/best.pt",
+            "sha256": "e05b2b21f7faa68f65671f0aaae37ad962aa5e25c6b8b26853fd0b389d420b8c",
+            "size_bytes": 5481875
+          }
+        ],
+        "format": "PyTorch checkpoint",
+        "label": "FP32 native PyTorch",
+        "slug": "fp32_native"
+      },
+      "openvino_version": "2024.4.0-16579-c3152d32c9c-releases/2024/4",
+      "os": "Linux-6.1.0-43-amd64-x86_64-with-glibc2.36",
+      "overall": {
+        "F1": 0.9469595704636233,
+        "mAP50": 0.9734462300705696,
+        "mAP50-95": 0.778270132581133,
+        "precision": 0.9474222797911365,
+        "recall": 0.9464973128785138
+      },
+      "per_class": {
+        "ball": {
+          "F1": 0.9835182326203546,
+          "mAP50": 0.9902964940669681,
+          "mAP50-95": 0.8985124217797875,
+          "precision": 0.967570953245658,
+          "recall": 1.0
+        },
+        "gawang": {
+          "F1": 0.8893877711797968,
+          "mAP50": 0.9477083115266491,
+          "mAP50-95": 0.6034441009663807,
+          "precision": 0.8955244326460013,
+          "recall": 0.8833346413513589
+        },
+        "robot": {
+          "F1": 0.9675275378081417,
+          "mAP50": 0.9823338846180915,
+          "mAP50-95": 0.8328538749972306,
+          "precision": 0.9791714534817498,
+          "recall": 0.9561572972841828
+        }
+      },
+      "python_version": "3.11.2",
+      "split": "val",
+      "timestamp_utc": "2026-09-24T06:15:13.805211+00:00",
+      "torch_version": "2.4.1+cu121",
+      "ultralytics_version": "8.4.130",
+      "val_annotations": 1525,
+      "val_images": 1213,
+      "val_images_path": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/data/raw/advance_vision_human/valid/images"
+    },
+    "fp32_openvino": {
+      "accuracy_context": "VAL detection quality on server; not FINAL TEST or ROBOTIS OP3 deployment",
+      "command": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/.venv/bin/python3 scripts/evaluate_server_val.py",
+      "dataset_yaml": "data/dataset/data.yaml",
+      "dataset_yaml_sha256": "abab15a8c9b19047bf020cab20aa5cf4dc36477948318ec222a05e2ade10614c",
+      "evaluator_configuration": {
+        "amp": false,
+        "augment": false,
+        "batch": 1,
+        "cache": false,
+        "conf": null,
+        "device": "cpu",
+        "fraction": 1.0,
+        "imgsz": 640,
+        "iou": 0.7,
+        "plots": false,
+        "rect": true,
+        "save_json": false,
+        "save_txt": false,
+        "split": "val",
+        "workers": 0
+      },
+      "evaluator_return": {
+        "fitness": 0.7713443557065539,
+        "metrics/mAP50(B)": 0.9729727505332173,
+        "metrics/mAP50-95(B)": 0.7713443557065539,
+        "metrics/precision(B)": 0.9362229266091132,
+        "metrics/recall(B)": 0.9575635054125157
+      },
+      "evaluator_script_sha256": "6fb17d38f21a635857ed796428ca18ca1a1cbff85ad97681998d53a9ab58716e",
+      "evaluator_speed_ms_per_image_diagnostic_only": {
+        "inference": 17.406132254175233,
+        "loss": 0.000736359829314956,
+        "postprocess": 0.5657650508840322,
+        "preprocess": 0.4877349521476478
+      },
+      "git_commit_at_evaluation": "078715d08541aaa241d8f2cda7afd5dc10f7c2d6",
+      "hostname": "labkc-l40-debian",
+      "model": {
+        "files": [
+          {
+            "path": "artifacts/openvino/fp32/model.xml",
+            "sha256": "233bb872e218ab3bf525188b0e105eea9f2a79e60ffecb4b767e63939ba257e7",
+            "size_bytes": 324944
+          },
+          {
+            "path": "artifacts/openvino/fp32/model.bin",
+            "sha256": "e85f45438b5f7c8858b1a168a03f61b12a73b8159391529d19b84e09ff854026",
+            "size_bytes": 10431992
+          }
+        ],
+        "format": "OpenVINO IR",
+        "label": "FP32 OpenVINO",
+        "slug": "fp32_openvino"
+      },
+      "openvino_version": "2024.4.0-16579-c3152d32c9c-releases/2024/4",
+      "os": "Linux-6.1.0-43-amd64-x86_64-with-glibc2.36",
+      "overall": {
+        "F1": 0.9467729753395424,
+        "mAP50": 0.9729727505332173,
+        "mAP50-95": 0.7713443557065539,
+        "precision": 0.9362229266091132,
+        "recall": 0.9575635054125157
+      },
+      "per_class": {
+        "ball": {
+          "F1": 0.9750587510765295,
+          "mAP50": 0.9891498836247521,
+          "mAP50-95": 0.8835262349009444,
+          "precision": 0.9513313588468273,
+          "recall": 1.0
+        },
+        "gawang": {
+          "F1": 0.8955517180136349,
+          "mAP50": 0.9479321857276101,
+          "mAP50-95": 0.5983499223995888,
+          "precision": 0.8913343741279842,
+          "recall": 0.8998091603053435
+        },
+        "robot": {
+          "F1": 0.969430000784705,
+          "mAP50": 0.9818361822472894,
+          "mAP50-95": 0.8321569098191285,
+          "precision": 0.9660030468525281,
+          "recall": 0.9728813559322034
+        }
+      },
+      "python_version": "3.11.2",
+      "split": "val",
+      "timestamp_utc": "2026-09-24T06:15:43.882176+00:00",
+      "torch_version": "2.4.1+cu121",
+      "ultralytics_version": "8.4.130",
+      "val_annotations": 1525,
+      "val_images": 1213,
+      "val_images_path": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/data/raw/advance_vision_human/valid/images"
+    },
+    "ptq_int8": {
+      "accuracy_context": "VAL detection quality on server; not FINAL TEST or ROBOTIS OP3 deployment",
+      "command": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/.venv/bin/python3 scripts/evaluate_server_val.py",
+      "dataset_yaml": "data/dataset/data.yaml",
+      "dataset_yaml_sha256": "abab15a8c9b19047bf020cab20aa5cf4dc36477948318ec222a05e2ade10614c",
+      "evaluator_configuration": {
+        "amp": false,
+        "augment": false,
+        "batch": 1,
+        "cache": false,
+        "conf": null,
+        "device": "cpu",
+        "fraction": 1.0,
+        "imgsz": 640,
+        "iou": 0.7,
+        "plots": false,
+        "rect": true,
+        "save_json": false,
+        "save_txt": false,
+        "split": "val",
+        "workers": 0
+      },
+      "evaluator_return": {
+        "fitness": 0.76717861970828,
+        "metrics/mAP50(B)": 0.972145259145894,
+        "metrics/mAP50-95(B)": 0.76717861970828,
+        "metrics/precision(B)": 0.9341156433830985,
+        "metrics/recall(B)": 0.9502079198462958
+      },
+      "evaluator_script_sha256": "6fb17d38f21a635857ed796428ca18ca1a1cbff85ad97681998d53a9ab58716e",
+      "evaluator_speed_ms_per_image_diagnostic_only": {
+        "inference": 11.907170525147762,
+        "loss": 0.0005803790376487097,
+        "postprocess": 0.4795115926323699,
+        "preprocess": 0.7465616934253279
+      },
+      "git_commit_at_evaluation": "078715d08541aaa241d8f2cda7afd5dc10f7c2d6",
+      "hostname": "labkc-l40-debian",
+      "model": {
+        "files": [
+          {
+            "path": "experiments/ptq/backend_models/ptq_openvino_model/model.xml",
+            "sha256": "10cb9dfa3539650a0bc46d60ad708f9ff79fc1e2dc79c5ac4a73ff4943326657",
+            "size_bytes": 666400
+          },
+          {
+            "path": "experiments/ptq/backend_models/ptq_openvino_model/model.bin",
+            "sha256": "82246726edcd780685657f673caa2b40719a8c22b67e3702ca3d1f226b8fcf81",
+            "size_bytes": 2741080
+          }
+        ],
+        "format": "OpenVINO IR",
+        "label": "PTQ INT8 OpenVINO",
+        "slug": "ptq_int8"
+      },
+      "openvino_version": "2024.4.0-16579-c3152d32c9c-releases/2024/4",
+      "os": "Linux-6.1.0-43-amd64-x86_64-with-glibc2.36",
+      "overall": {
+        "F1": 0.9420930669398871,
+        "mAP50": 0.972145259145894,
+        "mAP50-95": 0.76717861970828,
+        "precision": 0.9341156433830985,
+        "recall": 0.9502079198462958
+      },
+      "per_class": {
+        "ball": {
+          "F1": 0.9706632889244308,
+          "mAP50": 0.9891912354909903,
+          "mAP50-95": 0.8795534960892626,
+          "precision": 0.9429988054250686,
+          "recall": 1.0
+        },
+        "gawang": {
+          "F1": 0.8898667654360505,
+          "mAP50": 0.9458072365953298,
+          "mAP50-95": 0.5970267721499483,
+          "precision": 0.8987761987245911,
+          "recall": 0.881132234115159
+        },
+        "robot": {
+          "F1": 0.9650111151836117,
+          "mAP50": 0.9814373053513619,
+          "mAP50-95": 0.8249555908856289,
+          "precision": 0.9605719259996356,
+          "recall": 0.9694915254237289
+        }
+      },
+      "python_version": "3.11.2",
+      "split": "val",
+      "timestamp_utc": "2026-09-24T06:16:05.840587+00:00",
+      "torch_version": "2.4.1+cu121",
+      "ultralytics_version": "8.4.130",
+      "val_annotations": 1525,
+      "val_images": 1213,
+      "val_images_path": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/data/raw/advance_vision_human/valid/images"
+    },
+    "qat_int8": {
+      "accuracy_context": "VAL detection quality on server; not FINAL TEST or ROBOTIS OP3 deployment",
+      "command": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/.venv/bin/python3 scripts/evaluate_server_val.py",
+      "dataset_yaml": "data/dataset/data.yaml",
+      "dataset_yaml_sha256": "abab15a8c9b19047bf020cab20aa5cf4dc36477948318ec222a05e2ade10614c",
+      "evaluator_configuration": {
+        "amp": false,
+        "augment": false,
+        "batch": 1,
+        "cache": false,
+        "conf": null,
+        "device": "cpu",
+        "fraction": 1.0,
+        "imgsz": 640,
+        "iou": 0.7,
+        "plots": false,
+        "rect": true,
+        "save_json": false,
+        "save_txt": false,
+        "split": "val",
+        "workers": 0
+      },
+      "evaluator_return": {
+        "fitness": 0.6549417443117462,
+        "metrics/mAP50(B)": 0.9613881849442766,
+        "metrics/mAP50-95(B)": 0.6549417443117462,
+        "metrics/precision(B)": 0.8657323978853336,
+        "metrics/recall(B)": 0.9305262734054622
+      },
+      "evaluator_script_sha256": "6fb17d38f21a635857ed796428ca18ca1a1cbff85ad97681998d53a9ab58716e",
+      "evaluator_speed_ms_per_image_diagnostic_only": {
+        "inference": 14.76424061351587,
+        "loss": 0.0006528425369003246,
+        "postprocess": 0.5272353990871063,
+        "preprocess": 0.8621057011770593
+      },
+      "git_commit_at_evaluation": "078715d08541aaa241d8f2cda7afd5dc10f7c2d6",
+      "hostname": "labkc-l40-debian",
+      "model": {
+        "files": [
+          {
+            "path": "artifacts/openvino/qat_int8/model.xml",
+            "sha256": "0a97a52f7a72ae9667c6f501ac1e0f44ff04bb5a860ac072e4f39ad406c424b2",
+            "size_bytes": 735797
+          },
+          {
+            "path": "artifacts/openvino/qat_int8/model.bin",
+            "sha256": "4a88143019b418edd879932820589c18557dfe9954196fa92025749505bc6352",
+            "size_bytes": 2744884
+          }
+        ],
+        "format": "OpenVINO IR",
+        "label": "QAT INT8 OpenVINO",
+        "slug": "qat_int8"
+      },
+      "openvino_version": "2024.4.0-16579-c3152d32c9c-releases/2024/4",
+      "os": "Linux-6.1.0-43-amd64-x86_64-with-glibc2.36",
+      "overall": {
+        "F1": 0.896960727144847,
+        "mAP50": 0.9613881849442766,
+        "mAP50-95": 0.6549417443117462,
+        "precision": 0.8657323978853336,
+        "recall": 0.9305262734054622
+      },
+      "per_class": {
+        "ball": {
+          "F1": 0.9237231721393596,
+          "mAP50": 0.9845675322664845,
+          "mAP50-95": 0.7119147571782279,
+          "precision": 0.8623470160321357,
+          "recall": 0.9945054945054945
+        },
+        "gawang": {
+          "F1": 0.8773500885661655,
+          "mAP50": 0.9431216600525535,
+          "mAP50-95": 0.5557759906321261,
+          "precision": 0.9194717794873295,
+          "recall": 0.8389185991712332
+        },
+        "robot": {
+          "F1": 0.8810195369037689,
+          "mAP50": 0.9564753625137914,
+          "mAP50-95": 0.6971344851248845,
+          "precision": 0.8153783981365358,
+          "recall": 0.9581547265396592
+        }
+      },
+      "python_version": "3.11.2",
+      "split": "val",
+      "timestamp_utc": "2026-09-24T06:16:32.261968+00:00",
+      "torch_version": "2.4.1+cu121",
+      "ultralytics_version": "8.4.130",
+      "val_annotations": 1525,
+      "val_images": 1213,
+      "val_images_path": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/data/raw/advance_vision_human/valid/images"
+    }
+  },
+  "split": "val",
+  "torch_version": "2.4.1+cu121",
+  "ultralytics_version": "8.4.130",
+  "val_annotations": 1525,
+  "val_images": 1213,
+  "val_images_path": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/data/raw/advance_vision_human/valid/images"
+}
