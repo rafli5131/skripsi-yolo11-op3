@@ -14,6 +14,8 @@ Repository penelitian deteksi objek `ball`, `gawang`, dan `robot` dengan tiga mo
 
 IR QAT lama yang ditolak telah dibersihkan dari worktree. JSON diagnostiknya tetap ada sebagai bukti; penjelasan kegagalan ada di [dokumen pembersihan](docs/25_kegagalan_dan_pembersihan.md). IR QAT final saat ini adalah artifact berbeda yang lolos audit.
 
+[Tahapan eksperimen](docs/20_experiment_timeline.md) menempatkan seleksi QAT best sebelum FINAL TEST dan export final. [Ringkasan hasil server di samping raw JSON/CSV](experiments/server_openvino/README.md) memudahkan pemeriksaan angka tanpa membuka dokumentasi panjang.
+
 ## Peta cepat
 
 ```text
@@ -23,7 +25,7 @@ artifacts/openvino/fp32/          IR FP32
 artifacts/openvino/qat_int8/      IR QAT final yang diterima
 experiments/ptq/                 PTQ comparator + hasil VAL
 experiments/final_test/          held-out TEST PyTorch
-experiments/server_openvino/     raw benchmark diagnostik server
+experiments/server_openvino/     raw benchmark server + README hasil
 experiments/hardware_op3/        hasil hardware OP3 yang terpisah
 docs/                           metode, provenance, kegagalan, hasil
 ```
