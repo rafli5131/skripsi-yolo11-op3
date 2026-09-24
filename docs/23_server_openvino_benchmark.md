@@ -58,6 +58,8 @@ Commit pengukuran adalah revisi sebelum laporan dan perbaikan audit ini di-commi
 
 Ketiganya menggunakan OpenVINO `CPU`, input `[1,3,640,640]` (640×640), batch 1, 30 warmup, dan 300 timed iterations. Mode adalah `synthetic` dengan frame acak deterministik dari seed 42. Confidence 0.25 dan IoU 0.45 adalah default skrip. Tidak ada pengaturan thread atau performance hint khusus per model. Compile dan warmup dikecualikan dari timing. Proses dijalankan berurutan di server yang sama.
 
+Stem `server_benchmark_*` diarahkan oleh skrip ke `experiments/server_openvino/`, terpisah dari hasil pengujian hardware ROBOTIS OP3 di `experiments/hardware_op3/`.
+
 Environment: `UV_CACHE_DIR="$PWD/.cache/uv"`, `TORCH_HOME="$PWD/.cache/torch"`, `YOLO_CONFIG_DIR="$PWD/.cache/ultralytics"`; setiap perintah berikut dijalankan melalui `env -u PYTHONPATH -u VIRTUAL_ENV uv run python` dengan tiga variabel tersebut diset.
 
 ```bash
@@ -133,7 +135,7 @@ Accuracy PTQ/QAT tidak dihitung ulang dalam benchmark server ini. Hasil accuracy
 
 Server memiliki hardware berbeda dari OP3. GPU tidak digunakan untuk inference; semua pengukuran memakai OpenVINO CPU. Input sintetis tidak mencerminkan distribusi kamera nyata dan run ini tidak mengukur accuracy. FINAL TEST tidak dijalankan ulang. Tidak ada training, QAT tuning, PTQ baru, quantization, atau calibration baru. Checkpoint, artifact model, dan dataset split tidak diubah.
 
-Raw JSON, CSV timing, dan CSV resource masing-masing tersedia di `experiments/hardware_op3/` dengan stem `server_benchmark_fp32`, `server_benchmark_ptq_int8`, dan `server_benchmark_qat_int8`; CSV resource memakai prefiks `resources_`.
+Raw JSON, CSV timing, dan CSV resource masing-masing tersedia di `experiments/server_openvino/` dengan stem `server_benchmark_fp32`, `server_benchmark_ptq_int8`, dan `server_benchmark_qat_int8`; CSV resource memakai prefiks `resources_`.
 
 ## 11. Kesimpulan
 
