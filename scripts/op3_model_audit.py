@@ -71,13 +71,16 @@ def qat_validation_gate(root: Path) -> dict[str, Any]:
         if isinstance(qat_manifest.get("artifact freeze"), dict)
         else None
     )
+
     checkpoint_path = root / "artifacts/checkpoints/qat/qat_best.pt"
     pointer = lfs_pointer(checkpoint_path)
-    materialized_hash = (
-        sha256_file(checkpoint_path)
-        if checkpoint_path.is_file() and pointer is None
-        else None
-    )
+    materialized_hash = None
+    if checkpoint_path.is_file() and pointer is None:
+        try:
+            materialized_hash = sha256_file(checkpoint_path)
+        except OSError:
+            materialized_hash = None
+
     checkpoint_hash_matches = bool(
         isinstance(qat_hash, str)
         and (
@@ -85,13 +88,24 @@ def qat_validation_gate(root: Path) -> dict[str, Any]:
             or materialized_hash == qat_hash
         )
     )
+
     qat_api = str(qat_manifest.get("QAT API", ""))
-    true_qat = (
+    reload_verification = qat_manifest.get("reload verification")
+    reload_verification = reload_verification if isinstance(reload_verification, dict) else {}
+    expected_quantizers = qat_manifest.get("expected quantizer count")
+    reload_quantizers = reload_verification.get("quantizer_count")
+
+    true_qat = bool(
         qat_manifest.get("status") == "passed"
         and "create_compressed_model" in qat_api
         and not qat_api.lstrip().startswith("nncf.quantize")
         and checkpoint_hash_matches
-        and qat_manifest.get("quantizer count after reload") == qat_manifest.get("expected quantizer count")
+        and isinstance(expected_quantizers, int)
+        and reload_quantizers == expected_quantizers
+        and reload_verification.get("status") is True
+        and reload_verification.get("fake_quant_enabled") is True
+        and reload_verification.get("trained_weights_restored") is True
+        and qat_manifest.get("quantizer count after training") == expected_quantizers
     )
 
     selection_candidates = [
@@ -100,11 +114,28 @@ def qat_validation_gate(root: Path) -> dict[str, Any]:
     ]
     selection_path = next((path for path in selection_candidates if path.is_file()), None)
     selection = read_json(selection_path) if selection_path else None
-    selection_status = str((selection or {}).get("status", "")).lower()
+    selection = selection if isinstance(selection, dict) else {}
+    selection_status = str(selection.get("status", "")).lower()
+
+    winner = selection.get("winner")
+    winner = winner if isinstance(winner, dict) else {}
+    promotion = selection.get("promotion")
+    promotion = promotion if isinstance(promotion, dict) else {}
+    tuning_candidate = qat_manifest.get("QAT tuning candidate")
+    tuning_candidate = tuning_candidate if isinstance(tuning_candidate, dict) else {}
+    selected_name = tuning_candidate.get("name")
+
     selection_accepted = bool(
-        selection
-        and any(word in selection_status for word in ("passed", "accepted", "valid", "completed"))
-        and qat_hash in json.dumps(selection, sort_keys=True)
+        any(word in selection_status for word in ("passed", "accepted", "valid", "completed"))
+        and isinstance(selected_name, str)
+        and selected_name
+        and winner.get("name") == selected_name
+        and promotion.get("candidate") == selected_name
+        and promotion.get("promoted") is True
+        and selection.get("TEST split used for selection") is False
+        and selection.get("PTQ metrics used for selection") is False
+        and qat_manifest.get("TEST split used for selection") is False
+        and qat_manifest.get("PTQ metrics used for selection") is False
     )
 
     export_candidates = [
@@ -137,9 +168,6 @@ def qat_validation_gate(root: Path) -> dict[str, Any]:
             or phase_7c.get("QAT SHA256")
         )
 
-        # Current final-QAT diagnostic schema: an accepted candidate is promoted
-        # only after 32 deterministic real VAL images pass <=1% relative MAE,
-        # quantization is visible in the graph, and no PTQ/calibration is used.
         if status == "accepted and promoted":
             candidate_key = {
                 "direct OpenVINO": "candidate A direct OpenVINO",
@@ -168,11 +196,10 @@ def qat_validation_gate(root: Path) -> dict[str, Any]:
                 and graph.get("int8_or_u8_graph_element_count", 0) > 0
             )
         else:
-            # Backward compatibility with the older diagnostic schema.
-            promotion = diagnostic.get("promotion")
+            promotion_record = diagnostic.get("promotion")
             export_accepted = bool(
-                isinstance(promotion, dict)
-                and str(promotion.get("status", "")).lower() in {"passed", "accepted", "promoted", "valid"}
+                isinstance(promotion_record, dict)
+                and str(promotion_record.get("status", "")).lower() in {"passed", "accepted", "promoted", "valid"}
                 and export_hash == qat_hash
                 and diagnostic.get("calibration occurred") is False
                 and diagnostic.get("PTQ used") is False
@@ -186,6 +213,7 @@ def qat_validation_gate(root: Path) -> dict[str, Any]:
         for path, value in export_records
         if value and str(value.get("status", "")).lower() not in accepted_statuses
     ]
+
     accepted = bool(true_qat and selection_accepted and export_accepted)
     return {
         "accepted": accepted,
@@ -195,7 +223,12 @@ def qat_validation_gate(root: Path) -> dict[str, Any]:
         "checkpoint_hash_matches_manifest": checkpoint_hash_matches,
         "checkpoint_lfs_pointer_matches_manifest": bool(pointer and pointer.get("sha256") == qat_hash),
         "checkpoint_materialized_sha256": materialized_hash,
+        "reload_quantizer_count": reload_quantizers,
+        "expected_quantizer_count": expected_quantizers,
         "selection_manifest": str(selection_path.relative_to(root)) if selection_path else None,
+        "selected_candidate": selected_name,
+        "selection_winner": winner.get("name"),
+        "selection_promoted_candidate": promotion.get("candidate"),
         "selection_accepted": selection_accepted,
         "export_diagnostic": str(export_path.relative_to(root)) if export_path else None,
         "export_route": export_route,
@@ -205,7 +238,7 @@ def qat_validation_gate(root: Path) -> dict[str, Any]:
             reason
             for condition, reason in (
                 (true_qat, "true NNCF QAT checkpoint provenance is not confirmed"),
-                (selection_accepted, "checkpoint selection manifest is missing or does not accept this checkpoint"),
+                (selection_accepted, "checkpoint selection manifest does not confirm the promoted validation-only winner"),
                 (export_accepted, "latest QAT OpenVINO export lacks accepted numerical-equivalence evidence"),
             )
             if not condition
