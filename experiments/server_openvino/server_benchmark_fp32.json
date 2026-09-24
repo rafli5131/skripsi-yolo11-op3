@@ -149,8 +149,8 @@
     ]
   },
   "python_version": "3.11.2",
-  "raw_measurements_csv": "experiments/hardware_op3/server_benchmark_fp32.csv",
-  "raw_resource_samples_csv": "experiments/hardware_op3/resources_server_benchmark_fp32.csv",
+  "raw_measurements_csv": "experiments/server_openvino/server_benchmark_fp32.csv",
+  "raw_resource_samples_csv": "experiments/server_openvino/resources_server_benchmark_fp32.csv",
   "resource_summary": {
     "per_core_cpu_percent": {
       "mean_by_core": [

@@ -36,6 +36,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_FP32 = ROOT / ".cache/hardware_models/fp32/model.xml"
 DEFAULT_PTQ = ROOT / "experiments/ptq/backend_models/ptq_openvino_model/model.xml"
 OUTPUT_DIR = ROOT / "experiments/hardware_op3"
+SERVER_OUTPUT_DIR = ROOT / "experiments/server_openvino"
 
 
 def parse_args() -> argparse.Namespace:
@@ -445,13 +446,14 @@ def main() -> int:
         stem = "benchmark_fp32" if args.model_kind == "fp32" else f"benchmark_{args.model_kind}"
     else:
         stem = "camera_benchmark" if args.model_kind == "fp32" else f"camera_benchmark_{args.model_kind}"
-    csv_path = OUTPUT_DIR / f"{stem}.csv"
+    output_dir = SERVER_OUTPUT_DIR if stem.startswith("server_benchmark_") else OUTPUT_DIR
+    csv_path = output_dir / f"{stem}.csv"
     if args.mode == "synthetic" and stem == "benchmark_fp32":
         resource_name = "resources_fp32.csv"
     else:
         resource_name = f"resources_{stem}.csv"
-    resources_path = OUTPUT_DIR / resource_name
-    json_path = OUTPUT_DIR / f"{stem}.json"
+    resources_path = output_dir / resource_name
+    json_path = output_dir / f"{stem}.json"
     csv_columns = [
         "iteration", "capture_ms", "preprocess_ms", "inference_ms", "postprocess_ms",
         "end_to_end_stage_sum_ms", "loop_wall_ms", "detection_count", "output_shape", "finite_output",
@@ -461,7 +463,7 @@ def main() -> int:
         "per_core_cpu_percent", "rss_bytes", "vms_bytes", "system_memory_used_bytes",
         "system_memory_available_bytes", "system_memory_percent",
     ]
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    output_dir.mkdir(parents=True, exist_ok=True)
     save_csv(csv_path, rows, csv_columns)
     save_csv(resources_path, resource_samples, resource_columns)
 
