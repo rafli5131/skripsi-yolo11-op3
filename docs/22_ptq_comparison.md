@@ -14,13 +14,13 @@ Percobaan evaluator pertama berhenti karena loader Ultralytics mengharapkan dire
 
 | Metrik | FP32 OpenVINO | PTQ INT8 | Delta PTQ |
 | --- | ---: | ---: | ---: |
-| Precision | 0,936223 | 0,934116 | −0,225% |
-| Recall | 0,957564 | 0,950208 | −0,768% |
-| mAP50 | 0,972973 | 0,972145 | −0,085% |
-| mAP50-95 | 0,771344 | 0,767179 | −0,540% |
-| F1 | 0,946773 | 0,942093 | −0,494% |
-| Latency host lama (ms/image) | 21,965 | 13,231 | −39,763% |
-| FPS host lama | 45,527 | 75,580 | +66,011% |
+| Precision | 0,936223 | 0,887335 | −5,222% |
+| Recall | 0,957564 | 0,935881 | −2,264% |
+| mAP50 | 0,972973 | 0,961287 | −1,201% |
+| mAP50-95 | 0,771344 | 0,651042 | −15,596% |
+| F1 | 0,946773 | 0,910962 | −3,782% |
+| Latency host lama (ms/image) | 21,965 | 13,947 | −36,504% |
+| FPS host lama | 45,527 | 71,701 | +57,491% |
 
 Sumber: `experiments/ptq/{fp32_openvino_val_metrics,ptq_val_metrics}.json`, `comparison.json`, dan `manifest.json`. Angka timing tersebut berasal dari evaluasi VAL historis, bukan benchmark server tiga model terbaru dan bukan final OP3. Laporan benchmark server yang adil untuk tiga IR ada di [23 Server OpenVINO benchmark](23_server_openvino_benchmark.md).
 

@@ -12,13 +12,13 @@ TEST berisi 592 images dan 734 annotations. Evaluator Ultralytics native PyTorch
 
 | Metrik | FP32 | QAT | Delta absolut | Delta relatif |
 |---|---:|---:|---:|---:|
-| Precision | 0,9313 | 0,8542 | -0,0772 | -8,29% |
-| Recall | 0,9506 | 0,9375 | -0,0131 | -1,37% |
-| mAP50 | 0,9642 | 0,9512 | -0,0130 | -1,35% |
-| mAP50-95 | 0,7799 | 0,6567 | -0,1232 | -15,80% |
-| F1 | 0,9409 | 0,8939 | -0,0470 | -4,99% |
+| Precision | 0,9313 | 0,9341 | +0,0028 | +0,30% |
+| Recall | 0,9506 | 0,9502 | -0,0004 | -0,04% |
+| mAP50 | 0,9642 | 0,9721 | +0,0079 | +0,82% |
+| mAP50-95 | 0,7799 | 0,7672 | -0,0127 | -1,63% |
+| F1 | 0,9409 | 0,9421 | +0,0012 | +0,13% |
 
-Per-class mAP50-95: ball 0,9130 -> 0,7470; gawang 0,5683 -> 0,5282; robot 0,8585 -> 0,6948. mAP50 relatif dipertahankan, sedangkan kualitas lokalisasi lebih ketat menurun; penyebab kausal tidak disimpulkan dari hasil ini. TEST tidak dipakai untuk training, range init, tuning, maupun checkpoint selection.
+Per-class mAP50-95: ball 0,9130 -> 0,8796; gawang 0,5683 -> 0,5970; robot 0,8585 -> 0,8250. TEST tidak dipakai untuk training, range init, tuning, maupun checkpoint selection.
 
 ## Artefak terkait
 

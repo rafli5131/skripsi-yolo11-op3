@@ -6,11 +6,11 @@ Evaluasi diagnostik pada host server dengan **split VAL** yang sama: 1.213 gamba
 
 | Metric | FP32 native | FP32 OpenVINO | PTQ INT8 | QAT INT8 |
 | --- | ---: | ---: | ---: | ---: |
-| precision | 0.9474 | 0.9362 | 0.9341 | 0.8657 |
-| recall | 0.9465 | 0.9576 | 0.9502 | 0.9305 |
-| F1 | 0.9470 | 0.9468 | 0.9421 | 0.8970 |
-| mAP50 | 0.9734 | 0.9730 | 0.9721 | 0.9614 |
-| mAP50-95 | 0.7783 | 0.7713 | 0.7672 | 0.6549 |
+| precision | 0.9474 | 0.9362 | 0.8657 | 0.9341 |
+| recall | 0.9465 | 0.9576 | 0.9305 | 0.9502 |
+| F1 | 0.9470 | 0.9468 | 0.8970 | 0.9421 |
+| mAP50 | 0.9734 | 0.9730 | 0.9614 | 0.9721 |
+| mAP50-95 | 0.7783 | 0.7713 | 0.6549 | 0.7672 |
 
 F1 dihitung sebagai harmonic mean dari precision dan recall keseluruhan yang dilaporkan evaluator. Nilai lain berasal langsung dari evaluator; angka dibulatkan untuk tabel, sedangkan JSON/CSV menyimpan presisi aslinya.
 
@@ -18,31 +18,31 @@ F1 dihitung sebagai harmonic mean dari precision dan recall keseluruhan yang dil
 
 | Metric (poin persentase) | FP32 OpenVINO | PTQ INT8 | QAT INT8 |
 | --- | ---: | ---: | ---: |
-| precision | -1.12 | -1.33 | -8.17 |
-| recall | +1.11 | +0.37 | -1.60 |
-| F1 | -0.02 | -0.49 | -5.00 |
-| mAP50 | -0.05 | -0.13 | -1.21 |
-| mAP50-95 | -0.69 | -1.11 | -12.33 |
+| precision | -1.12 | -8.17 | -1.33 |
+| recall | +1.11 | -1.60 | +0.37 |
+| F1 | -0.02 | -5.00 | -0.49 |
+| mAP50 | -0.05 | -1.21 | -0.13 |
+| mAP50-95 | -0.69 | -12.33 | -1.11 |
 
 ## Per kelas
 
 | Class | Metric | FP32 native | FP32 OpenVINO | PTQ INT8 | QAT INT8 |
 | --- | --- | ---: | ---: | ---: | ---: |
-| ball | precision | 0.9676 | 0.9513 | 0.9430 | 0.8623 |
-| ball | recall | 1.0000 | 1.0000 | 1.0000 | 0.9945 |
-| ball | F1 | 0.9835 | 0.9751 | 0.9707 | 0.9237 |
-| ball | mAP50 | 0.9903 | 0.9891 | 0.9892 | 0.9846 |
-| ball | mAP50-95 | 0.8985 | 0.8835 | 0.8796 | 0.7119 |
-| gawang | precision | 0.8955 | 0.8913 | 0.8988 | 0.9195 |
-| gawang | recall | 0.8833 | 0.8998 | 0.8811 | 0.8389 |
-| gawang | F1 | 0.8894 | 0.8956 | 0.8899 | 0.8774 |
-| gawang | mAP50 | 0.9477 | 0.9479 | 0.9458 | 0.9431 |
-| gawang | mAP50-95 | 0.6034 | 0.5983 | 0.5970 | 0.5558 |
-| robot | precision | 0.9792 | 0.9660 | 0.9606 | 0.8154 |
-| robot | recall | 0.9562 | 0.9729 | 0.9695 | 0.9582 |
-| robot | F1 | 0.9675 | 0.9694 | 0.9650 | 0.8810 |
-| robot | mAP50 | 0.9823 | 0.9818 | 0.9814 | 0.9565 |
-| robot | mAP50-95 | 0.8329 | 0.8322 | 0.8250 | 0.6971 |
+| ball | precision | 0.9676 | 0.9513 | 0.8623 | 0.9430 |
+| ball | recall | 1.0000 | 1.0000 | 0.9945 | 1.0000 |
+| ball | F1 | 0.9835 | 0.9751 | 0.9237 | 0.9707 |
+| ball | mAP50 | 0.9903 | 0.9891 | 0.9846 | 0.9892 |
+| ball | mAP50-95 | 0.8985 | 0.8835 | 0.7119 | 0.8796 |
+| gawang | precision | 0.8955 | 0.8913 | 0.9195 | 0.8988 |
+| gawang | recall | 0.8833 | 0.8998 | 0.8389 | 0.8811 |
+| gawang | F1 | 0.8894 | 0.8956 | 0.8774 | 0.8899 |
+| gawang | mAP50 | 0.9477 | 0.9479 | 0.9431 | 0.9458 |
+| gawang | mAP50-95 | 0.6034 | 0.5983 | 0.5558 | 0.5970 |
+| robot | precision | 0.9792 | 0.9660 | 0.8154 | 0.9606 |
+| robot | recall | 0.9562 | 0.9729 | 0.9582 | 0.9695 |
+| robot | F1 | 0.9675 | 0.9694 | 0.8810 | 0.9650 |
+| robot | mAP50 | 0.9823 | 0.9818 | 0.9565 | 0.9814 |
+| robot | mAP50-95 | 0.8329 | 0.8322 | 0.6971 | 0.8250 |
 
 ## Provenance dan batasan
 

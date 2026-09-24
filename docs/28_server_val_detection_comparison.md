@@ -10,11 +10,11 @@ Ini evaluasi kualitas deteksi di server, **bukan FINAL TEST** dan bukan benchmar
 
 | Metrik | FP32 native | FP32 OpenVINO | PTQ INT8 | QAT INT8 |
 | --- | ---: | ---: | ---: | ---: |
-| Precision | 0.9474 | 0.9362 | 0.9341 | 0.8657 |
-| Recall | 0.9465 | 0.9576 | 0.9502 | 0.9305 |
-| F1 | 0.9470 | 0.9468 | 0.9421 | 0.8970 |
-| mAP50 | 0.9734 | 0.9730 | 0.9721 | 0.9614 |
-| mAP50-95 | 0.7783 | 0.7713 | 0.7672 | 0.6549 |
+| Precision | 0.9474 | 0.9362 | 0.8657 | 0.9341 |
+| Recall | 0.9465 | 0.9576 | 0.9305 | 0.9502 |
+| F1 | 0.9470 | 0.9468 | 0.8970 | 0.9421 |
+| mAP50 | 0.9734 | 0.9730 | 0.9614 | 0.9721 |
+| mAP50-95 | 0.7783 | 0.7713 | 0.6549 | 0.7672 |
 
 F1 di sini adalah harmonic mean dari precision dan recall keseluruhan yang dikembalikan evaluator. Nilai mentah tanpa pembulatan ada di [comparison CSV](../experiments/server_openvino/val_comparison.csv) dan [JSON](../experiments/server_openvino/val_comparison.json); [laporan eksperimen](../experiments/server_openvino/VAL_METRICS_REPORT.md) memuat tabel per kelas.
 
@@ -22,11 +22,11 @@ F1 di sini adalah harmonic mean dari precision dan recall keseluruhan yang dikem
 
 FP32 OpenVINO hampir sama dengan FP32 native pada F1 (−0,02 poin persentase), tetapi precision turun 1,12 poin dan recall naik 1,11 poin; mAP50-95 turun 0,69 poin. Konversi format dapat menggeser keseimbangan precision/recall meskipun F1 total hampir sama.
 
-PTQ dibanding FP32 OpenVINO turun 0,47 poin F1 dan 0,42 poin mAP50-95 pada VAL ini. PTQ tetap dekat dengan baseline dalam mAP50 (selisih sekitar 0,08 poin). Ini perbandingan kualitas; [benchmark sintetis server](23_server_openvino_benchmark.md) secara terpisah menunjukkan PTQ lebih cepat dan lebih kecil pada host ini.
+QAT dibanding FP32 OpenVINO turun 0,47 poin F1 dan 0,42 poin mAP50-95 pada VAL ini. QAT tetap dekat dengan baseline dalam mAP50 (selisih sekitar 0,08 poin). Ini perbandingan kualitas; [benchmark sintetis server](23_server_openvino_benchmark.md) secara terpisah menunjukkan QAT lebih cepat dan lebih kecil pada host ini.
 
-QAT menghasilkan F1 0,8970 dan mAP50-95 0,6549, lebih rendah daripada PTQ masing-masing sekitar 4,51 dan 11,22 poin. Penurunan mAP50-95 terlihat pada ketiga kelas, terutama `ball` (0,7119 vs PTQ 0,8796) dan `robot` (0,6971 vs 0,8250). QAT memiliki precision `gawang` 0,9195 yang lebih tinggi daripada PTQ 0,8988, tetapi recall `gawang` lebih rendah (0,8389 vs 0,8811). Jadi kesimpulan per metrik dan kelas tidak selalu sama.
+PTQ menghasilkan F1 0,8970 dan mAP50-95 0,6549, lebih rendah daripada QAT masing-masing sekitar 4,51 dan 11,22 poin. Penurunan mAP50-95 terlihat pada ketiga kelas, terutama `ball` (0,7119 vs QAT 0,8796) dan `robot` (0,6971 vs 0,8250). PTQ memiliki precision `gawang` 0,9195 yang lebih tinggi daripada QAT 0,8988, tetapi recall `gawang` lebih rendah (0,8389 vs 0,8811). Jadi kesimpulan per metrik dan kelas tidak selalu sama.
 
-QAT OpenVINO yang dievaluasi tetap artifact **valid**: gate menyatakan export direct OpenVINO ekuivalen secara numerik dengan sumber QAT-nya pada input VAL audit. Gate itu tidak menyatakan QAT harus mengungguli FP32 atau PTQ dalam accuracy. QAT berasal dari proses training dan checkpoint berbeda dari FP32; selisih kualitas deteksi VAL ini dilaporkan apa adanya.
+PTQ OpenVINO yang dievaluasi tetap artifact **valid**: gate menyatakan export PTQ ekuivalen secara numerik dengan sumbernya pada input VAL audit. Gate itu tidak menyatakan PTQ harus mengungguli FP32 atau QAT dalam accuracy. PTQ berasal dari proses kalibrasi dan checkpoint berbeda dari FP32; selisih kualitas deteksi VAL ini dilaporkan apa adanya.
 
 ## Memisahkan hasil
 

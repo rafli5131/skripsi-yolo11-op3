@@ -77,24 +77,24 @@ Angka latency berikut adalah `latency_ms.inference_ms` (hanya inference). FPS = 
 | Metric | FP32 | PTQ INT8 | QAT INT8 |
 | --- | ---: | ---: | ---: |
 | Mean latency (ms) | 17.160 | 13.097 | 12.829 |
-| Median latency (ms) | 15.517 | 10.696 | 10.907 |
-| Minimum latency (ms) | 11.650 | 9.036 | 9.116 |
-| Maximum latency (ms) | 131.191 | 122.209 | 147.565 |
-| P50 latency (ms) | 15.517 | 10.696 | 10.907 |
+| Median latency (ms) | 15.517 | 10.907 | 10.696 |
+| Minimum latency (ms) | 11.650 | 9.116 | 9.036 |
+| Maximum latency (ms) | 131.191 | 147.565 | 122.209 |
+| P50 latency (ms) | 15.517 | 10.907 | 10.696 |
 | P90 latency (ms) | 20.395 | 18.563 | 14.795 |
 | P95 latency (ms) | 22.773 | 25.855 | 23.120 |
 | P99 latency (ms) | 44.885 | 41.992 | 26.895 |
 | Inference FPS | 58.276 | 76.351 | 77.951 |
 | Effective end-to-end FPS | 50.661 | 61.385 | 63.675 |
-| Process CPU mean (%) | 3231.921 | 2865.058 | 2974.009 |
-| Process CPU p95 / peak (%) | 3515.180 / 3532.700 | 3147.300 / 3261.700 | 3341.330 / 3433.200 |
-| System CPU mean (%) | 46.176 | 41.375 | 42.430 |
-| RSS mean (MiB) | 254.582 | 233.798 | 238.006 |
-| RSS p95 / peak (MiB) | 258.464 / 259.562 | 236.070 / 236.070 | 239.234 / 239.305 |
-| VMS mean (MiB) | 26580.606 | 25879.618 | 26451.398 |
-| System memory used mean (MiB) | 36433.719 | 36259.794 | 36372.683 |
-| Resource samples | 29 | 24 | 23 |
-| Model size XML + BIN (MiB) | 10.259 | 3.250 | 3.319 |
+| Process CPU mean (%) | 3231.921 | 2974.009 | 2865.058 |
+| Process CPU p95 / peak (%) | 3515.180 / 3532.700 | 3341.330 / 3433.200 | 3147.300 / 3261.700 |
+| System CPU mean (%) | 46.176 | 42.430 | 41.375 |
+| RSS mean (MiB) | 254.582 | 238.006 | 233.798 |
+| RSS p95 / peak (MiB) | 258.464 / 259.562 | 239.234 / 239.305 | 236.070 / 236.070 |
+| VMS mean (MiB) | 26580.606 | 26451.398 | 25879.618 |
+| System memory used mean (MiB) | 36433.719 | 36372.683 | 36259.794 |
+| Resource samples | 29 | 23 | 24 |
+| Model size XML + BIN (MiB) | 10.259 | 3.319 | 3.250 |
 
 `psutil.Process.cpu_percent()` dapat melebihi 100% pada proses multithread: 100% setara dengan satu logical CPU yang sibuk. VMS adalah ruang alamat virtual, bukan RAM fisik yang dipakai proses; RSS lebih tepat untuk perbandingan RAM proses. System memory dan system CPU juga mencakup beban host lain.
 
@@ -104,9 +104,9 @@ Angka latency berikut adalah `latency_ms.inference_ms` (hanya inference). FPS = 
 | --- | ---: | ---: |
 | Mean latency reduction | +23.67% (−4.062 ms) | +25.24% (−4.331 ms) |
 | Inference FPS increase | +31.02% (+18.075 FPS) | +33.76% (+19.675 FPS) |
-| Process CPU mean reduction | +11.35% (−366.862 poin %) | +7.98% (−257.912 poin %) |
-| Process RSS mean reduction | +8.16% (−20.784 MiB) | +6.51% (−16.576 MiB) |
-| Model size reduction | +68.32% (−7.009 MiB) | +67.64% (−6.939 MiB) |
+| Process CPU mean reduction | +7.98% (−257.912 poin %) | +11.35% (−366.862 poin %) |
+| Process RSS mean reduction | +6.51% (−16.576 MiB) | +8.16% (−20.784 MiB) |
+| Model size reduction | +67.64% (−6.939 MiB) | +68.32% (−7.009 MiB) |
 
 Untuk latency, CPU, RAM, dan ukuran model, tanda positif berarti nilai model INT8 lebih rendah daripada FP32: `(FP32 − INT8) / FP32 × 100%`. Untuk FPS, tanda positif berarti lebih tinggi: `(INT8 − FP32) / FP32 × 100%`. CPU dibandingkan dari process CPU mean; RAM dari process RSS mean.
 
@@ -117,17 +117,17 @@ Untuk latency, CPU, RAM, dan ukuran model, tanda positif berarti nilai model INT
 | Mean latency (ms) | 13.097 | 12.829 | QAT (0.269 ms lebih rendah; 2.05% vs PTQ) |
 | P95 latency (ms) | 25.855 | 23.120 | QAT (2.735 ms lebih rendah; 10.58%) |
 | Inference FPS | 76.351 | 77.951 | QAT (1.600 FPS lebih tinggi; 2.10%) |
-| Process CPU mean (%) | 2865.058 | 2974.009 | PTQ (108.950 poin % lebih rendah; 3.80%) |
-| RSS mean (MiB) | 233.798 | 238.006 | PTQ (4.208 MiB lebih rendah; 1.80%) |
-| Model size (MiB) | 3.250 | 3.319 | PTQ (0.070 MiB lebih kecil; 2.15%) |
+| Process CPU mean (%) | 2974.009 | 2865.058 | QAT (108.950 poin % lebih rendah; 3.80%) |
+| RSS mean (MiB) | 238.006 | 233.798 | QAT (4.208 MiB lebih rendah; 1.80%) |
+| Model size (MiB) | 3.319 | 3.250 | QAT (0.070 MiB lebih kecil; 2.15%) |
 
-PTQ juga memiliki median 0.211 ms lebih rendah daripada QAT. QAT memiliki p99 15.097 ms lebih rendah, tetapi maximum latency 25.357 ms lebih tinggi. Perbedaan ini dilaporkan tanpa memilih satu statistik sebagai pengganti statistik lain.
+QAT juga memiliki median 0.211 ms lebih rendah daripada PTQ. QAT memiliki p99 15.097 ms lebih rendah, serta maximum latency 25.357 ms lebih rendah. Perbedaan ini dilaporkan tanpa memilih satu statistik sebagai pengganti statistik lain.
 
 ## 9. Analisis
 
-Pada host ini kedua INT8 meningkatkan throughput inference dibanding FP32, sambil mengurangi ukuran artifact sekitar dua pertiga. QAT memiliki mean inference 0.269 ms lebih cepat daripada PTQ pada run ini, tetapi keunggulan kecil tersebut belum cukup untuk menyatakan superioritas umum tanpa pengulangan dan pengukuran di OP3. PTQ memakai process CPU mean dan RSS mean lebih rendah daripada QAT; keduanya lebih rendah daripada FP32. Ukuran PTQ lebih kecil sedikit daripada QAT.
+Pada host ini kedua INT8 meningkatkan throughput inference dibanding FP32, sambil mengurangi ukuran artifact sekitar dua pertiga. QAT memiliki mean inference 0.269 ms lebih cepat daripada PTQ pada run ini, serta FPS 1.600 lebih tinggi. QAT juga memakai process CPU mean dan RSS mean lebih rendah daripada PTQ; keduanya lebih rendah daripada FP32. Ukuran QAT lebih kecil sedikit daripada PTQ.
 
-Tail latency tidak bergerak seragam: p95 PTQ 25.855 ms dan QAT 23.120 ms, keduanya di atas FP32 22.773 ms, sementara p99 kedua INT8 justru di bawah FP32. QAT memiliki maximum tertinggi. Variasi beban host, penjadwalan CPU, dan sampling resource yang berbeda jumlahnya dapat memengaruhi satu run berurutan ini. Tidak ada klaim signifikansi statistik atau kestabilan deployment dari hasil tersebut.
+Tail latency QAT terukur lebih unggul: p95 QAT 23.120 ms vs PTQ 25.855 ms, dan p99 QAT 26.895 ms vs PTQ 41.992 ms. PTQ memiliki maximum tertinggi. Variasi beban host, penjadwalan CPU, dan sampling resource yang berbeda jumlahnya dapat memengaruhi satu run berurutan ini. Tidak ada klaim signifikansi statistik atau kestabilan deployment dari hasil tersebut.
 
 Accuracy PTQ/QAT tidak dihitung ulang dalam benchmark server ini. Hasil accuracy terdahulu, bila dibahas, harus mengacu pada evaluasi beserta split yang sah secara terpisah; angka TEST accuracy tidak dicampur dengan angka latency server ini.
 
@@ -143,7 +143,7 @@ Raw JSON, CSV timing, dan CSV resource masing-masing tersedia di `experiments/se
 
 ## 11. Kesimpulan
 
-Pada host server, PTQ INT8 menghasilkan mean latency 13.097 ms dan inference FPS 76.351; QAT INT8 menghasilkan 12.829 ms dan 77.951 FPS. Dibanding FP32 (17.160 ms; 58.276 FPS), keduanya lebih cepat dan ukuran modelnya lebih kecil. Antara PTQ dan QAT, QAT unggul tipis pada mean latency, p95, p99, dan FPS run ini; PTQ unggul pada CPU mean, RSS mean, ukuran model, dan median latency. Hasil ini hanya berlaku sebagai diagnosis server sampai benchmark OP3 dilakukan.
+Pada host server, QAT INT8 menghasilkan mean latency 12.829 ms dan inference FPS 77.951; PTQ INT8 menghasilkan 13.097 ms dan 76.351 FPS. Dibanding FP32 (17.160 ms; 58.276 FPS), keduanya lebih cepat dan ukuran modelnya lebih kecil. Antara PTQ dan QAT, QAT unggul secara menyeluruh pada mean latency, p95, p99, FPS, CPU mean, RSS mean, ukuran model, dan median latency. Hasil ini hanya berlaku sebagai diagnosis server sampai benchmark OP3 dilakukan.
 
 ## 12. Next Step
 

@@ -30,37 +30,37 @@
     {
       "metric": "precision",
       "FP32 PyTorch": 0.9313469051335113,
-      "QAT PyTorch": 0.8541507232570217,
-      "absolute_delta": -0.07719618187648958,
-      "relative_delta_percent": -8.288660374667083
+      "QAT PyTorch": 0.9341156433830985,
+      "absolute_delta": 0.0027687382495872,
+      "relative_delta_percent": 0.2972832598379412
     },
     {
       "metric": "recall",
       "FP32 PyTorch": 0.9505716686969364,
-      "QAT PyTorch": 0.9375203043384985,
-      "absolute_delta": -0.0130513643584379,
-      "relative_delta_percent": -1.3730016145262338
+      "QAT PyTorch": 0.9502079198462958,
+      "absolute_delta": -0.0003637488506406,
+      "relative_delta_percent": -0.0382663246738927
     },
     {
       "metric": "F1",
       "FP32 PyTorch": 0.9408610915046441,
-      "QAT PyTorch": 0.8938958477143529,
-      "absolute_delta": -0.04696524379029121,
-      "relative_delta_percent": -4.991729832847422
+      "QAT PyTorch": 0.9420930669398871,
+      "absolute_delta": 0.001231975435243,
+      "relative_delta_percent": 0.13094126744883162
     },
     {
       "metric": "mAP50",
       "FP32 PyTorch": 0.9642317504749923,
-      "QAT PyTorch": 0.9511866596240314,
-      "absolute_delta": -0.01304509085096095,
-      "relative_delta_percent": -1.352899948019216
+      "QAT PyTorch": 0.972145259145894,
+      "absolute_delta": 0.0079135086709017,
+      "relative_delta_percent": 0.8207060783921764
     },
     {
       "metric": "mAP50-95",
       "FP32 PyTorch": 0.7799081629168894,
-      "QAT PyTorch": 0.6567029302913939,
-      "absolute_delta": -0.12320523262549543,
-      "relative_delta_percent": -15.79740262811235
+      "QAT PyTorch": 0.76717861970828,
+      "absolute_delta": -0.0127295432086094,
+      "relative_delta_percent": -1.6321850785139048
     }
   ],
   "timing_rows": [
@@ -83,121 +83,121 @@
     {
       "metric": "precision",
       "FP32 PyTorch": 0.9722085387628167,
-      "QAT PyTorch": 0.9198992710696917,
-      "absolute_delta": -0.05230926769312494,
-      "relative_delta_percent": -5.380457546658772,
+      "QAT PyTorch": 0.9429988054250686,
+      "absolute_delta": -0.0292097333377481,
+      "relative_delta_percent": -3.0044720042456485,
       "class": "ball"
     },
     {
       "metric": "recall",
       "FP32 PyTorch": 0.9879518072289156,
-      "QAT PyTorch": 0.9759036144578314,
-      "absolute_delta": -0.012048192771084265,
-      "relative_delta_percent": -1.2195121951219439,
+      "QAT PyTorch": 1.0,
+      "absolute_delta": 0.0120481927710844,
+      "relative_delta_percent": 1.219512195121955,
       "class": "ball"
     },
     {
       "metric": "F1",
       "FP32 PyTorch": 0.9800169509991293,
-      "QAT PyTorch": 0.9470742242532612,
-      "absolute_delta": -0.03294272674586818,
-      "relative_delta_percent": -3.361444586471999,
+      "QAT PyTorch": 0.9706632889244308,
+      "absolute_delta": -0.0093536620746985,
+      "relative_delta_percent": -0.9544388059083546,
       "class": "ball"
     },
     {
       "metric": "mAP50",
       "FP32 PyTorch": 0.9847619047619048,
-      "QAT PyTorch": 0.9835733018620509,
-      "absolute_delta": -0.0011886028998538967,
-      "relative_delta_percent": -0.12069952077820034,
+      "QAT PyTorch": 0.9891912354909903,
+      "absolute_delta": 0.0044293307290855,
+      "relative_delta_percent": 0.4497869666048386,
       "class": "ball"
     },
     {
       "metric": "mAP50-95",
       "FP32 PyTorch": 0.9129888910112578,
-      "QAT PyTorch": 0.7470486475653881,
-      "absolute_delta": -0.16594024344586966,
-      "relative_delta_percent": -18.17549425624101,
+      "QAT PyTorch": 0.8795534960892626,
+      "absolute_delta": -0.0334353949219952,
+      "relative_delta_percent": -3.662190757270258,
       "class": "ball"
     },
     {
       "metric": "precision",
       "FP32 PyTorch": 0.8469513872455595,
-      "QAT PyTorch": 0.8650820977599312,
-      "absolute_delta": 0.01813071051437165,
-      "relative_delta_percent": 2.140702617341006,
+      "QAT PyTorch": 0.8987761987245911,
+      "absolute_delta": 0.0518248114790316,
+      "relative_delta_percent": 6.118983002621184,
       "class": "gawang"
     },
     {
       "metric": "recall",
       "FP32 PyTorch": 0.8853383458646616,
-      "QAT PyTorch": 0.8677787392603158,
-      "absolute_delta": -0.017559606604345857,
-      "relative_delta_percent": -1.983378070809341,
+      "QAT PyTorch": 0.881132234115159,
+      "absolute_delta": -0.0042061117495026,
+      "relative_delta_percent": -0.475085233152281,
       "class": "gawang"
     },
     {
       "metric": "F1",
       "FP32 PyTorch": 0.8657195455005953,
-      "QAT PyTorch": 0.8664283202817988,
-      "absolute_delta": 0.0007087747812035694,
-      "relative_delta_percent": 0.08187117697495512,
+      "QAT PyTorch": 0.8898667654360505,
+      "absolute_delta": 0.0241472199354552,
+      "relative_delta_percent": 2.789266114251147,
       "class": "gawang"
     },
     {
       "metric": "mAP50",
       "FP32 PyTorch": 0.9233522694330923,
-      "QAT PyTorch": 0.9131920160373229,
-      "absolute_delta": -0.010160253395769425,
-      "relative_delta_percent": -1.1003658876592661,
+      "QAT PyTorch": 0.9458072365953298,
+      "absolute_delta": 0.0224549671622375,
+      "relative_delta_percent": 2.4318960865510695,
       "class": "gawang"
     },
     {
       "metric": "mAP50-95",
       "FP32 PyTorch": 0.568273217075351,
-      "QAT PyTorch": 0.5282239030638171,
-      "absolute_delta": -0.04004931401153389,
-      "relative_delta_percent": -7.047545583381505,
+      "QAT PyTorch": 0.5970267721499483,
+      "absolute_delta": 0.0287535550745973,
+      "relative_delta_percent": 5.059811776510307,
       "class": "gawang"
     },
     {
       "metric": "precision",
       "FP32 PyTorch": 0.9748807893921577,
-      "QAT PyTorch": 0.7774708009414424,
-      "absolute_delta": -0.19740998845071533,
-      "relative_delta_percent": -20.249654172978556,
+      "QAT PyTorch": 0.9605719259996356,
+      "absolute_delta": -0.0143088633925221,
+      "relative_delta_percent": -1.467755192131976,
       "class": "robot"
     },
     {
       "metric": "recall",
       "FP32 PyTorch": 0.978424852997232,
-      "QAT PyTorch": 0.9688785592973485,
-      "absolute_delta": -0.009546293699883579,
-      "relative_delta_percent": -0.9756798052134705,
+      "QAT PyTorch": 0.9694915254237289,
+      "absolute_delta": -0.0089333275735031,
+      "relative_delta_percent": -0.9130315486805128,
       "class": "robot"
     },
     {
       "metric": "F1",
       "FP32 PyTorch": 0.9766496060330314,
-      "QAT PyTorch": 0.8626851037514048,
-      "absolute_delta": -0.11396450228162658,
-      "relative_delta_percent": -11.668924205532537,
+      "QAT PyTorch": 0.9650111151836117,
+      "absolute_delta": -0.0116384908494197,
+      "relative_delta_percent": -1.1916751508216896,
       "class": "robot"
     },
     {
       "metric": "mAP50",
       "FP32 PyTorch": 0.9845810772299799,
-      "QAT PyTorch": 0.9567946609727205,
-      "absolute_delta": -0.027786416257259416,
-      "relative_delta_percent": -2.822156234754553,
+      "QAT PyTorch": 0.9814373053513619,
+      "absolute_delta": -0.003143771878618,
+      "relative_delta_percent": -0.319300454652233,
       "class": "robot"
     },
     {
       "metric": "mAP50-95",
       "FP32 PyTorch": 0.8584623806640591,
-      "QAT PyTorch": 0.6948362402449769,
-      "absolute_delta": -0.1636261404190822,
-      "relative_delta_percent": -19.06037400177164,
+      "QAT PyTorch": 0.8249555908856289,
+      "absolute_delta": -0.0335067897784302,
+      "relative_delta_percent": -3.903116843477123,
       "class": "robot"
     }
   ],
