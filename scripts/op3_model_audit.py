@@ -251,7 +251,8 @@ def ptq_validation_gate(root: Path, model_xml: Path | None = None) -> dict[str, 
     manifest = read_json(root / "experiments/ptq/manifest.json") or {}
     comparison = read_json(root / "experiments/ptq/comparison.json") or {}
     fp32_manifest = read_json(root / "artifacts/checkpoints/fp32/manifest.json") or {}
-    fp32_pointer = lfs_pointer(root / "artifacts/checkpoints/fp32/best.pt")
+    fp32_checkpoint = root / "artifacts/checkpoints/fp32/best.pt"
+    fp32_pointer = lfs_pointer(fp32_checkpoint)
     artifact_record = manifest.get("PTQ artifact", {})
     file_record = artifact_record.get("files", {}) if isinstance(artifact_record, dict) else {}
     candidate = (model_xml or (root / PTQ_XML_RELATIVE_PATH)).expanduser().resolve()
@@ -270,10 +271,18 @@ def ptq_validation_gate(root: Path, model_xml: Path | None = None) -> dict[str, 
         reasons.append("existing PTQ manifest does not prove PTQ-only provenance or TEST/QAT isolation")
 
     source_hash = manifest.get("source FP32 SHA256")
+    fp32_materialized_hash = (
+        sha256_file(fp32_checkpoint)
+        if fp32_checkpoint.is_file() and fp32_pointer is None
+        else None
+    )
     source_valid = bool(
         fp32_manifest.get("status") in {"completed", "passed"}
-        and fp32_pointer
-        and fp32_pointer.get("sha256") == source_hash
+        and isinstance(source_hash, str)
+        and (
+            (fp32_pointer is not None and fp32_pointer.get("sha256") == source_hash)
+            or fp32_materialized_hash == source_hash
+        )
         and fp32_manifest.get("class_mapping") == EXPECTED_CLASSES
     )
     if not source_valid:
@@ -310,6 +319,7 @@ def ptq_validation_gate(root: Path, model_xml: Path | None = None) -> dict[str, 
         "qat_checkpoint_used": manifest.get("QAT checkpoint used"),
         "test_split_loaded": manifest.get("TEST split loaded"),
         "source_fp32_sha256": source_hash,
+        "source_fp32_materialized_sha256": fp32_materialized_hash,
         "source_checkpoint_valid": source_valid,
         "comparison_status": models.get("PTQ INT8", {}).get("status"),
         "artifact_hashes_match_manifest": hashes_valid,
