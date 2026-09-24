@@ -1,0 +1,184 @@
+{
+  "PTQ metrics used for selection": false,
+  "TEST split used for selection": false,
+  "candidates": [
+    {
+      "hyperparameters": {
+        "amp": false,
+        "batch": 16,
+        "epochs": 10,
+        "imgsz": 640,
+        "lr0": 1e-05,
+        "lrf": 0.2,
+        "momentum": 0.9,
+        "name": "qat_lr1e5_r128_e10",
+        "optimizer": "AdamW",
+        "range_init_batch": 4,
+        "range_init_samples": 128,
+        "seed": 42,
+        "warmup_epochs": 0.0,
+        "weight_decay": 0.0005,
+        "workers": 2
+      },
+      "manifest": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/experiments/qat/qat_best_search/runs/qat_lr1e5_r128_e10/manifest.json",
+      "name": "qat_lr1e5_r128_e10",
+      "validation": {
+        "mAP50": 0.95956,
+        "mAP50-95": 0.65397,
+        "precision": 0.87375,
+        "recall": 0.92505
+      }
+    },
+    {
+      "hyperparameters": {
+        "amp": false,
+        "batch": 16,
+        "epochs": 10,
+        "imgsz": 640,
+        "lr0": 3e-05,
+        "lrf": 0.2,
+        "momentum": 0.9,
+        "name": "qat_lr3e5_r128_e10",
+        "optimizer": "AdamW",
+        "range_init_batch": 4,
+        "range_init_samples": 128,
+        "seed": 42,
+        "warmup_epochs": 0.0,
+        "weight_decay": 0.0005,
+        "workers": 2
+      },
+      "manifest": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/experiments/qat/qat_best_search/runs/qat_lr3e5_r128_e10/manifest.json",
+      "name": "qat_lr3e5_r128_e10",
+      "validation": {
+        "mAP50": 0.9591,
+        "mAP50-95": 0.65652,
+        "precision": 0.87099,
+        "recall": 0.93337
+      }
+    },
+    {
+      "hyperparameters": {
+        "amp": false,
+        "batch": 16,
+        "epochs": 15,
+        "imgsz": 640,
+        "lr0": 5e-05,
+        "lrf": 0.1,
+        "momentum": 0.9,
+        "name": "qat_lr5e5_r256_e15",
+        "optimizer": "AdamW",
+        "range_init_batch": 4,
+        "range_init_samples": 256,
+        "seed": 42,
+        "warmup_epochs": 0.0,
+        "weight_decay": 0.0005,
+        "workers": 2
+      },
+      "manifest": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/experiments/qat/qat_best_search/runs/qat_lr5e5_r256_e15/manifest.json",
+      "name": "qat_lr5e5_r256_e15",
+      "validation": {
+        "mAP50": 0.96046,
+        "mAP50-95": 0.6634,
+        "precision": 0.85632,
+        "recall": 0.94459
+      }
+    },
+    {
+      "hyperparameters": {
+        "amp": false,
+        "batch": 16,
+        "epochs": 15,
+        "imgsz": 640,
+        "lr0": 0.0001,
+        "lrf": 0.1,
+        "momentum": 0.9,
+        "name": "qat_lr1e4_r256_e15",
+        "optimizer": "AdamW",
+        "range_init_batch": 4,
+        "range_init_samples": 256,
+        "seed": 42,
+        "warmup_epochs": 0.0,
+        "weight_decay": 0.0005,
+        "workers": 2
+      },
+      "manifest": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/experiments/qat/qat_best_search/runs/qat_lr1e4_r256_e15/manifest.json",
+      "name": "qat_lr1e4_r256_e15",
+      "validation": {
+        "mAP50": 0.96072,
+        "mAP50-95": 0.66472,
+        "precision": 0.85629,
+        "recall": 0.94475
+      }
+    },
+    {
+      "hyperparameters": {
+        "amp": false,
+        "batch": 16,
+        "epochs": 20,
+        "imgsz": 640,
+        "lr0": 3e-05,
+        "lrf": 0.1,
+        "momentum": 0.9,
+        "name": "qat_lr3e5_r512_e20",
+        "optimizer": "AdamW",
+        "range_init_batch": 4,
+        "range_init_samples": 512,
+        "seed": 42,
+        "warmup_epochs": 0.0,
+        "weight_decay": 0.0005,
+        "workers": 2
+      },
+      "manifest": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/experiments/qat/qat_best_search/runs/qat_lr3e5_r512_e20/manifest.json",
+      "name": "qat_lr3e5_r512_e20",
+      "validation": {
+        "mAP50": 0.96093,
+        "mAP50-95": 0.65898,
+        "precision": 0.86098,
+        "recall": 0.94171
+      }
+    }
+  ],
+  "config": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/configs/qat_best_search.yaml",
+  "created_at": "2026-09-23T17:58:19.402847+00:00",
+  "next_step": "Evaluate the frozen TEST split once with scripts/evaluate_final_test.py after model selection is complete.",
+  "promotion": {
+    "PTQ metrics used for selection": false,
+    "TEST split used for selection": false,
+    "candidate": "qat_lr1e4_r256_e15",
+    "canonical_artifact_dir": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/checkpoints/qat",
+    "copied": [
+      "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/checkpoints/qat/qat_best.pt",
+      "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/checkpoints/qat/qat_last.pt",
+      "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/checkpoints/qat/nncf_structure_config.json",
+      "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/checkpoints/qat/nncf_checkpoint_format.json",
+      "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/checkpoints/qat/data_train_val.yaml",
+      "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/checkpoints/qat/results.csv",
+      "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/checkpoints/qat/manifest.json"
+    ],
+    "promoted": true,
+    "source_artifact_dir": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/checkpoints/qat_search/qat_lr1e4_r256_e15",
+    "validation_metrics": {
+      "mAP50": 0.96072,
+      "mAP50-95": 0.66472,
+      "precision": 0.85629,
+      "recall": 0.94475
+    }
+  },
+  "secondary_metrics": [
+    "mAP50",
+    "precision",
+    "recall"
+  ],
+  "selection_method": "true NNCF-QAT validation-only model selection",
+  "selection_metric": "mAP50-95",
+  "status": "passed",
+  "winner": {
+    "name": "qat_lr1e4_r256_e15",
+    "validation": {
+      "mAP50": 0.96072,
+      "mAP50-95": 0.66472,
+      "precision": 0.85629,
+      "recall": 0.94475
+    }
+  }
+}
