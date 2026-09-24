@@ -1,43 +1,63 @@
 {
   "PTQ used": false,
   "Phase 7C evidence": {
+    "QAT SHA256": "b9e520cbd5d56597014c932701f471505d2243e02763a2245a51fd83fc35430d",
     "VAL relative-MAE summary": {
       "count_relative_MAE_gt_1_percent": 0,
       "count_relative_MAE_le_1_percent": 32,
       "maximum_filename": "3dsense_2020_10_14__22_04_14_color_png_jpg.rf.6b70d0020611293e5efaa4591fcad715.jpg",
-      "maximum_relative_MAE": 0.008402485676247375,
-      "mean_relative_MAE": 0.007499752523882512,
-      "median_nearest_filename": "KakaoTalk_20250203_160502315_mp4-0025_jpg.rf.a8a7324ebaad66e43fbe1c25daf78f65.jpg",
-      "median_relative_MAE": 0.007485316141335942,
+      "maximum_relative_MAE": 0.009710314971047337,
+      "mean_relative_MAE": 0.00827588886090791,
+      "median_nearest_filename": "KakaoTalk_20250203_160505764_mp4-0003_jpg.rf.99703037b44db0de35b66ca5d39cbf35.jpg",
+      "median_relative_MAE": 0.008350539537377587,
       "minimum_filename": "KakaoTalk_20250203_160511603_mp4-0005_jpg.rf.f56ca446d4e58ba049e652e6e5a28b37.jpg",
-      "minimum_relative_MAE": 0.00597057585943051,
-      "p95_relative_MAE": 0.008164718451330301
+      "minimum_relative_MAE": 0.006702934499437404,
+      "p95_relative_MAE": 0.008975867807328518
     },
-    "classification": "Mismatch is likely input-distribution-specific.",
-    "in-domain synthetic statistics": {
-      "device": "cuda:0",
-      "dtype": "torch.float32",
-      "max": 0.9999986886978149,
-      "mean": 0.4995560646057129,
-      "min": 2.384185791015625e-07,
-      "shape": [
+    "acceptance population": "32 deterministic real VAL images",
+    "classification": "CPU/CUDA QAT backend equivalence remains unresolved.",
+    "in-domain synthetic diagnostic": {
+      "cosine_similarity": 0.9998763799667358,
+      "max_absolute_error": 51.481781005859375,
+      "mean_absolute_error": 1.3703999519348145,
+      "mean_absolute_reference_magnitude": 126.7315673828125,
+      "output_shape": [
         1,
-        3,
-        640,
-        640
+        7,
+        8400
       ],
-      "std": 0.28861474990844727
+      "passes_relative_MAE_le_1_percent": false,
+      "relative_MAE": 0.010813406479818145
     },
-    "path": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/openvino/qat_cpu_cuda_diagnostic.json"
+    "maximum allowed relative MAE": 0.01,
+    "original synthetic diagnostic": {
+      "cosine_similarity": 0.914153516292572,
+      "max_absolute_error": 410.91973876953125,
+      "mean_absolute_error": 37.879638671875,
+      "mean_absolute_reference_magnitude": 138.27040100097656,
+      "output_shape": [
+        1,
+        7,
+        8400
+      ],
+      "passes_relative_MAE_le_1_percent": false,
+      "relative_MAE": 0.2739533435764569
+    },
+    "path": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/openvino/qat_cpu_cuda_diagnostic.json",
+    "synthetic inputs": "diagnostic only; not an acceptance criterion"
   },
   "QAT CUDA to CPU equivalence": {
+    "VAL fail count": 0,
+    "VAL pass count": 32,
+    "acceptance population": "32 deterministic real VAL images",
+    "maximum allowed relative MAE": 0.01,
     "per input": {
       "3dsense_2020_10_14__21_58_51_color_png_jpg.rf.3c78770d1d46d6b07735e4a544da6963.jpg": {
         "CPU candidate": {
           "element_count": 58800,
           "finite": true,
-          "max_absolute_value": 641.5320434570312,
-          "mean_absolute_value": 114.76927947998047,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 113.90218353271484,
           "tensor_shapes": [
             [
               1,
@@ -49,8 +69,8 @@
         "CUDA reference": {
           "element_count": 58800,
           "finite": true,
-          "max_absolute_value": 641.5320434570312,
-          "mean_absolute_value": 114.76411437988281,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 113.84548950195312,
           "tensor_shapes": [
             [
               1,
@@ -59,12 +79,12 @@
             ]
           ]
         },
-        "cosine_similarity": 0.999933660030365,
+        "cosine_similarity": 0.999914288520813,
         "element_count_matches": true,
-        "max_absolute_difference": 124.16748046875,
+        "max_absolute_difference": 82.370849609375,
         "maximum_allowed_relative_mean_absolute_difference": 0.01,
-        "mean_absolute_difference": 0.820770800113678,
-        "relative_mean_absolute_difference": 0.0071518070308705505,
+        "mean_absolute_difference": 0.9055477976799011,
+        "relative_mean_absolute_difference": 0.00795418247698224,
         "status": true,
         "tensor_shapes_match": true
       },
@@ -72,8 +92,8 @@
         "CPU candidate": {
           "element_count": 58800,
           "finite": true,
-          "max_absolute_value": 641.5320434570312,
-          "mean_absolute_value": 116.01285552978516,
+          "max_absolute_value": 637.0586547851562,
+          "mean_absolute_value": 115.87616729736328,
           "tensor_shapes": [
             [
               1,
@@ -85,8 +105,8 @@
         "CUDA reference": {
           "element_count": 58800,
           "finite": true,
-          "max_absolute_value": 641.5320434570312,
-          "mean_absolute_value": 116.06736755371094,
+          "max_absolute_value": 637.0586547851562,
+          "mean_absolute_value": 115.89546966552734,
           "tensor_shapes": [
             [
               1,
@@ -95,12 +115,12 @@
             ]
           ]
         },
-        "cosine_similarity": 0.9999342560768127,
+        "cosine_similarity": 0.999925434589386,
         "element_count_matches": true,
-        "max_absolute_difference": 72.43104553222656,
+        "max_absolute_difference": 61.77813720703125,
         "maximum_allowed_relative_mean_absolute_difference": 0.01,
-        "mean_absolute_difference": 0.8310735821723938,
-        "relative_mean_absolute_difference": 0.007160269072078412,
+        "mean_absolute_difference": 0.8932037949562073,
+        "relative_mean_absolute_difference": 0.007706977654380974,
         "status": true,
         "tensor_shapes_match": true
       },
@@ -108,8 +128,8 @@
         "CPU candidate": {
           "element_count": 58800,
           "finite": true,
-          "max_absolute_value": 641.5320434570312,
-          "mean_absolute_value": 117.57901000976562,
+          "max_absolute_value": 648.6704711914062,
+          "mean_absolute_value": 117.71387481689453,
           "tensor_shapes": [
             [
               1,
@@ -121,8 +141,8 @@
         "CUDA reference": {
           "element_count": 58800,
           "finite": true,
-          "max_absolute_value": 641.5320434570312,
-          "mean_absolute_value": 117.48568725585938,
+          "max_absolute_value": 648.6704711914062,
+          "mean_absolute_value": 117.67301177978516,
           "tensor_shapes": [
             [
               1,
@@ -131,12 +151,12 @@
             ]
           ]
         },
-        "cosine_similarity": 0.99993497133255,
+        "cosine_similarity": 0.9999263286590576,
         "element_count_matches": true,
-        "max_absolute_difference": 51.73646545410156,
+        "max_absolute_difference": 72.07449340820312,
         "maximum_allowed_relative_mean_absolute_difference": 0.01,
-        "mean_absolute_difference": 0.8696678280830383,
-        "relative_mean_absolute_difference": 0.007402330006284789,
+        "mean_absolute_difference": 0.9488418102264404,
+        "relative_mean_absolute_difference": 0.008063376605012164,
         "status": true,
         "tensor_shapes_match": true
       },
@@ -144,8 +164,8 @@
         "CPU candidate": {
           "element_count": 58800,
           "finite": true,
-          "max_absolute_value": 636.8155517578125,
-          "mean_absolute_value": 115.29735565185547,
+          "max_absolute_value": 637.0586547851562,
+          "mean_absolute_value": 114.94490814208984,
           "tensor_shapes": [
             [
               1,
@@ -157,8 +177,8 @@
         "CUDA reference": {
           "element_count": 58800,
           "finite": true,
-          "max_absolute_value": 636.8155517578125,
-          "mean_absolute_value": 115.29187774658203,
+          "max_absolute_value": 637.0586547851562,
+          "mean_absolute_value": 114.93563079833984,
           "tensor_shapes": [
             [
               1,
@@ -167,12 +187,12 @@
             ]
           ]
         },
-        "cosine_similarity": 0.9999395608901978,
+        "cosine_similarity": 0.9999299049377441,
         "element_count_matches": true,
-        "max_absolute_difference": 41.389129638671875,
+        "max_absolute_difference": 51.481781005859375,
         "maximum_allowed_relative_mean_absolute_difference": 0.01,
-        "mean_absolute_difference": 0.8089039325714111,
-        "relative_mean_absolute_difference": 0.00701613980430978,
+        "mean_absolute_difference": 0.8592977523803711,
+        "relative_mean_absolute_difference": 0.007476339116179306,
         "status": true,
         "tensor_shapes_match": true
       },
@@ -180,8 +200,8 @@
         "CPU candidate": {
           "element_count": 58800,
           "finite": true,
-          "max_absolute_value": 641.5320434570312,
-          "mean_absolute_value": 118.5797348022461,
+          "max_absolute_value": 648.6704711914062,
+          "mean_absolute_value": 118.66737365722656,
           "tensor_shapes": [
             [
               1,
@@ -193,8 +213,8 @@
         "CUDA reference": {
           "element_count": 58800,
           "finite": true,
-          "max_absolute_value": 641.5320434570312,
-          "mean_absolute_value": 118.61248016357422,
+          "max_absolute_value": 648.6704711914062,
+          "mean_absolute_value": 118.65961456298828,
           "tensor_shapes": [
             [
               1,
@@ -203,12 +223,12 @@
             ]
           ]
         },
-        "cosine_similarity": 0.9999274611473083,
+        "cosine_similarity": 0.9999120235443115,
         "element_count_matches": true,
-        "max_absolute_difference": 72.4310302734375,
+        "max_absolute_difference": 75.50662231445312,
         "maximum_allowed_relative_mean_absolute_difference": 0.01,
-        "mean_absolute_difference": 0.9151991009712219,
-        "relative_mean_absolute_difference": 0.007715875257891106,
+        "mean_absolute_difference": 1.0240099430084229,
+        "relative_mean_absolute_difference": 0.008629810123518022,
         "status": true,
         "tensor_shapes_match": true
       },
@@ -216,8 +236,8 @@
         "CPU candidate": {
           "element_count": 58800,
           "finite": true,
-          "max_absolute_value": 641.5320434570312,
-          "mean_absolute_value": 118.21932983398438,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 117.8000717163086,
           "tensor_shapes": [
             [
               1,
@@ -229,8 +249,8 @@
         "CUDA reference": {
           "element_count": 58800,
           "finite": true,
-          "max_absolute_value": 641.5320434570312,
-          "mean_absolute_value": 118.31307220458984,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 117.80055236816406,
           "tensor_shapes": [
             [
               1,
@@ -239,12 +259,12 @@
             ]
           ]
         },
-        "cosine_similarity": 0.9999364614486694,
+        "cosine_similarity": 0.9999192953109741,
         "element_count_matches": true,
-        "max_absolute_difference": 31.04193115234375,
+        "max_absolute_difference": 61.778167724609375,
         "maximum_allowed_relative_mean_absolute_difference": 0.01,
-        "mean_absolute_difference": 0.8851408958435059,
-        "relative_mean_absolute_difference": 0.007481344870437467,
+        "mean_absolute_difference": 0.985555112361908,
+        "relative_mean_absolute_difference": 0.008366302980326746,
         "status": true,
         "tensor_shapes_match": true
       },
@@ -252,8 +272,8 @@
         "CPU candidate": {
           "element_count": 58800,
           "finite": true,
-          "max_absolute_value": 636.8155517578125,
-          "mean_absolute_value": 116.554931640625,
+          "max_absolute_value": 637.0586547851562,
+          "mean_absolute_value": 115.69901275634766,
           "tensor_shapes": [
             [
               1,
@@ -265,8 +285,8 @@
         "CUDA reference": {
           "element_count": 58800,
           "finite": true,
-          "max_absolute_value": 636.8155517578125,
-          "mean_absolute_value": 116.56900024414062,
+          "max_absolute_value": 637.0586547851562,
+          "mean_absolute_value": 115.66285705566406,
           "tensor_shapes": [
             [
               1,
@@ -275,12 +295,12 @@
             ]
           ]
         },
-        "cosine_similarity": 0.9999379515647888,
+        "cosine_similarity": 0.9999289512634277,
         "element_count_matches": true,
-        "max_absolute_difference": 55.185546875,
+        "max_absolute_difference": 54.91389465332031,
         "maximum_allowed_relative_mean_absolute_difference": 0.01,
-        "mean_absolute_difference": 0.8260895013809204,
-        "relative_mean_absolute_difference": 0.0070866997199149784,
+        "mean_absolute_difference": 0.8736539483070374,
+        "relative_mean_absolute_difference": 0.007553452945456652,
         "status": true,
         "tensor_shapes_match": true
       },
@@ -288,8 +308,8 @@
         "CPU candidate": {
           "element_count": 58800,
           "finite": true,
-          "max_absolute_value": 636.8155517578125,
-          "mean_absolute_value": 115.95466613769531,
+          "max_absolute_value": 637.0586547851562,
+          "mean_absolute_value": 115.63363647460938,
           "tensor_shapes": [
             [
               1,
@@ -301,8 +321,8 @@
         "CUDA reference": {
           "element_count": 58800,
           "finite": true,
-          "max_absolute_value": 636.8155517578125,
-          "mean_absolute_value": 116.00093841552734,
+          "max_absolute_value": 637.0586547851562,
+          "mean_absolute_value": 115.65901184082031,
           "tensor_shapes": [
             [
               1,
@@ -311,12 +331,12 @@
             ]
           ]
         },
-        "cosine_similarity": 0.9999300837516785,
+        "cosine_similarity": 0.9999176859855652,
         "element_count_matches": true,
-        "max_absolute_difference": 63.80828857421875,
+        "max_absolute_difference": 72.07449340820312,
         "maximum_allowed_relative_mean_absolute_difference": 0.01,
-        "mean_absolute_difference": 0.8970714807510376,
-        "relative_mean_absolute_difference": 0.007733312273195885,
+        "mean_absolute_difference": 0.9501105546951294,
+        "relative_mean_absolute_difference": 0.008214755941393929,
         "status": true,
         "tensor_shapes_match": true
       },
@@ -324,8 +344,8 @@
         "CPU candidate": {
           "element_count": 58800,
           "finite": true,
-          "max_absolute_value": 636.8155517578125,
-          "mean_absolute_value": 120.84293365478516,
+          "max_absolute_value": 637.0586547851562,
+          "mean_absolute_value": 120.28951263427734,
           "tensor_shapes": [
             [
               1,
@@ -337,8 +357,8 @@
         "CUDA reference": {
           "element_count": 58800,
           "finite": true,
-          "max_absolute_value": 636.8155517578125,
-          "mean_absolute_value": 120.78396606445312,
+          "max_absolute_value": 637.0586547851562,
+          "mean_absolute_value": 120.20658874511719,
           "tensor_shapes": [
             [
               1,
@@ -347,12 +367,12 @@
             ]
           ]
         },
-        "cosine_similarity": 0.9999127984046936,
+        "cosine_similarity": 0.9998909831047058,
         "element_count_matches": true,
-        "max_absolute_difference": 112.09565734863281,
+        "max_absolute_difference": 72.07449340820312,
         "maximum_allowed_relative_mean_absolute_difference": 0.01,
-        "mean_absolute_difference": 1.0148855447769165,
-        "relative_mean_absolute_difference": 0.008402485676247375,
+        "mean_absolute_difference": 1.1672438383102417,
+        "relative_mean_absolute_difference": 0.009710314971047337,
         "status": true,
         "tensor_shapes_match": true
       },
@@ -360,8 +380,8 @@
         "CPU candidate": {
           "element_count": 58800,
           "finite": true,
-          "max_absolute_value": 641.5320434570312,
-          "mean_absolute_value": 115.68949127197266,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 115.45455932617188,
           "tensor_shapes": [
             [
               1,
@@ -373,8 +393,8 @@
         "CUDA reference": {
           "element_count": 58800,
           "finite": true,
-          "max_absolute_value": 641.5320434570312,
-          "mean_absolute_value": 115.60205078125,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 115.42073059082031,
           "tensor_shapes": [
             [
               1,
@@ -383,12 +403,12 @@
             ]
           ]
         },
-        "cosine_similarity": 0.999937117099762,
+        "cosine_similarity": 0.9999292492866516,
         "element_count_matches": true,
-        "max_absolute_difference": 82.77828979492188,
+        "max_absolute_difference": 58.346038818359375,
         "maximum_allowed_relative_mean_absolute_difference": 0.01,
-        "mean_absolute_difference": 0.8320039510726929,
-        "relative_mean_absolute_difference": 0.00719713833318638,
+        "mean_absolute_difference": 0.891269862651825,
+        "relative_mean_absolute_difference": 0.007721921860046776,
         "status": true,
         "tensor_shapes_match": true
       },
@@ -396,8 +416,8 @@
         "CPU candidate": {
           "element_count": 58800,
           "finite": true,
-          "max_absolute_value": 641.5320434570312,
-          "mean_absolute_value": 115.01207733154297,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 114.37464904785156,
           "tensor_shapes": [
             [
               1,
@@ -409,8 +429,8 @@
         "CUDA reference": {
           "element_count": 58800,
           "finite": true,
-          "max_absolute_value": 641.5320434570312,
-          "mean_absolute_value": 114.98355102539062,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 114.3608169555664,
           "tensor_shapes": [
             [
               1,
@@ -419,12 +439,12 @@
             ]
           ]
         },
-        "cosine_similarity": 0.999930202960968,
+        "cosine_similarity": 0.999915361404419,
         "element_count_matches": true,
-        "max_absolute_difference": 96.57472229003906,
+        "max_absolute_difference": 106.39569091796875,
         "maximum_allowed_relative_mean_absolute_difference": 0.01,
-        "mean_absolute_difference": 0.839843213558197,
-        "relative_mean_absolute_difference": 0.00730402919433879,
+        "mean_absolute_difference": 0.9073922634124756,
+        "relative_mean_absolute_difference": 0.007934468182096255,
         "status": true,
         "tensor_shapes_match": true
       },
@@ -432,8 +452,8 @@
         "CPU candidate": {
           "element_count": 58800,
           "finite": true,
-          "max_absolute_value": 636.8155517578125,
-          "mean_absolute_value": 117.25984954833984,
+          "max_absolute_value": 637.0586547851562,
+          "mean_absolute_value": 117.46673583984375,
           "tensor_shapes": [
             [
               1,
@@ -445,8 +465,8 @@
         "CUDA reference": {
           "element_count": 58800,
           "finite": true,
-          "max_absolute_value": 636.8155517578125,
-          "mean_absolute_value": 117.28031158447266,
+          "max_absolute_value": 637.0586547851562,
+          "mean_absolute_value": 117.48432922363281,
           "tensor_shapes": [
             [
               1,
@@ -455,12 +475,12 @@
             ]
           ]
         },
-        "cosine_similarity": 0.9999363422393799,
+        "cosine_similarity": 0.9999235272407532,
         "element_count_matches": true,
-        "max_absolute_difference": 51.7364501953125,
+        "max_absolute_difference": 41.185455322265625,
         "maximum_allowed_relative_mean_absolute_difference": 0.01,
-        "mean_absolute_difference": 0.8974870443344116,
-        "relative_mean_absolute_difference": 0.007652495395085858,
+        "mean_absolute_difference": 0.9641804695129395,
+        "relative_mean_absolute_difference": 0.008206885768378611,
         "status": true,
         "tensor_shapes_match": true
       },
@@ -468,8 +488,8 @@
         "CPU candidate": {
           "element_count": 58800,
           "finite": true,
-          "max_absolute_value": 636.8155517578125,
-          "mean_absolute_value": 117.5725326538086,
+          "max_absolute_value": 637.0586547851562,
+          "mean_absolute_value": 118.03157043457031,
           "tensor_shapes": [
             [
               1,
@@ -481,8 +501,8 @@
         "CUDA reference": {
           "element_count": 58800,
           "finite": true,
-          "max_absolute_value": 636.8155517578125,
-          "mean_absolute_value": 117.58808135986328,
+          "max_absolute_value": 637.0586547851562,
+          "mean_absolute_value": 118.08319091796875,
           "tensor_shapes": [
             [
               1,
@@ -491,12 +511,12 @@
             ]
           ]
         },
-        "cosine_similarity": 0.9999356865882874,
+        "cosine_similarity": 0.9999188780784607,
         "element_count_matches": true,
-        "max_absolute_difference": 41.38916015625,
+        "max_absolute_difference": 41.1854248046875,
         "maximum_allowed_relative_mean_absolute_difference": 0.01,
-        "mean_absolute_difference": 0.8806509375572205,
-        "relative_mean_absolute_difference": 0.007489287412234416,
+        "mean_absolute_difference": 0.9942075610160828,
+        "relative_mean_absolute_difference": 0.008419551955593317,
         "status": true,
         "tensor_shapes_match": true
       },
@@ -504,8 +524,8 @@
         "CPU candidate": {
           "element_count": 58800,
           "finite": true,
-          "max_absolute_value": 636.8155517578125,
-          "mean_absolute_value": 116.98172760009766,
+          "max_absolute_value": 637.0586547851562,
+          "mean_absolute_value": 117.59680938720703,
           "tensor_shapes": [
             [
               1,
@@ -517,8 +537,8 @@
         "CUDA reference": {
           "element_count": 58800,
           "finite": true,
-          "max_absolute_value": 636.8155517578125,
-          "mean_absolute_value": 116.9817123413086,
+          "max_absolute_value": 637.0586547851562,
+          "mean_absolute_value": 117.59134674072266,
           "tensor_shapes": [
             [
               1,
@@ -527,12 +547,12 @@
             ]
           ]
         },
-        "cosine_similarity": 0.9999382495880127,
+        "cosine_similarity": 0.9999260902404785,
         "element_count_matches": true,
-        "max_absolute_difference": 51.73645782470703,
+        "max_absolute_difference": 44.6175537109375,
         "maximum_allowed_relative_mean_absolute_difference": 0.01,
-        "mean_absolute_difference": 0.8594706058502197,
-        "relative_mean_absolute_difference": 0.007347050993257887,
+        "mean_absolute_difference": 0.9271017909049988,
+        "relative_mean_absolute_difference": 0.007884098758977283,
         "status": true,
         "tensor_shapes_match": true
       },
@@ -540,8 +560,8 @@
         "CPU candidate": {
           "element_count": 58800,
           "finite": true,
-          "max_absolute_value": 641.5320434570312,
-          "mean_absolute_value": 117.9075927734375,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 118.51103210449219,
           "tensor_shapes": [
             [
               1,
@@ -553,8 +573,8 @@
         "CUDA reference": {
           "element_count": 58800,
           "finite": true,
-          "max_absolute_value": 641.5320434570312,
-          "mean_absolute_value": 117.95075988769531,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 118.56484985351562,
           "tensor_shapes": [
             [
               1,
@@ -563,12 +583,12 @@
             ]
           ]
         },
-        "cosine_similarity": 0.9999279379844666,
+        "cosine_similarity": 0.9999052286148071,
         "element_count_matches": true,
-        "max_absolute_difference": 62.083709716796875,
+        "max_absolute_difference": 41.185455322265625,
         "maximum_allowed_relative_mean_absolute_difference": 0.01,
-        "mean_absolute_difference": 0.9431259036064148,
-        "relative_mean_absolute_difference": 0.007995929017366189,
+        "mean_absolute_difference": 1.0820927619934082,
+        "relative_mean_absolute_difference": 0.009126589906960714,
         "status": true,
         "tensor_shapes_match": true
       },
@@ -576,8 +596,8 @@
         "CPU candidate": {
           "element_count": 58800,
           "finite": true,
-          "max_absolute_value": 641.5320434570312,
-          "mean_absolute_value": 116.47389221191406,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 117.08692169189453,
           "tensor_shapes": [
             [
               1,
@@ -589,8 +609,8 @@
         "CUDA reference": {
           "element_count": 58800,
           "finite": true,
-          "max_absolute_value": 636.8155517578125,
-          "mean_absolute_value": 116.45838928222656,
+          "max_absolute_value": 637.0586547851562,
+          "mean_absolute_value": 117.02701568603516,
           "tensor_shapes": [
             [
               1,
@@ -599,12 +619,12 @@
             ]
           ]
         },
-        "cosine_similarity": 0.999936580657959,
+        "cosine_similarity": 0.9999207854270935,
         "element_count_matches": true,
-        "max_absolute_difference": 41.38917541503906,
+        "max_absolute_difference": 65.21023559570312,
         "maximum_allowed_relative_mean_absolute_difference": 0.01,
-        "mean_absolute_difference": 0.8564377427101135,
-        "relative_mean_absolute_difference": 0.007354023595797918,
+        "mean_absolute_difference": 0.9640167355537415,
+        "relative_mean_absolute_difference": 0.008237557199100461,
         "status": true,
         "tensor_shapes_match": true
       },
@@ -612,8 +632,8 @@
         "CPU candidate": {
           "element_count": 58800,
           "finite": true,
-          "max_absolute_value": 641.5320434570312,
-          "mean_absolute_value": 117.26667785644531,
+          "max_absolute_value": 648.6704711914062,
+          "mean_absolute_value": 117.98023223876953,
           "tensor_shapes": [
             [
               1,
@@ -625,8 +645,8 @@
         "CUDA reference": {
           "element_count": 58800,
           "finite": true,
-          "max_absolute_value": 641.5320434570312,
-          "mean_absolute_value": 117.35257720947266,
+          "max_absolute_value": 637.0586547851562,
+          "mean_absolute_value": 117.9340591430664,
           "tensor_shapes": [
             [
               1,
@@ -635,12 +655,12 @@
             ]
           ]
         },
-        "cosine_similarity": 0.9999346733093262,
+        "cosine_similarity": 0.9999140501022339,
         "element_count_matches": true,
-        "max_absolute_difference": 56.91007995605469,
+        "max_absolute_difference": 41.18544006347656,
         "maximum_allowed_relative_mean_absolute_difference": 0.01,
-        "mean_absolute_difference": 0.8695223331451416,
-        "relative_mean_absolute_difference": 0.0074094864707833115,
+        "mean_absolute_difference": 1.0227993726730347,
+        "relative_mean_absolute_difference": 0.008672637744387918,
         "status": true,
         "tensor_shapes_match": true
       },
@@ -648,8 +668,8 @@
         "CPU candidate": {
           "element_count": 58800,
           "finite": true,
-          "max_absolute_value": 662.2266235351562,
-          "mean_absolute_value": 116.87130737304688,
+          "max_absolute_value": 637.0586547851562,
+          "mean_absolute_value": 117.28308868408203,
           "tensor_shapes": [
             [
               1,
@@ -661,8 +681,8 @@
         "CUDA reference": {
           "element_count": 58800,
           "finite": true,
-          "max_absolute_value": 672.5739135742188,
-          "mean_absolute_value": 116.86174011230469,
+          "max_absolute_value": 637.0586547851562,
+          "mean_absolute_value": 117.28181457519531,
           "tensor_shapes": [
             [
               1,
@@ -671,12 +691,12 @@
             ]
           ]
         },
-        "cosine_similarity": 0.999940812587738,
+        "cosine_similarity": 0.9999210238456726,
         "element_count_matches": true,
-        "max_absolute_difference": 41.38916015625,
+        "max_absolute_difference": 41.18544006347656,
         "maximum_allowed_relative_mean_absolute_difference": 0.01,
-        "mean_absolute_difference": 0.8384132385253906,
-        "relative_mean_absolute_difference": 0.007174403168390882,
+        "mean_absolute_difference": 0.9775176644325256,
+        "relative_mean_absolute_difference": 0.008334776094428429,
         "status": true,
         "tensor_shapes_match": true
       },
@@ -684,8 +704,8 @@
         "CPU candidate": {
           "element_count": 58800,
           "finite": true,
-          "max_absolute_value": 662.2266235351562,
-          "mean_absolute_value": 116.99858093261719,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 117.092041015625,
           "tensor_shapes": [
             [
               1,
@@ -697,8 +717,1049 @@
         "CUDA reference": {
           "element_count": 58800,
           "finite": true,
-          "max_absolute_value": 662.2266235351562,
-          "mean_absolute_value": 116.994140625,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 117.17608642578125,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "cosine_similarity": 0.9999254941940308,
+        "element_count_matches": true,
+        "max_absolute_difference": 41.1854248046875,
+        "maximum_allowed_relative_mean_absolute_difference": 0.01,
+        "mean_absolute_difference": 0.9551373720169067,
+        "relative_mean_absolute_difference": 0.008151299477149597,
+        "status": true,
+        "tensor_shapes_match": true
+      },
+      "KakaoTalk_20250203_160505764_mp4-0007_jpg.rf.5accf680e4af0b67cb711ce099fc69be.jpg": {
+        "CPU candidate": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 117.83775329589844,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "CUDA reference": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 117.92206573486328,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "cosine_similarity": 0.9999187588691711,
+        "element_count_matches": true,
+        "max_absolute_difference": 37.75331115722656,
+        "maximum_allowed_relative_mean_absolute_difference": 0.01,
+        "mean_absolute_difference": 1.0069061517715454,
+        "relative_mean_absolute_difference": 0.008538742477896202,
+        "status": true,
+        "tensor_shapes_match": true
+      },
+      "KakaoTalk_20250203_160505764_mp4-0015_jpg.rf.e512fb69725c92e20eca7b6f29d202ce.jpg": {
+        "CPU candidate": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 121.45853424072266,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "CUDA reference": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 121.4638442993164,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "cosine_similarity": 0.9999182224273682,
+        "element_count_matches": true,
+        "max_absolute_difference": 41.1854248046875,
+        "maximum_allowed_relative_mean_absolute_difference": 0.01,
+        "mean_absolute_difference": 1.056222677230835,
+        "relative_mean_absolute_difference": 0.008695778429571567,
+        "status": true,
+        "tensor_shapes_match": true
+      },
+      "KakaoTalk_20250203_160505764_mp4-0016_jpg.rf.718ce9165537193aa3ff9a2955e0f94a.jpg": {
+        "CPU candidate": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 121.44086456298828,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "CUDA reference": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 121.47177124023438,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "cosine_similarity": 0.9999220371246338,
+        "element_count_matches": true,
+        "max_absolute_difference": 51.481781005859375,
+        "maximum_allowed_relative_mean_absolute_difference": 0.01,
+        "mean_absolute_difference": 1.0368629693984985,
+        "relative_mean_absolute_difference": 0.008535834777183726,
+        "status": true,
+        "tensor_shapes_match": true
+      },
+      "KakaoTalk_20250203_160505764_mp4-0019_jpg.rf.523979fe31b97a70a16eae4a1039011b.jpg": {
+        "CPU candidate": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 121.58493041992188,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "CUDA reference": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 121.54058074951172,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "cosine_similarity": 0.9999135732650757,
+        "element_count_matches": true,
+        "max_absolute_difference": 36.03724670410156,
+        "maximum_allowed_relative_mean_absolute_difference": 0.01,
+        "mean_absolute_difference": 1.0695759057998657,
+        "relative_mean_absolute_difference": 0.008800154641388471,
+        "status": true,
+        "tensor_shapes_match": true
+      },
+      "KakaoTalk_20250203_160505764_mp4-0023_jpg.rf.4a37031eddb16fa8c372dd73561da6eb.jpg": {
+        "CPU candidate": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 121.92279815673828,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "CUDA reference": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 121.89724731445312,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "cosine_similarity": 0.9999130368232727,
+        "element_count_matches": true,
+        "max_absolute_difference": 41.185455322265625,
+        "maximum_allowed_relative_mean_absolute_difference": 0.01,
+        "mean_absolute_difference": 1.0791014432907104,
+        "relative_mean_absolute_difference": 0.008852549725811268,
+        "status": true,
+        "tensor_shapes_match": true
+      },
+      "KakaoTalk_20250203_160505764_mp4-0024_jpg.rf.d98c63e47c9c7a040394e9072f126c98.jpg": {
+        "CPU candidate": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 121.57064056396484,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "CUDA reference": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 121.63715362548828,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "cosine_similarity": 0.9999151229858398,
+        "element_count_matches": true,
+        "max_absolute_difference": 41.1854248046875,
+        "maximum_allowed_relative_mean_absolute_difference": 0.01,
+        "mean_absolute_difference": 1.0604565143585205,
+        "relative_mean_absolute_difference": 0.008718195738315178,
+        "status": true,
+        "tensor_shapes_match": true
+      },
+      "KakaoTalk_20250203_160505764_mp4-0027_jpg.rf.5149908da0f0450504fab40dfce38233.jpg": {
+        "CPU candidate": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 120.78687286376953,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "CUDA reference": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 120.78958129882812,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "cosine_similarity": 0.9999159574508667,
+        "element_count_matches": true,
+        "max_absolute_difference": 61.77813720703125,
+        "maximum_allowed_relative_mean_absolute_difference": 0.01,
+        "mean_absolute_difference": 1.0465900897979736,
+        "relative_mean_absolute_difference": 0.008664572544620016,
+        "status": true,
+        "tensor_shapes_match": true
+      },
+      "KakaoTalk_20250203_160505764_mp4-0031_jpg.rf.132d145c38aa60b1b6b981bc231eb4e1.jpg": {
+        "CPU candidate": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 120.55941009521484,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "CUDA reference": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 120.55342102050781,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "cosine_similarity": 0.9999193549156189,
+        "element_count_matches": true,
+        "max_absolute_difference": 41.1854248046875,
+        "maximum_allowed_relative_mean_absolute_difference": 0.01,
+        "mean_absolute_difference": 1.0132321119308472,
+        "relative_mean_absolute_difference": 0.008404839143954963,
+        "status": true,
+        "tensor_shapes_match": true
+      },
+      "KakaoTalk_20250203_160505764_mp4-0032_jpg.rf.eebc59b14d4f35c3739fce9641ba370c.jpg": {
+        "CPU candidate": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 120.37060546875,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "CUDA reference": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 120.37499237060547,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "cosine_similarity": 0.9999235272407532,
+        "element_count_matches": true,
+        "max_absolute_difference": 41.1854248046875,
+        "maximum_allowed_relative_mean_absolute_difference": 0.01,
+        "mean_absolute_difference": 0.9988832473754883,
+        "relative_mean_absolute_difference": 0.008298096038919517,
+        "status": true,
+        "tensor_shapes_match": true
+      },
+      "KakaoTalk_20250203_160505764_mp4-0033_jpg.rf.45a8748535559788e23f3e8f631ba47a.jpg": {
+        "CPU candidate": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 637.0586547851562,
+          "mean_absolute_value": 120.3357925415039,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "CUDA reference": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 120.3116226196289,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "cosine_similarity": 0.9999195337295532,
+        "element_count_matches": true,
+        "max_absolute_difference": 41.1854248046875,
+        "maximum_allowed_relative_mean_absolute_difference": 0.01,
+        "mean_absolute_difference": 1.0241578817367554,
+        "relative_mean_absolute_difference": 0.00851254317277958,
+        "status": true,
+        "tensor_shapes_match": true
+      },
+      "KakaoTalk_20250203_160511603_mp4-0003_jpg.rf.76841736efbaa465126b7549773c8dcf.jpg": {
+        "CPU candidate": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 648.6704711914062,
+          "mean_absolute_value": 113.20870208740234,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "CUDA reference": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 658.966796875,
+          "mean_absolute_value": 113.27914428710938,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "cosine_similarity": 0.999930739402771,
+        "element_count_matches": true,
+        "max_absolute_difference": 51.481781005859375,
+        "maximum_allowed_relative_mean_absolute_difference": 0.01,
+        "mean_absolute_difference": 0.8100789189338684,
+        "relative_mean_absolute_difference": 0.007151174419897622,
+        "status": true,
+        "tensor_shapes_match": true
+      },
+      "KakaoTalk_20250203_160511603_mp4-0005_jpg.rf.f56ca446d4e58ba049e652e6e5a28b37.jpg": {
+        "CPU candidate": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 658.966796875,
+          "mean_absolute_value": 112.54199981689453,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "CUDA reference": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 669.26318359375,
+          "mean_absolute_value": 112.55013275146484,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "cosine_similarity": 0.9999406337738037,
+        "element_count_matches": true,
+        "max_absolute_difference": 41.1854248046875,
+        "maximum_allowed_relative_mean_absolute_difference": 0.01,
+        "mean_absolute_difference": 0.7544161677360535,
+        "relative_mean_absolute_difference": 0.006702934499437404,
+        "status": true,
+        "tensor_shapes_match": true
+      },
+      "KakaoTalk_20250203_160511603_mp4-0008_jpg.rf.861db1b2c2b6f43903f21ec4fad8cf94.jpg": {
+        "CPU candidate": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 115.8454818725586,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "CUDA reference": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 115.84547424316406,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "cosine_similarity": 0.9999179840087891,
+        "element_count_matches": true,
+        "max_absolute_difference": 41.1854248046875,
+        "maximum_allowed_relative_mean_absolute_difference": 0.01,
+        "mean_absolute_difference": 0.994849443435669,
+        "relative_mean_absolute_difference": 0.008587728177860812,
+        "status": true,
+        "tensor_shapes_match": true
+      },
+      "in_domain_synthetic": {
+        "CPU candidate": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 126.5865249633789,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "CUDA reference": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 643.0406494140625,
+          "mean_absolute_value": 139.0572509765625,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "cosine_similarity": 0.9140077829360962,
+        "element_count_matches": true,
+        "max_absolute_difference": 410.91973876953125,
+        "maximum_allowed_relative_mean_absolute_difference": 0.01,
+        "mean_absolute_difference": 37.96226119995117,
+        "relative_mean_absolute_difference": 0.27299735133085257,
+        "status": false,
+        "tensor_shapes_match": true
+      }
+    },
+    "quantizer count after model.cpu": 184,
+    "quantizers enabled after model.cpu": true,
+    "status": true,
+    "synthetic inputs": "diagnostic only; not an acceptance criterion"
+  },
+  "calibration occurred": false,
+  "candidate A direct OpenVINO": {
+    "PTQ used": false,
+    "acceptance population": "32 deterministic real VAL images",
+    "calibration occurred": false,
+    "calibration_dataset": null,
+    "export path": "ultralytics.utils.export.openvino.torch2openvino(compressed_model wrapper, quantize=None)",
+    "files": {
+      "BIN bytes": 2744884,
+      "XML bytes": 735797,
+      "total bytes": 3480681
+    },
+    "graph": {
+      "Convert_op_count": 97,
+      "FakeQuantize_op_count": 112,
+      "element_type_counts": {
+        "<Type: 'char'>": 9,
+        "<Type: 'float32'>": 1251,
+        "<Type: 'int32_t'>": 92,
+        "<Type: 'int64_t'>": 17,
+        "<Type: 'int8_t'>": 88
+      },
+      "input_element_types": [
+        "<Type: 'float32'>"
+      ],
+      "input_partial_shapes": [
+        "[1,3,640,640]"
+      ],
+      "int8_or_u8_graph_element_count": 88,
+      "int8_or_u8_graph_elements": [
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_39936",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_39940",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_39944",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_39948",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_39952",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_39956",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_39960",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_39964",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_39968",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_39972",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_39976",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_39980",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_39984",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_39988",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_39992",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_39996",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40000",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40004",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40008",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40012",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40016",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40020",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40024",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40028",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40032",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40036",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40040",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40044",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40048",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40052",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40056",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40060",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40064",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40068",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40072",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40076",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40080",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40084",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40088",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40092",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40096",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40100",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40104",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40108",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40112",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40116",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40120",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40124",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40128",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40132",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40136",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40140",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40144",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40148",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40152",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40156",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40160",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40164",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40168",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40172",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40176",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40180",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40184",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40188",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40192",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40196",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40200",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40204",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40208",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40212",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40216",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40220",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40224",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40228",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40232",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40236",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40240",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40244",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40248",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40252",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40256",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40260",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40264",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40268",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40272",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40276",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40280",
+          "op": "Constant"
+        },
+        {
+          "element_type": "<Type: 'int8_t'>",
+          "name": "Constant_40284",
+          "op": "Constant"
+        }
+      ],
+      "operation_type_counts": {
+        "Add": 112,
+        "Concat": 30,
+        "Constant": 747,
+        "Convert": 97,
+        "Convolution": 81,
+        "Divide": 10,
+        "FakeQuantize": 112,
+        "Gather": 9,
+        "Greater": 9,
+        "GroupConvolution": 7,
+        "Interpolate": 2,
+        "MatMul": 2,
+        "MaxPool": 3,
+        "Mod": 9,
+        "Multiply": 89,
+        "Parameter": 1,
+        "Reshape": 18,
+        "Result": 1,
+        "ShapeOf": 10,
+        "Sigmoid": 1,
+        "Softmax": 2,
+        "Subtract": 2,
+        "Swish": 76,
+        "Transpose": 1,
+        "VariadicSplit": 11
+      },
+      "output_element_types": [
+        "<Type: 'float32'>"
+      ],
+      "output_partial_shapes": [
+        "[1,7,8400]"
+      ],
+      "total_op_count": 1442
+    },
+    "int8_detect": false,
+    "numerical checks": {
+      "3dsense_2020_10_14__21_58_51_color_png_jpg.rf.3c78770d1d46d6b07735e4a544da6963.jpg": {
+        "candidate": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 113.94202423095703,
           "tensor_shapes": [
             [
               1,
@@ -709,19 +1770,19 @@
         },
         "cosine_similarity": 0.9999379515647888,
         "element_count_matches": true,
-        "max_absolute_difference": 31.0418701171875,
+        "max_absolute_difference": 41.1854248046875,
         "maximum_allowed_relative_mean_absolute_difference": 0.01,
-        "mean_absolute_difference": 0.8631879687309265,
-        "relative_mean_absolute_difference": 0.007378044439829625,
+        "mean_absolute_difference": 0.7726454734802246,
+        "relative_mean_absolute_difference": 0.006783412306211903,
         "status": true,
         "tensor_shapes_match": true
       },
-      "KakaoTalk_20250203_160505764_mp4-0007_jpg.rf.5accf680e4af0b67cb711ce099fc69be.jpg": {
-        "CPU candidate": {
+      "3dsense_2020_10_14__21_59_13_color_png_jpg.rf.2244dc70190a7ba276020b3b82a1a2e4.jpg": {
+        "candidate": {
           "element_count": 58800,
           "finite": true,
-          "max_absolute_value": 641.5320434570312,
-          "mean_absolute_value": 117.5592041015625,
+          "max_absolute_value": 637.0586547851562,
+          "mean_absolute_value": 115.81366729736328,
           "tensor_shapes": [
             [
               1,
@@ -730,443 +1791,21 @@
             ]
           ]
         },
-        "CUDA reference": {
-          "element_count": 58800,
-          "finite": true,
-          "max_absolute_value": 641.5320434570312,
-          "mean_absolute_value": 117.5303726196289,
-          "tensor_shapes": [
-            [
-              1,
-              7,
-              8400
-            ]
-          ]
-        },
-        "cosine_similarity": 0.9999377727508545,
+        "cosine_similarity": 0.9999246001243591,
         "element_count_matches": true,
-        "max_absolute_difference": 62.08375549316406,
+        "max_absolute_difference": 72.07450866699219,
         "maximum_allowed_relative_mean_absolute_difference": 0.01,
-        "mean_absolute_difference": 0.8572351932525635,
-        "relative_mean_absolute_difference": 0.007293733306086664,
+        "mean_absolute_difference": 0.8484760522842407,
+        "relative_mean_absolute_difference": 0.007322265415517825,
         "status": true,
         "tensor_shapes_match": true
       },
-      "KakaoTalk_20250203_160505764_mp4-0015_jpg.rf.e512fb69725c92e20eca7b6f29d202ce.jpg": {
-        "CPU candidate": {
+      "3dsense_2020_10_14__21_59_51_color_png_jpg.rf.38e526b51bbbabe0278f06840cee69e9.jpg": {
+        "candidate": {
           "element_count": 58800,
           "finite": true,
-          "max_absolute_value": 641.5320434570312,
-          "mean_absolute_value": 121.04072570800781,
-          "tensor_shapes": [
-            [
-              1,
-              7,
-              8400
-            ]
-          ]
-        },
-        "CUDA reference": {
-          "element_count": 58800,
-          "finite": true,
-          "max_absolute_value": 641.5320434570312,
-          "mean_absolute_value": 121.06462860107422,
-          "tensor_shapes": [
-            [
-              1,
-              7,
-              8400
-            ]
-          ]
-        },
-        "cosine_similarity": 0.9999337792396545,
-        "element_count_matches": true,
-        "max_absolute_difference": 31.0418701171875,
-        "maximum_allowed_relative_mean_absolute_difference": 0.01,
-        "mean_absolute_difference": 0.9369785785675049,
-        "relative_mean_absolute_difference": 0.007739490794251617,
-        "status": true,
-        "tensor_shapes_match": true
-      },
-      "KakaoTalk_20250203_160505764_mp4-0016_jpg.rf.718ce9165537193aa3ff9a2955e0f94a.jpg": {
-        "CPU candidate": {
-          "element_count": 58800,
-          "finite": true,
-          "max_absolute_value": 641.5320434570312,
-          "mean_absolute_value": 121.11054229736328,
-          "tensor_shapes": [
-            [
-              1,
-              7,
-              8400
-            ]
-          ]
-        },
-        "CUDA reference": {
-          "element_count": 58800,
-          "finite": true,
-          "max_absolute_value": 641.5320434570312,
-          "mean_absolute_value": 121.0805892944336,
-          "tensor_shapes": [
-            [
-              1,
-              7,
-              8400
-            ]
-          ]
-        },
-        "cosine_similarity": 0.9999274611473083,
-        "element_count_matches": true,
-        "max_absolute_difference": 41.38916015625,
-        "maximum_allowed_relative_mean_absolute_difference": 0.01,
-        "mean_absolute_difference": 0.9705737829208374,
-        "relative_mean_absolute_difference": 0.008015932104201092,
-        "status": true,
-        "tensor_shapes_match": true
-      },
-      "KakaoTalk_20250203_160505764_mp4-0019_jpg.rf.523979fe31b97a70a16eae4a1039011b.jpg": {
-        "CPU candidate": {
-          "element_count": 58800,
-          "finite": true,
-          "max_absolute_value": 641.5320434570312,
-          "mean_absolute_value": 121.06072998046875,
-          "tensor_shapes": [
-            [
-              1,
-              7,
-              8400
-            ]
-          ]
-        },
-        "CUDA reference": {
-          "element_count": 58800,
-          "finite": true,
-          "max_absolute_value": 641.5320434570312,
-          "mean_absolute_value": 120.99092102050781,
-          "tensor_shapes": [
-            [
-              1,
-              7,
-              8400
-            ]
-          ]
-        },
-        "cosine_similarity": 0.9999243021011353,
-        "element_count_matches": true,
-        "max_absolute_difference": 58.6346435546875,
-        "maximum_allowed_relative_mean_absolute_difference": 0.01,
-        "mean_absolute_difference": 0.9925143122673035,
-        "relative_mean_absolute_difference": 0.00820321313281906,
-        "status": true,
-        "tensor_shapes_match": true
-      },
-      "KakaoTalk_20250203_160505764_mp4-0023_jpg.rf.4a37031eddb16fa8c372dd73561da6eb.jpg": {
-        "CPU candidate": {
-          "element_count": 58800,
-          "finite": true,
-          "max_absolute_value": 641.5320434570312,
-          "mean_absolute_value": 120.9247055053711,
-          "tensor_shapes": [
-            [
-              1,
-              7,
-              8400
-            ]
-          ]
-        },
-        "CUDA reference": {
-          "element_count": 58800,
-          "finite": true,
-          "max_absolute_value": 641.5320434570312,
-          "mean_absolute_value": 121.01707458496094,
-          "tensor_shapes": [
-            [
-              1,
-              7,
-              8400
-            ]
-          ]
-        },
-        "cosine_similarity": 0.9999242424964905,
-        "element_count_matches": true,
-        "max_absolute_difference": 51.7364501953125,
-        "maximum_allowed_relative_mean_absolute_difference": 0.01,
-        "mean_absolute_difference": 0.9842588305473328,
-        "relative_mean_absolute_difference": 0.008133222802839499,
-        "status": true,
-        "tensor_shapes_match": true
-      },
-      "KakaoTalk_20250203_160505764_mp4-0024_jpg.rf.d98c63e47c9c7a040394e9072f126c98.jpg": {
-        "CPU candidate": {
-          "element_count": 58800,
-          "finite": true,
-          "max_absolute_value": 641.5320434570312,
-          "mean_absolute_value": 120.72686767578125,
-          "tensor_shapes": [
-            [
-              1,
-              7,
-              8400
-            ]
-          ]
-        },
-        "CUDA reference": {
-          "element_count": 58800,
-          "finite": true,
-          "max_absolute_value": 641.5320434570312,
-          "mean_absolute_value": 120.68082427978516,
-          "tensor_shapes": [
-            [
-              1,
-              7,
-              8400
-            ]
-          ]
-        },
-        "cosine_similarity": 0.9999286532402039,
-        "element_count_matches": true,
-        "max_absolute_difference": 41.38916015625,
-        "maximum_allowed_relative_mean_absolute_difference": 0.01,
-        "mean_absolute_difference": 0.9414162635803223,
-        "relative_mean_absolute_difference": 0.0078008769760948326,
-        "status": true,
-        "tensor_shapes_match": true
-      },
-      "KakaoTalk_20250203_160505764_mp4-0027_jpg.rf.5149908da0f0450504fab40dfce38233.jpg": {
-        "CPU candidate": {
-          "element_count": 58800,
-          "finite": true,
-          "max_absolute_value": 641.5320434570312,
-          "mean_absolute_value": 120.22196197509766,
-          "tensor_shapes": [
-            [
-              1,
-              7,
-              8400
-            ]
-          ]
-        },
-        "CUDA reference": {
-          "element_count": 58800,
-          "finite": true,
-          "max_absolute_value": 641.5320434570312,
-          "mean_absolute_value": 120.24606323242188,
-          "tensor_shapes": [
-            [
-              1,
-              7,
-              8400
-            ]
-          ]
-        },
-        "cosine_similarity": 0.9999297857284546,
-        "element_count_matches": true,
-        "max_absolute_difference": 58.6346435546875,
-        "maximum_allowed_relative_mean_absolute_difference": 0.01,
-        "mean_absolute_difference": 0.9481631517410278,
-        "relative_mean_absolute_difference": 0.007885190801700817,
-        "status": true,
-        "tensor_shapes_match": true
-      },
-      "KakaoTalk_20250203_160505764_mp4-0031_jpg.rf.132d145c38aa60b1b6b981bc231eb4e1.jpg": {
-        "CPU candidate": {
-          "element_count": 58800,
-          "finite": true,
-          "max_absolute_value": 641.5320434570312,
-          "mean_absolute_value": 120.15460968017578,
-          "tensor_shapes": [
-            [
-              1,
-              7,
-              8400
-            ]
-          ]
-        },
-        "CUDA reference": {
-          "element_count": 58800,
-          "finite": true,
-          "max_absolute_value": 641.5320434570312,
-          "mean_absolute_value": 120.14128875732422,
-          "tensor_shapes": [
-            [
-              1,
-              7,
-              8400
-            ]
-          ]
-        },
-        "cosine_similarity": 0.9999331831932068,
-        "element_count_matches": true,
-        "max_absolute_difference": 31.041900634765625,
-        "maximum_allowed_relative_mean_absolute_difference": 0.01,
-        "mean_absolute_difference": 0.9272660613059998,
-        "relative_mean_absolute_difference": 0.00771812980281078,
-        "status": true,
-        "tensor_shapes_match": true
-      },
-      "KakaoTalk_20250203_160505764_mp4-0032_jpg.rf.eebc59b14d4f35c3739fce9641ba370c.jpg": {
-        "CPU candidate": {
-          "element_count": 58800,
-          "finite": true,
-          "max_absolute_value": 641.5320434570312,
-          "mean_absolute_value": 119.94942474365234,
-          "tensor_shapes": [
-            [
-              1,
-              7,
-              8400
-            ]
-          ]
-        },
-        "CUDA reference": {
-          "element_count": 58800,
-          "finite": true,
-          "max_absolute_value": 641.5320434570312,
-          "mean_absolute_value": 119.99740600585938,
-          "tensor_shapes": [
-            [
-              1,
-              7,
-              8400
-            ]
-          ]
-        },
-        "cosine_similarity": 0.9999352097511292,
-        "element_count_matches": true,
-        "max_absolute_difference": 36.21551513671875,
-        "maximum_allowed_relative_mean_absolute_difference": 0.01,
-        "mean_absolute_difference": 0.9128264784812927,
-        "relative_mean_absolute_difference": 0.0076070517594082005,
-        "status": true,
-        "tensor_shapes_match": true
-      },
-      "KakaoTalk_20250203_160505764_mp4-0033_jpg.rf.45a8748535559788e23f3e8f631ba47a.jpg": {
-        "CPU candidate": {
-          "element_count": 58800,
-          "finite": true,
-          "max_absolute_value": 636.8155517578125,
-          "mean_absolute_value": 119.96814727783203,
-          "tensor_shapes": [
-            [
-              1,
-              7,
-              8400
-            ]
-          ]
-        },
-        "CUDA reference": {
-          "element_count": 58800,
-          "finite": true,
-          "max_absolute_value": 636.8155517578125,
-          "mean_absolute_value": 119.94668579101562,
-          "tensor_shapes": [
-            [
-              1,
-              7,
-              8400
-            ]
-          ]
-        },
-        "cosine_similarity": 0.9999328255653381,
-        "element_count_matches": true,
-        "max_absolute_difference": 41.38917541503906,
-        "maximum_allowed_relative_mean_absolute_difference": 0.01,
-        "mean_absolute_difference": 0.9327861070632935,
-        "relative_mean_absolute_difference": 0.007776672618437299,
-        "status": true,
-        "tensor_shapes_match": true
-      },
-      "KakaoTalk_20250203_160511603_mp4-0003_jpg.rf.76841736efbaa465126b7549773c8dcf.jpg": {
-        "CPU candidate": {
-          "element_count": 58800,
-          "finite": true,
-          "max_absolute_value": 651.8793334960938,
-          "mean_absolute_value": 112.79956817626953,
-          "tensor_shapes": [
-            [
-              1,
-              7,
-              8400
-            ]
-          ]
-        },
-        "CUDA reference": {
-          "element_count": 58800,
-          "finite": true,
-          "max_absolute_value": 662.2266235351562,
-          "mean_absolute_value": 112.81378173828125,
-          "tensor_shapes": [
-            [
-              1,
-              7,
-              8400
-            ]
-          ]
-        },
-        "cosine_similarity": 0.9999460577964783,
-        "element_count_matches": true,
-        "max_absolute_difference": 62.08375549316406,
-        "maximum_allowed_relative_mean_absolute_difference": 0.01,
-        "mean_absolute_difference": 0.7208318710327148,
-        "relative_mean_absolute_difference": 0.006389572797984787,
-        "status": true,
-        "tensor_shapes_match": true
-      },
-      "KakaoTalk_20250203_160511603_mp4-0005_jpg.rf.f56ca446d4e58ba049e652e6e5a28b37.jpg": {
-        "CPU candidate": {
-          "element_count": 58800,
-          "finite": true,
-          "max_absolute_value": 672.5739135742188,
-          "mean_absolute_value": 112.28826904296875,
-          "tensor_shapes": [
-            [
-              1,
-              7,
-              8400
-            ]
-          ]
-        },
-        "CUDA reference": {
-          "element_count": 58800,
-          "finite": true,
-          "max_absolute_value": 651.8793334960938,
-          "mean_absolute_value": 112.28433990478516,
-          "tensor_shapes": [
-            [
-              1,
-              7,
-              8400
-            ]
-          ]
-        },
-        "cosine_similarity": 0.9999545812606812,
-        "element_count_matches": true,
-        "max_absolute_difference": 35.35324478149414,
-        "maximum_allowed_relative_mean_absolute_difference": 0.01,
-        "mean_absolute_difference": 0.6704021692276001,
-        "relative_mean_absolute_difference": 0.00597057585943051,
-        "status": true,
-        "tensor_shapes_match": true
-      },
-      "KakaoTalk_20250203_160511603_mp4-0008_jpg.rf.861db1b2c2b6f43903f21ec4fad8cf94.jpg": {
-        "CPU candidate": {
-          "element_count": 58800,
-          "finite": true,
-          "max_absolute_value": 641.5320434570312,
-          "mean_absolute_value": 115.91451263427734,
-          "tensor_shapes": [
-            [
-              1,
-              7,
-              8400
-            ]
-          ]
-        },
-        "CUDA reference": {
-          "element_count": 58800,
-          "finite": true,
-          "max_absolute_value": 641.5320434570312,
-          "mean_absolute_value": 115.91737365722656,
+          "max_absolute_value": 648.67041015625,
+          "mean_absolute_value": 117.677734375,
           "tensor_shapes": [
             [
               1,
@@ -1177,19 +1816,686 @@
         },
         "cosine_similarity": 0.9999277591705322,
         "element_count_matches": true,
-        "max_absolute_difference": 51.736480712890625,
+        "max_absolute_difference": 58.34600830078125,
         "maximum_allowed_relative_mean_absolute_difference": 0.01,
-        "mean_absolute_difference": 0.9280653595924377,
-        "relative_mean_absolute_difference": 0.008006266276673703,
+        "mean_absolute_difference": 0.9180930256843567,
+        "relative_mean_absolute_difference": 0.007799361180765329,
+        "status": true,
+        "tensor_shapes_match": true
+      },
+      "3dsense_2020_10_14__22_00_01_color_png_jpg.rf.0a6647e340ed6ba762118bb4567aafbe.jpg": {
+        "candidate": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 637.0586547851562,
+          "mean_absolute_value": 114.93404388427734,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "cosine_similarity": 0.9999373555183411,
+        "element_count_matches": true,
+        "max_absolute_difference": 54.91387939453125,
+        "maximum_allowed_relative_mean_absolute_difference": 0.01,
+        "mean_absolute_difference": 0.7799805998802185,
+        "relative_mean_absolute_difference": 0.006785690749485316,
+        "status": true,
+        "tensor_shapes_match": true
+      },
+      "3dsense_2020_10_14__22_03_38_color_png_jpg.rf.bea3f1a5ee9cb08a3e31cf41d0de9196.jpg": {
+        "candidate": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 648.67041015625,
+          "mean_absolute_value": 118.6270751953125,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "cosine_similarity": 0.9999239444732666,
+        "element_count_matches": true,
+        "max_absolute_difference": 65.21023559570312,
+        "maximum_allowed_relative_mean_absolute_difference": 0.01,
+        "mean_absolute_difference": 0.9142127633094788,
+        "relative_mean_absolute_difference": 0.00770399424150233,
+        "status": true,
+        "tensor_shapes_match": true
+      },
+      "3dsense_2020_10_14__22_03_57_color_png_jpg.rf.16dad4dc9debf872e1e30798bcd7876b.jpg": {
+        "candidate": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 117.7680892944336,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "cosine_similarity": 0.9999322891235352,
+        "element_count_matches": true,
+        "max_absolute_difference": 51.48175048828125,
+        "maximum_allowed_relative_mean_absolute_difference": 0.01,
+        "mean_absolute_difference": 0.8733740448951721,
+        "relative_mean_absolute_difference": 0.007414036614497745,
+        "status": true,
+        "tensor_shapes_match": true
+      },
+      "3dsense_2020_10_14__22_04_02_color_png_jpg.rf.6c1bf19f7ca4eadff17f5d1fc193a7cc.jpg": {
+        "candidate": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 637.0586547851562,
+          "mean_absolute_value": 115.65137481689453,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "cosine_similarity": 0.9999321699142456,
+        "element_count_matches": true,
+        "max_absolute_difference": 51.48179626464844,
+        "maximum_allowed_relative_mean_absolute_difference": 0.01,
+        "mean_absolute_difference": 0.820855438709259,
+        "relative_mean_absolute_difference": 0.007094748858729774,
+        "status": true,
+        "tensor_shapes_match": true
+      },
+      "3dsense_2020_10_14__22_04_05_color_png_jpg.rf.004d0a4cd9b8f35ef9f7e79d757a1817.jpg": {
+        "candidate": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 637.0586547851562,
+          "mean_absolute_value": 115.60153198242188,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "cosine_similarity": 0.9999343752861023,
+        "element_count_matches": true,
+        "max_absolute_difference": 41.1854248046875,
+        "maximum_allowed_relative_mean_absolute_difference": 0.01,
+        "mean_absolute_difference": 0.821757435798645,
+        "relative_mean_absolute_difference": 0.007106560520381844,
+        "status": true,
+        "tensor_shapes_match": true
+      },
+      "3dsense_2020_10_14__22_04_14_color_png_jpg.rf.6b70d0020611293e5efaa4591fcad715.jpg": {
+        "candidate": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 637.0586547851562,
+          "mean_absolute_value": 120.26203918457031,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "cosine_similarity": 0.9999163746833801,
+        "element_count_matches": true,
+        "max_absolute_difference": 72.074462890625,
+        "maximum_allowed_relative_mean_absolute_difference": 0.01,
+        "mean_absolute_difference": 1.008300542831421,
+        "relative_mean_absolute_difference": 0.00838228138721462,
+        "status": true,
+        "tensor_shapes_match": true
+      },
+      "3dsense_2020_10_14__22_15_54_color_png_jpg.rf.bc9128db814057de8f88b99fd0140724.jpg": {
+        "candidate": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 115.49579620361328,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "cosine_similarity": 0.9999380707740784,
+        "element_count_matches": true,
+        "max_absolute_difference": 51.48175048828125,
+        "maximum_allowed_relative_mean_absolute_difference": 0.01,
+        "mean_absolute_difference": 0.8092968463897705,
+        "relative_mean_absolute_difference": 0.007009656882439936,
+        "status": true,
+        "tensor_shapes_match": true
+      },
+      "3dsense_2020_10_14__22_16_32_color_png_jpg.rf.cda0c2d19b34a602e0775023b876f737.jpg": {
+        "candidate": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 114.34551239013672,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "cosine_similarity": 0.9999343752861023,
+        "element_count_matches": true,
+        "max_absolute_difference": 48.049652099609375,
+        "maximum_allowed_relative_mean_absolute_difference": 0.01,
+        "mean_absolute_difference": 0.8082699775695801,
+        "relative_mean_absolute_difference": 0.007066863018145041,
+        "status": true,
+        "tensor_shapes_match": true
+      },
+      "KakaoTalk_20250203_160502315_mp4-0013_jpg.rf.6469c1b00e8c371f8198f9fbb6ba64e4.jpg": {
+        "candidate": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 637.0586547851562,
+          "mean_absolute_value": 117.42782592773438,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "cosine_similarity": 0.9999365210533142,
+        "element_count_matches": true,
+        "max_absolute_difference": 30.88909912109375,
+        "maximum_allowed_relative_mean_absolute_difference": 0.01,
+        "mean_absolute_difference": 0.8546431660652161,
+        "relative_mean_absolute_difference": 0.007275618582186977,
+        "status": true,
+        "tensor_shapes_match": true
+      },
+      "KakaoTalk_20250203_160502315_mp4-0025_jpg.rf.a8a7324ebaad66e43fbe1c25daf78f65.jpg": {
+        "candidate": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 637.0586547851562,
+          "mean_absolute_value": 118.08321380615234,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "cosine_similarity": 0.9999333620071411,
+        "element_count_matches": true,
+        "max_absolute_difference": 30.88909912109375,
+        "maximum_allowed_relative_mean_absolute_difference": 0.01,
+        "mean_absolute_difference": 0.8829529881477356,
+        "relative_mean_absolute_difference": 0.0074806510232547675,
+        "status": true,
+        "tensor_shapes_match": true
+      },
+      "KakaoTalk_20250203_160502315_mp4-0027_jpg.rf.03cb1e13f52e935f28d78dc121aec253.jpg": {
+        "candidate": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 637.0586547851562,
+          "mean_absolute_value": 117.5688705444336,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "cosine_similarity": 0.9999343752861023,
+        "element_count_matches": true,
+        "max_absolute_difference": 30.88909912109375,
+        "maximum_allowed_relative_mean_absolute_difference": 0.01,
+        "mean_absolute_difference": 0.8637620806694031,
+        "relative_mean_absolute_difference": 0.007345114932713208,
+        "status": true,
+        "tensor_shapes_match": true
+      },
+      "KakaoTalk_20250203_160503119_mp4-0023_jpg.rf.fe0d2a1d2e8340ddf6490d0642e21b70.jpg": {
+        "candidate": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 118.47305297851562,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "cosine_similarity": 0.9999227523803711,
+        "element_count_matches": true,
+        "max_absolute_difference": 54.913909912109375,
+        "maximum_allowed_relative_mean_absolute_difference": 0.01,
+        "mean_absolute_difference": 0.9511145353317261,
+        "relative_mean_absolute_difference": 0.008025535837820738,
+        "status": true,
+        "tensor_shapes_match": true
+      },
+      "KakaoTalk_20250203_160505764_mp4-0001_jpg.rf.71a140f0948c02548d53940167a2c29d.jpg": {
+        "candidate": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 637.0586547851562,
+          "mean_absolute_value": 117.0543212890625,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "cosine_similarity": 0.9999339580535889,
+        "element_count_matches": true,
+        "max_absolute_difference": 51.481781005859375,
+        "maximum_allowed_relative_mean_absolute_difference": 0.01,
+        "mean_absolute_difference": 0.8562585115432739,
+        "relative_mean_absolute_difference": 0.007313015827646867,
+        "status": true,
+        "tensor_shapes_match": true
+      },
+      "KakaoTalk_20250203_160505764_mp4-0002_jpg.rf.edc95b6a526c48e73409986e6d63b948.jpg": {
+        "candidate": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 648.67041015625,
+          "mean_absolute_value": 117.89237213134766,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "cosine_similarity": 0.9999284744262695,
+        "element_count_matches": true,
+        "max_absolute_difference": 41.185455322265625,
+        "maximum_allowed_relative_mean_absolute_difference": 0.01,
+        "mean_absolute_difference": 0.9205594062805176,
+        "relative_mean_absolute_difference": 0.007802658028486336,
+        "status": true,
+        "tensor_shapes_match": true
+      },
+      "KakaoTalk_20250203_160505764_mp4-0003_jpg.rf.99703037b44db0de35b66ca5d39cbf35.jpg": {
+        "candidate": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 637.0586547851562,
+          "mean_absolute_value": 117.26451873779297,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "cosine_similarity": 0.9999345541000366,
+        "element_count_matches": true,
+        "max_absolute_difference": 41.185394287109375,
+        "maximum_allowed_relative_mean_absolute_difference": 0.01,
+        "mean_absolute_difference": 0.8677716255187988,
+        "relative_mean_absolute_difference": 0.0073989492880449275,
+        "status": true,
+        "tensor_shapes_match": true
+      },
+      "KakaoTalk_20250203_160505764_mp4-0006_jpg.rf.45dca245d5816c7eabf4545390e59396.jpg": {
+        "candidate": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 117.09161376953125,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "cosine_similarity": 0.9999328255653381,
+        "element_count_matches": true,
+        "max_absolute_difference": 41.185455322265625,
+        "maximum_allowed_relative_mean_absolute_difference": 0.01,
+        "mean_absolute_difference": 0.8744232058525085,
+        "relative_mean_absolute_difference": 0.007467827858050777,
+        "status": true,
+        "tensor_shapes_match": true
+      },
+      "KakaoTalk_20250203_160505764_mp4-0007_jpg.rf.5accf680e4af0b67cb711ce099fc69be.jpg": {
+        "candidate": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 117.82965087890625,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "cosine_similarity": 0.9999306201934814,
+        "element_count_matches": true,
+        "max_absolute_difference": 37.753326416015625,
+        "maximum_allowed_relative_mean_absolute_difference": 0.01,
+        "mean_absolute_difference": 0.9121972918510437,
+        "relative_mean_absolute_difference": 0.007741129360812367,
+        "status": true,
+        "tensor_shapes_match": true
+      },
+      "KakaoTalk_20250203_160505764_mp4-0015_jpg.rf.e512fb69725c92e20eca7b6f29d202ce.jpg": {
+        "candidate": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 648.67041015625,
+          "mean_absolute_value": 121.43132019042969,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "cosine_similarity": 0.9999250769615173,
+        "element_count_matches": true,
+        "max_absolute_difference": 49.765716552734375,
+        "maximum_allowed_relative_mean_absolute_difference": 0.01,
+        "mean_absolute_difference": 0.9840236306190491,
+        "relative_mean_absolute_difference": 0.008101724895418055,
+        "status": true,
+        "tensor_shapes_match": true
+      },
+      "KakaoTalk_20250203_160505764_mp4-0016_jpg.rf.718ce9165537193aa3ff9a2955e0f94a.jpg": {
+        "candidate": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 121.51042175292969,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "cosine_similarity": 0.9999299645423889,
+        "element_count_matches": true,
+        "max_absolute_difference": 41.185455322265625,
+        "maximum_allowed_relative_mean_absolute_difference": 0.01,
+        "mean_absolute_difference": 0.9522815942764282,
+        "relative_mean_absolute_difference": 0.007841525154677271,
+        "status": true,
+        "tensor_shapes_match": true
+      },
+      "KakaoTalk_20250203_160505764_mp4-0019_jpg.rf.523979fe31b97a70a16eae4a1039011b.jpg": {
+        "candidate": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 121.58536529541016,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "cosine_similarity": 0.99992436170578,
+        "element_count_matches": true,
+        "max_absolute_difference": 41.185455322265625,
+        "maximum_allowed_relative_mean_absolute_difference": 0.01,
+        "mean_absolute_difference": 0.9736992716789246,
+        "relative_mean_absolute_difference": 0.008008387785525947,
+        "status": true,
+        "tensor_shapes_match": true
+      },
+      "KakaoTalk_20250203_160505764_mp4-0023_jpg.rf.4a37031eddb16fa8c372dd73561da6eb.jpg": {
+        "candidate": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 121.83053588867188,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "cosine_similarity": 0.9999284148216248,
+        "element_count_matches": true,
+        "max_absolute_difference": 41.185455322265625,
+        "maximum_allowed_relative_mean_absolute_difference": 0.01,
+        "mean_absolute_difference": 0.9575403332710266,
+        "relative_mean_absolute_difference": 0.007853661068703962,
+        "status": true,
+        "tensor_shapes_match": true
+      },
+      "KakaoTalk_20250203_160505764_mp4-0024_jpg.rf.d98c63e47c9c7a040394e9072f126c98.jpg": {
+        "candidate": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 121.59208679199219,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "cosine_similarity": 0.9999251961708069,
+        "element_count_matches": true,
+        "max_absolute_difference": 51.4818115234375,
+        "maximum_allowed_relative_mean_absolute_difference": 0.01,
+        "mean_absolute_difference": 0.967238187789917,
+        "relative_mean_absolute_difference": 0.007956182375143454,
+        "status": true,
+        "tensor_shapes_match": true
+      },
+      "KakaoTalk_20250203_160505764_mp4-0027_jpg.rf.5149908da0f0450504fab40dfce38233.jpg": {
+        "candidate": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 120.81497955322266,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "cosine_similarity": 0.9999251961708069,
+        "element_count_matches": true,
+        "max_absolute_difference": 36.037254333496094,
+        "maximum_allowed_relative_mean_absolute_difference": 0.01,
+        "mean_absolute_difference": 0.9578679203987122,
+        "relative_mean_absolute_difference": 0.007930231967169573,
+        "status": true,
+        "tensor_shapes_match": true
+      },
+      "KakaoTalk_20250203_160505764_mp4-0031_jpg.rf.132d145c38aa60b1b6b981bc231eb4e1.jpg": {
+        "candidate": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 120.58448791503906,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "cosine_similarity": 0.9999299645423889,
+        "element_count_matches": true,
+        "max_absolute_difference": 30.88909912109375,
+        "maximum_allowed_relative_mean_absolute_difference": 0.01,
+        "mean_absolute_difference": 0.9232674837112427,
+        "relative_mean_absolute_difference": 0.00765819510050745,
+        "status": true,
+        "tensor_shapes_match": true
+      },
+      "KakaoTalk_20250203_160505764_mp4-0032_jpg.rf.eebc59b14d4f35c3739fce9641ba370c.jpg": {
+        "candidate": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 120.31462860107422,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "cosine_similarity": 0.9999281764030457,
+        "element_count_matches": true,
+        "max_absolute_difference": 41.185455322265625,
+        "maximum_allowed_relative_mean_absolute_difference": 0.01,
+        "mean_absolute_difference": 0.9254822731018066,
+        "relative_mean_absolute_difference": 0.007688606944343032,
+        "status": true,
+        "tensor_shapes_match": true
+      },
+      "KakaoTalk_20250203_160505764_mp4-0033_jpg.rf.45a8748535559788e23f3e8f631ba47a.jpg": {
+        "candidate": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 637.0586547851562,
+          "mean_absolute_value": 120.32286071777344,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "cosine_similarity": 0.9999299645423889,
+        "element_count_matches": true,
+        "max_absolute_difference": 41.18541717529297,
+        "maximum_allowed_relative_mean_absolute_difference": 0.01,
+        "mean_absolute_difference": 0.941106379032135,
+        "relative_mean_absolute_difference": 0.007820668806477896,
+        "status": true,
+        "tensor_shapes_match": true
+      },
+      "KakaoTalk_20250203_160511603_mp4-0003_jpg.rf.76841736efbaa465126b7549773c8dcf.jpg": {
+        "candidate": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 648.67041015625,
+          "mean_absolute_value": 113.22293853759766,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "cosine_similarity": 0.9999393224716187,
+        "element_count_matches": true,
+        "max_absolute_difference": 51.481781005859375,
+        "maximum_allowed_relative_mean_absolute_difference": 0.01,
+        "mean_absolute_difference": 0.7592063546180725,
+        "relative_mean_absolute_difference": 0.006706254383447751,
+        "status": true,
+        "tensor_shapes_match": true
+      },
+      "KakaoTalk_20250203_160511603_mp4-0005_jpg.rf.f56ca446d4e58ba049e652e6e5a28b37.jpg": {
+        "candidate": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 669.2631225585938,
+          "mean_absolute_value": 112.52919006347656,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "cosine_similarity": 0.9999421834945679,
+        "element_count_matches": true,
+        "max_absolute_difference": 34.321197509765625,
+        "maximum_allowed_relative_mean_absolute_difference": 0.01,
+        "mean_absolute_difference": 0.7137966156005859,
+        "relative_mean_absolute_difference": 0.006342490952372721,
+        "status": true,
+        "tensor_shapes_match": true
+      },
+      "KakaoTalk_20250203_160511603_mp4-0008_jpg.rf.861db1b2c2b6f43903f21ec4fad8cf94.jpg": {
+        "candidate": {
+          "element_count": 58800,
+          "finite": true,
+          "max_absolute_value": 638.3740844726562,
+          "mean_absolute_value": 115.87328338623047,
+          "tensor_shapes": [
+            [
+              1,
+              7,
+              8400
+            ]
+          ]
+        },
+        "cosine_similarity": 0.999927282333374,
+        "element_count_matches": true,
+        "max_absolute_difference": 35.179229736328125,
+        "maximum_allowed_relative_mean_absolute_difference": 0.01,
+        "mean_absolute_difference": 0.9126589894294739,
+        "relative_mean_absolute_difference": 0.007878244146228236,
         "status": true,
         "tensor_shapes_match": true
       },
       "in_domain_synthetic": {
-        "CPU candidate": {
+        "candidate": {
           "element_count": 58800,
           "finite": true,
-          "max_absolute_value": 641.5320434570312,
-          "mean_absolute_value": 126.2772445678711,
+          "max_absolute_value": 648.67041015625,
+          "mean_absolute_value": 126.58952331542969,
           "tensor_shapes": [
             [
               1,
@@ -1198,34 +2504,38 @@
             ]
           ]
         },
-        "CUDA reference": {
-          "element_count": 58800,
-          "finite": true,
-          "max_absolute_value": 642.1767578125,
-          "mean_absolute_value": 138.71778869628906,
-          "tensor_shapes": [
-            [
-              1,
-              7,
-              8400
-            ]
-          ]
-        },
-        "cosine_similarity": 0.9136898517608643,
+        "cosine_similarity": 0.9998946189880371,
         "element_count_matches": true,
-        "max_absolute_difference": 413.25048828125,
+        "max_absolute_difference": 46.333587646484375,
         "maximum_allowed_relative_mean_absolute_difference": 0.01,
-        "mean_absolute_difference": 38.00898742675781,
-        "relative_mean_absolute_difference": 0.2740022587151767,
-        "status": false,
+        "mean_absolute_difference": 1.2490859031677246,
+        "relative_mean_absolute_difference": 0.009867447609681057,
+        "status": true,
         "tensor_shapes_match": true
       }
     },
-    "quantizer count after model.cpu": 184,
-    "quantizers enabled after model.cpu": true,
-    "status": false
+    "numerical equivalence": true,
+    "quantization graph visible": true,
+    "quantize": null,
+    "representative numerical summary": {
+      "VAL input count": 32,
+      "count relative MAE <= 1 percent": 32,
+      "count relative MAE > 1 percent": 0,
+      "in-domain synthetic relative MAE": 0.009867447609681057,
+      "maximum relative MAE": 0.00838228138721462,
+      "mean relative MAE": 0.007503298296685124,
+      "median relative MAE": 0.007569423061881108,
+      "minimum relative MAE": 0.006342490952372721,
+      "p95 relative MAE": 0.00805982091373953
+    },
+    "success": true,
+    "synthetic inputs": "diagnostic only; not an acceptance criterion",
+    "torch2openvino signature": "(model: 'torch.nn.Module', im: 'torch.Tensor | list[torch.Tensor] | tuple[torch.Tensor, ...]', output_dir: 'Path | str | None' = None, dynamic: 'bool' = False, quantize: 'int | str | None' = None, calibration_dataset: 'Any | None' = None, int8_detect: 'bool' = False, prefix: 'str' = '') -> 'Any'"
   },
-  "calibration occurred": false,
+  "candidate B controller export": {
+    "attempted": false,
+    "reason": "Candidate A was accepted; Candidate B is reserved for a failed or unsupported Candidate A."
+  },
   "controller API inspection": {
     "controller class": "nncf.torch.quantization.algo.QuantizationController",
     "direct openvino.convert_model signature": "(input_model: [<class 'str'>, <class 'pathlib.Path'>, typing.Any, <class 'list'>], input: [<class 'list'>, <class 'dict'>, <class 'str'>] = None, output: [<class 'str'>, <class 'list'>] = None, example_input: Any = None, extension: [<class 'str'>, <class 'pathlib.Path'>, <class 'list'>, typing.Any] = None, verbose: bool = False, share_weights: bool = True) -> openvino.runtime.ie_api.Model",
@@ -1283,8 +2593,8 @@
     "loaded state entries": 1323,
     "quantizer count": 184
   },
-  "selected export route": null,
-  "status": "stopped: restored QAT CUDA-to-CPU mismatch",
+  "selected export route": "direct OpenVINO",
+  "status": "accepted and promoted",
   "strip route": "disabled after Phase 7A semantic mismatch; not invoked",
   "test split": "not loaded or used"
 }

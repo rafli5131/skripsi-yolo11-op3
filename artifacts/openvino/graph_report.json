@@ -1,1 +1,496 @@
-{}
+{
+  "direct_qat": {
+    "Convert_op_count": 97,
+    "FakeQuantize_op_count": 112,
+    "element_type_counts": {
+      "<Type: 'char'>": 9,
+      "<Type: 'float32'>": 1251,
+      "<Type: 'int32_t'>": 92,
+      "<Type: 'int64_t'>": 17,
+      "<Type: 'int8_t'>": 88
+    },
+    "input_element_types": [
+      "<Type: 'float32'>"
+    ],
+    "input_partial_shapes": [
+      "[1,3,640,640]"
+    ],
+    "int8_or_u8_graph_element_count": 88,
+    "int8_or_u8_graph_elements": [
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_39936",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_39940",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_39944",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_39948",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_39952",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_39956",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_39960",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_39964",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_39968",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_39972",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_39976",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_39980",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_39984",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_39988",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_39992",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_39996",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40000",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40004",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40008",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40012",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40016",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40020",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40024",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40028",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40032",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40036",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40040",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40044",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40048",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40052",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40056",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40060",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40064",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40068",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40072",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40076",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40080",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40084",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40088",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40092",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40096",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40100",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40104",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40108",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40112",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40116",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40120",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40124",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40128",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40132",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40136",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40140",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40144",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40148",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40152",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40156",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40160",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40164",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40168",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40172",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40176",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40180",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40184",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40188",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40192",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40196",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40200",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40204",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40208",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40212",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40216",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40220",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40224",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40228",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40232",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40236",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40240",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40244",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40248",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40252",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40256",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40260",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40264",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40268",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40272",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40276",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40280",
+        "op": "Constant"
+      },
+      {
+        "element_type": "<Type: 'int8_t'>",
+        "name": "Constant_40284",
+        "op": "Constant"
+      }
+    ],
+    "operation_type_counts": {
+      "Add": 112,
+      "Concat": 30,
+      "Constant": 747,
+      "Convert": 97,
+      "Convolution": 81,
+      "Divide": 10,
+      "FakeQuantize": 112,
+      "Gather": 9,
+      "Greater": 9,
+      "GroupConvolution": 7,
+      "Interpolate": 2,
+      "MatMul": 2,
+      "MaxPool": 3,
+      "Mod": 9,
+      "Multiply": 89,
+      "Parameter": 1,
+      "Reshape": 18,
+      "Result": 1,
+      "ShapeOf": 10,
+      "Sigmoid": 1,
+      "Softmax": 2,
+      "Subtract": 2,
+      "Swish": 76,
+      "Transpose": 1,
+      "VariadicSplit": 11
+    },
+    "output_element_types": [
+      "<Type: 'float32'>"
+    ],
+    "output_partial_shapes": [
+      "[1,7,8400]"
+    ],
+    "total_op_count": 1442
+  }
+}
