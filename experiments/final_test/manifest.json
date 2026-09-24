@@ -8,7 +8,7 @@
   },
   "NNCF loaded state entries": 1323,
   "NNCF reload status": true,
-  "QAT SHA256": "f96911a1b3f4f9a8987a7fb57611aac2455b2b5c7b93c27db146d69d5013a8c8",
+  "QAT SHA256": "b9e520cbd5d56597014c932701f471505d2243e02763a2245a51fd83fc35430d",
   "QAT checkpoint path": "/mnt/nas-hpg9/rafli5131/rafli/advance_vision/artifacts/checkpoints/qat/qat_best.pt",
   "QAT fake quantization active": true,
   "batch": 16,
@@ -55,7 +55,7 @@
   "status": "passed",
   "test annotation count": 734,
   "test image count": 592,
-  "timestamp": "2026-09-02T13:18:05.597250+00:00",
+  "timestamp": "2026-09-24T03:35:38.543217+00:00",
   "timing statement": "DIAGNOSTIC \u2014 NOT FINAL DEPLOYMENT BENCHMARK",
   "versions": {
     "Python": "3.11.2",
