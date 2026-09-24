@@ -62,10 +62,10 @@
     "label": "DIAGNOSTIC \u2014 NOT FINAL DEPLOYMENT BENCHMARK",
     "unit": "milliseconds per image",
     "values": {
-      "inference": 2.352011264175982,
-      "loss": 1.46358525789519,
-      "postprocess": 0.7715268922667649,
-      "preprocess": 0.4127906883966077
+      "inference": 2.8222381527460105,
+      "loss": 2.1710505259122597,
+      "postprocess": 0.7331217387439432,
+      "preprocess": 0.35371247999923855
     }
   }
 }
