@@ -1,4 +1,17 @@
-"""Download the configured Roboflow YOLO11 detection dataset and normalize paths."""
+"""STEP 01 — Akuisisi dataset.
+
+Mengunduh dataset deteksi objek dari Roboflow, memverifikasi class mapping
+`ball`, `gawang`, dan `robot`, lalu membuat YAML dataset canonical yang
+dipakai oleh seluruh tahap penelitian.
+
+Input:
+- konfigurasi `configs/base.yaml`
+- `ROBOFLOW_API_KEY` dan `ROBOFLOW_VERSION`
+
+Output:
+- dataset pada `data/raw/advance_vision_human/`
+- `data/dataset/data.yaml`
+"""
 
 from __future__ import annotations
 
