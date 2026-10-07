@@ -28,7 +28,7 @@ import ultralytics
 import yaml
 from ultralytics import YOLO
 
-from op3_model_audit import ptq_validation_gate, qat_validation_gate
+from _shared.op3_model_audit import ptq_validation_gate, qat_validation_gate
 
 
 ROOT = Path(__file__).resolve().parents[2]
