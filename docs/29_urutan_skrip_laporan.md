@@ -32,7 +32,7 @@ Urutan tersebut dapat digunakan langsung sebagai subbagian implementasi pada BAB
 3.x.9 Konversi Model ke OpenVINO
 ```
 
-Script lama di `scripts/` tetap menjadi implementasi canonical. File `step01` sampai `step09` adalah implementasi canonical yang dirujuk pada naskah skripsi.
+File `step01` sampai `step09` adalah **implementasi canonical langsung**, bukan wrapper. Nama lama yang tidak bernomor sudah dihapus agar tidak ada dua versi kode yang membingungkan.
 
 ## Status akhir
 
