@@ -43,7 +43,7 @@ from probe_qat_compatibility import (
     require_project_root,
     restore_ultralytics_trainer_trainability,
 )
-from smoke_train_qat import install_quantizer_counter, quantizers, quantizers_enabled, sha256_file
+from smoke_train_qat import install_quantizer_counter, quantizers, quantizers_enabled
 
 
 DATA_YAML = Path("data/dataset/data.yaml")
@@ -400,9 +400,7 @@ def main() -> int:
                 "class mapping": EXPECTED_NAMES,
                 "resolved dataset splits": {key: str(value) for key, value in splits.items()},
                 "FP32 checkpoint path": str(fp32_path),
-                "FP32 SHA256": sha256_file(fp32_path),
                 "QAT checkpoint path": str(qat_path),
-                "QAT SHA256": sha256_file(qat_path),
                 "versions": {
                     "Python": platform.python_version(),
                     "torch": torch.__version__,
