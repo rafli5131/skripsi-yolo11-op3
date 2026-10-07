@@ -41,7 +41,7 @@ Tabel berikut berasal dari eksperimen PTQ historis. Evaluasi VAL empat model ter
 | FPS host diagnostik | 45,527 | 71,701 | +57,491% |
 | Ukuran IR | 10.756.936 B | 3.483.079 B | −67,621% |
 
-Tabel VAL PTQ di atas dibuat saat hanya IR QAT lama yang rejected tersedia. IR QAT final sekarang berbeda dan valid melalui direct OpenVINO; lihat [provenance](26_provenance_dan_verifikasi.md). Angka QAT final tidak ditambahkan ke tabel VAL historis ini karena tidak dievaluasi dalam run PTQ yang sama. Timing tabel adalah diagnostik host lama, bukan benchmark final ROBOTIS OP3.
+Tabel VAL PTQ di atas berasal dari run historis yang berbeda dari artefak QAT final. Artefak QAT final sekarang valid melalui direct OpenVINO. Angka QAT final tidak ditambahkan ke tabel VAL historis ini karena tidak dievaluasi dalam run PTQ yang sama. Timing tabel adalah diagnostik host lama, bukan benchmark final ROBOTIS OP3.
 
 TEST delta QAT terhadap FP32: P +0,0028 (+0,30%), R -0,0004 (-0,04%), mAP50 +0,0079 (+0,82%), mAP50-95 -0,0127 (-1,63%), F1 +0,0012 (+0,13%). Per-class mAP50-95: ball 0,9130/0,8796; gawang 0,5683/0,5970; robot 0,8585/0,8250 (FP32/QAT).
 
