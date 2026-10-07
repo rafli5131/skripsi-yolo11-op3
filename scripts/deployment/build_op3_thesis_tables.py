@@ -90,7 +90,10 @@ def build(root):
             deltas.append({'metric': field, 'walking_minus_stationary': walking-stationary,
                            'relative_change_percent': 100*(walking-stationary)/stationary if stationary else None})
         write_table(root/'tables/condition_deltas.csv', deltas)
+    protocol_path = root/'protocol.json'
+    model_path = json.loads(protocol_path.read_text())['model_path'] if protocol_path.exists() else 'not recorded'
     sections = ['# Final OP3 QAT runtime report',
+                'Model OpenVINO yang digunakan: `'+model_path+'` (XML dan BIN berpasangan).',
                 'Model label: QAT INT8 OpenVINO, berdasarkan folder model yang diberikan pengguna. Identitas artefak tidak diverifikasi dengan hash.',
                 'Hardware dan versi software: lihat environment_*.json. CPU onboard aktual NUC12; batch 1, input 640 × 640, CPU.',
                 'Protocol dibekukan sebelum run di protocol.json. Tidak ada training, calibration, atau tuning.',
