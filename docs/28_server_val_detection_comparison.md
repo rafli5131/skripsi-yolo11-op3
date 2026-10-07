@@ -4,7 +4,7 @@
 
 Pengujian ini membandingkan kualitas deteksi empat artifact yang sudah dibekukan pada **split VAL** yang sama: FP32 native PyTorch, FP32 OpenVINO, PTQ INT8 OpenVINO, dan QAT INT8 OpenVINO. VAL berisi 1.213 gambar dan 1.525 anotasi. Evaluator Ultralytics 8.4.130 berjalan pada CPU dengan `imgsz=640`, batch 1, workers 0, fraction 1.0, augmentasi off, `conf=None` (default), dan IoU 0.7. Model PTQ/QAT lolos provenance gate sebelum dievaluasi dan menggunakan artefak final yang telah ditetapkan.
 
-Ini evaluasi kualitas deteksi di server, **bukan FINAL TEST** dan bukan benchmark latency final ROBOTIS OP3. Tidak ada training, export, quantization, atau calibration baru. Skrip dan raw result ada di [`scripts/evaluate_server_val.py`](../scripts/evaluate_server_val.py) dan [direktori eksperimen](../experiments/server_openvino/README.md).
+Ini evaluasi kualitas deteksi di server, **bukan FINAL TEST** dan bukan benchmark latency final ROBOTIS OP3. Tidak ada training, export, quantization, atau calibration baru. Skrip dan raw result ada di [`scripts/diagnostics/evaluate_server_val.py`](../scripts/diagnostics/evaluate_server_val.py) dan [direktori eksperimen](../experiments/server_openvino/README.md).
 
 ## Hasil keseluruhan
 
