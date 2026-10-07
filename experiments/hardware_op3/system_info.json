@@ -181,7 +181,7 @@
       ],
       "returncode": 0,
       "stderr": "",
-      "stdout": "Architecture:                            x86_64\nCPU op-mode(s):                          32-bit, 64-bit\nAddress sizes:                           39 bits physical, 48 bits virtual\nByte Order:                              Little Endian\nCPU(s):                                  16\nOn-line CPU(s) list:                     0-15\nVendor ID:                               GenuineIntel\nModel name:                              12th Gen Intel(R) Core(TM) i5-1240P\nCPU family:                              6\nModel:                                   154\nThread(s) per core:                      2\nCore(s) per socket:                      12\nSocket(s):                               1\nStepping:                                3\nCPU(s) scaling MHz:                      26%\nCPU max MHz:                             4400.0000\nCPU min MHz:                             400.0000\nBogoMIPS:                                4224.00\nFlags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb intel_pt sha_ni xsaveopt xsavec xgetbv1 xsaves split_lock_detect user_shstk avx_vnni dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp hwp_pkg_req hfi vnmi umip pku ospke waitpkg gfni vaes vpclmulqdq rdpid movdiri movdir64b fsrm md_clear serialize arch_lbr ibt flush_l1d arch_capabilities\nVirtualization:                          VT-x\nL1d cache:                               448 KiB (12 instances)\nL1i cache:                               640 KiB (12 instances)\nL2 cache:                                9 MiB (6 instances)\nL3 cache:                                12 MiB (1 instance)\nNUMA node(s):                            1\nNUMA node0 CPU(s):                       0-15\nVulnerability Gather data sampling:      Not affected\nVulnerability Ghostwrite:                Not affected\nVulnerability Indirect target selection: Not affected\nVulnerability Itlb multihit:             Not affected\nVulnerability L1tf:                      Not affected\nVulnerability Mds:                       Not affected\nVulnerability Meltdown:                  Not affected\nVulnerability Mmio stale data:           Not affected\nVulnerability Old microcode:             Not affected\nVulnerability Reg file data sampling:    Mitigation; Clear Register File\nVulnerability Retbleed:                  Not affected\nVulnerability Spec rstack overflow:      Not affected\nVulnerability Spec store bypass:         Mitigation; Speculative Store Bypass disabled via prctl\nVulnerability Spectre v1:                Mitigation; usercopy/swapgs barriers and __user pointer sanitization\nVulnerability Spectre v2:                Mitigation; Enhanced / Automatic IBRS; IBPB conditional; PBRSB-eIBRS SW sequence; BHI BHI_DIS_S\nVulnerability Srbds:                     Not affected\nVulnerability Tsa:                       Not affected\nVulnerability Tsx async abort:           Not affected\nVulnerability Vmscape:                   Mitigation; IBPB before exit to userspace"
+      "stdout": "Architecture:                            x86_64\nCPU op-mode(s):                          32-bit, 64-bit\nAddress sizes:                           39 bits physical, 48 bits virtual\nByte Order:                              Little Endian\nCPU(s):                                  16\nOn-line CPU(s) list:                     0-15\nVendor ID:                               GenuineIntel\nModel name:                              12th Gen Intel(R) Core(TM) i5-1240P\nCPU family:                              6\nModel:                                   154\nThread(s) per core:                      2\nCore(s) per socket:                      12\nSocket(s):                               1\nStepping:                                3\nCPU(s) scaling MHz:                      30%\nCPU max MHz:                             4400.0000\nCPU min MHz:                             400.0000\nBogoMIPS:                                4224.00\nFlags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb intel_pt sha_ni xsaveopt xsavec xgetbv1 xsaves split_lock_detect user_shstk avx_vnni dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp hwp_pkg_req hfi vnmi umip pku ospke waitpkg gfni vaes vpclmulqdq rdpid movdiri movdir64b fsrm md_clear serialize arch_lbr ibt flush_l1d arch_capabilities\nVirtualization:                          VT-x\nL1d cache:                               448 KiB (12 instances)\nL1i cache:                               640 KiB (12 instances)\nL2 cache:                                9 MiB (6 instances)\nL3 cache:                                12 MiB (1 instance)\nNUMA node(s):                            1\nNUMA node0 CPU(s):                       0-15\nVulnerability Gather data sampling:      Not affected\nVulnerability Ghostwrite:                Not affected\nVulnerability Indirect target selection: Not affected\nVulnerability Itlb multihit:             Not affected\nVulnerability L1tf:                      Not affected\nVulnerability Mds:                       Not affected\nVulnerability Meltdown:                  Not affected\nVulnerability Mmio stale data:           Not affected\nVulnerability Old microcode:             Not affected\nVulnerability Reg file data sampling:    Mitigation; Clear Register File\nVulnerability Retbleed:                  Not affected\nVulnerability Spec rstack overflow:      Not affected\nVulnerability Spec store bypass:         Mitigation; Speculative Store Bypass disabled via prctl\nVulnerability Spectre v1:                Mitigation; usercopy/swapgs barriers and __user pointer sanitization\nVulnerability Spectre v2:                Mitigation; Enhanced / Automatic IBRS; IBPB conditional; PBRSB-eIBRS SW sequence; BHI BHI_DIS_S\nVulnerability Srbds:                     Not affected\nVulnerability Tsa:                       Not affected\nVulnerability Tsx async abort:           Not affected\nVulnerability Vmscape:                   Mitigation; IBPB before exit to userspace"
     },
     "max_mhz": "4400.0000",
     "model": "12th Gen Intel(R) Core(TM) i5-1240P",
@@ -190,9 +190,9 @@
     "vendor": "GenuineIntel"
   },
   "disk": {
-    "free_bytes": 104291762176,
-    "total_bytes": 106663641088,
-    "used_bytes": 2371878912
+    "free_bytes": 102942113792,
+    "total_bytes": 106632577024,
+    "used_bytes": 3690463232
   },
   "host_matches_requested_nuc11": false,
   "hostname": "humanoid-NUC12WSHi5",
@@ -205,7 +205,7 @@
     ],
     "returncode": 0,
     "stderr": "",
-    "stdout": "NAME        TYPE   SIZE FSTYPE     MOUNTPOINTS\nloop0       loop 518.4M squashfs   /snap/code/263\nloop1       loop     4K squashfs   /snap/bare/5\nloop2       loop  63.8M squashfs   /snap/core20/2922\nloop3       loop    74M squashfs   /snap/core22/2292\nloop4       loop 251.7M squashfs   /snap/firefox/7766\nloop5       loop    74M squashfs   /snap/core22/2955\nloop6       loop  66.8M squashfs   /snap/core24/2124\nloop7       loop  18.5M squashfs   /snap/firmware-updater/210\nloop8       loop  16.5M squashfs   /snap/firmware-updater/226\nloop9       loop 614.5M squashfs   /snap/gnome-46-2404/164\nloop10      loop  91.7M squashfs   /snap/gtk-common-themes/1535\nloop11      loop 531.4M squashfs   /snap/gnome-42-2204/247\nloop12      loop  11.8M squashfs   /snap/snap-store/1390\nloop13      loop   402M squashfs   /snap/mesa-2404/1839\nloop14      loop  48.1M squashfs   /snap/snapd/25935\nloop15      loop  11.8M squashfs   /snap/snap-store/1419\nloop16      loop  50.3M squashfs   /snap/snapd/27738\nloop17      loop   576K squashfs   /snap/snapd-desktop-integration/343\nloop18      loop   828K squashfs   /snap/snapd-desktop-integration/391\nloop19      loop 221.4M squashfs   /snap/thunderbird/1255\nloop20      loop 222.1M squashfs   /snap/thunderbird/1259\nnvme0n1     disk 119.2G            \n\u251c\u2500nvme0n1p1 part     1G vfat       /boot/efi\n\u251c\u2500nvme0n1p2 part     2G zfs_member \n\u251c\u2500nvme0n1p3 part     4G swap       [SWAP]\n\u2514\u2500nvme0n1p4 part 112.2G zfs_member"
+    "stdout": "NAME        TYPE   SIZE FSTYPE     MOUNTPOINTS\nloop0       loop     4K squashfs   /snap/bare/5\nloop1       loop 518.4M squashfs   /snap/code/263\nloop2       loop  63.8M squashfs   /snap/core20/2922\nloop3       loop    74M squashfs   /snap/core22/2292\nloop4       loop 251.7M squashfs   /snap/firefox/7766\nloop5       loop    74M squashfs   /snap/core22/2955\nloop6       loop  66.8M squashfs   /snap/core24/2124\nloop7       loop  18.5M squashfs   /snap/firmware-updater/210\nloop8       loop  16.5M squashfs   /snap/firmware-updater/226\nloop9       loop  91.7M squashfs   /snap/gtk-common-themes/1535\nloop10      loop 531.4M squashfs   /snap/gnome-42-2204/247\nloop11      loop 614.5M squashfs   /snap/gnome-46-2404/164\nloop12      loop   402M squashfs   /snap/mesa-2404/1839\nloop13      loop  11.8M squashfs   /snap/snap-store/1390\nloop14      loop  11.8M squashfs   /snap/snap-store/1419\nloop15      loop   576K squashfs   /snap/snapd-desktop-integration/343\nloop16      loop 262.2M squashfs   /snap/firefox/8995\nloop17      loop  50.3M squashfs   /snap/snapd/27738\nloop18      loop 221.4M squashfs   /snap/thunderbird/1255\nloop19      loop   828K squashfs   /snap/snapd-desktop-integration/391\nloop20      loop 222.1M squashfs   /snap/thunderbird/1259\nloop21      loop  44.7M squashfs   /snap/snapd/28254\nnvme0n1     disk 119.2G            \n\u251c\u2500nvme0n1p1 part     1G vfat       /boot/efi\n\u251c\u2500nvme0n1p2 part     2G zfs_member \n\u251c\u2500nvme0n1p3 part     4G swap       [SWAP]\n\u2514\u2500nvme0n1p4 part 112.2G zfs_member"
   },
   "lsusb": {
     "available": true,
@@ -217,10 +217,10 @@
     "stdout": "Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub\nBus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub\nBus 003 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub\nBus 003 Device 002: ID 046d:08e5 Logitech, Inc. C920 PRO HD Webcam\nBus 003 Device 003: ID 0403:6014 Future Technology Devices International, Ltd FT232H Single HS USB-UART/FIFO IC\nBus 003 Device 004: ID 8087:0033 Intel Corp. AX211 Bluetooth\nBus 004 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub"
   },
   "memory": {
-    "available_bytes": 3255250944,
-    "percent": 58.7,
-    "total_bytes": 7875018752,
-    "used_bytes": 4240871424
+    "available_bytes": 3213455360,
+    "percent": 59.2,
+    "total_bytes": 7875014656,
+    "used_bytes": 4285419520
   },
   "openvino": {
     "available": true,
@@ -245,7 +245,7 @@
     "VERSION_ID": "24.04"
   },
   "python": {
-    "executable": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/../.venv-op3-vision/bin/python",
+    "executable": "/home/humanoid/ros2_jazzy/.venv-op3-vision/bin/python",
     "version": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]"
   },
   "ros2": {
@@ -299,19 +299,19 @@
     "thermal_zones": [
       {
         "path": "/sys/class/thermal/thermal_zone0/temp",
-        "temperature_millidegrees": "55000"
+        "temperature_millidegrees": "48000"
       },
       {
         "path": "/sys/class/thermal/thermal_zone1/temp",
-        "temperature_millidegrees": "45000"
+        "temperature_millidegrees": "40000"
       },
       {
         "path": "/sys/class/thermal/thermal_zone2/temp",
-        "temperature_millidegrees": "46000"
+        "temperature_millidegrees": "35000"
       }
     ]
   },
-  "timestamp_utc": "2026-09-23T13:23:04.711786+00:00",
+  "timestamp_utc": "2026-09-30T14:00:07.475791+00:00",
   "uname": {
     "available": true,
     "command": [
@@ -320,6 +320,6 @@
     ],
     "returncode": 0,
     "stderr": "",
-    "stdout": "Linux humanoid-NUC12WSHi5 7.0.0-31-generic #31~24.04.1-Ubuntu SMP PREEMPT_DYNAMIC Mon Aug 10 09:38:02 UTC 2 x86_64 x86_64 x86_64 GNU/Linux"
+    "stdout": "Linux humanoid-NUC12WSHi5 7.0.0-34-generic #34~24.04.1-Ubuntu SMP PREEMPT_DYNAMIC Fri Sep  4 15:38:29 UTC 2 x86_64 x86_64 x86_64 GNU/Linux"
   }
 }

@@ -1,0 +1,46 @@
+{
+  "timestamp_utc": "2026-10-07T13:07:14.876096+00:00",
+  "seconds_observed": 20.042891999999483,
+  "topic_message_counts": {
+    "detections": 122,
+    "debug_image": 3,
+    "benchmark": 122
+  },
+  "last_received": {
+    "detections": [
+      {
+        "class_id": "0:ball",
+        "confidence": 0.9188450574874878
+      },
+      {
+        "class_id": "2:robot",
+        "confidence": 0.8703550696372986
+      }
+    ],
+    "benchmark": {
+      "run_id": "run_01",
+      "condition": "functional",
+      "frame_index": 92,
+      "timestamp": "2026-10-07T13:07:13.440778+00:00",
+      "error": "",
+      "detection_count": 2,
+      "preprocess_ms": 5.176983,
+      "inference_ms": 13.616185,
+      "postprocess_ms": 0.318777,
+      "latency_ms": 19.15759,
+      "image_conversion_ms": 1.078014,
+      "callback_end_to_end_ms": 20.242511,
+      "camera_header_stamp_ns": 1791378433405894000,
+      "camera_delivery_ms": 55.11862,
+      "warmup": false,
+      "callback_latency_ms": 20.242511,
+      "image_stamp_ns": 1791378433405894000
+    },
+    "image_shape": [
+      480,
+      640
+    ]
+  },
+  "passed": true,
+  "purpose": "functional verification; excluded from official benchmark"
+}

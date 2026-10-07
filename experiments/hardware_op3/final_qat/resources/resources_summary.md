@@ -1,0 +1,4 @@
+| condition | samples | runs | cpu_usage_percent_mean | cpu_usage_percent_sd | cpu_usage_percent_peak | memory_used_mb_mean | memory_used_mb_sd | memory_used_mb_peak | memory_usage_percent_mean | memory_usage_percent_sd | memory_usage_percent_peak | detector_rss_mb_mean | detector_rss_mb_sd | detector_rss_mb_peak |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| diam | 885 | 3 | 6.4163 | 1.5655 | 11.5000 | 4083.7804 | 8.3941 | 4153.6840 | 56.5762 | 0.1082 | 57.5000 | 257.5252 | 0.3085 | 257.8186 |
+| berjalan | 0 | 0 | belum diukur / tidak tersedia | belum diukur / tidak tersedia | belum diukur / tidak tersedia | belum diukur / tidak tersedia | belum diukur / tidak tersedia | belum diukur / tidak tersedia | belum diukur / tidak tersedia | belum diukur / tidak tersedia | belum diukur / tidak tersedia | belum diukur / tidak tersedia | belum diukur / tidak tersedia | belum diukur / tidak tersedia |

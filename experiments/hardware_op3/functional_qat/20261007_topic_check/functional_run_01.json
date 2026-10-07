@@ -1,0 +1,182 @@
+{
+  "run_id": "run_01",
+  "condition": "functional",
+  "completed": true,
+  "thermal_abort": false,
+  "statistics_ddof": 1,
+  "rss_start_bytes": 261136384,
+  "rss_end_bytes": 261275648,
+  "rss_growth_bytes": 139264,
+  "thermal_end_c": [
+    39.0,
+    42.0,
+    47.0
+  ],
+  "timestamp_utc": "2026-10-07T13:07:05.489439+00:00",
+  "git_commit": "01af3977129b153adb1c4570a6be2a4551588ee0",
+  "hostname": "humanoid-NUC12WSHi5",
+  "cpu_model": "x86_64",
+  "system_ram_total_bytes": 7875014656,
+  "openvino_version": "2026.3.1-22476-759c5a6ab8c-releases/2026/3",
+  "python_version": "3.12.3",
+  "ros_distro": "jazzy",
+  "command": "/home/humanoid/ros2_jazzy/.venv-op3-vision/bin/python /home/humanoid/ros2_jazzy/skripsi-yolo11-op3/ros2_ws/src/yolo11_op3_vision/yolo11_op3_vision/detector.py --ros-args -p model_path:=/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/artifacts/openvino/qat_int8/model.xml -p input_topic:=/thesis/image_raw -p output_dir:=/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/experiments/hardware_op3/functional_qat/20261007_topic_check -p result_stem:=functional_run_01 -p experiment_condition:=functional -p run_id:=run_01 -p benchmark_seconds:=8.0 -p final_experiment:=false -p warmup_camera_frames:=30 -p publish_benchmark:=true -p publish_debug_image:=true -p evidence_image_path:=/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/experiments/hardware_op3/functional_qat/20261007_topic_check/functional_run_01_detection.png",
+  "model": {
+    "path": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/artifacts/openvino/qat_int8/model.xml",
+    "artifact_identity_verification": "not performed; user-provided model path",
+    "size_bytes": 666400,
+    "input_shape": [
+      1,
+      3,
+      640,
+      640
+    ],
+    "output_shape": [
+      1,
+      7,
+      8400
+    ]
+  },
+  "setup": {
+    "device": "CPU",
+    "imgsz": 640,
+    "batch": 1,
+    "input_topic": "/thesis/image_raw",
+    "warmup_inferences": 30,
+    "warmup_camera_frames": 30,
+    "publish_benchmark": true,
+    "benchmark_seconds_requested": 8.0,
+    "benchmark_seconds_measured": 8.02019251799993,
+    "resource_interval_seconds": 0.2,
+    "publish_debug_image": true,
+    "evidence_image_path": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/experiments/hardware_op3/functional_qat/20261007_topic_check/functional_run_01_detection.png"
+  },
+  "results": {
+    "frames_received": 92,
+    "total_camera_frames_received_including_warmup": 122,
+    "frames_processed": 92,
+    "effective_fps": 11.471046336297036,
+    "detection_count": 184,
+    "exceptions": 0,
+    "total_exceptions_including_warmup": 0,
+    "latency_ms": {
+      "camera_delivery_ms": {
+        "mean": 52.59404972826087,
+        "median": 53.3800265,
+        "min": 44.093078,
+        "max": 55.831367,
+        "std": 2.797249447814972,
+        "p50": 53.3800265,
+        "p90": 55.495669400000004,
+        "p95": 55.5688166,
+        "p99": 55.74532286
+      },
+      "image_conversion_ms": {
+        "mean": 0.9250597826086957,
+        "median": 1.0063235000000001,
+        "min": 0.336326,
+        "max": 1.250512,
+        "std": 0.19735778451257113,
+        "p50": 1.0063235000000001,
+        "p90": 1.0718251,
+        "p95": 1.078788,
+        "p99": 1.1564534900000003
+      },
+      "preprocess_ms": {
+        "mean": 4.371537641304347,
+        "median": 4.686253499999999,
+        "min": 1.657457,
+        "max": 6.417314,
+        "std": 0.9317493975679589,
+        "p50": 4.686253499999999,
+        "p90": 5.0933266,
+        "p95": 5.13617245,
+        "p99": 5.503155300000003
+      },
+      "inference_ms": {
+        "mean": 13.368256271739131,
+        "median": 13.6192515,
+        "min": 11.208823,
+        "max": 15.723666,
+        "std": 0.9831528489209308,
+        "p50": 13.6192515,
+        "p90": 14.283809100000001,
+        "p95": 14.4227436,
+        "p99": 14.671587700000005
+      },
+      "postprocess_ms": {
+        "mean": 0.33104911956521743,
+        "median": 0.322899,
+        "min": 0.30607,
+        "max": 0.736918,
+        "std": 0.04490944438420091,
+        "p50": 0.322899,
+        "p90": 0.34457790000000005,
+        "p95": 0.35867175,
+        "p99": 0.4380685400000011
+      },
+      "callback_end_to_end_ms": {
+        "mean": 19.230923652173914,
+        "median": 19.8368145,
+        "min": 14.420406,
+        "max": 21.987649,
+        "std": 1.6758251675868532,
+        "p50": 19.8368145,
+        "p90": 20.582622800000003,
+        "p95": 20.7199818,
+        "p99": 21.507033410000002
+      },
+      "latency_ms": {
+        "mean": 18.116026815217392,
+        "median": 18.710427,
+        "min": 13.297324,
+        "max": 20.934394,
+        "std": 1.6873247729060192,
+        "p50": 18.710427,
+        "p90": 19.5231575,
+        "p95": 19.641007400000003,
+        "p99": 20.42109758
+      }
+    },
+    "cpu_percent": {
+      "process": {
+        "mean": 77.71794871794872,
+        "median": 93.9,
+        "min": 0.0,
+        "max": 124.0,
+        "std": 35.50097753876402,
+        "p50": 93.9,
+        "p90": 109.04,
+        "p95": 113.03,
+        "p99": 121.64399999999998
+      },
+      "system": {
+        "mean": 6.235897435897436,
+        "median": 6.8,
+        "min": 1.6,
+        "max": 8.8,
+        "std": 1.7190093811150868,
+        "p50": 6.8,
+        "p90": 7.600000000000001,
+        "p95": 8.15,
+        "p99": 8.724
+      }
+    },
+    "rss_mib": {
+      "mean": 249.15084134615384,
+      "median": 249.15234375,
+      "min": 249.0859375,
+      "max": 249.171875,
+      "std": 0.016539232950597487,
+      "p50": 249.15234375,
+      "p90": 249.16796875,
+      "p95": 249.171875,
+      "p99": 249.171875
+    },
+    "resource_sample_count": 39
+  },
+  "raw_measurements": {
+    "timing_csv": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/experiments/hardware_op3/functional_qat/20261007_topic_check/functional_run_01.csv",
+    "resource_csv": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/experiments/hardware_op3/functional_qat/20261007_topic_check/resources_functional_run_01.csv"
+  }
+}

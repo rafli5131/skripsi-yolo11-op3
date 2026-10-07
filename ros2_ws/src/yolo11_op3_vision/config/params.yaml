@@ -1,0 +1,23 @@
+yolo11_op3_vision:
+  ros__parameters:
+    model_path: ""
+    input_topic: "/image_raw"
+    device: "CPU"
+    imgsz: 640
+    confidence_threshold: 0.25
+    iou_threshold: 0.45
+    publish_debug_image: false
+    debug_image_topic: "/vision/debug_image"
+    benchmark_seconds: 0.0
+    warmup_iterations: 30
+    resource_interval_seconds: 0.2
+    output_dir: ""
+    result_stem: "ros2_benchmark"
+    evidence_image_path: ""
+    warmup_camera_frames: 30
+    publish_benchmark: false
+    benchmark_topic: "/vision/benchmark"
+    experiment_condition: "functional"
+    run_id: "run_01"
+    final_experiment: false
+    thermal_limit_c: 90.0

@@ -1,0 +1,14 @@
+{
+  "ddof": 1,
+  "fps_definition": "successful measured frames / measured wall duration",
+  "latency_definition": "image callback entry through postprocess completion, before publication",
+  "memory_unit": "MB = bytes / 1000000",
+  "cpu_main_metric": "whole-system CPU percent",
+  "resource_aggregation": "all periodic samples pooled by condition",
+  "missing_conditions": [
+    "berjalan"
+  ],
+  "completed_runs": 3,
+  "system_ram_definition": "psutil.virtual_memory.used; percent directly from psutil",
+  "model_identity": "user-supplied QAT path; hashes not checked"
+}

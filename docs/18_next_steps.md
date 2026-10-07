@@ -1,5 +1,25 @@
 # Langkah Berikutnya — Implementasi ke ROBOTIS OP3 dan Pengambilan Data Final
 
+## 0. Status kode saat ini (7 Oktober 2026)
+
+Dokumen ini membedakan implementasi yang tersedia dari pekerjaan final yang masih perlu dilakukan. Pengukuran dilakukan pada workspace `main` commit `01af397` dengan perubahan implementasi lokal; metadata menyimpan kondisi worktree tersebut. Logger final diimplementasikan; 3 run diam dan stability ROS 10 menit selesai tanpa exception. Data historical dipertahankan.
+
+| Komponen | Status aktual | Bukti/lokasi |
+| --- | --- | --- |
+| Hardware | NUC12WSHi5, Intel Core i5-1240P, Ubuntu 24.04, ROS 2 Jazzy, C920 | `experiments/hardware_op3/system_info.json` dan `.md` |
+| QAT OpenVINO CPU | Load, compile, dan inference dummy berhasil; output finite `[1,7,8400]` | `experiments/hardware_op3/openvino_sanity.json` |
+| Identitas model | Mengikuti folder yang dikonfirmasi pengguna; tidak ada pemeriksaan SHA256 | `experiments/hardware_op3/model_inventory.json` |
+| Visual QAT standalone | Run kamera dengan visualisasi ON tersedia; functional check, bukan pengukuran final | `scripts/run_qat_visual.sh`, `camera_benchmark_qat_int8.json` |
+| Package ROS skripsi | Package terpisah dibuild; 3 run diam QAT folder selesai tanpa exception | `ros2_ws/src/yolo11_op3_vision/` |
+| Stability | ROS QAT folder 600 detik, 8260 frame, nol exception | `experiments/hardware_op3/stability_qat/20261007_ros_qat/` |
+| Logging node ROS | CSV timing dan resource tersedia saat `benchmark_seconds > 0` | `yolo11_op3_vision/detector.py` |
+| Topic telemetry final | Telemetry opsional tersedia; OFF untuk run resmi | Parameter `publish_benchmark` |
+| Kondisi diam/berjalan | Logger kondisi/multi-run tersedia; berjalan ditunda operator | `run_op3_qat_experiments.py` |
+| Tabel 3.1–3.3 | Generator tersedia, SD sampel `ddof=1` | `scripts/deployment/build_op3_thesis_tables.py` |
+| Output final | 3 run diam selesai; tabel dan raw CSV tersedia | `experiments/hardware_op3/final_qat/` |
+
+Data FP32/PTQ dan stability FP32 yang sudah ada adalah hasil terdahulu. Jangan menganggapnya sebagai pengujian final QAT diam/berjalan. Data mentah lama tetap dipertahankan.
+
 ## 1. Tujuan tahap ini
 
 Training YOLO11n FP32, true NNCF QAT, pemilihan checkpoint QAT terbaik, evaluasi FINAL TEST, dan konversi QAT ke OpenVINO sudah selesai. Tahap berikutnya **bukan training ulang**, melainkan implementasi artefak QAT INT8 OpenVINO ke ROBOTIS OP3 melalui ROS 2 dan pengambilan data penelitian pada perangkat robot.
@@ -32,7 +52,7 @@ Codex **tidak boleh** melakukan training ulang, QAT tuning, PTQ, calibration, pe
 
 Held-out TEST juga tidak boleh dijalankan ulang. Hasil akurasi FINAL TEST yang sudah dibekukan tetap menjadi sumber angka precision, recall, F1-score, mAP@0.5, dan mAP@0.5:0.95. Kamera live di robot tidak memiliki ground truth, sehingga jumlah deteksi dan confidence dari kamera live **tidak boleh** diperlakukan sebagai precision, recall, F1, atau mAP.
 
-Validasi OpenVINO yang sudah dilakukan tetap dipakai sebagai bukti bahwa artefak deployment merepresentasikan model QAT final. Tahap robot hanya mengambil data waktu komputasi dan sumber daya sesuai proposal.
+Laporan validasi numerik OpenVINO yang sudah ada tetap menjadi bukti tahap export yang dilaporkan repository. Deployment menggunakan model yang dilatih/diunggah dan dikonfirmasi pengguna. Identitas payload tidak diverifikasi secara independen dan tidak ada pemeriksaan hash. Sanity runtime CPU menunjukkan model dapat dijalankan; sanity ini bukan evaluasi ulang akurasi atau numerical equivalence. Tahap robot mengambil data waktu komputasi dan sumber daya sesuai proposal.
 
 ---
 
@@ -56,9 +76,9 @@ Sebelum mengubah workspace ROS 2, Codex harus membaca kondisi robot dan mencatat
 | Device inferensi | CPU |
 | Class mapping | 0 ball, 1 gawang, 2 robot |
 
-Gunakan `scripts/deployment/audit_hardware_op3.py` sebagai titik awal apabila masih sesuai. Audit ini hanya untuk memastikan lingkungan dapat digunakan dan tidak boleh mengubah model.
+Gunakan `scripts/deployment/audit_hardware_op3.py` dan `scripts/deployment/audit_op3_models.py`. Audit saat ini menulis `experiments/hardware_op3/system_info.json`, `system_info.md`, dan `model_inventory.json`; script tersebut belum menyediakan argumen output ke `final_qat`. Audit hanya membaca model dan mencatat lingkungan.
 
-Simpan hasil audit final ke:
+Snapshot final tersedia di environment.json/.md dan environment_<timestamp>.json; command aktual dan kondisi worktree disimpan bersama metadata run:
 
 ```text
 experiments/hardware_op3/final_qat/environment.json
@@ -67,40 +87,33 @@ experiments/hardware_op3/final_qat/environment.md
 
 ### 3.2 Periksa workspace ROS 2 yang sudah ada
 
-Repository skripsi belum menyimpan source package ROS 2 deployment secara lengkap. Karena pada robot mungkin sudah terdapat `usb_cam`, detector node, message package, atau launch file, Codex harus **inspect dulu** workspace robot sebelum membuat package baru.
-
-Urutan keputusan:
+Pengguna meminta package skripsi terpisah dari package robot yang sudah ada. Implementasinya sudah tersedia; lanjutkan package ini dan jangan membuat detector paralel baru:
 
 ```text
-inspect workspace ROS 2
-        |
-        +-- detector OpenVINO yang ada dapat dipakai?
-        |       |
-        |       +-- ya -> rapikan/adaptasi seminimal mungkin
-        |
-        +-- tidak -> buat package deployment khusus QAT
-```
-
-Jangan membuat stack paralel jika implementasi yang sudah ada dapat dipakai dengan aman.
-
-Jika perlu package baru, gunakan package Python ROS 2 yang jelas, misalnya:
-
-```text
-op3_qat_vision/
+ros2_ws/src/yolo11_op3_vision/
 ├── package.xml
 ├── setup.py
 ├── setup.cfg
-├── resource/
-├── config/
-│   └── qat_detector.yaml
-├── launch/
-│   └── qat_openvino_camera.launch.py
-└── op3_qat_vision/
+├── resource/yolo11_op3_vision
+├── config/params.yaml
+├── launch/detector.launch.py
+└── yolo11_op3_vision/
     ├── __init__.py
-    └── qat_openvino_detector_node.py
+    └── detector.py
 ```
 
-Source package yang dibuat untuk robot harus ikut disimpan di repository agar implementasi skripsi dapat direproduksi.
+Package menggunakan `sensor_msgs/msg/Image` dan `vision_msgs/msg/Detection2DArray`. Kamera dijalankan melalui publisher eksternal seperti `usb_cam`; launch detector belum memulai kamera. Audit device/topic kamera sebelum menjalankan publisher.
+
+Build dari root repository:
+
+```bash
+source /opt/ros/jazzy/setup.bash
+cd ros2_ws
+colcon build --symlink-install --packages-select yolo11_op3_vision
+source install/setup.bash
+```
+
+Source package tersedia di repository skripsi; hasil pengujian final disimpan bersama raw data. Build/install/log tidak ikut disimpan ke Git.
 
 ### 3.3 Pipeline ROS 2 yang harus diimplementasikan
 
@@ -146,17 +159,29 @@ Parameter minimal yang harus tersedia melalui ROS parameter atau YAML:
 | `model_path` | path `artifacts/openvino/qat_int8/model.xml` |
 | `device` | `CPU` |
 | `input_topic` | topic kamera |
-| `input_size` | 640 |
-| `confidence_threshold` | mengikuti konfigurasi evaluasi/deployment yang sudah ditetapkan |
-| `iou_threshold` | mengikuti konfigurasi evaluasi/deployment yang sudah ditetapkan |
+| `imgsz` | 640; ini nama parameter aktual, bukan `input_size` |
+| `confidence_threshold` | default kode/config 0.25 |
+| `iou_threshold` | default kode/config 0.45 |
 | `publish_debug_image` | default `false` saat pengukuran |
-| `publish_benchmark` | `true` saat pengambilan data |
+| `debug_image_topic` | default `/vision/debug_image` |
+| `benchmark_seconds` | default 0.0; set positif untuk logging timed run |
+| `warmup_iterations` | default 30 inference tensor dummy saat startup |
+| `resource_interval_seconds` | default 0.2 |
+| `output_dir` | wajib diset bila `benchmark_seconds > 0` |
+| `result_stem` | default `ros2_benchmark`; gunakan nama unik agar tidak overwrite run |
+| `evidence_image_path` | default kosong; biarkan kosong saat benchmark resmi |
+
+Launch juga menerima `python_prefix` untuk interpreter yang mempunyai OpenVINO dan modul ROS Jazzy. Parameter `publish_benchmark` tersedia, default false. Run final menggunakan logging internal.
+
+`config/params.yaml` menyimpan default package, tetapi `detector.launch.py` saat ini membentuk parameter langsung dari launch arguments. Mengedit YAML saja belum mengubah parameter launch tersebut; gunakan launch arguments atau tambahkan pemuatan YAML pada implementasi berikutnya.
+
+Output saat ini: `/vision/detections` dengan `class_id` seperti `0:ball`, confidence pada hypothesis, dan bounding box melalui center/size. Debug image bersifat opsional. `x1/y1/x2/y2` tersedia pada hasil postprocess internal dan dapat diturunkan dari bounding box message.
 
 Codex tidak boleh mengubah confidence/IoU hanya untuk membuat hasil live terlihat lebih baik. Jika nilainya belum terdokumentasi, ambil dari implementasi evaluasi yang sudah digunakan dan tulis nilainya pada metadata eksperimen.
 
 ### 3.4 Topic benchmark
 
-Detector harus menerbitkan telemetry setiap frame yang berhasil diproses. Bila workspace sudah memiliki `/vision/benchmark`, pertahankan topic tersebut. Format boleh memakai message yang sudah ada; bila tidak ada message khusus, JSON melalui `std_msgs/msg/String` dapat dipakai untuk telemetry penelitian.
+Node kini mendukung telemetry opsional `/vision/benchmark` melalui `std_msgs/String`. Run resmi memakai logging CSV internal dan telemetry OFF agar tidak menggandakan logger. Logger lama masih memerlukan PID eksplisit bila dipakai dengan node skripsi. CSV ditulis streaming, bukan menumpuk frame di RAM saat inference.
 
 Minimal data per frame:
 
@@ -188,6 +213,8 @@ preprocess + OpenVINO inference + postprocess
 
 `inference_ms` tetap dicatat sebagai data diagnostik, tetapi **Tabel 3.1 menggunakan latency_ms**, karena proposal mendefinisikan latensi sebagai waktu pemrosesan satu frame sampai menghasilkan keluaran deteksi.
 
+CSV final mencatat `latency_ms` sejak callback dimulai sampai postprocess selesai, sebelum publishing. Preprocess mencakup konversi ROS image. `callback_end_to_end_ms` tetap terpisah dan mencakup publishing/debug bila aktif. Data historical tidak diganti namanya.
+
 ---
 
 ## 4. Warm-up dan pengukuran waktu
@@ -201,6 +228,8 @@ warmup_frames = 30
 ```
 
 tetapi angka tersebut harus diperlakukan sebagai **parameter implementasi**, bukan angka yang diklaim berasal dari proposal.
+
+Node menjalankan 30 inference dummy saat startup dan membuang 30 frame kamera sukses (`warmup_camera_frames`). Pengukuran dimulai pada frame berikutnya. Runner membekukan 3 run × 60 detik dan sampling 0.2 detik dalam `protocol.json`, dengan konfigurasi sama untuk diam/berjalan. Robot diam telah dikonfirmasi pengguna; berjalan disiapkan untuk operator nanti.
 
 Setelah warm-up selesai, setiap run harus mencatat:
 
@@ -306,6 +335,10 @@ Memory Usage (%)   = persentase RAM sistem
 
 Codex boleh merekam `process_cpu_percent` dan process RSS detector sebagai data tambahan untuk diagnosis, tetapi angka tersebut tidak menggantikan kolom utama Tabel 3.2/3.3.
 
+**Kode yang tersedia:** sampler final menulis condition, run_id, sample_no, system CPU, system memory used/available, memory_usage_percent langsung dari psutil, CPU proses, RSS/VMS, CPU per core, dan suhu. CSV disimpan streaming setiap 0.2 detik; MB memakai bytes/1,000,000. Data historical tetap memakai schema lamanya.
+
+Untuk logger final, ambil penggunaan RAM persen langsung dari `psutil.virtual_memory().percent`. Jangan menyamakannya dengan `used / total` karena definisi memori Linux juga memperhitungkan memori yang tersedia/cache. Konversi `memory_used_mb = system_memory_used_bytes / 1_000_000` untuk MB; nilai RSS MiB pada laporan lama menggunakan pembagi `1_048_576` dan harus tetap diberi label MiB. Setiap run harus mencatat kondisi aktual dari operator, bukan sekadar memberi label `berjalan` pada log ketika robot belum berjalan.
+
 Raw output:
 
 ```text
@@ -378,6 +411,8 @@ delta_MEM = MEM_mean_berjalan - MEM_mean_diam
 
 **Penting:** jika memakai NumPy, gunakan `np.std(values, ddof=1)` untuk tabel proposal. Jangan memakai `np.std(values)` default karena itu memakai `ddof=0`.
 
+Statistik historical memakai `ddof=0`. Node/generator final memakai `ddof=1` dari raw CSV. Jangan mengubah summary eksperimen lama agar terlihat sudah sesuai. Jika hanya tersedia satu sampel, standar deviasi sampel harus ditandai tidak tersedia, bukan diisi nol.
+
 ### Tabel 3.3 yang harus dibuat otomatis
 
 **Tabel 3.3 Rekapitulasi Penggunaan Sumber Daya Komputasi**
@@ -431,56 +466,23 @@ Jangan menggabungkan ketiganya seolah berasal dari run yang sama.
 
 ## 8. Script yang harus dibuat/dirapikan oleh Codex
 
-Codex harus memanfaatkan script yang sudah ada bila memungkinkan, khususnya `scripts/deployment/benchmark_op3_ros2.py`, tetapi script final harus mengikuti tabel proposal dan hanya fokus pada QAT final.
+Codex harus melanjutkan package skripsi dan helper existing. Path script saat ini sudah berada di `scripts/deployment/`; jangan memakai path lama di root `scripts/`. Script final harus mengikuti tabel proposal dan fokus pada QAT yang ditetapkan pengguna.
 
-Target implementasi:
+| Kode tersedia | Fungsi aktual | Batas penggunaan |
+| --- | --- | --- |
+| `scripts/deployment/audit_hardware_op3.py` | Audit sistem, kamera, runtime | Output fixed pada `experiments/hardware_op3/system_info.*` |
+| `scripts/deployment/audit_op3_models.py` | Inventory file dan bukti manifest tanpa hash | Bukti manifest tidak memverifikasi identitas payload |
+| `scripts/deployment/benchmark_op3.py` | Synthetic atau kamera OpenVINO, raw timing/resource | Single run, belum schema proposal diam/berjalan |
+| `scripts/deployment/benchmark_op3_ros2.py` | Subscriber JSON `/vision/benchmark`, logger resource | Memerlukan telemetry dan penyesuaian PID node skripsi |
+| `scripts/deployment/capture_op3_evidence.py` | Functional evidence kamera/resource | Evidence bukan evaluasi akurasi |
+| `scripts/run_qat_visual.sh` | OpenCV visual QAT melalui SSH X | Visualisasi ON; bukan benchmark resmi |
+| `ros2_ws/src/yolo11_op3_vision/yolo11_op3_vision/detector.py` | Detector ROS, publisher deteksi, CSV timed run | Telemetry opsional, raw CSV streaming, kondisi/run_id; runner multi-run tersedia |
 
-```text
-scripts/
-├── deploy_op3_qat.py
-├── benchmark_op3_qat_latency.py
-├── benchmark_op3_qat_resources.py
-└── build_op3_thesis_tables.py
-```
-
-Jika fungsi yang sudah ada di `benchmark_op3_ros2.py` dapat dipakai, pindahkan fungsi umum ke helper tanpa merusak data lama. Hindari copy-paste besar.
-
-### `deploy_op3_qat.py`
-
-Tugas:
-
-- audit bahwa XML/BIN QAT tersedia;
-- memastikan OpenVINO CPU tersedia;
-- menampilkan konfigurasi deployment;
-- membantu menyalin/materialize model ke path robot bila diperlukan;
-- tidak melakukan konversi ulang;
-- tidak melakukan QAT/PTQ/training.
-
-### `benchmark_op3_qat_latency.py`
-
-Tugas:
-
-- membaca telemetry ROS 2 detector;
-- melewati warm-up;
-- menjalankan `n` run;
-- mencatat raw latency per frame;
-- menghitung jumlah frame, waktu aktual, mean latency, dan FPS;
-- menghasilkan `table_3_1_latency.csv` dan versi Markdown.
-
-### `benchmark_op3_qat_resources.py`
-
-Tugas:
-
-- menerima `--condition diam|berjalan`;
-- merekam CPU/RAM secara periodik;
-- menulis raw CSV;
-- tidak menggerakkan robot secara otomatis kecuali Codex sudah memahami dan memverifikasi interface walking robot yang ada;
-- untuk kondisi berjalan, operator boleh memulai walking melalui mekanisme robot yang sudah tervalidasi, sedangkan logger hanya merekam data;
-- menghitung summary setelah kedua kondisi tersedia.
-
-**Keselamatan robot lebih penting daripada otomatisasi eksperimen.** Jangan membuat perintah walking baru hanya untuk benchmark jika interface gerak robot belum diverifikasi.
+Implementasi final memakai satu runner latency/resource: `scripts/deployment/run_op3_qat_experiments.py`, dengan wrapper `scripts/run_op3_qat_measurements.sh`. Ini memakai node detector existing, bukan membuat tiga pipeline paralel. Runner memulai kamera, mencatat kondisi dan multi-run, membekukan protocol, memantau kegagalan kamera, serta membersihkan hanya process miliknya. Script tidak menggerakkan robot.
 
 ### `build_op3_thesis_tables.py`
+
+Status: tersedia; diuji untuk ddof=1, FPS wall-time, exclusion error frame, dan walking yang belum diukur. Tabel historical tetap terpisah.
 
 Tugas:
 
@@ -491,7 +493,7 @@ Tugas:
 - menghasilkan CSV dan Markdown;
 - tidak membulatkan data mentah; pembulatan hanya untuk tabel presentasi.
 
-Output akhir:
+Output final dibuat saat run aktual: raw frame CSV mempunyai run_id/condition/error, resource CSV mempunyai condition, dan JSON per run ada di run_metadata/. Mode final_experiment menggunakan layout final; mode legacy tetap menggunakan result_stem.
 
 ```text
 experiments/hardware_op3/final_qat/
@@ -545,6 +547,11 @@ Setiap eksperimen final robot harus mencatat konfigurasi agar data dapat diperta
 | number of runs | nilai aktual |
 | resource interval | nilai aktual |
 | condition | diam / berjalan |
+| git commit | commit dan catatan perubahan lokal saat run |
+| model label source | folder/model path yang dikonfirmasi pengguna |
+| identity verification | tidak dilakukan; tidak ada pemeriksaan hash |
+| timestamp scope | UTC untuk metadata; monotonic/perf_counter untuk durasi |
+| visualization | debug image dan evidence rendering OFF pada run resmi |
 
 Tidak perlu menambahkan pemeriksaan file hash.
 
@@ -572,6 +579,24 @@ Variasi jarak dan pencahayaan sudah menjadi pertimbangan pada penyusunan dataset
 ---
 
 ## 11. Urutan eksekusi final di ROBOTIS OP3
+
+Sanity CPU dan functional ROS C920 berhasil. Node final mempunyai telemetry opsional, warmup kamera, kondisi, dan tabel otomatis. Walking menunggu operator; urutan berikut tetap bisa dipakai untuk functional deployment.
+
+Contoh menjalankan detector ROS **yang sudah ada**, setelah publisher C920 aktif pada `/image_raw`. Jalankan dari root repository dan gunakan runtime OpenVINO yang sudah disiapkan pada robot:
+
+```bash
+OP3_REPO_ROOT="$PWD"
+source /opt/ros/jazzy/setup.bash
+source "$OP3_REPO_ROOT/ros2_ws/install/setup.bash"
+ros2 launch yolo11_op3_vision detector.launch.py \
+  model_path:="$OP3_REPO_ROOT/artifacts/openvino/qat_int8/model.xml" \
+  input_topic:=/image_raw device:=CPU imgsz:=640 \
+  confidence_threshold:=0.25 iou_threshold:=0.45 \
+  publish_debug_image:=false \
+  python_prefix:="$OP3_REPO_ROOT/../.venv-op3-vision/bin/python"
+```
+
+Ini functional run tanpa timed logging (`benchmark_seconds=0`). Untuk timed check existing, tambahkan `benchmark_seconds:=60`, `output_dir` yang tersedia, dan `result_stem` unik. Biarkan `evidence_image_path` kosong saat pengukuran. Untuk multi-run dan kondisi gunakan run_op3_qat_experiments.py melalui wrapper pengukuran. Ganti `input_topic` sesuai topic hasil audit; build workspace terpisah terlebih dahulu bila belum dibangun.
 
 ```text
 STEP 1
@@ -631,26 +656,26 @@ Gunakan tabel tersebut untuk BAB IV
 
 Tahap robot baru dianggap selesai bila semua kondisi berikut terpenuhi:
 
-| Kriteria | Harus terpenuhi |
+| Kriteria wajib | Status kode/data saat ini |
 | --- | --- |
-| QAT OpenVINO dapat di-load di CPU onboard | Ya |
-| C920 640×480 dapat menyediakan frame | Ya |
-| ROS 2 detector menerima frame secara kontinu | Ya |
-| Output kelas ball/gawang/robot tersedia | Ya |
-| Warm-up dilakukan sebelum pencatatan | Ya |
-| Raw latency per frame tersimpan | Ya |
-| Jumlah frame dan waktu aktual tersimpan | Ya |
-| FPS dihitung sebagai N/T | Ya |
-| Raw CPU/RAM kondisi diam tersimpan | Ya |
-| Raw CPU/RAM kondisi berjalan tersimpan | Ya |
-| Tabel 3.1 dibuat otomatis | Ya |
-| Tabel 3.2 dibuat otomatis | Ya |
-| Tabel 3.3 dibuat otomatis | Ya |
-| Standar deviasi memakai n-1 / ddof=1 | Ya |
-| Metadata perangkat dan konfigurasi tersimpan | Ya |
-| Tidak ada training/PTQ/calibration baru | Ya |
-| Held-out TEST tidak dijalankan ulang | Ya |
-| Tidak ada angka live-camera yang diklaim sebagai precision/recall/mAP | Ya |
+| QAT OpenVINO dapat di-load di CPU onboard | Selesai: sanity CPU load/compile/inference |
+| C920 640×480 dapat menyediakan frame | Selesai pada functional run terdahulu |
+| ROS 2 detector menerima frame secara kontinu | Package sudah diuji dengan FP32; ROS QAT final masih perlu diuji |
+| Output kelas ball/gawang/robot tersedia | Mapping dan publisher tersedia; functional observation bukan evaluasi accuracy |
+| Warm-up dilakukan sebelum pencatatan | 30 inference dummy + 30 frame kamera sukses; metadata aktual tersedia |
+| Raw latency per frame sesuai definisi proposal | latency_ms detection-ready tersedia; callback_end_to_end terpisah |
+| Jumlah frame dan waktu aktual tersimpan | Runner multi-run tersedia; jumlah frame dan durasi aktual per run |
+| FPS dihitung sebagai N/T | Existing effective FPS tersedia; jendela final dimulai setelah warm-up kamera |
+| Raw CPU/RAM kondisi diam tersimpan | Sampling 0.2 detik dan condition tersedia; lihat raw final_qat |
+| Raw CPU/RAM kondisi berjalan tersimpan | Belum diuji; operator/interface walking perlu disiapkan |
+| Tabel 3.1 dibuat otomatis | Belum ada generator |
+| Tabel 3.2 dibuat otomatis | Belum ada generator |
+| Tabel 3.3 dibuat otomatis | Belum ada generator |
+| Standar deviasi memakai n-1 / ddof=1 | Belum pada generator final; statistik existing masih ddof=0 |
+| Metadata final perangkat/run/condition tersimpan | Environment snapshot dan run_metadata tersedia |
+| Tidak ada training/PTQ/calibration baru | Dipertahankan |
+| Held-out TEST tidak dijalankan ulang | Dipertahankan |
+| Tidak ada angka live-camera yang diklaim sebagai precision/recall/mAP | Dipertahankan |
 
 ---
 
@@ -658,6 +683,26 @@ Tahap robot baru dianggap selesai bila semua kondisi berikut terpenuhi:
 
 Ketika Codex menerima tugas implementasi di robot, tujuan utamanya adalah:
 
-> Implementasikan model final YOLO11n true QAT INT8 OpenVINO ke CPU onboard ROBOTIS OP3 melalui ROS 2 menggunakan Logitech C920 640×480. Jangan melakukan training, tuning, PTQ, calibration, atau evaluasi ulang held-out TEST. Gunakan artefak final `artifacts/openvino/qat_int8/model.xml` dan `model.bin`. Audit terlebih dahulu workspace ROS 2 yang sudah ada dan reuse node/launch yang layak. Implementasikan telemetry per-frame untuk latency detector dan logger CPU/RAM. Setelah warm-up, ambil data latency/FPS dalam beberapa run identik. Kemudian ambil data CPU dan memori secara periodik pada dua kondisi proposal: robot diam dengan inferensi aktif dan robot berjalan dengan inferensi aktif. Simpan semua raw data ke CSV. Bangun otomatis Tabel 3.1, Tabel 3.2, dan Tabel 3.3 sesuai format proposal. Gunakan FPS=N/T dan standar deviasi sampel `ddof=1`. Jangan menggunakan camera confidence sebagai metrik akurasi. Hasil accuracy tetap berasal dari FINAL TEST yang sudah dibekukan. Jangan mengubah interface walking robot tanpa audit dan verifikasi keselamatan.
+> Lanjutkan package skripsi terpisah `ros2_ws/src/yolo11_op3_vision` untuk deployment model QAT yang ditetapkan pengguna pada CPU NUC12 ROBOTIS OP3 dengan C920 640×480. Gunakan `artifacts/openvino/qat_int8/model.xml` dan `model.bin` tanpa pemeriksaan hash. Jangan melakukan training, tuning, PTQ, calibration, atau evaluasi ulang held-out TEST. Sanity CPU sudah selesai; lanjutkan ROS QAT dan perbaiki pencatatan detection-ready latency, warm-up kamera, telemetry/logging, multi-run, serta logger CPU/RAM sistem untuk kondisi diam/berjalan. Reuse kode `scripts/deployment/` dan node existing di package skripsi; jangan membuat detector/package paralel. Simpan seluruh raw CSV dan metadata run. Implementasikan generator Tabel 3.1–3.3 dengan FPS=N/T, MB yang eksplisit, dan standar deviasi sampel ddof=1. Pisahkan functional GUI run, hasil lama FP32/PTQ, dan eksperimen final. Accuracy tetap memakai FINAL TEST yang dibekukan. Walking dilakukan lewat interface yang sudah diaudit dan operator; logger tidak memulai gerak robot sendiri.
 
 Dokumen ini menjadi sumber kerja tahap deployment robot. Jika implementasi aktual membutuhkan perubahan teknis, perubahan tersebut boleh dilakukan selama **tidak mengubah variabel penelitian, model final, definisi metrik, atau struktur data yang telah ditetapkan proposal**.
+
+## Perintah pengukuran
+
+```bash
+# Diam, setelah kondisi fisik dikonfirmasi
+bash scripts/run_op3_qat_measurements.sh --condition diam --operator-confirmed --runs 3 --seconds 60 --camera-device /dev/video0
+# Berjalan NANTI; operator menjalankan walking melalui interface existing
+bash scripts/run_op3_qat_measurements.sh --condition berjalan --operator-confirmed --runs 3 --seconds 60 --camera-device /dev/video0
+python3 scripts/deployment/build_op3_thesis_tables.py --root experiments/hardware_op3/final_qat
+```
+
+Runner menolak overwrite CSV/metadata dan protocol berbeda. Stability memakai output terpisah dan `--condition stability --runs 1 --seconds 600`. Parameter baru: `experiment_condition`, `run_id`, `final_experiment`, `warmup_camera_frames`, `publish_benchmark`, `benchmark_topic`, `thermal_limit_c`.
+
+## Hasil aktual tahap ini
+
+Tiga run diam: 2442 frame; latency gabungan 17.9763 ms; FPS efektif gabungan 13.5658. CPU sistem mean 6.4163%, RAM sistem mean 4083.7804 MB, RSS detector mean 257.5252 MB. Raw per-frame dan 885 sampel resource ada di final_qat. Nilai accuracy tidak diambil dari kamera.
+
+Stability ROS 600 detik: 8260 frame, 13.7663 FPS, latency 17.6222 ms, nol exception, RSS growth 434176 bytes sebelum alokasi summary, suhu puncak 59 C. Ini observasi stability, bukan bukti mutlak tidak ada memory leak.
+
+Walking belum dilakukan sesuai instruksi pengguna; script siap. Jangan mengisi hasil berjalan sebelum ada run aktual. Laporan: experiments/hardware_op3/final_qat/FINAL_OP3_QAT_REPORT.md dan experiments/hardware_op3/stability_qat/20261007_ros_qat/STABILITY_REPORT.md.
