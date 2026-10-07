@@ -26,4 +26,4 @@ Satu label TRAIN pernah diekspor sebagai polygon segmentation walau dataset dete
 
 ## Artefak terkait
 
-[`scripts/download_dataset.py`](../scripts/download_dataset.py), [`scripts/audit_dataset.py`](../scripts/audit_dataset.py), [evaluasi TEST](08_final_test_evaluation.md).
+[`scripts/step01_download_dataset.py`](../scripts/step01_download_dataset.py), [`scripts/step02_audit_dataset.py`](../scripts/step02_audit_dataset.py), [evaluasi TEST](08_final_test_evaluation.md).
