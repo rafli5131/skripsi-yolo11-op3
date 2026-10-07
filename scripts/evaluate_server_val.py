@@ -8,7 +8,6 @@ its required ``*_openvino_model`` directory suffix. Source artifacts stay put.
 from __future__ import annotations
 
 import csv
-import hashlib
 import json
 import platform
 import shlex
@@ -25,7 +24,7 @@ import ultralytics
 import yaml
 from ultralytics import YOLO
 
-from op3_model_audit import ptq_validation_gate, qat_validation_gate, sha256_file
+from op3_model_audit import ptq_validation_gate, qat_validation_gate
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -72,13 +71,12 @@ def require_artifacts() -> dict[str, dict[str, Any]]:
         files = (source,) if kind == "pt" else (source, source.with_suffix(".bin"))
         if any(not path.is_file() for path in files):
             raise RuntimeError(f"Missing frozen artifact for {label}: {files}")
-        hashes = tuple(sha256_file(path) for path in files)
         records[slug] = {
             "label": label,
             "format": "PyTorch checkpoint" if kind == "pt" else "OpenVINO IR",
             "files": [
-                {"path": str(path.relative_to(ROOT)), "sha256": digest, "size_bytes": path.stat().st_size}
-                for path, digest in zip(files, hashes)
+                {"path": str(path.relative_to(ROOT)), "size_bytes": path.stat().st_size}
+                for path in files
             ],
         }
     return records
@@ -198,7 +196,7 @@ def save_comparison(results: dict[str, dict[str, Any]], metadata: dict[str, Any]
             rows.append("| " + class_name + " | " + metric + " | " + " | ".join(f"{results[slug]['per_class'][class_name][metric]:.4f}" for slug in names) + " |")
     rows.extend([
         "", "## Provenance dan batasan", "",
-        "Sumber model dan SHA256 ada di masing-masing `val_<model>.json`. PTQ dan QAT harus lolos provenance gate sebelum evaluasi; IR OpenVINO dijalankan melalui symlink sementara tanpa mengubah artifact aslinya. Dataset VAL canonical dibaca dari `data/dataset/data.yaml`; TEST tidak dimuat. JSON model mencatat waktu, host, commit, versi software, dan konfigurasi evaluator.",
+        "Sumber model ada di masing-masing `val_<model>.json`. PTQ dan QAT harus lolos provenance gate sebelum evaluasi; IR OpenVINO dijalankan melalui symlink sementara tanpa mengubah artifact aslinya. Dataset VAL canonical dibaca dari `data/dataset/data.yaml`; TEST tidak dimuat. JSON model mencatat waktu, host, commit, versi software, dan konfigurasi evaluator.",
         "", "Ini adalah kualitas deteksi **VAL pada server**, bukan accuracy FINAL TEST dan bukan benchmark latency/FPS final ROBOTIS OP3. Waktu yang dikeluarkan evaluator hanya diagnostik; bandingkan performa host memakai [benchmark server terkontrol](README.md) dan performa robot dari pengujian OP3 yang terpisah.",
         "", "Raw result: [comparison JSON](val_comparison.json), [overall CSV](val_comparison.csv), [per-class CSV](val_per_class.csv), serta `val_fp32_native.json`, `val_fp32_openvino.json`, `val_ptq_int8.json`, dan `val_qat_int8.json` di direktori ini.",
         "",
@@ -216,7 +214,6 @@ def main() -> None:
         "val_images": EXPECTED_IMAGES,
         "val_annotations": annotations,
         "dataset_yaml": str(DATA_YAML.relative_to(ROOT)),
-        "dataset_yaml_sha256": sha256_file(DATA_YAML),
         "val_images_path": str(val_dir),
         "evaluator_configuration": CONFIG,
         "hostname": platform.node(),
@@ -226,7 +223,6 @@ def main() -> None:
         "torch_version": torch.__version__,
         "openvino_version": ov.__version__,
         "git_commit_at_evaluation": revision,
-        "evaluator_script_sha256": sha256_file(Path(__file__)),
         "command": shlex.join([sys.executable, *sys.argv]),
         "accuracy_context": "VAL detection quality on server; not FINAL TEST or ROBOTIS OP3 deployment",
     }
