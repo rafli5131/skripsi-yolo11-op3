@@ -36,7 +36,7 @@ from export_openvino import (
     restore_qat_with_controller,
 )
 from probe_qat_compatibility import require_cuda, require_project_root
-from smoke_train_qat import quantizers, quantizers_enabled, sha256_file
+from smoke_train_qat import quantizers, quantizers_enabled
 
 
 OUTPUT_PATH = Path("artifacts/openvino/qat_cpu_cuda_diagnostic.json")
@@ -202,7 +202,6 @@ def main() -> int:
                 "GPU": {"logical device": "cuda:0", "name": gpu_name},
                 "CUDA_VISIBLE_DEVICES": os.environ.get("CUDA_VISIBLE_DEVICES"),
                 "source QAT checkpoint": str(qat_path),
-                "QAT SHA256": sha256_file(qat_path),
                 "test split": "not loaded or used",
                 "original synthetic generation method": (
                     "torch.linspace(-1.0, 1.0, steps=1*3*640*640, dtype=torch.float32).reshape([1,3,640,640]).to(cuda:0)"
