@@ -1,12 +1,10 @@
-"""Run or resume the fixed five-epoch NNCF QAT fine-tuning experiment.
+"""STEP 06 — Pelatihan true Quantization-Aware Training (QAT).
 
-This script starts a new run only from the immutable FP32 checkpoint, inserts
-NNCF PyTorch fake quantizers with ``create_compressed_model()``, and uses the
-installed Ultralytics DetectionTrainer lifecycle.  ``nncf.quantize`` (PTQ),
-OpenVINO export, and the dataset test split are never used.
+Memulai QAT dari checkpoint FP32 menggunakan fake quantization NNCF selama
+forward dan backpropagation. Script mendukung resume dan menghasilkan
+checkpoint QAT yang dapat direkonstruksi bersama state NNCF.
 
-Run on the CUDA SSH host from the repository root.  CUDA_VISIBLE_DEVICES is
-supplied by the shell/.env before torch is imported; this script never edits it.
+Tidak menggunakan PTQ, calibration pascatraining, atau TEST untuk training.
 """
 
 from __future__ import annotations
@@ -38,7 +36,7 @@ from nncf.torch import create_compressed_model, load_state
 from ultralytics import YOLO, settings
 from ultralytics.utils.torch_utils import unwrap_model
 
-# Reuse the Phase 5B implementation rather than recreating another QAT path.
+# Reuse the verified QAT trainer helpers from STEP 05.
 from step05_smoke_train_qat import (  # noqa: E402
     QATSmokeDetectionTrainer,
     SmokeStop,
