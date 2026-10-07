@@ -16,4 +16,4 @@ Ekspektasi tervalidasi: 184 `SymmetricQuantizer`, 1.323 state entries NNCF.
 
 ## Artefak terkait
 
-[`scripts/train_qat.py`](../scripts/train_qat.py), [`nncf_checkpoint_format.json`](../artifacts/checkpoints/qat/nncf_checkpoint_format.json), [QAT final](07_final_qat_training.md).
+[`scripts/step06_train_qat.py`](../scripts/step06_train_qat.py), [`nncf_checkpoint_format.json`](../artifacts/checkpoints/qat/nncf_checkpoint_format.json), [QAT final](07_final_qat_training.md).
