@@ -2,7 +2,7 @@
 
 ## Status model saat ini
 
-FP32 IR valid. PTQ comparator existing lolos hash/provenance gate. QAT INT8 final sekarang memakai **direct OpenVINO** dan lolos numerical equivalence/provenance gate. Kandidat strip dan ONNX lama yang ditolak adalah artifact berbeda dan tidak lagi ada sebagai file model aktif di worktree.
+FP32 IR valid. PTQ comparator existing lolos provenance gate. QAT INT8 final sekarang memakai **direct OpenVINO** dan lolos numerical equivalence/provenance gate. Kandidat strip dan ONNX lama yang ditolak adalah artifact berbeda dan tidak lagi ada sebagai file model aktif di worktree.
 
 | Model | Artifact | Sumber |
 | --- | --- | --- |
@@ -12,14 +12,14 @@ FP32 IR valid. PTQ comparator existing lolos hash/provenance gate. QAT INT8 fina
 
 ## FP32
 
-[Export manifest](../artifacts/openvino/export_manifest.json) mencatat `torch.jit.trace → openvino.convert_model → openvino.save_model(compress_to_fp16=False)` dengan input `[1,3,640,640]`. Model FP32 menjadi baseline dan sumber PTQ. File IR final diidentifikasi oleh SHA256 dalam [provenance](26_provenance_dan_verifikasi.md).
+[Export manifest](../artifacts/openvino/export_manifest.json) mencatat `torch.jit.trace → openvino.convert_model → openvino.save_model(compress_to_fp16=False)` dengan input `[1,3,640,640]`. Model FP32 menjadi baseline dan sumber PTQ. File IR final dicatat pada manifest dan inventaris artefak.md).
 
 ## QAT final
 
-Checkpoint QAT final SHA256 `b9e520cbd5d56597014c932701f471505d2243e02763a2245a51fd83fc35430d` adalah true NNCF QAT dengan 184 quantizer yang dipulihkan. [Diagnostic export final](../artifacts/openvino/qat_export_diagnostic.json) memilih `direct OpenVINO` dan berstatus `accepted and promoted`: 32/32 citra VAL memenuhi relative MAE ≤1%, graph memiliki 112 FakeQuantize dan 88 elemen INT8/U8, `PTQ used=false`, `calibration occurred=false`, dan TEST tidak dimuat. `qat_validation_gate()` menggabungkan bukti checkpoint, seleksi VAL, dan export itu.
+Checkpoint QAT final adalah true NNCF QAT dengan 184 quantizer yang dipulihkan. [Diagnostic export final](../artifacts/openvino/qat_export_diagnostic.json) memilih `direct OpenVINO` dan berstatus `accepted and promoted`: 32/32 citra VAL memenuhi relative MAE ≤1%, graph memiliki 112 FakeQuantize dan 88 elemen INT8/U8, `PTQ used=false`, `calibration occurred=false`, dan TEST tidak dimuat. `qat_validation_gate()` menggabungkan bukti checkpoint, seleksi VAL, dan export itu.
 
 ## Riwayat kandidat yang tidak diterima
 
-Jalur strip lama gagal numerical equivalence; jalur ONNX/QDQ berikutnya juga gagal pada 31/32 input VAL. Keduanya tidak boleh dipakai sebagai QAT final. File model kandidat besar dibersihkan, tetapi JSON diagnostik dan analisisnya masih ada: [kegagalan strip](10_openvino_export_failure_analysis.md), [percobaan ONNX](21_qat_onnx_openvino_export.md), dan [inventaris pembersihan](25_kegagalan_dan_pembersihan.md).
+Beberapa jalur export awal pernah diuji sebagai bagian eksplorasi implementasi. Artefak final yang digunakan sekarang adalah direct OpenVINO yang telah tervalidasi pada input VAL representatif. Catatan eksperimen lama dipertahankan hanya sebagai riwayat pengembangan dan tidak mewakili status QAT final.
 
 Export QAT final yang valid tidak memerlukan PTQ fallback, calibration baru, retraining, atau TEST. Benchmark server ketiga IR tersedia di [laporan server](23_server_openvino_benchmark.md); benchmark final OP3 masih terpisah.
