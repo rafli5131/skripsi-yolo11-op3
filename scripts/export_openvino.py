@@ -48,7 +48,7 @@ from probe_qat_compatibility import (
     require_project_root,
     restore_ultralytics_trainer_trainability,
 )
-from smoke_train_qat import quantizers, quantizers_enabled, sha256_file
+from smoke_train_qat import quantizers, quantizers_enabled
 
 
 FP32_CHECKPOINT = Path("artifacts/checkpoints/fp32/best.pt")
@@ -702,9 +702,7 @@ def main() -> int:
         manifest.update(
             {
                 "source FP32 checkpoint": str(fp32_path),
-                "FP32 SHA256": sha256_file(fp32_path),
                 "source QAT checkpoint": str(qat_path),
-                "QAT SHA256": sha256_file(qat_path),
                 "versions": {
                     "Python": platform.python_version(),
                     "torch": torch.__version__,
