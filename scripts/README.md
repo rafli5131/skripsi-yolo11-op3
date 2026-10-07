@@ -1,8 +1,8 @@
 # Struktur Script Penelitian
 
-Direktori ini memakai **satu jalur canonical bernomor** untuk alur utama skripsi.
+Direktori `scripts/` sudah dipisahkan menjadi **pipeline utama**, **shared helper**, **diagnostic**, dan **deployment** agar kode untuk laporan tidak bercampur dengan eksperimen lama.
 
-## Pipeline utama
+## Pipeline utama skripsi
 
 | Step | File | Fungsi |
 | ---: | --- | --- |
@@ -14,30 +14,53 @@ Direktori ini memakai **satu jalur canonical bernomor** untuk alur utama skripsi
 | 06 | `step06_train_qat.py` | Training true QAT |
 | 07 | `step07_select_qat_best.py` | Seleksi checkpoint QAT terbaik menggunakan VAL |
 | 08 | `step08_evaluate_final_test.py` | Evaluasi final model terpilih |
-| 09 | `step09_export_openvino.py` | Export QAT final ke OpenVINO |
+| 09 | `step09_export_openvino.py` | Konversi QAT final ke OpenVINO |
 
-File `step01` sampai `step09` adalah **kode eksperimen utama yang sebenarnya**, bukan file pembungkus.
+File `step01` sampai `step09` adalah **implementasi canonical langsung**, bukan wrapper.
 
-## Helper dan alat pendukung
+## Struktur direktori
 
-File tanpa prefix `stepXX` adalah helper, diagnostic, comparator historis, atau alat deployment. File tersebut tidak membentuk urutan metode utama BAB III dan tidak perlu dimasukkan sebagai Kode Program utama dalam laporan.
+```text
+scripts/
+├── README.md
+├── step01_download_dataset.py
+├── step02_audit_dataset.py
+├── step03_train_fp32.py
+├── step04_probe_qat_compatibility.py
+├── step05_smoke_train_qat.py
+├── step06_train_qat.py
+├── step07_select_qat_best.py
+├── step08_evaluate_final_test.py
+├── step09_export_openvino.py
+├── _shared/
+│   ├── openvino_export_core.py
+│   ├── nncf_reference_quant.py
+│   └── op3_model_audit.py
+├── diagnostics/
+│   └── ... alat diagnosis dan validasi tambahan
+└── deployment/
+    └── ... tool pengujian ROBOTIS OP3
+```
 
-Helper penting yang dipakai pipeline:
+Eksperimen lama yang tidak lagi menjadi jalur utama dipindahkan ke
+`archive/legacy_scripts/`.
 
-- `export_openvino.py`: fungsi inti export dan validasi OpenVINO.
-- `nncf_reference_quant.py`: helper backend quantization NNCF.
-- `op3_model_audit.py`: helper audit artefak untuk tahap deployment.
+## Aturan penggunaan
 
-## Menjalankan pipeline
+Untuk BAB III/lampiran kode, gunakan **hanya STEP 01–09** sebagai urutan implementasi utama. Folder `_shared/` adalah fungsi pendukung internal. Folder `diagnostics/` bukan hasil utama. Folder `deployment/` digunakan setelah model selesai dikonversi pada STEP 09.
 
-Contoh:
+## Contoh menjalankan pipeline
 
 ```bash
 uv run python scripts/step01_download_dataset.py
 uv run python scripts/step02_audit_dataset.py
 uv run python scripts/step03_train_fp32.py
-# ...
+uv run python scripts/step04_probe_qat_compatibility.py
+uv run python scripts/step05_smoke_train_qat.py
+uv run python scripts/step06_train_qat.py
+uv run python scripts/step07_select_qat_best.py
+uv run python scripts/step08_evaluate_final_test.py
 uv run python scripts/step09_export_openvino.py
 ```
 
-Tidak perlu menjalankan ulang training atau FINAL TEST hanya untuk dokumentasi. Gunakan hasil yang sudah dibekukan.
+Tidak perlu menjalankan ulang training atau FINAL TEST hanya untuk dokumentasi. Gunakan artefak hasil eksperimen yang sudah dibekukan.
