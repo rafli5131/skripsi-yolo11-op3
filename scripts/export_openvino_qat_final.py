@@ -46,8 +46,6 @@ def phase_7c_evidence() -> dict[str, Any]:
 
     report = json.loads(path.read_text(encoding="utf-8"))
     qat_path = (base.ROOT / base.QAT_CHECKPOINT).resolve()
-    current_sha = base.sha256_file(qat_path)
-
     val = report.get("VAL relative-MAE summary") or {}
     passed = int(val.get("count_relative_MAE_le_1_percent", 0))
     failed = int(val.get("count_relative_MAE_gt_1_percent", -1))
@@ -61,7 +59,6 @@ def phase_7c_evidence() -> dict[str, Any]:
     comparisons = report.get("comparisons") or {}
     return {
         "path": str(path),
-        "QAT SHA256": current_sha,
         "classification": report.get("classification"),
         "acceptance population": "32 deterministic real VAL images",
         "maximum allowed relative MAE": 0.01,
