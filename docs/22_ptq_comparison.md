@@ -4,7 +4,7 @@
 
 PTQ adalah comparator yang terpisah dari true NNCF QAT. PTQ historis dibuat dari checkpoint FP32 `artifacts/checkpoints/fp32/best.pt` melalui `torch2openvino(..., quantize=8, calibration_dataset=...)` dan `nncf.quantize()` dengan subset deterministik TRAIN. Manifest menyatakan `QAT checkpoint used=false` dan `TEST split loaded=false`. Benchmark server terbaru **memakai artifact PTQ existing**, tanpa quantization atau calibration baru.
 
-Canonical IR untuk pembandingan sekarang adalah `experiments/ptq/backend_models/ptq_openvino_model/model.{xml,bin}`. Hash dan pemeriksaan `ptq_validation_gate()` dijelaskan dalam [provenance](26_provenance_dan_verifikasi.md). `artifacts/openvino/ptq_int8/` adalah salinan dengan hash yang sama.
+Canonical IR untuk pembandingan sekarang adalah `experiments/ptq/backend_models/ptq_openvino_model/model.{xml,bin}`. Pemeriksaan `ptq_validation_gate()` dijelaskan dalam [provenance](26_provenance_dan_verifikasi.md).
 
 ## Hambatan loader awal
 
@@ -24,8 +24,8 @@ Percobaan evaluator pertama berhenti karena loader Ultralytics mengharapkan dire
 
 Sumber: `experiments/ptq/{fp32_openvino_val_metrics,ptq_val_metrics}.json`, `comparison.json`, dan `manifest.json`. Angka timing tersebut berasal dari evaluasi VAL historis, bukan benchmark server tiga model terbaru dan bukan final OP3. Laporan benchmark server yang adil untuk tiga IR ada di [23 Server OpenVINO benchmark](23_server_openvino_benchmark.md).
 
-Pada waktu comparison PTQ historis dibuat, satu IR QAT **lama** gagal numerical equivalence. Karena itu kolom QAT pada `experiments/ptq/comparison.json` diberi label rejected dan tidak diisi sebagai hasil deployment. IR QAT final yang ada sekarang berbeda hash/checkpoint dan telah lolos audit direct OpenVINO; status lama tidak berlaku untuk IR final. [Metrik QAT rejected](../experiments/ptq/qat_rejected_openvino_val_metrics.json) dipertahankan hanya sebagai bukti diagnostik historis, sementara file model salinannya telah dibersihkan.
+Comparison PTQ historis dibuat dalam konteks eksperimen yang berbeda dari artefak QAT final. IR QAT final yang digunakan sekarang telah lolos audit direct OpenVINO dan harus dijadikan rujukan untuk status QAT.
 
 ## Batas perbandingan
 
-VAL PTQ historis, TEST PyTorch final, benchmark server, dan pengujian hardware OP3 berasal dari konteks berbeda. Sebut split, evaluator, model hash, dan host setiap kali memakai angka. Jangan menafsirkan latency VAL lama sebagai latency final robot. Baca [cara membaca hasil](27_cara_membaca_hasil.md) sebelum menyusun tabel tesis.
+VAL PTQ historis, TEST PyTorch final, benchmark server, dan pengujian hardware OP3 berasal dari konteks berbeda. Sebut split, evaluator, model, dan host setiap kali memakai angka. Jangan menafsirkan latency VAL lama sebagai latency final robot. Baca [cara membaca hasil](27_cara_membaca_hasil.md) sebelum menyusun tabel tesis.
