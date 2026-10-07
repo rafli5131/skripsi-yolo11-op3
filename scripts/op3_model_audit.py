@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import hashlib
 import json
 import re
 from pathlib import Path
@@ -22,14 +21,6 @@ def read_json(path: Path) -> dict[str, Any] | None:
     return value if isinstance(value, dict) else None
 
 
-def sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as stream:
-        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
-
-
 def lfs_pointer(path: Path) -> dict[str, Any] | None:
     """Read a Git LFS pointer without confusing its SHA with a local file hash."""
     try:
@@ -38,11 +29,10 @@ def lfs_pointer(path: Path) -> dict[str, Any] | None:
         return None
     if not content.startswith("version https://git-lfs.github.com/spec/v1"):
         return None
-    oid_match = re.search(r"^oid sha256:([0-9a-f]{64})$", content, re.MULTILINE)
     size_match = re.search(r"^size (\d+)$", content, re.MULTILINE)
-    if not oid_match or not size_match:
+    if not size_match:
         return None
-    return {"sha256": oid_match.group(1), "size_bytes": int(size_match.group(1))}
+    return {"size_bytes": int(size_match.group(1))}
 
 
 def _valid_numerical_summary(summary: Any) -> bool:
@@ -66,20 +56,7 @@ def qat_validation_gate(root: Path) -> dict[str, Any]:
     """Require selected true-QAT provenance and a passed export/equivalence gate."""
     qat_manifest_path = root / "artifacts/checkpoints/qat/manifest.json"
     qat_manifest = read_json(qat_manifest_path) or {}
-    qat_hash = (
-        qat_manifest.get("artifact freeze", {}).get("sha256", {}).get("qat_best.pt")
-        if isinstance(qat_manifest.get("artifact freeze"), dict)
-        else None
-    )
-
     checkpoint_path = root / "artifacts/checkpoints/qat/qat_best.pt"
-    pointer = lfs_pointer(checkpoint_path)
-    materialized_hash = None
-    if checkpoint_path.is_file() and pointer is None:
-        try:
-            materialized_hash = sha256_file(checkpoint_path)
-        except OSError:
-            materialized_hash = None
 
     qat_api = str(qat_manifest.get("QAT API", ""))
     reload_verification = qat_manifest.get("reload verification")
@@ -202,8 +179,6 @@ diagnostic.get("calibration occurred") is False
         "accepted": accepted,
         "status": "VALID QAT INT8 OpenVINO" if accepted else "BLOCKED: no validated QAT OpenVINO artifact",
         "true_nncf_qat_provenance": true_qat,
-        "checkpoint_sha256": qat_hash,
-        "checkpoint_materialized_sha256": materialized_hash,
         "reload_quantizer_count": reload_quantizers,
         "expected_quantizer_count": expected_quantizers,
         "selection_manifest": str(selection_path.relative_to(root)) if selection_path else None,
@@ -233,7 +208,6 @@ def ptq_validation_gate(root: Path, model_xml: Path | None = None) -> dict[str, 
     comparison = read_json(root / "experiments/ptq/comparison.json") or {}
     fp32_manifest = read_json(root / "artifacts/checkpoints/fp32/manifest.json") or {}
     fp32_checkpoint = root / "artifacts/checkpoints/fp32/best.pt"
-    fp32_pointer = lfs_pointer(fp32_checkpoint)
     artifact_record = manifest.get("PTQ artifact", {})
     file_record = artifact_record.get("files", {}) if isinstance(artifact_record, dict) else {}
     candidate = (model_xml or (root / PTQ_XML_RELATIVE_PATH)).expanduser().resolve()
@@ -251,12 +225,6 @@ def ptq_validation_gate(root: Path, model_xml: Path | None = None) -> dict[str, 
     if not ptq_only:
         reasons.append("existing PTQ manifest does not prove PTQ-only provenance or TEST/QAT isolation")
 
-    source_hash = manifest.get("source FP32 SHA256")
-    fp32_materialized_hash = (
-        sha256_file(fp32_checkpoint)
-        if fp32_checkpoint.is_file() and fp32_pointer is None
-        else None
-    )
     source_valid = bool(
         fp32_manifest.get("status") in {"completed", "passed"}
         and fp32_manifest.get("class_mapping") == EXPECTED_CLASSES
@@ -269,8 +237,6 @@ def ptq_validation_gate(root: Path, model_xml: Path | None = None) -> dict[str, 
     if not comparison_valid:
         reasons.append("repository comparison does not mark this PTQ artifact as a valid comparator")
 
-    xml_hash = sha256_file(candidate) if candidate.is_file() else None
-    bin_hash = sha256_file(candidate_bin) if candidate_bin.is_file() else None
     files_valid = bool(
         candidate.is_file()
         and candidate_bin.is_file()
@@ -285,13 +251,9 @@ def ptq_validation_gate(root: Path, model_xml: Path | None = None) -> dict[str, 
         "accepted": accepted,
         "status": "VALID EXISTING PTQ INT8 COMPARATOR" if accepted else "BLOCKED: PTQ provenance gate failed",
         "model_xml": str(candidate),
-        "xml_sha256": xml_hash,
-        "bin_sha256": bin_hash,
         "ptq_only_provenance": ptq_only,
         "qat_checkpoint_used": manifest.get("QAT checkpoint used"),
         "test_split_loaded": manifest.get("TEST split loaded"),
-        "source_fp32_sha256": source_hash,
-        "source_fp32_materialized_sha256": fp32_materialized_hash,
         "source_checkpoint_valid": source_valid,
         "comparison_status": models.get("PTQ INT8", {}).get("status"),
         "artifact_files_present": files_valid,
