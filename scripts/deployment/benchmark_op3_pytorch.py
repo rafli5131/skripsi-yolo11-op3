@@ -52,6 +52,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--iou", type=float, default=0.45)
     parser.add_argument("--resource-interval", type=float, default=0.2)
     parser.add_argument("--evidence-dir", type=Path, default=OUTPUT_DIR / "evidence")
+    parser.add_argument("--output-dir", type=Path, default=OUTPUT_DIR)
     return parser.parse_args()
 
 
@@ -184,6 +185,8 @@ def write_resource_plot(path: Path, samples: list[dict[str, Any]], label: str) -
 
 def main() -> int:
     args = parse_args()
+    args.output_dir = args.output_dir.expanduser().resolve()
+    args.evidence_dir = args.evidence_dir.expanduser().resolve()
     if args.device.lower() != "cpu":
         raise SystemExit("Official ROBOTIS OP3 benchmark requires --device cpu.")
     if args.imgsz != 640 or args.warmup < 30:
@@ -225,7 +228,7 @@ def main() -> int:
     def predict(frame: np.ndarray) -> tuple[Any, dict[str, float], list[dict[str, Any]]]:
         result = model.predict(
             source=frame, imgsz=args.imgsz, batch=1, device=selected_device,
-            conf=args.confidence, iou=args.iou, verbose=False, save=False, show=False,
+            conf=args.confidence, iou=args.iou, verbose=False, save=False, show=False, rect=False,
         )[0]
         speed = {key: float(value) for key, value in result.speed.items()}
         if not all(np.isfinite(value) for value in speed.values()):
@@ -317,9 +320,9 @@ def main() -> int:
     if not rows or last_result is None:
         raise SystemExit("No timed frames completed.")
     prefix = "benchmark_fp32_pytorch" if args.mode == "synthetic" else "camera_benchmark_fp32_pytorch"
-    json_path = OUTPUT_DIR / f"{prefix}.json"
-    csv_path = OUTPUT_DIR / f"{prefix}.csv"
-    resources_path = OUTPUT_DIR / ("resources_fp32_pytorch.csv" if args.mode == "synthetic" else "resources_camera_benchmark_fp32_pytorch.csv")
+    json_path = args.output_dir / f"{prefix}.json"
+    csv_path = args.output_dir / f"{prefix}.csv"
+    resources_path = args.output_dir / ("resources_fp32_pytorch.csv" if args.mode == "synthetic" else "resources_camera_benchmark_fp32_pytorch.csv")
     write_csv(csv_path, rows)
     write_csv(resources_path, resource_samples)
     timing = {field: stats([float(item[field]) for item in rows]) for field in (
@@ -360,6 +363,7 @@ def main() -> int:
             "torch_cuda_available_but_unused": bool(torch.cuda.is_available()),
             "torch_num_threads": torch.get_num_threads(),
             "input_resolution": [args.imgsz, args.imgsz],
+            "rect": False,
             "batch": 1,
             "warmups": args.warmup,
             "iterations_requested": args.iterations if args.mode == "synthetic" else None,

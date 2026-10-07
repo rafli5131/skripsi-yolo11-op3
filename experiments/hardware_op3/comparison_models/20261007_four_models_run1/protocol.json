@@ -1,0 +1,36 @@
+{
+  "timestamp_utc": "2026-10-07T13:27:38.750677+00:00",
+  "models": [
+    "fp32_pytorch",
+    "fp32_openvino",
+    "ptq_int8",
+    "qat_int8"
+  ],
+  "device": "CPU",
+  "batch": 1,
+  "input_resolution": [
+    640,
+    640
+  ],
+  "warmups": 30,
+  "synthetic_iterations": 300,
+  "camera_seconds": 60,
+  "camera_device": "/dev/video0",
+  "camera_resolution": [
+    640,
+    480
+  ],
+  "confidence_threshold": 0.25,
+  "iou_threshold": 0.45,
+  "resource_interval_seconds": 0.2,
+  "visualization": false,
+  "ros_used": false,
+  "synthetic_seed": 42,
+  "initial_temperatures_c": [
+    56.0,
+    43.0,
+    43.0
+  ],
+  "identity_policy": "user-supplied artifact paths; no hashes checked",
+  "limitations": "sequential runs; camera scenes are not identical; runtime preprocess/postprocess differ"
+}
