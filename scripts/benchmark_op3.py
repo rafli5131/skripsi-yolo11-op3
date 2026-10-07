@@ -297,7 +297,7 @@ def main() -> int:
     if args.model_kind == "ptq_int8":
         gate = ptq_validation_gate(ROOT, args.model_xml or DEFAULT_PTQ)
         if not gate["accepted"]:
-            raise SystemExit("BLOCKED: existing PTQ artifact failed provenance/hash validation")
+            raise SystemExit("BLOCKED: existing PTQ artifact failed provenance validation")
 
     default_model = DEFAULT_PTQ if args.model_kind == "ptq_int8" else DEFAULT_FP32
     model_xml = (args.model_xml or default_model).expanduser().resolve()
