@@ -53,7 +53,7 @@ from ultralytics import YOLO
 from ultralytics.data.augment import LetterBox
 from ultralytics.utils.export.openvino import torch2openvino
 
-from probe_qat_compatibility import attach_ultralytics_training_args
+from step04_probe_qat_compatibility import attach_ultralytics_training_args
 from export_openvino import enable_ultralytics_detect_export
 
 
