@@ -1,4 +1,16 @@
-"""Audit YOLO detection dataset integrity without modifying images or labels."""
+"""STEP 02 — Audit dan validasi dataset.
+
+Memeriksa integritas TRAIN, VAL, dan TEST tanpa memodifikasi citra maupun
+label. Audit mencakup format anotasi YOLO, pasangan image-label, distribusi
+kelas, background, orphan label, dan overlap nama file antar-split.
+
+Input:
+- `data/dataset/data.yaml`
+
+Output:
+- ringkasan audit pada terminal
+- exit code non-zero jika ditemukan anotasi tidak valid atau split kosong
+"""
 
 from __future__ import annotations
 
