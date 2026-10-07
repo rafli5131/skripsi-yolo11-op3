@@ -14,4 +14,4 @@ Phase 5B: DetectionTrainer menjalankan 1 epoch (`fraction=0.1`, batch 8) dengan 
 
 ## Artefak terkait
 
-[`scripts/step05_smoke_train_qat.py`](../scripts/step05_smoke_train_qat.py), [manifest smoke](../experiments/debug/qat_smoke/manifest.json).
+[`scripts/step05_smoke_train_qat.py`](../scripts/diagnostics/smoke_train_qat.py), [manifest smoke](../experiments/debug/qat_smoke/manifest.json).
