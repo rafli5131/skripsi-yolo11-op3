@@ -1,20 +1,12 @@
-"""Prove NNCF PyTorch QAT compatibility for the YOLO11n FP32 checkpoint.
+"""STEP 04 — Verifikasi kompatibilitas true NNCF QAT.
 
-This is deliberately a *probe*, not a training job.  It uses only a handful
-of images from the training split, performs range initialization on at most
-one tiny batch, and executes exactly one optimizer step.  It never creates a
-QAT checkpoint and never constructs a validation or test dataloader.
+Melakukan probe kecil pada TRAIN untuk memastikan YOLO11n kompatibel dengan
+`nncf.torch.create_compressed_model()`, fake quantizer aktif, forward/loss,
+backward, dan optimizer step berjalan. Tahap ini bukan training final dan
+tidak menggunakan VAL/TEST untuk pemilihan model.
 
-NNCF has two APIs that can look similar at a glance:
-
-* ``nncf.quantize`` is the NNCF 2.13.0 post-training quantization API.
-* ``nncf.torch.create_compressed_model`` inserts PyTorch fake quantizers and
-  returns a model ready for compression-aware fine-tuning.  This probe uses
-  only the latter.
-
-Run this on the CUDA SSH host from the repository root, not in Codex's
-sandbox.  CUDA_VISIBLE_DEVICES must be exported by the shell or loaded from
-the repository .env before Python imports torch.
+Output:
+- `experiments/debug/qat_compatibility_probe.json`
 """
 
 from __future__ import annotations
