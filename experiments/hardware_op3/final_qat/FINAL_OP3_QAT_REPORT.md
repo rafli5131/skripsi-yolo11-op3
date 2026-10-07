@@ -1,5 +1,7 @@
 # Final OP3 QAT runtime report
 
+Model OpenVINO yang digunakan: `/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/artifacts/openvino/qat_int8/model.xml` (XML dan BIN berpasangan).
+
 Model label: QAT INT8 OpenVINO, berdasarkan folder model yang diberikan pengguna. Identitas artefak tidak diverifikasi dengan hash.
 
 Hardware dan versi software: lihat environment_*.json. CPU onboard aktual NUC12; batch 1, input 640 × 640, CPU.
