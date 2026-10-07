@@ -47,7 +47,7 @@ from ultralytics import YOLO
 
 # These are proven Phase 5--7 restoration/preprocessing helpers.  Importing
 # them does not invoke the older export diagnostic's main() or mutate a model.
-from export_openvino import (
+from _shared.openvino_export_core import (
     EXPECTED_QUANTIZERS,
     FP32_CHECKPOINT,
     INPUT_SHAPE,
