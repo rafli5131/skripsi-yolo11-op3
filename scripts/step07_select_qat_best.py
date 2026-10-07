@@ -1,19 +1,10 @@
-"""Tune true NNCF-QAT candidates on validation data and promote the best one.
+"""STEP 07 — Seleksi checkpoint QAT terbaik.
 
-This script intentionally does NOT use PTQ metrics and does NOT read the TEST
-split for model selection. Every candidate executes the repository's existing
-true-QAT training path in ``scripts/step06_train_qat.py`` with different QAT
-fine-tuning hyperparameters. The winner is selected by full-validation
-mAP50-95, with mAP50/precision/recall as deterministic tie breakers.
+Menjalankan kandidat true-QAT sesuai `configs/qat_best_search.yaml` dan
+memilih model terbaik hanya berdasarkan VAL. TEST dan metrik PTQ tidak
+digunakan untuk pemilihan hyperparameter.
 
-Run from the repository root on the CUDA host, for example:
-
-    export CUDA_VISIBLE_DEVICES=1
-    env -u PYTHONPATH -u VIRTUAL_ENV uv run python scripts/tune_qat_best.py
-
-After selection, the winning candidate artifacts are copied to the canonical
-``artifacts/checkpoints/qat`` directory. Only then should the frozen TEST split
-be evaluated once with ``scripts/evaluate_final_test.py``.
+Pemenang dipromosikan ke `artifacts/checkpoints/qat/`.
 """
 
 from __future__ import annotations
@@ -64,7 +55,6 @@ def parse_args() -> argparse.Namespace:
         help="Validate the search configuration and print candidates without training.",
     )
     return parser.parse_args()
-
 
 
 def load_config(path: Path) -> dict[str, Any]:
