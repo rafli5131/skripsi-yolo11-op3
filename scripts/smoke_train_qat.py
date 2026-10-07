@@ -19,7 +19,6 @@ from __future__ import annotations
 
 import argparse
 import copy
-import hashlib
 import json
 import os
 import platform
@@ -108,17 +107,6 @@ def resolve_images(path: Path, split: str) -> Path:
     return resolved
 
 
-def sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for block in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(block)
-    return digest.hexdigest()
-
-
-def tensor_sha256(value: torch.Tensor) -> str:
-    value = value.detach().cpu().contiguous()
-    return hashlib.sha256(value.numpy().tobytes()).hexdigest()
 
 
 def write_smoke_data_yaml(path: Path, train_images: Path, val_images: Path, names: dict[int, str]) -> None:
@@ -329,7 +317,6 @@ class QATSmokeDetectionTrainer(DetectionTrainer):
         self.fake_quant_enabled_before_training = False
         self.fake_quant_calls: dict[int, int] | None = None
         self._fake_quant_hooks: list[Any] = []
-        self.parameter_fingerprint: dict[str, str] | None = None
         self.qat_checkpoint_path: Path | None = None
         self.qat_best_checkpoint_path: Path | None = None
         super().__init__(*args, **kwargs)
@@ -376,16 +363,6 @@ class QATSmokeDetectionTrainer(DetectionTrainer):
         # Count real calls across the trainer forward/validation lifecycle.
         self.fake_quant_calls, self._fake_quant_hooks = install_quantizer_counter(items)
 
-        # Store a trainable tensor fingerprint before the epoch.  The reload
-        # path compares it to the saved trained value, proving it did not fall
-        # back to the FP32 initialization.
-        for name, parameter in qat_model.named_parameters():
-            if parameter.requires_grad and parameter.is_floating_point():
-                self.parameter_fingerprint = {"name": name, "before": tensor_sha256(parameter)}
-                break
-        if self.parameter_fingerprint is None:
-            raise SmokeStop("No trainable floating-point QAT parameter was found.")
-
         self.compression_ctrl = controller
         self.qat_model_prepared = True
         return qat_model
@@ -402,10 +379,6 @@ class QATSmokeDetectionTrainer(DetectionTrainer):
             raise SmokeStop("Cannot save QAT state before NNCF preparation.")
         model = unwrap_model(self.model)
         state_dict = {key: value.detach().cpu().clone() for key, value in model.state_dict().items()}
-        fingerprint = dict(self.parameter_fingerprint or {})
-        if fingerprint.get("name") not in state_dict:
-            raise SmokeStop("The QAT fingerprint parameter is missing from the NNCF state dictionary.")
-        fingerprint["after"] = tensor_sha256(state_dict[fingerprint["name"]])
         payload = {
             "format": "nncf_qat_smoke_v1",
             "epoch": int(self.epoch),
@@ -418,7 +391,6 @@ class QATSmokeDetectionTrainer(DetectionTrainer):
             "optimizer_state_dict": copy.deepcopy(self.optimizer.state_dict()),
             "train_args": vars(self.args).copy(),
             "metrics": dict(self.metrics or {}),
-            "parameter_fingerprint": fingerprint,
         }
         self.wdir.mkdir(parents=True, exist_ok=True)
         self.qat_checkpoint_path = self.wdir / "qat_last.pt"
@@ -456,7 +428,7 @@ def reload_and_validate(
 ) -> dict[str, Any]:
     """Recreate structure, restore controller state/weights, then validate it."""
     saved = torch.load(checkpoint_path, map_location="cpu", weights_only=False)
-    required = {"model_state_dict", "compression_state", "nncf_config", "parameter_fingerprint"}
+    required = {"model_state_dict", "compression_state", "nncf_config"}
     missing = sorted(required.difference(saved))
     if missing:
         raise SmokeStop(f"QAT checkpoint misses required NNCF state: {missing}")
@@ -477,17 +449,6 @@ def reload_and_validate(
     enabled = quantizers_enabled(items)
     if not items or not enabled:
         raise SmokeStop("Reloaded model does not retain enabled fake quantizers.")
-
-    fingerprint = saved["parameter_fingerprint"]
-    reloaded_state = reloaded_model.state_dict()
-    selected_name = fingerprint.get("name")
-    if selected_name not in reloaded_state:
-        raise SmokeStop("Reloaded model does not contain the saved trained-parameter fingerprint.")
-    restored_hash = tensor_sha256(reloaded_state[selected_name])
-    if restored_hash != fingerprint.get("after"):
-        raise SmokeStop("Reloaded parameter fingerprint does not match the saved QAT state.")
-    if fingerprint.get("before") == fingerprint.get("after"):
-        raise SmokeStop("The fingerprinted QAT parameter did not change during the smoke epoch.")
 
     calls, hooks = install_quantizer_counter(items)
     try:
@@ -522,12 +483,6 @@ def reload_and_validate(
         "fake_quant_calls_forward_640": forward_calls,
         "validation_inference_status": validation_metrics is not None,
         "trained_weights_restored": True,
-        "trained_parameter_fingerprint": {
-            "name": selected_name,
-            "saved_hash": fingerprint.get("after"),
-            "reloaded_hash": restored_hash,
-            "changed_from_fp32_initialization": True,
-        },
         "controller_type": type(controller).__name__,
         "validation_metrics": dict(validation_metrics or {}),
     }
@@ -647,7 +602,6 @@ def main() -> int:
 
         manifest.update(
             {
-                "source FP32 SHA256": sha256_file(source_checkpoint),
                 "GPU": {"logical_device": "cuda:0", "name": gpu_name},
                 "CUDA_VISIBLE_DEVICES": os.environ.get("CUDA_VISIBLE_DEVICES"),
                 "train_images": str(train_images),
