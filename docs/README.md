@@ -1,6 +1,6 @@
 # Indeks Dokumentasi
 
-Mulai dari [panduan repository](24_panduan_repositori.md), lalu [provenance](26_provenance_dan_verifikasi.md), [kegagalan dan pembersihan](25_kegagalan_dan_pembersihan.md), dan [cara membaca hasil](27_cara_membaca_hasil.md). Dokumen fase lama mencatat keadaan pada waktu penulisannya; status artifact final saat ini ada pada provenance dan manifest terkini.
+Mulai dari [panduan repository](24_panduan_repositori.md), lalu [provenance](26_provenance_dan_verifikasi.md), [catatan eksperimen dan pembersihan](25_kegagalan_dan_pembersihan.md), dan [cara membaca hasil](27_cara_membaca_hasil.md). Dokumen fase lama mencatat keadaan pada waktu penulisannya; status artifact final saat ini ada pada provenance dan manifest terkini.
 
 ## Status terkini
 
@@ -8,7 +8,7 @@ Mulai dari [panduan repository](24_panduan_repositori.md), lalu [provenance](26_
 | --- | --- |
 | FP32 baseline dan held-out TEST | Selesai |
 | True NNCF QAT checkpoint dan held-out TEST | Selesai |
-| PTQ INT8 comparator | Valid; provenance/hash gate accepted |
+| PTQ INT8 comparator | Valid; provenance gate accepted |
 | QAT INT8 direct OpenVINO | Valid; export/equivalence gate accepted |
 | Benchmark server OpenVINO CPU | Selesai; diagnostik, terpisah dari OP3 |
 | Evaluasi deteksi VAL empat model di server | Selesai; FP32 native/OV, PTQ, QAT |
@@ -41,10 +41,10 @@ Urutan tahap final ada di [timeline eksperimen](20_experiment_timeline.md). [Rin
 - [28 Perbandingan precision, recall, F1, dan mAP server VAL](28_server_val_detection_comparison.md)
 - [22 PTQ comparator](22_ptq_comparison.md)
 
-## Export, kegagalan, dan deployment
+## Export, validasi, dan deployment
 
 - [09 Export OpenVINO saat ini](09_openvino_export.md)
-- [10 Kegagalan export QAT lama](10_openvino_export_failure_analysis.md)
+- [10 Catatan export QAT](10_openvino_export_failure_analysis.md)
 - [11 Diagnostik QAT CPU/CUDA](11_cpu_cuda_qat_diagnostic.md)
 - [15 Known issues](15_known_issues.md)
 - [16 Decision log](16_decision_log.md)
@@ -53,7 +53,7 @@ Urutan tahap final ada di [timeline eksperimen](20_experiment_timeline.md). [Rin
 - [23 Benchmark server FP32/PTQ/QAT](23_server_openvino_benchmark.md)
 - [Ringkasan hasil di direktori server](../experiments/server_openvino/README.md)
 - [Raw laporan evaluasi VAL empat model](../experiments/server_openvino/VAL_METRICS_REPORT.md)
-- [25 Kegagalan dan pembersihan](25_kegagalan_dan_pembersihan.md)
+- [25 Catatan eksperimen dan pembersihan](25_kegagalan_dan_pembersihan.md)
 - [18 Langkah berikutnya](18_next_steps.md)
 
 ## Referensi operasional
