@@ -212,7 +212,7 @@ def main() -> int:
     if args.model_kind == "qat_int8" and not qat_validation_gate(ROOT)["accepted"]:
         raise SystemExit("BLOCKED: no validated QAT OpenVINO artifact")
     if args.model_kind == "ptq_int8" and not ptq_validation_gate(ROOT, args.model_xml)["accepted"]:
-        raise SystemExit("BLOCKED: existing PTQ artifact failed provenance/hash validation")
+        raise SystemExit("BLOCKED: existing PTQ artifact failed provenance validation")
     if args.warmup < 30:
         raise SystemExit("ROS 2 benchmark requires at least 30 warmup callbacks.")
     if args.result_stem == "stability_test" and args.seconds < 600:
