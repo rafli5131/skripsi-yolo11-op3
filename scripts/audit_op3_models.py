@@ -14,7 +14,6 @@ from op3_model_audit import (
     ptq_validation_gate,
     qat_validation_gate,
     read_json,
-    sha256_file,
 )
 
 
@@ -34,21 +33,20 @@ def inspect_blob(relative_path: str, cache_path: Path | None = None) -> dict[str
     record: dict[str, Any] = {"repository_path": relative_path, "exists": path.is_file()}
     pointer = lfs_pointer(path) if path.is_file() else None
     if pointer:
-        record.update({"sha256": pointer["sha256"], "size_bytes": pointer["size_bytes"], "storage": "Git LFS"})
+        record.update({"size_bytes": pointer["size_bytes"], "storage": "Git LFS"})
     elif path.is_file():
-        record.update({"sha256": sha256_file(path), "size_bytes": path.stat().st_size, "storage": "Git blob"})
+        record.update({"size_bytes": path.stat().st_size, "storage": "Git blob"})
     if cache_path:
         local = cache_path.resolve()
         cached = {"path": str(local), "exists": local.is_file()}
         if local.is_file():
-            cached.update({"sha256": sha256_file(local), "size_bytes": local.stat().st_size})
+            cached.update({"size_bytes": local.stat().st_size})
         record["runtime_copy"] = cached
     return record
 
 
 def main() -> int:
     fp32_manifest = read_json(ROOT / "artifacts/checkpoints/fp32/manifest.json") or {}
-    fp32_checkpoint_pointer = lfs_pointer(ROOT / "artifacts/checkpoints/fp32/best.pt")
     qat_manifest = read_json(ROOT / "artifacts/checkpoints/qat/manifest.json") or {}
     qat_gate = qat_validation_gate(ROOT)
     ptq_gate = ptq_validation_gate(ROOT)
@@ -100,7 +98,6 @@ def main() -> int:
             "format": "OpenVINO IR XML + BIN",
             "checkpoint": {
                 "path": "artifacts/checkpoints/fp32/best.pt",
-                "sha256": fp32_checkpoint_pointer.get("sha256") if fp32_checkpoint_pointer else None,
                 "size_bytes": fp32_checkpoint_pointer.get("size_bytes") if fp32_checkpoint_pointer else None,
                 "manifest_status": fp32_manifest.get("status"),
                 "source": fp32_manifest.get("checkpoint_source"),
@@ -109,7 +106,6 @@ def main() -> int:
             "quantization_method": "none (FP32)",
             "openvino_xml": fp32_xml,
             "openvino_bin": fp32_bin,
-            "source_checkpoint_sha256_in_export": export_manifest.get("FP32 SHA256"),
             "validity": "valid" if fp32_export_valid else "unknown",
             "validity_evidence": [
                 "FP32 checkpoint manifest status completed",
@@ -135,7 +131,6 @@ def main() -> int:
             "name": "YOLO11n true NNCF QAT best checkpoint",
             "format": "PyTorch checkpoint",
             "path": "artifacts/checkpoints/qat/qat_best.pt",
-            "sha256": qat_gate.get("checkpoint_sha256"),
             "size_bytes": (lfs_pointer(ROOT / "artifacts/checkpoints/qat/qat_best.pt") or {}).get("size_bytes"),
             "provenance_status": "confirmed by checkpoint manifest"
             if qat_gate.get("true_nncf_qat_provenance")
