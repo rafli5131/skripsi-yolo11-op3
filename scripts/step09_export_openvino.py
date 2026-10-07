@@ -288,7 +288,7 @@ def candidate_from_controller_export(
 def main() -> int:
     # Reuse the shared export engine and override only the final acceptance
     # policy used by this canonical STEP 09 entry point.
-    base.phase_7c_evidence = load_cpu_cuda_evidence
+    base.load_cpu_cuda_evidence = load_cpu_cuda_evidence
     base.qat_cuda_cpu_equivalence = qat_cuda_cpu_equivalence
     base.candidate_from_direct_openvino = candidate_from_direct_openvino
     base.candidate_from_controller_export = candidate_from_controller_export
