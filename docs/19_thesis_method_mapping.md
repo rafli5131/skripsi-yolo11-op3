@@ -16,6 +16,6 @@ Memetakan implementasi ke metodologi dan pelaporan skripsi.
 | Trainer smoke | `smoke_train_qat.py` | integrasi lifecycle | diagnostic, bukan hasil utama |
 | QAT final | `train_qat.py` | hyperparameter QAT | checkpoint dan metrik |
 | Held-out | `evaluate_final_test.py` | protokol test read-only | tabel perbandingan |
-| OpenVINO | `export_openvino.py` | jalur konversi | VALID/REJECTED export evidence |
+| OpenVINO | `export_openvino.py` | jalur konversi | bukti export dan validasi |
 
 Gunakan [decision log](16_decision_log.md) untuk justifikasi perubahan konfigurasi dan [timeline](20_experiment_timeline.md) untuk kronologi. Ini bukan naskah BAB lengkap.
