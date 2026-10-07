@@ -21,6 +21,8 @@ Menu operasi:
 | 7 | Aktifkan walking dengan parameter existing; konfirmasi `JALAN` setelah posisi stabil |
 | 8 | Stop walking; tidak memutus daya motor |
 | 9 | Ganti model |
+| 10 | Soccer existing: walking-ready pose, kepala mengikuti bola, walking menuju bola, kick dan get-up |
+| 11 | Uji adapter YOLO → soccer selama 15 detik tanpa perintah motor |
 | 0 | Keluar; kirim stop untuk walking yang dimulai dari menu ini |
 
 Untuk pengukuran berjalan: pilih model → 5 (jika manager belum aktif) → 6 → tunggu robot stabil → 7 → 3 atau 4 → pilih `berjalan` → konfirmasi `UKUR`. Setelah selesai pilih 8. Script tidak mengganti parameter gait dan menolak start/init langsung jika motion gateway existing aktif, agar tidak ada dua pemilik kontrol gerak.
@@ -59,3 +61,31 @@ bash scripts/run_op3.sh --model fp32 --action ros --condition berjalan --dry-run
 ```
 
 Validasi implementation: route empat model dan pergantian menu diuji dengan dry-run; native `--show` diuji menggunakan kamera C920 dan Qt offscreen selama 3 detik. Record ada di `experiments/hardware_op3/operator_ui_check/native_visual_offscreen/`. Pengujian offscreen tidak membuktikan koneksi SSH X pengguna. Tidak ada command manager/init/start/stop aktual yang dieksekusi selama pengembangan script.
+
+## Soccer dengan model skripsi
+
+Pilih model OpenVINO → **11** untuk memeriksa kamera dan adapter tanpa gerak. Untuk hardware soccer: **5** jika manager belum aktif → **6** → tunggu init pose stabil → letakkan bola terlihat kamera → **10** → ketik `SOCCER` ketika operator sudah siap. Jangan gunakan menu 7 sebelum menu 10: soccer menjadi pemilik kontrol walking. Node soccer existing mengambil alih joint kepala dan badan, menjalankan walking-ready action, lalu state PLAYING untuk mengejar bola.
+
+Soccer menggunakan `op3_demo/op_demo_node` existing, bukan algoritma gait baru. Node ini juga dapat **menendang dan melakukan get-up otomatis**. Robot harus ditopang saat startup dan area kaki/kepala harus bebas. Kualitas gait belum tervalidasi oleh pengujian adapter; offset servo, gait, FOV kamera dan estimasi jarak existing tidak dituning oleh perubahan ini. Soccer tersedia untuk FP32/QAT/PTQ OpenVINO; backend PyTorch native tetap standalone.
+
+Jika X11 aktif, visual bounding box muncul otomatis; `q`/Esc atau Ctrl+C mengakhiri sesi. Tanpa DISPLAY, soccer tetap bisa berjalan dan menerbitkan `/thesis_soccer/debug_image`. Untuk stop dari terminal kedua:
+
+```bash
+cd ~/ros2_jazzy/skripsi-yolo11-op3
+bash scripts/run_op3.sh --action stop
+```
+
+Menu 8/shortcut stop mengirim state FINISHED dan stop demo sebelum stop walking bila thesis soccer aktif. Penghentian tidak memutus daya motor. Proses manager yang sudah ada tetap berjalan.
+
+Adapter memakai hanya kelas `0:ball`, confidence minimal 0.4, memilih confidence tertinggi, menormalisasi pusat ke [-1,1], dan mengirim radius pixel sesuai detector existing. Topic deteksi soccer terpisah: `/thesis_soccer/detections`. Game state khusus `/thesis_soccer/game_state` tidak mengirim PLAYING ke GameController kompetisi. Menolak startup jika pemilik kontrol soccer/motion lain terdeteksi. Kamera, deteksi dan IMU harus fresh; setelah aktif, data stale >1.5 detik atau bola hilang >3 detik menghentikan demo. Resume harus menjalankan soccer lagi; tidak otomatis melanjutkan setelah watchdog stop. Tidak ada pencarian bola dengan walking saat bola hilang.
+
+Log kamera/detector/demo, screenshot deteksi, raw adapter `ball_adapter.csv`, dan `session.json` berada di `experiments/hardware_op3/soccer_sessions/<timestamp>_<model>_<action>_<pid>/`. Ini bukti functional integration, bukan benchmark gait atau hasil akurasi dataset. Observe-only memakai `/thesis_soccer/preview/circle_set` dan tidak membuat publisher aktuator maupun menjalankan `op_demo_node`.
+
+```bash
+bash scripts/run_op3.sh --model qat --action soccer_observe
+bash scripts/run_op3.sh --model qat --action soccer --dry-run
+# Setelah robot siap dan operator berada di dekatnya:
+bash scripts/run_op3.sh --model qat --action soccer
+```
+
+Verifikasi pada 2026-10-07: observe-only C920 dengan model folder QAT menerima 150 frame bola selama sesi 15 detik. Sesi berikutnya 5 detik menerima 29 frame bola, menyimpan 29 raw rows dan screenshot ball/robot, tanpa actuator demo. Bukti sesi kedua: `experiments/hardware_op3/soccer_sessions/20261007T142326_qat_int8_soccer_observe_31147/`. Empat test adapter/watchdog lulus dan build package skripsi berhasil. Jalur startup live hanya diverifikasi dry-run; kepala, gait, kick/get-up dan stop fisik belum diuji oleh perubahan ini.
