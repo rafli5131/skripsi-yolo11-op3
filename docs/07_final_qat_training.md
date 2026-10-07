@@ -1,6 +1,6 @@
 # Pelatihan QAT Final
 
-> Catatan status: dokumen ini merekam run QAT 5 epoch yang lebih awal. Checkpoint QAT final yang berlaku sekarang adalah pemenang pencarian VAL `qat_lr1e4_r256_e15` dengan SHA256 `b9e520cbd5d56597014c932701f471505d2243e02763a2245a51fd83fc35430d`; lihat [seleksi QAT best](23_qat_best_selection.md) dan [provenance](26_provenance_dan_verifikasi.md). Angka di bawah adalah riwayat run lama.
+> Catatan status: dokumen ini merekam run QAT 5 epoch yang lebih awal. Checkpoint QAT final yang berlaku sekarang adalah pemenang pencarian VAL `qat_lr1e4_r256_e15`; lihat [seleksi QAT best](23_qat_best_selection.md) dan [provenance](26_provenance_dan_verifikasi.md). Angka di bawah adalah riwayat run lama.
 
 ## Tujuan
 
