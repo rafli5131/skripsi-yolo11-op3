@@ -47,6 +47,7 @@ def inspect_blob(relative_path: str, cache_path: Path | None = None) -> dict[str
 
 def main() -> int:
     fp32_manifest = read_json(ROOT / "artifacts/checkpoints/fp32/manifest.json") or {}
+    fp32_checkpoint_pointer = lfs_pointer(ROOT / "artifacts/checkpoints/fp32/best.pt")
     qat_manifest = read_json(ROOT / "artifacts/checkpoints/qat/manifest.json") or {}
     qat_gate = qat_validation_gate(ROOT)
     ptq_gate = ptq_validation_gate(ROOT)
