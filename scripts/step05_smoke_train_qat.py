@@ -1,18 +1,11 @@
-"""One-epoch NNCF QAT smoke test through Ultralytics DetectionTrainer.
+"""STEP 05 — Smoke test integrasi QAT.
 
-This is intentionally *not* the Phase 5 QAT experiment.  It proves the
-training lifecycle only:
+Menjalankan lifecycle QAT singkat melalui Ultralytics DetectionTrainer untuk
+memastikan fake quantizer NNCF, checkpoint QAT, reload, dan validation path
+bekerja sebelum eksperimen utama.
 
-    FP32 best.pt -> NNCF fake quantizers -> DetectionTrainer -> train/val
-    -> NNCF-aware checkpoint -> independent reload/validation.
-
-Only train and validation paths are declared in the generated smoke dataset
-YAML.  The test split is never read.  ``nncf.quantize`` is deliberately not
-imported or called: it is NNCF's PTQ API, not the proven PyTorch QAT path.
-
-Run from the repository root on the CUDA SSH host.  CUDA_VISIBLE_DEVICES is
-loaded from the shell or .env before torch is imported and is never changed by
-this script.
+Tahap ini hanya verifikasi implementasi; hasilnya bukan hasil utama skripsi.
+TEST tidak digunakan.
 """
 
 from __future__ import annotations
@@ -54,8 +47,7 @@ from ultralytics.models.yolo.detect.val import DetectionValidator
 from ultralytics.utils import RANK
 from ultralytics.utils.torch_utils import unwrap_model
 
-# Phase 5A's train-only loader and loss/trainability handling are deliberately
-# reused instead of reimplementing a second, potentially incompatible path.
+# Reuse the verified train-only loader and loss/trainability handling.
 from step04_probe_qat_compatibility import (  # noqa: E402
     ProbeStop,
     YoloTrainInitializingDataLoader,
