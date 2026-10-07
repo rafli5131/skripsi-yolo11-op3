@@ -1,8 +1,15 @@
 # Diagnostic Tools
 
-Folder ini berisi smoke test, diagnosis environment, diagnosis QAT, dan
-evaluasi tambahan. File di sini **bukan** urutan utama metodologi BAB III.
+Folder ini berisi verifikasi teknis yang mendukung pipeline utama tetapi
+**bukan** langkah metodologi utama BAB III.
 
-Gunakan hanya ketika perlu memeriksa environment, backend, atau hasil
-diagnostik. Pipeline utama skripsi tetap `scripts/step01_*.py` sampai
-`scripts/step09_*.py`.
+Yang paling penting:
+
+- `probe_qat_compatibility.py`: memastikan true NNCF QAT kompatibel dengan YOLO11n.
+- `smoke_train_qat.py`: memastikan lifecycle trainer, checkpoint, reload, dan quantizer berjalan.
+- `diagnose_qat_cpu_cuda.py`: diagnosis ekuivalensi backend.
+- `diagnose_qat_export_state.py`: diagnosis state export.
+- `diagnose_system.py`, `diagnose_gpu.py`, dan `verify_torch_cuda.py`: audit environment.
+
+Pipeline utama tetap berada di `scripts/step01_*.py` sampai
+`scripts/step07_*.py`.
