@@ -20,7 +20,7 @@ OpenVINO yang tercatat pada benchmark server adalah versi 2024.4.0. Bila model h
 env -u PYTHONPATH -u VIRTUAL_ENV uv run python -c 'import sys; from pathlib import Path; sys.path.insert(0, "scripts"); from op3_model_audit import qat_validation_gate, ptq_validation_gate; root = Path.cwd(); print("QAT:", qat_validation_gate(root)); print("PTQ:", ptq_validation_gate(root, root / "experiments/ptq/backend_models/ptq_openvino_model/model.xml"))'
 ```
 
-Kedua hasil harus memiliki `accepted: True` dan `reasons: []`. [Provenance](26_provenance_dan_verifikasi.md) menjelaskan syarat gate dan hash final.
+Kedua hasil harus memiliki `accepted: True` dan `reasons: []`. [Provenance](26_provenance_dan_verifikasi.md) menjelaskan syarat gate final.
 
 ## Lihat hasil
 
