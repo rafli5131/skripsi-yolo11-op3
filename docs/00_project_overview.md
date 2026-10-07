@@ -6,7 +6,7 @@ Mendokumentasikan penelitian **Optimasi Deteksi Objek Real-Time pada Robot Human
 
 ## Status
 
-**IN PROGRESS** — training dan evaluasi held-out selesai; export OpenVINO QAT valid belum tersedia.
+**IN PROGRESS** — training, evaluasi held-out, dan export OpenVINO QAT sudah selesai; tahap berikutnya adalah deployment dan benchmark final pada ROBOTIS OP3.
 
 ## Ruang lingkup
 
