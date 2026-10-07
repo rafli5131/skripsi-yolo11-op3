@@ -1,0 +1,1 @@
+[INFO] [1791383008.496929820] [thesis_soccer_detector]: OpenVINO 2026.3.1-22476-759c5a6ab8c-releases/2026/3 on CPU; model=/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/artifacts/openvino/qat_int8/model.xml; input=/thesis_soccer/image_raw; output=/vision/detections

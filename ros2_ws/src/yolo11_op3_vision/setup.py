@@ -23,6 +23,7 @@ setup(
     entry_points={
         "console_scripts": [
             "detector = yolo11_op3_vision.detector:main",
+            "soccer = yolo11_op3_vision.soccer:main",
         ],
     },
 )

@@ -14,7 +14,7 @@ ROS_READY=false
 WALKING_STARTED=false
 usage() {
   echo "Usage: bash scripts/run_op3.sh [--model fp32|qat|ptq|non_openvino]"
-  echo "       [--action visual|synthetic|camera|ros|manager|init|start|stop]"
+  echo "       [--action visual|synthetic|camera|ros|manager|init|start|stop|soccer|soccer_observe]"
   echo "       [--condition diam|berjalan] [--camera-device /dev/video0] [--dry-run]"
   echo "Without arguments: interactive model and operation menu."
 }
@@ -77,6 +77,31 @@ choose_model() {
 execute() {
   local action="$1" output
   case "$action" in
+    soccer|soccer_observe)
+      if [[ "$MODEL" == fp32_pytorch ]]; then
+        echo "Soccer ROS saat ini memakai FP32/QAT/PTQ OpenVINO. Native PyTorch tersedia di visual/benchmark standalone." >&2
+        return 1
+      fi
+      load_ros || return
+      local soccer_args=()
+      if [[ "$action" == soccer ]]; then
+        motion_owner_check || return 1
+        if ${WALKING_STARTED}; then
+          echo "Stop walking manual (menu 8) sebelum menyerahkan kontrol ke soccer." >&2; return 1
+        fi
+        confirm "Soccer existing akan menggerakkan kepala, walking-ready pose, mengejar bola, menendang, dan melakukan get-up. Robot ditopang, area bebas, operator dekat?" SOCCER || return 1
+        soccer_args+=(--operator-confirmed)
+      else
+        soccer_args+=(--observe-only --seconds "${OP3_OBSERVE_SECONDS:-15}")
+      fi
+      if [[ -n "${DISPLAY:-}" ]]; then soccer_args+=(--show); fi
+      output="${REPO_ROOT}/experiments/hardware_op3/soccer_sessions/$(date -u +%Y%m%dT%H%M%S)_${MODEL}_${action}_$$"
+      run env "PYTHONPATH=${REPO_ROOT}/ros2_ws/src/yolo11_op3_vision:${PYTHONPATH:-}" \
+        "$OV_PYTHON" -m yolo11_op3_vision.soccer \
+        --model "artifacts/openvino/${MODEL}/model.xml" --camera-device "$CAMERA_DEVICE" \
+        --output "$output" "${soccer_args[@]}" || return
+      echo "Soccer session: $output"
+      ;;
     visual|synthetic|camera|ros)
       if [[ "$action" != synthetic ]] && ! ${DRY_RUN} && [[ ! -e "$CAMERA_DEVICE" ]]; then
         echo "Camera device tidak ada: $CAMERA_DEVICE" >&2; return 1
@@ -146,6 +171,10 @@ execute() {
       ;;
     stop)
       load_ros || return
+      if ! ${DRY_RUN} && [[ "$(ros2 node list)" == *thesis_soccer_demo* ]]; then
+        run ros2 topic pub --once --max-wait-time-secs 3 /thesis_soccer/game_state std_msgs/msg/Int32 "{data: 4}" || return
+        run ros2 topic pub --once --max-wait-time-secs 3 /robotis/demo_command std_msgs/msg/String "{data: 'stop'}" || return
+      fi
       run ros2 topic pub --once --max-wait-time-secs 3 /robotis/walking/command std_msgs/msg/String "{data: 'stop'}" || return
       WALKING_STARTED=false
       CONDITION=diam
@@ -183,6 +212,8 @@ while true; do
   echo "7) Start walking"
   echo "8) Stop walking"
   echo "9) Pilih model lain"
+  echo "10) Soccer mode existing: kepala + kejar bola + kick/get-up (OpenVINO)"
+  echo "11) Uji input soccer tanpa gerak motor (15 detik)"
   echo "0) Keluar (stop walking yang dimulai dari menu ini)"
   read -r -p "Pilih operasi: " operation || break
   case "$operation" in
@@ -190,6 +221,7 @@ while true; do
     9) choose_model || true; continue;;
     1) action=visual;; 2) action=synthetic;; 3) action=camera;; 4) action=ros;;
     5) action=manager;; 6) action=init;; 7) action=start;; 8) action=stop;;
+    10) action=soccer;; 11) action=soccer_observe;;
     *) echo "Pilihan tidak valid"; continue;;
   esac
   if [[ "$action" == camera || "$action" == ros ]]; then

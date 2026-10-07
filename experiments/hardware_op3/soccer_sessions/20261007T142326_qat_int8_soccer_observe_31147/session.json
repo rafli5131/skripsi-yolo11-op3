@@ -1,0 +1,25 @@
+{
+  "timestamp_utc": "2026-10-07T14:23:34.100647+00:00",
+  "observe_only": true,
+  "model_path": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/artifacts/openvino/qat_int8/model.xml",
+  "camera_device": "/dev/video0",
+  "elapsed_seconds": 7.221878327000013,
+  "detection_frames": 29,
+  "ball_frames": 29,
+  "soccer_started": false,
+  "stop_reason": "requested duration finished",
+  "circle_topic": "/thesis_soccer/preview/circle_set",
+  "actuator_demo_started": false,
+  "command": [
+    "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/ros2_ws/src/yolo11_op3_vision/yolo11_op3_vision/soccer.py",
+    "--model",
+    "artifacts/openvino/qat_int8/model.xml",
+    "--camera-device",
+    "/dev/video0",
+    "--output",
+    "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/experiments/hardware_op3/soccer_sessions/20261007T142326_qat_int8_soccer_observe_31147",
+    "--observe-only",
+    "--seconds",
+    "5"
+  ]
+}
