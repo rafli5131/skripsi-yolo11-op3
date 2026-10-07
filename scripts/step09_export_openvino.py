@@ -1,17 +1,13 @@
-"""Run final true-QAT OpenVINO export with real-VAL numerical acceptance.
+"""STEP 09 — Konversi QAT final ke OpenVINO.
 
-This launcher keeps scripts/export_openvino.py as the audited base implementation
-and changes only the acceptance policy required for the frozen final QAT
-checkpoint:
+Menggunakan helper export yang sudah divalidasi untuk mengonversi checkpoint
+true-QAT final menjadi OpenVINO IR. Acceptance memakai 32 citra VAL
+representatif dengan batas relative MAE 1%, memeriksa struktur quantization,
+dan tidak menggunakan TEST, PTQ, atau calibration.
 
-- the 1% relative-MAE threshold is unchanged;
-- exactly 32 deterministic real VAL images are the acceptance population;
-- synthetic inputs are still executed and recorded, but are diagnostic only;
-- TEST is never loaded or used;
-- PTQ/calibration/nncf.quantize are never used.
-
-The CPU/CUDA diagnostic must belong to the current frozen QAT checkpoint and
-all 32 VAL images must pass <=1% before export is attempted.
+Output final:
+- `artifacts/openvino/qat_int8/model.xml`
+- `artifacts/openvino/qat_int8/model.bin`
 """
 
 from __future__ import annotations
@@ -42,7 +38,7 @@ def phase_7c_evidence() -> dict[str, Any]:
     """Require current-checkpoint CPU/CUDA evidence on all representative VAL images."""
     path = base.ROOT / base.CPU_CUDA_DIAGNOSTIC_PATH
     if not path.is_file():
-        raise base.ExportStop(f"Phase 7C diagnostic is required before QAT export: {path}")
+        raise base.ExportStop(f"CPU/CUDA diagnostic is required before QAT export: {path}")
 
     report = json.loads(path.read_text(encoding="utf-8"))
     qat_path = (base.ROOT / base.QAT_CHECKPOINT).resolve()
