@@ -39,7 +39,7 @@ def _child_code_with_reference_backend(candidate, resume):
         raise RuntimeError("Could not locate step06_train_qat import in tuner child code; refusing unsafe injection.")
     injected = (
         marker
-        + "from nncf_reference_quant import configure_nncf_reference_quantization\n"
+        + "from _shared.nncf_reference_quant import configure_nncf_reference_quantization\n"
         + "backend_report = configure_nncf_reference_quantization(force=True)\n"
         + "print('NNCF QAT execution backend:', backend_report, flush=True)\n"
     )
