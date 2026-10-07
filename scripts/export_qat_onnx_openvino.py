@@ -60,7 +60,7 @@ from probe_qat_compatibility import (
     require_project_root,
     restore_ultralytics_trainer_trainability,
 )
-from smoke_train_qat import quantizers, quantizers_enabled, sha256_file
+from smoke_train_qat import quantizers, quantizers_enabled
 
 
 OPENVINO_ROOT = Path("artifacts/openvino")
@@ -381,15 +381,10 @@ def promote(onnx_path: Path, xml_path: Path) -> dict[str, str]:
     shutil.copy2(onnx_path, target_onnx)
     shutil.copy2(xml_path, target_xml)
     shutil.copy2(xml_path.with_suffix(".bin"), target_bin)
-    sums = {
-        "model.onnx": sha256_file(target_onnx),
-        "model.xml": sha256_file(target_xml),
-        "model.bin": sha256_file(target_bin),
+    return {
+        "directory": str(ROOT / FINAL_QAT_DIR),
+        "files": [str(target_onnx), str(target_xml), str(target_bin)],
     }
-    (ROOT / FINAL_QAT_DIR / "SHA256SUMS.txt").write_text(
-        "".join(f"{digest}  {name}\n" for name, digest in sums.items()), encoding="utf-8"
-    )
-    return {"directory": str(ROOT / FINAL_QAT_DIR), **sums}
 
 
 def main() -> int:
@@ -433,7 +428,6 @@ def main() -> int:
             {
                 "source FP32 checkpoint": str(fp32_path),
                 "source QAT checkpoint": str(qat_path),
-                "QAT SHA256": sha256_file(qat_path),
                 "versions": {
                     "Python": platform.python_version(),
                     "torch": torch.__version__,
