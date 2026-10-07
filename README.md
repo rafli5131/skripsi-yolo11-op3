@@ -13,7 +13,7 @@ Repository penelitian deteksi objek `ball`, `gawang`, dan `robot` dengan tiga mo
 | Evaluasi deteksi VAL server | FP32 native/OV, PTQ, QAT selesai | [Perbandingan precision/F1/mAP](docs/28_server_val_detection_comparison.md) |
 | Benchmark final ROBOTIS OP3 | Perlu pengukuran langsung pada OP3 | [Next steps](docs/18_next_steps.md) |
 
-IR QAT lama yang ditolak telah dibersihkan dari worktree. JSON diagnostiknya tetap ada sebagai bukti; penjelasan kegagalan ada di [dokumen pembersihan](docs/25_kegagalan_dan_pembersihan.md). IR QAT final saat ini adalah artifact berbeda yang lolos audit.
+Eksperimen export awal dipertahankan sebagai riwayat pengembangan, sedangkan IR QAT final yang digunakan sekarang adalah artefak direct OpenVINO yang telah lolos validasi.
 
 [Tahapan eksperimen](docs/20_experiment_timeline.md) menempatkan seleksi QAT best sebelum FINAL TEST dan export final. [Ringkasan hasil server di samping raw JSON/CSV](experiments/server_openvino/README.md) mencakup kualitas deteksi VAL empat model dan benchmark latency sintetis tiga IR sebagai dua run terpisah.
 
@@ -45,4 +45,8 @@ export YOLO_CONFIG_DIR="$PWD/.cache/ultralytics"
 env -u PYTHONPATH -u VIRTUAL_ENV uv run python -c 'import openvino as ov; print(ov.__version__)'
 ```
 
-Hash dan perintah gate spesifik ada di [provenance](docs/26_provenance_dan_verifikasi.md). Jangan memakai hasil latency server sebagai klaim latency final OP3. Training, QAT tuning, PTQ calibration, dan FINAL TEST tidak diperlukan untuk membaca hasil yang sudah dibekukan.
+Perintah gate dan verifikasi artefak ada di [provenance](docs/26_provenance_dan_verifikasi.md). Jangan memakai hasil latency server sebagai klaim latency final OP3. Training, QAT tuning, PTQ calibration, dan FINAL TEST tidak diperlukan untuk membaca hasil yang sudah dibekukan.
+
+## Urutan script untuk laporan
+
+Untuk penulisan BAB III dan lampiran kode, gunakan [urutan script bernomor](docs/29_urutan_skrip_laporan.md) dari Step 01 (dataset) sampai Step 09 (OpenVINO).
