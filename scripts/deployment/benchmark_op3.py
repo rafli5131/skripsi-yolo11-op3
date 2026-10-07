@@ -61,6 +61,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--show", action="store_true", help="Show camera detections for functional verification only.")
     parser.add_argument("--result-stem", help="Override output filename stem; raw CSV and resource CSV use same stem.")
     parser.add_argument("--output-dir", type=Path, help="Store a fresh comparison without overwriting historical runs.")
+    parser.add_argument("--experiment-condition", choices=['diam', 'berjalan', 'unspecified'], default='unspecified')
     return parser.parse_args()
 
 
@@ -498,6 +499,7 @@ def main() -> int:
         cpu_description = platform.processor()
     memory = psutil.virtual_memory()
     report = {
+        "experiment_condition": args.experiment_condition,
         "timestamp_utc": started,
         "git_commit": git_sha,
         "git_branch": git_branch,
@@ -553,7 +555,7 @@ def main() -> int:
         },
         "raw_measurements_csv": str(csv_path.relative_to(ROOT)),
         "raw_resource_samples_csv": str(resources_path.relative_to(ROOT)),
-        "official_minimums_met": args.warmup >= 30 and (args.mode != "synthetic" or args.iterations >= 300),
+        "official_minimums_met": not args.show and args.warmup >= 30 and (args.mode != "synthetic" or args.iterations >= 300),
     }
     json_path.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     print(f"Wrote {json_path.relative_to(ROOT)}, {csv_path.relative_to(ROOT)}, {resources_path.relative_to(ROOT)}")

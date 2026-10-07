@@ -53,6 +53,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--resource-interval", type=float, default=0.2)
     parser.add_argument("--evidence-dir", type=Path, default=OUTPUT_DIR / "evidence")
     parser.add_argument("--output-dir", type=Path, default=OUTPUT_DIR)
+    parser.add_argument("--show", action="store_true", help="Functional camera visualization; excluded from official benchmark")
+    parser.add_argument("--experiment-condition", choices=['diam', 'berjalan', 'unspecified'], default='unspecified')
     return parser.parse_args()
 
 
@@ -195,6 +197,8 @@ def main() -> int:
         raise SystemExit("Use at least 300 timed synthetic iterations.")
     if args.mode == "camera" and not args.camera_device:
         raise SystemExit("Camera mode requires an audited --camera-device path.")
+    if args.show and (args.mode != "camera" or not os.environ.get('DISPLAY')):
+        raise SystemExit('--show requires camera mode and DISPLAY (use SSH -X)')
     if not 0 <= args.confidence <= 1 or not 0 <= args.iou <= 1:
         raise SystemExit("confidence and IoU thresholds must be in [0,1].")
 
@@ -309,11 +313,17 @@ def main() -> int:
                 "detection_count": len(detections),
                 "detections": json.dumps(detections, separators=(",", ":")),
             })
+            if args.show:
+                cv2.imshow('OP3 FP32 PyTorch — without OpenVINO', last_result.plot())
+                if cv2.waitKey(1) & 0xff in (ord('q'), 27):
+                    break
         elapsed = (time.perf_counter_ns() - started_ns) / 1e9
         resource_samples = sampler.stop()
     finally:
         if capture:
             capture.release()
+        if args.show:
+            cv2.destroyAllWindows()
         if sampler is not None and sampler.thread is not None and sampler.thread.is_alive():
             sampler.stop()
 
@@ -336,6 +346,7 @@ def main() -> int:
         cpu_model = platform.processor()
     report = {
         "timestamp_utc": run_timestamp,
+        "experiment_condition": args.experiment_condition,
         "git_commit": run_command(["git", "rev-parse", "HEAD"]),
         "git_branch": run_command(["git", "branch", "--show-current"]),
         "hostname": platform.node(),
@@ -379,7 +390,7 @@ def main() -> int:
             "iou_threshold": args.iou,
             "model_load_time_ms_excluded": model_load_ms,
             "resource_sample_interval_seconds": args.resource_interval,
-            "visualization_enabled_during_measurement": False,
+            "visualization_enabled_during_measurement": args.show,
         },
         "latency_ms": timing,
         "fps_from_mean_inference_latency": 1000.0 / timing["inference_ms"]["mean"] if timing["inference_ms"]["mean"] else None,
@@ -394,7 +405,7 @@ def main() -> int:
         "raw_measurements_csv": str(csv_path.relative_to(ROOT)),
         "raw_resource_samples_csv": str(resources_path.relative_to(ROOT)),
         "model_load_time_excluded_from_latency": True,
-        "official_minimums_met": args.warmup >= 30 and (args.mode != "synthetic" or args.iterations >= 300),
+        "official_minimums_met": not args.show and args.warmup >= 30 and (args.mode != "synthetic" or args.iterations >= 300),
     }
     json_path.parent.mkdir(parents=True, exist_ok=True)
     json_path.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")

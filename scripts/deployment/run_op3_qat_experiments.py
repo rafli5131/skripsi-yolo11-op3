@@ -32,9 +32,12 @@ def main():
     parser.add_argument('--run-start', type=int, default=1)
     parser.add_argument('--camera-device', required=True)
     parser.add_argument('--input-topic', default='/thesis/image_raw')
-    parser.add_argument('--model', type=Path, default=ROOT/'artifacts/openvino/qat_int8/model.xml')
-    parser.add_argument('--output', type=Path, default=ROOT/'experiments/hardware_op3/final_qat')
+    parser.add_argument('--model-kind', choices=['fp32', 'ptq_int8', 'qat_int8'], default='qat_int8')
+    parser.add_argument('--model', type=Path)
+    parser.add_argument('--output', type=Path)
     args = parser.parse_args()
+    args.model = args.model or ROOT/f'artifacts/openvino/{args.model_kind}/model.xml'
+    args.output = args.output or ROOT/'experiments/hardware_op3'/('final_qat' if args.model_kind == 'qat_int8' else f'ros2_{args.model_kind}')
     functional = args.condition == 'functional'
     if args.condition in ('diam', 'berjalan') and not args.operator_confirmed:
         parser.error('Confirm actual robot condition with --operator-confirmed; this script never moves the robot')
@@ -83,7 +86,8 @@ def main():
                    'git_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
                    'git_worktree': subprocess.check_output(['git', 'status', '--short'], cwd=ROOT, text=True),
                    'command': [sys.executable, *sys.argv],
-                   'artifact_identity_verification': 'not performed; user-supplied QAT folder label'}
+                   'model_kind': args.model_kind,
+                   'artifact_identity_verification': f'not performed; user-supplied {args.model_kind} folder label'}
     key = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')
     (args.output/f'environment_{key}.json').write_text(json.dumps(environment, indent=2)+'\n')
     camera = node = None
