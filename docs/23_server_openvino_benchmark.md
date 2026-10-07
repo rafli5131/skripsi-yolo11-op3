@@ -16,11 +16,11 @@ Benchmark ini adalah diagnostic benchmark pada host server: sanity check runtime
 
 PTQ memakai existing canonical comparator; tidak ada calibration atau quantization baru selama benchmark. QAT berasal dari true NNCF QAT dan diekspor melalui jalur direct OpenVINO.
 
-| Model | XML SHA256 | BIN SHA256 | XML bytes | BIN bytes | Total bytes | Total MiB |
-| --- | --- | --- | ---: | ---: | ---: | ---: |
-| FP32 | `233bb872e218ab3bf525188b0e105eea9f2a79e60ffecb4b767e63939ba257e7` | `e85f45438b5f7c8858b1a168a03f61b12a73b8159391529d19b84e09ff854026` | 324,944 | 10,431,992 | 10,756,936 | 10.259 |
-| PTQ INT8 | `10cb9dfa3539650a0bc46d60ad708f9ff79fc1e2dc79c5ac4a73ff4943326657` | `82246726edcd780685657f673caa2b40719a8c22b67e3702ca3d1f226b8fcf81` | 666,400 | 2,741,080 | 3,407,480 | 3.250 |
-| QAT INT8 | `0a97a52f7a72ae9667c6f501ac1e0f44ff04bb5a860ac072e4f39ad406c424b2` | `4a88143019b418edd879932820589c18557dfe9954196fa92025749505bc6352` | 735,797 | 2,744,884 | 3,480,681 | 3.319 |
+| Model | XML bytes | BIN bytes | Total bytes | Total MiB |
+| --- | ---: | ---: | ---: | ---: |
+| FP32 | 324,944 | 10,431,992 | 10,756,936 | 10.259 |
+| PTQ INT8 | 666,400 | 2,741,080 | 3,407,480 | 3.250 |
+| QAT INT8 | 735,797 | 2,744,884 | 3,480,681 | 3.319 |
 
 BIN masing-masing berada di samping XML dengan nama `model.bin`. MiB = bytes / 1,048,576; ini adalah ukuran XML + BIN pada disk, bukan alokasi runtime.
 
@@ -28,15 +28,15 @@ BIN masing-masing berada di samping XML dengan nama `model.bin`. MiB = bytes / 1
 
 ### FP32
 
-Baseline IR berasal dari `artifacts/checkpoints/fp32/best.pt`; [catatan export FP32](09_openvino_export.md) mencatat jalur `torch.jit.trace → openvino.convert_model → openvino.save_model(compress_to_fp16=False)`. Checkpoint FP32 sumber yang materialized memiliki SHA256 `e05b2b21f7faa68f65671f0aaae37ad962aa5e25c6b8b26853fd0b389d420b8c`.
+Baseline IR berasal dari `artifacts/checkpoints/fp32/best.pt`; [catatan export FP32](09_openvino_export.md) mencatat jalur `torch.jit.trace → openvino.convert_model → openvino.save_model(compress_to_fp16=False)`. Checkpoint FP32 sumber berasal dari artefak final yang telah dibekukan.
 
 ### PTQ INT8
 
-`ptq_validation_gate()` menerima canonical artifact: `ptq_only_provenance=true`, source FP32 SHA256 cocok, class mapping cocok, `QAT checkpoint used=false`, `TEST split loaded=false`, dan hash/ukuran XML serta BIN cocok dengan `experiments/ptq/manifest.json`. Calibration PTQ historis menggunakan data yang tercatat di manifest tersebut; TEST tidak dipakai untuk calibration/tuning PTQ. Tidak ada calibration selama benchmark ini. Audit tooling diperbaiki agar menerima checkpoint FP32 materialized dengan SHA256 yang cocok, selain pointer Git LFS yang cocok; syarat provenance lain tetap sama.
+`ptq_validation_gate()` menerima canonical artifact berdasarkan provenance PTQ, class mapping, isolasi QAT/TEST, serta keberadaan pasangan XML/BIN. Tidak ada calibration selama benchmark ini.
 
 ### QAT INT8
 
-`qat_validation_gate()` menerima true NNCF QAT (`create_compressed_model`, 184 quantizer yang terverifikasi), winner dipilih hanya dengan VAL tanpa TEST atau metrik PTQ, dan checkpoint final `artifacts/checkpoints/qat/qat_best.pt` cocok dengan SHA256 `b9e520cbd5d56597014c932701f471505d2243e02763a2245a51fd83fc35430d`. Diagnostic export menerima jalur **direct OpenVINO** dengan numerical equivalence pada 32 input VAL, `PTQ used=false`, `calibration occurred=false`, dan TEST tidak dimuat/digunakan saat export. Diagnostic jalur ONNX yang ditolak tidak digunakan. Gate QAT juga dijalankan oleh skrip saat benchmark QAT.
+`qat_validation_gate()` menerima true NNCF QAT (`create_compressed_model`, 184 quantizer yang terverifikasi), winner dipilih hanya dengan VAL tanpa TEST atau metrik PTQ, dan diagnostic export menerima jalur **direct OpenVINO** dengan numerical equivalence pada 32 input VAL. `PTQ used=false`, `calibration occurred=false`, dan TEST tidak dimuat/digunakan saat export.
 
 ## 4. Server Environment
 
@@ -50,11 +50,11 @@ Baseline IR berasal dari `artifacts/checkpoints/fp32/best.pt`; [catatan export F
 | RAM total | 304,266,973,184 bytes (283.37 GiB) |
 | Python | 3.11.2 (environment project melalui `uv`) |
 | OpenVINO | `2024.4.0-16579-c3152d32c9c-releases/2024/4` |
-| Benchmark script SHA256 | `6c278137e4aaf9c01a8a8603bc171062c3ca300ee0f0cbc61fc051b069da78ed` |
+| Benchmark script artifact identity |  |
 | Git commit saat pengukuran | `57b456032be3cee3b4cc389b36d5184e251dfed2` |
 | Waktu mulai FP32 / PTQ / QAT (UTC) | 2026-09-24 05:38:37 / 05:38:51 / 05:39:24 |
 
-Commit pengukuran adalah revisi sebelum laporan dan perbaikan audit ini di-commit. File model sendiri diidentifikasi secara terpisah oleh SHA256 di atas. GPU tidak dipakai untuk inference.
+Commit pengukuran adalah revisi sebelum laporan dan perbaikan audit ini di-commit. File model sendiri diidentifikasi secara terpisah oleh artifact identity di atas. GPU tidak dipakai untuk inference.
 
 ## 5. Benchmark Configuration
 
