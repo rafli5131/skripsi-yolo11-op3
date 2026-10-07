@@ -18,7 +18,7 @@ if str(SCRIPTS) not in sys.path:
 
 import torch  # noqa: E402
 
-from nncf_reference_quant import PureTorchQuantizedFunctions, configure_nncf_reference_quantization  # noqa: E402
+from _shared.nncf_reference_quant import PureTorchQuantizedFunctions, configure_nncf_reference_quantization  # noqa: E402
 
 
 def main() -> int:
