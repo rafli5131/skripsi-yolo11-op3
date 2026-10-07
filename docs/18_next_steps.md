@@ -56,7 +56,7 @@ Sebelum mengubah workspace ROS 2, Codex harus membaca kondisi robot dan mencatat
 | Device inferensi | CPU |
 | Class mapping | 0 ball, 1 gawang, 2 robot |
 
-Gunakan `scripts/audit_hardware_op3.py` sebagai titik awal apabila masih sesuai. Audit ini hanya untuk memastikan lingkungan dapat digunakan dan tidak boleh mengubah model.
+Gunakan `scripts/deployment/audit_hardware_op3.py` sebagai titik awal apabila masih sesuai. Audit ini hanya untuk memastikan lingkungan dapat digunakan dan tidak boleh mengubah model.
 
 Simpan hasil audit final ke:
 
@@ -431,7 +431,7 @@ Jangan menggabungkan ketiganya seolah berasal dari run yang sama.
 
 ## 8. Script yang harus dibuat/dirapikan oleh Codex
 
-Codex harus memanfaatkan script yang sudah ada bila memungkinkan, khususnya `scripts/benchmark_op3_ros2.py`, tetapi script final harus mengikuti tabel proposal dan hanya fokus pada QAT final.
+Codex harus memanfaatkan script yang sudah ada bila memungkinkan, khususnya `scripts/deployment/benchmark_op3_ros2.py`, tetapi script final harus mengikuti tabel proposal dan hanya fokus pada QAT final.
 
 Target implementasi:
 
