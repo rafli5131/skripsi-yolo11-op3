@@ -7,7 +7,6 @@ Dokumen ini menunjukkan urutan bukti yang menghasilkan artifact final saat ini. 
 | 1. Setup dan dataset | Environment `uv`, split TRAIN/VAL/TEST, audit label | Dataset siap; TEST terpisah dari training dan seleksi | Selesai |
 | 2. Baseline FP32 | Training dari YOLO11n; `artifacts/checkpoints/fp32/` | Checkpoint FP32 final sebagai sumber IR FP32 dan PTQ | Selesai |
 | 3. Verifikasi QAT | Probe API, smoke test, lalu run QAT 5 epoch awal | True NNCF QAT dan reload terverifikasi; run 5 epoch adalah riwayat sebelum pemilihan best | Selesai, historis |
-| 4. Export QAT strip | Konversi awal QAT ke OpenVINO | Output tidak ekuivalen secara numerik; kandidat lama ditolak | Ditolak |
 | 5. Cabang PTQ comparator | PTQ dari FP32 dengan calibration TRAIN historis; evaluasi VAL | Comparator PTQ canonical valid; tidak memakai QAT/TEST | Selesai |
 | 7. Seleksi QAT best | Pencarian dengan TRAIN dan pemilihan hanya dari VAL | `qat_lr1e4_r256_e15` dipromosikan ke checkpoint QAT final | Selesai |
 | 8. FINAL TEST | Evaluasi held-out FP32 dan QAT terpilih pada PyTorch | Hasil TEST dibekukan; bukan input tuning atau export | Selesai |
