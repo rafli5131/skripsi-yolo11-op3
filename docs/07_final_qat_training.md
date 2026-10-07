@@ -16,4 +16,4 @@ Range init: 16 TRAIN images deterministik, batch 2. Best epoch 1: P 0,88100; R 0
 
 ## Artefak terkait
 
-[`scripts/train_qat.py`](../scripts/train_qat.py), [manifest run historis](../experiments/qat/qat_final/manifest.json), [CSV run historis](../experiments/qat/qat_final/results.csv), [manifest checkpoint final terkini](../artifacts/checkpoints/qat/manifest.json).
+[`scripts/step06_train_qat.py`](../scripts/step06_train_qat.py), [manifest run historis](../experiments/qat/qat_final/manifest.json), [CSV run historis](../experiments/qat/qat_final/results.csv), [manifest checkpoint final terkini](../artifacts/checkpoints/qat/manifest.json).
