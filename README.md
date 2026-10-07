@@ -49,4 +49,4 @@ Perintah gate dan verifikasi artefak ada di [provenance](docs/26_provenance_dan_
 
 ## Urutan script untuk laporan
 
-Untuk penulisan BAB III dan lampiran kode, gunakan [urutan script bernomor](docs/29_urutan_skrip_laporan.md) dari Step 01 (dataset) sampai Step 09 (OpenVINO).
+Untuk penulisan BAB III dan lampiran kode, gunakan [urutan script bernomor](docs/29_urutan_skrip_laporan.md) dari `scripts/step01_download_dataset.py` sampai `scripts/step09_export_openvino.py`. File tersebut adalah implementasi utama, bukan wrapper.
