@@ -1,14 +1,12 @@
-"""Export FP32 or diagnose unstripped true-NNCF-QAT YOLO11n OpenVINO paths.
+"""Shared OpenVINO export engine for the canonical STEP 09 pipeline.
 
-The QAT diagnostic deliberately uses neither ``nncf.quantize`` nor an
-Ultralytics ``int8`` export. Phase 7A proved that ``nncf.torch.strip`` changes
-the restored QAT model numerically, so this script never invokes it for QAT.
-It tests only direct conversion of the still-compressed model and the installed
-controller's official ONNX export, with no calibration data or PTQ stage.
+This module contains reusable model restoration, preprocessing, numerical
+comparison, graph inspection, and OpenVINO conversion helpers. It is internal
+implementation detail; the report-facing entry point is
+`scripts/step09_export_openvino.py`.
 
-Run this only on the CUDA SSH host from the project root. QAT diagnostics use
-exactly 32 deterministic VAL images and one deterministic in-domain synthetic
-input; they never load TEST.
+QAT export never uses TEST, PTQ calibration, `nncf.quantize()`, or
+`nncf.torch.strip()`.
 """
 
 from __future__ import annotations
