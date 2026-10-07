@@ -22,7 +22,7 @@ def read_json(path: Path) -> dict[str, Any] | None:
 
 
 def lfs_pointer(path: Path) -> dict[str, Any] | None:
-    """Read a Git LFS pointer without confusing its SHA with a local file hash."""
+    """Read basic Git LFS pointer metadata without verifying file identity."""
     try:
         content = path.read_text(encoding="ascii")
     except (OSError, UnicodeDecodeError):
