@@ -34,7 +34,7 @@ def _val_names(input_cases: dict[str, torch.Tensor]) -> list[str]:
     return names
 
 
-def phase_7c_evidence() -> dict[str, Any]:
+def load_cpu_cuda_evidence() -> dict[str, Any]:
     """Require current-checkpoint CPU/CUDA evidence on all representative VAL images."""
     path = base.ROOT / base.CPU_CUDA_DIAGNOSTIC_PATH
     if not path.is_file():
@@ -286,9 +286,9 @@ def candidate_from_controller_export(
 
 
 def main() -> int:
-    # Patch only acceptance/equivalence policy; keep all other audited export
-    # behavior in scripts/export_openvino.py unchanged.
-    base.phase_7c_evidence = phase_7c_evidence
+    # Reuse the shared export engine and override only the final acceptance
+    # policy used by this canonical STEP 09 entry point.
+    base.phase_7c_evidence = load_cpu_cuda_evidence
     base.qat_cuda_cpu_equivalence = qat_cuda_cpu_equivalence
     base.candidate_from_direct_openvino = candidate_from_direct_openvino
     base.candidate_from_controller_export = candidate_from_controller_export
