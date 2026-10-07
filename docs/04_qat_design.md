@@ -14,4 +14,4 @@ Penelitian ini menolak `nncf.quantize()` karena docstring NNCF terpasang mengide
 
 ## Artefak terkait
 
-[probe QAT](../scripts/step04_probe_qat_compatibility.py), [implementasi](05_qat_implementation.md), [manifest probe](../experiments/debug/qat_compatibility_probe.json).
+[probe QAT](../scripts/diagnostics/probe_qat_compatibility.py), [implementasi](05_qat_implementation.md), [manifest probe](../experiments/debug/qat_compatibility_probe.json).
