@@ -30,9 +30,9 @@ _original_annotate_manifest = tuner.annotate_manifest
 
 def _child_code_with_reference_backend(candidate, resume):
     code = _original_child_code(candidate, resume)
-    marker = "import train_qat as q\n"
+    marker = "import step06_train_qat as q\n"
     if marker not in code:
-        raise RuntimeError("Could not locate train_qat import in tuner child code; refusing unsafe injection.")
+        raise RuntimeError("Could not locate step06_train_qat import in tuner child code; refusing unsafe injection.")
     injected = (
         marker
         + "from nncf_reference_quant import configure_nncf_reference_quantization\n"
