@@ -1,4 +1,17 @@
-"""Train or resume the final single-GPU YOLO11n FP32 baseline experiment."""
+"""STEP 03 — Pelatihan baseline YOLO11n FP32.
+
+Melatih atau melanjutkan baseline FP32 menggunakan konfigurasi penelitian yang
+telah ditetapkan. Tahap ini menjadi sumber checkpoint awal untuk QAT.
+
+Input:
+- `configs/base.yaml`
+- `data/dataset/data.yaml`
+- pretrained YOLO11n atau checkpoint resume
+
+Output:
+- run FP32 pada `experiments/fp32/fp32_baseline/`
+- checkpoint dan manifest baseline
+"""
 
 from __future__ import annotations
 
