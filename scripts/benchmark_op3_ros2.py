@@ -22,7 +22,7 @@ import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String
 
-from op3_model_audit import qat_validation_gate, ptq_validation_gate, sha256_file
+from op3_model_audit import qat_validation_gate, ptq_validation_gate
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -315,9 +315,7 @@ def main() -> int:
         "model": {
             "kind": args.model_kind,
             "xml_path": str(model_xml),
-            "xml_sha256": sha256_file(model_xml),
             "bin_path": str(model_bin),
-            "bin_sha256": sha256_file(model_bin),
         },
         "setup": {
             "device": "CPU",
