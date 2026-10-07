@@ -24,7 +24,6 @@ from __future__ import annotations
 
 import argparse
 import csv
-import hashlib
 import inspect
 import json
 import os
@@ -128,13 +127,6 @@ def require_project_root() -> None:
     if not (ROOT / "pyproject.toml").is_file():
         raise PTQStop("Run this script from the project root containing pyproject.toml.")
 
-
-def sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
 
 
 def write_json(path: Path, payload: Any) -> None:
@@ -283,8 +275,6 @@ def file_report(xml_path: Path) -> dict[str, Any]:
         "XML bytes": xml_path.stat().st_size,
         "BIN bytes": bin_path.stat().st_size,
         "total bytes": xml_path.stat().st_size + bin_path.stat().st_size,
-        "XML SHA256": sha256_file(xml_path),
-        "BIN SHA256": sha256_file(bin_path),
     }
 
 
@@ -607,9 +597,7 @@ def main() -> int:
         manifest.update(
             {
                 "source FP32 checkpoint": str(fp32_path),
-                "source FP32 SHA256": sha256_file(fp32_path),
                 "source FP32 OpenVINO": str(fp32_ov_path),
-                "source FP32 OpenVINO SHA256": sha256_file(fp32_ov_path),
                 "dataset version": dataset_version,
                 "dataset YAML": str((ROOT / DATA_YAML).resolve()),
                 "resolved TRAIN images": str(train_dir),
