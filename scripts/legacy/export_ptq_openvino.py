@@ -58,7 +58,7 @@ from ultralytics.data.augment import LetterBox
 from ultralytics.utils.export.openvino import torch2openvino
 
 from step04_probe_qat_compatibility import attach_ultralytics_training_args
-from export_openvino import enable_ultralytics_detect_export
+from _shared.openvino_export_core import enable_ultralytics_detect_export
 
 
 FP32_CHECKPOINT = Path("artifacts/checkpoints/fp32/best.pt")
