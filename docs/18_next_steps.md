@@ -4,11 +4,11 @@ FP32, PTQ INT8 comparator, dan QAT INT8 direct OpenVINO sudah tersedia dan lolos
 
 ## Pengukuran pada ROBOTIS OP3
 
-1. Materialize artifact FP32, PTQ INT8, dan QAT INT8 di OP3; verifikasi hash serta gate yang relevan.
+1. Materialize artifact FP32, PTQ INT8, dan QAT INT8 di OP3; verifikasi gate dan kemampuan load yang relevan.
 2. Jalankan benchmark synthetic OpenVINO CPU dengan konfigurasi sama untuk ketiga model.
 3. Jalankan benchmark kamera nyata dengan kondisi yang dicatat jelas.
 4. Ukur latency mean dan p95/p99, FPS, process CPU, RSS/RAM, serta stabilitas run panjang.
 5. Buat perbandingan akhir OP3 yang terpisah dari [hasil server](../experiments/server_openvino/README.md) dan jelas mencantumkan model, perangkat, serta konfigurasi.
 6. Susun tabel dan kesimpulan tesis dari artifact valid, dengan split dan perangkat disebut eksplisit.
 
-Hasil di `experiments/hardware_op3/` yang sudah ada tetap terpisah. Tahap berikutnya adalah perbandingan final ketiga model pada OP3; keberadaan data hardware lama tidak berarti perbandingan final FP32/PTQ/QAT sudah selesai. Jalur ONNX lama sudah ditolak dan tidak perlu diulang untuk memakai QAT IR final direct OpenVINO yang accepted. Jika ada kebutuhan penelitian baru untuk menelusuri akar mismatch ONNX, baca [analisis kegagalan](25_kegagalan_dan_pembersihan.md).
+Hasil di `experiments/hardware_op3/` yang sudah ada tetap terpisah. Tahap berikutnya adalah perbandingan final ketiga model pada OP3; keberadaan data hardware lama tidak berarti perbandingan final FP32/PTQ/QAT sudah selesai. Artefak QAT final direct OpenVINO sudah siap digunakan untuk tahap deployment. Catatan eksperimen export lama tidak perlu diulang untuk memakai artefak final.
