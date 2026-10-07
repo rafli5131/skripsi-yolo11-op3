@@ -22,4 +22,4 @@ Per-class mAP50-95: ball 0,9130 -> 0,8796; gawang 0,5683 -> 0,5970; robot 0,8585
 
 ## Artefak terkait
 
-[`scripts/step08_evaluate_final_test.py`](../scripts/step08_evaluate_final_test.py), [manifest](../experiments/final_test/manifest.json), [comparison](../experiments/final_test/comparison.json).
+[`scripts/step08_evaluate_final_test.py`](../scripts/step06_evaluate_final_test.py), [manifest](../experiments/final_test/manifest.json), [comparison](../experiments/final_test/comparison.json).
