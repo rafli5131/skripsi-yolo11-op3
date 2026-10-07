@@ -25,6 +25,32 @@ from vision_msgs.msg import Detection2DArray
 from op3_ball_detector_msgs.msg import CircleSetStamped
 
 
+CONTROL_TOPICS = (
+    '/ball_detector_node/circle_set', '/robotis/head_control/set_joint_states',
+    '/robotis/head_control/set_joint_states_offset', '/robotis/walking/set_params',
+    '/robotis/action/page_num', '/robotis/demo_command', '/thesis_soccer/game_state',
+    '/robotis/walking/command', '/robotis/enable_ctrl_module',
+)
+BRIDGE_TOPICS = frozenset(('/ball_detector_node/circle_set', '/robotis/demo_command',
+                          '/thesis_soccer/game_state', '/robotis/walking/command'))
+
+
+def conflicting_publishers(node):
+    """Ignore our own endpoints and the manager's built-in module selectors."""
+    conflicts = []
+    for topic in CONTROL_TOPICS:
+        for endpoint in node.get_publishers_info_by_topic(topic):
+            identity = (endpoint.node_namespace, endpoint.node_name)
+            if topic in BRIDGE_TOPICS and identity == (node.get_namespace(), node.get_name()):
+                continue
+            if topic == '/robotis/enable_ctrl_module' and identity in (
+                ('/', 'op3_base_module'), ('/', 'op3_tuning_module'),
+            ):
+                continue
+            conflicts.append(f'{topic} <- {endpoint.node_namespace.rstrip("/")}/{endpoint.node_name}')
+    return conflicts
+
+
 def ball_candidate(message, width, height, confidence):
     """Return one ball: normalized center, pixel radius, confidence."""
     candidates = []
@@ -204,14 +230,12 @@ def main():
             names = node.get_node_names()
             if 'op3_manager' not in names:
                 raise RuntimeError('Start manager and init pose from operator menu first')
-            owned = ('/ball_detector_node/circle_set', '/robotis/head_control/set_joint_states',
-                     '/robotis/head_control/set_joint_states_offset', '/robotis/walking/set_params',
-                     '/robotis/action/page_num', '/robotis/demo_command', '/thesis_soccer/game_state',
-                     '/robotis/walking/command', '/robotis/enable_ctrl_module')
             if any('motion_gateway' in name or name in ('demo_node', 'thesis_soccer_demo') for name in names):
                 raise RuntimeError('Another soccer/motion owner is active')
-            if any(node.count_publishers(topic) > (1 if topic in (node.circle_topic, '/robotis/demo_command', '/thesis_soccer/game_state', '/robotis/walking/command') else 0) for topic in owned):
-                raise RuntimeError('An existing publisher owns soccer/head/walking/action control')
+            conflicts = conflicting_publishers(node)
+            if conflicts:
+                raise RuntimeError('An existing publisher owns soccer/head/walking/action control: '
+                                   + '; '.join(conflicts))
         launch('camera', ['ros2', 'run', 'usb_cam', 'usb_cam_node_exe', '--ros-args',
                '-r', '__node:=thesis_soccer_camera', '-r', 'image_raw:=/thesis_soccer/image_raw',
                '-p', f'video_device:={args.camera_device}', '-p', 'image_width:=640',
