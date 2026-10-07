@@ -50,8 +50,8 @@ nvidia-smi
 export CUDA_VISIBLE_DEVICES=1
 
 env -u PYTHONPATH -u VIRTUAL_ENV uv run python scripts/verify_torch_cuda.py
-env -u PYTHONPATH -u VIRTUAL_ENV uv run python scripts/tune_qat_best.py --dry-run
-env -u PYTHONPATH -u VIRTUAL_ENV uv run python scripts/tune_qat_best.py
+env -u PYTHONPATH -u VIRTUAL_ENV uv run python scripts/step07_select_qat_best.py --dry-run
+env -u PYTHONPATH -u VIRTUAL_ENV uv run python scripts/step07_select_qat_best.py
 ```
 
 Jika kandidat terhenti di tengah jalan dan `qat_last.pt` sudah tersedia, script otomatis mencoba resume kandidat tersebut. Gunakan `--force` hanya bila kandidat memang ingin dilatih ulang dari awal.
@@ -89,7 +89,7 @@ Promosi juga menulis ulang `artifact manifest` sehingga artifact identity checkp
 Setelah tuning dan promosi selesai, jalankan TEST sekali:
 
 ```bash
-env -u PYTHONPATH -u VIRTUAL_ENV uv run python scripts/evaluate_final_test.py
+env -u PYTHONPATH -u VIRTUAL_ENV uv run python scripts/step08_evaluate_final_test.py
 ```
 
 Hasil TEST baru inilah yang dipakai untuk membandingkan FP32 vs QAT pada laporan akhir. Jangan memilih ulang hyperparameter berdasarkan hasil TEST.
