@@ -1,8 +1,11 @@
-"""Evaluate the fixed final FP32 and NNCF-QAT PyTorch models on held-out TEST.
+"""STEP 08 — Evaluasi final model terpilih.
 
-This is quality evaluation only.  TEST is read-only and is never used for
-training, quantizer initialization, checkpoint selection, or tuning.  Any
-reported PyTorch/CUDA timing is diagnostic, not a deployment benchmark.
+Mengevaluasi baseline FP32 dan checkpoint QAT final pada held-out TEST untuk
+menghasilkan precision, recall, F1-score, mAP@0.5, dan mAP@0.5:0.95.
+TEST bersifat read-only dan tidak digunakan untuk training, range
+initialization, tuning, atau checkpoint selection.
+
+Timing PyTorch pada tahap ini hanya diagnostik, bukan benchmark final OP3.
 """
 
 from __future__ import annotations
