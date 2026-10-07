@@ -8,7 +8,6 @@ from __future__ import annotations
 
 import argparse
 import csv
-import hashlib
 import json
 import os
 import platform
@@ -51,13 +50,6 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--evidence-dir", type=Path, default=OUTPUT_DIR / "evidence")
     return parser.parse_args()
 
-
-def sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as stream:
-        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
 
 
 
@@ -202,8 +194,6 @@ def main() -> int:
     model_path = args.model.expanduser().resolve()
     if not model_path.is_file():
         raise SystemExit(f"FP32 checkpoint not found: {model_path}")
-    model_sha = sha256_file(model_path)
-
     run_timestamp = datetime.now(timezone.utc).isoformat()
     model_load_start = time.perf_counter_ns()
     model = YOLO(str(model_path), task="detect")
@@ -352,10 +342,9 @@ def main() -> int:
         "model": {
             "name": "YOLO11n FP32 native PyTorch",
             "path": str(model_path),
-            "sha256": model_sha,
             "size_bytes": model_path.stat().st_size,
             "repository_checkpoint_manifest": str(MODEL_MANIFEST.relative_to(ROOT)),
-            "provenance": "FP32 checkpoint loaded from the configured path; SHA256 recorded for metadata only",
+            "provenance": "FP32 checkpoint loaded from the configured path",
             "quantization_method": "none (FP32); no export or calibration",
             "class_mapping": {str(key): value for key, value in names.items()},
         },
