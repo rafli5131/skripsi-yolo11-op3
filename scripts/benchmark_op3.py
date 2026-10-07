@@ -28,7 +28,7 @@ import numpy as np
 import openvino as ov
 import psutil
 
-from op3_model_audit import EXPECTED_CLASSES, qat_validation_gate, sha256_file
+from op3_model_audit import EXPECTED_CLASSES, qat_validation_gate
 from op3_model_audit import ptq_validation_gate
 
 
@@ -497,10 +497,8 @@ def main() -> int:
         "model": {
             "kind": args.model_kind,
             "xml_path": str(model_xml),
-            "xml_sha256": sha256_file(model_xml),
             "xml_size_bytes": model_xml.stat().st_size,
             "bin_path": str(model_bin),
-            "bin_sha256": sha256_file(model_bin),
             "bin_size_bytes": model_bin.stat().st_size,
         },
         "experimental_setup": {
