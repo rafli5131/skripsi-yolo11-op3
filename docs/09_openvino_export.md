@@ -2,7 +2,7 @@
 
 ## Status model saat ini
 
-FP32 IR valid. PTQ comparator existing lolos provenance gate. QAT INT8 final sekarang memakai **direct OpenVINO** dan lolos numerical equivalence/provenance gate. Kandidat strip dan ONNX lama yang ditolak adalah artifact berbeda dan tidak lagi ada sebagai file model aktif di worktree.
+FP32 IR valid. PTQ comparator existing lolos provenance gate. QAT INT8 final sekarang memakai **direct OpenVINO** dan lolos numerical equivalence/provenance gate. Jalur strip dan ONNX sebelumnya hanya merupakan eksperimen pengembangan dan tidak digunakan sebagai file model aktif.
 
 | Model | Artifact | Sumber |
 | --- | --- | --- |
