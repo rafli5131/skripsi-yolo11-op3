@@ -8,7 +8,7 @@ import unittest
 import rclpy
 from std_msgs.msg import Int32
 from vision_msgs.msg import Detection2DArray, Detection2D, ObjectHypothesisWithPose
-from yolo11_op3_vision.soccer import SoccerBridge, ball_candidate
+from yolo11_op3_vision.soccer import SoccerBridge, ball_candidate, conflicting_publishers
 
 
 def detection(class_id='0:ball', score=.9, x=480.):
@@ -24,6 +24,20 @@ def detection(class_id='0:ball', score=.9, x=480.):
 
 
 class BallAdapterTests(unittest.TestCase):
+    def test_ownership_allows_only_builtin_module_selectors_and_own_publishers(self):
+        endpoints = {
+            '/robotis/enable_ctrl_module': [Namespace(node_namespace='/', node_name=name)
+                                          for name in ('op3_base_module', 'op3_tuning_module')],
+            '/robotis/walking/command': [Namespace(node_namespace='/', node_name='thesis_soccer_bridge')],
+        }
+        node = Namespace(get_namespace=lambda: '/', get_name=lambda: 'thesis_soccer_bridge',
+                         get_publishers_info_by_topic=lambda topic: endpoints.get(topic, []))
+        self.assertEqual(conflicting_publishers(node), [])
+        endpoints['/robotis/enable_ctrl_module'].append(Namespace(node_namespace='/', node_name='other_controller'))
+        self.assertIn('other_controller', conflicting_publishers(node)[0])
+        endpoints['/robotis/head_control/set_joint_states'] = [Namespace(node_namespace='/', node_name='op3_base_module')]
+        self.assertTrue(any('/robotis/head_control/set_joint_states' in c for c in conflicting_publishers(node)))
+
     def test_geometry_matches_existing_soccer(self):
         self.assertEqual(ball_candidate(detection(), 640, 480, .4), (.5, -.5, 20., .9))
 
