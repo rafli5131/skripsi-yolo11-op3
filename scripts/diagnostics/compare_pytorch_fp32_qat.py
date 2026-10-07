@@ -1,7 +1,7 @@
 """Create a side-by-side comparison of the frozen native PyTorch reports.
 
 This utility does not load a model and does not run inference.  It reads the
-already completed final TEST reports produced by ``step08_evaluate_final_test.py``
+already completed final TEST reports produced by ``step06_step06_evaluate_final_test.py``
 and computes a reproducible comparison for the fixed FP32 and NNCF-QAT
 checkpoints.  The TEST split is therefore not re-read or re-evaluated here.
 """
