@@ -32,7 +32,7 @@ import nncf
 import torch
 import ultralytics
 
-from export_openvino import (
+from _shared.openvino_export_core import (
     EXPECTED_QUANTIZERS,
     FP32_CHECKPOINT,
     QAT_CHECKPOINT,
