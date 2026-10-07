@@ -12,7 +12,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from op3_model_audit import (
+from _shared.op3_model_audit import (
     EXPECTED_CLASSES,
     lfs_pointer,
     ptq_validation_gate,
