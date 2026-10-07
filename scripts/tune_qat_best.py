@@ -19,7 +19,6 @@ be evaluated once with ``scripts/evaluate_final_test.py``.
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import os
 import re
@@ -66,23 +65,6 @@ def parse_args() -> argparse.Namespace:
     )
     return parser.parse_args()
 
-
-def sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for block in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(block)
-    return digest.hexdigest()
-
-
-def write_sha256s(directory: Path) -> None:
-    tracked = sorted(
-        path for path in directory.iterdir() if path.is_file() and path.suffix in {".pt", ".json"}
-    )
-    (directory / "SHA256SUMS.txt").write_text(
-        "".join(f"{sha256_file(path)}  {path.name}\n" for path in tracked),
-        encoding="utf-8",
-    )
 
 
 def load_config(path: Path) -> dict[str, Any]:
@@ -387,7 +369,6 @@ def write_selection_manifest(
         (CANONICAL_QAT_DIR / "selection_manifest.json").write_text(
             json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8"
         )
-        write_sha256s(CANONICAL_QAT_DIR)
 
 
 def main() -> int:
