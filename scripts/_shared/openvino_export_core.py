@@ -397,7 +397,7 @@ def controller_api_report(controller: Any) -> dict[str, Any]:
     }
 
 
-def phase_7c_evidence() -> dict[str, Any]:
+def load_cpu_cuda_evidence() -> dict[str, Any]:
     """Carry audited representative-input evidence into the export diagnostic."""
     path = ROOT / CPU_CUDA_DIAGNOSTIC_PATH
     if not path.is_file():
@@ -628,7 +628,7 @@ def run_qat_export_diagnostics(qat_path: Path, fp32_path: Path, device: torch.de
         "pre-export model training state": bool(reference_model.training),
         "controller API inspection": controller_api_report(controller),
         "strip route": "disabled after Phase 7A semantic mismatch; not invoked",
-        "Phase 7C evidence": phase_7c_evidence(),
+        "CPU/CUDA evidence": load_cpu_cuda_evidence(),
         "representative inputs": {
             "in-domain synthetic": "torch.rand([1,3,640,640], seed=42, float32, [0,1])",
             "VAL image count": len(val_names),
