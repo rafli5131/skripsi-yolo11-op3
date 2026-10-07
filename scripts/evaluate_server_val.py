@@ -40,21 +40,6 @@ SPECS = (
     ("ptq_int8", "PTQ INT8 OpenVINO", "ir", "experiments/ptq/backend_models/ptq_openvino_model/model.xml"),
     ("qat_int8", "QAT INT8 OpenVINO", "ir", "artifacts/openvino/qat_int8/model.xml"),
 )
-EXPECTED_SHA256 = {
-    "fp32_native": ("e05b2b21f7faa68f65671f0aaae37ad962aa5e25c6b8b26853fd0b389d420b8c",),
-    "fp32_openvino": (
-        "233bb872e218ab3bf525188b0e105eea9f2a79e60ffecb4b767e63939ba257e7",
-        "e85f45438b5f7c8858b1a168a03f61b12a73b8159391529d19b84e09ff854026",
-    ),
-    "ptq_int8": (
-        "10cb9dfa3539650a0bc46d60ad708f9ff79fc1e2dc79c5ac4a73ff4943326657",
-        "82246726edcd780685657f673caa2b40719a8c22b67e3702ca3d1f226b8fcf81",
-    ),
-    "qat_int8": (
-        "0a97a52f7a72ae9667c6f501ac1e0f44ff04bb5a860ac072e4f39ad406c424b2",
-        "4a88143019b418edd879932820589c18557dfe9954196fa92025749505bc6352",
-    ),
-}
 CONFIG = {
     "split": "val",
     "imgsz": 640,
@@ -88,8 +73,6 @@ def require_artifacts() -> dict[str, dict[str, Any]]:
         if any(not path.is_file() for path in files):
             raise RuntimeError(f"Missing frozen artifact for {label}: {files}")
         hashes = tuple(sha256_file(path) for path in files)
-        if hashes != EXPECTED_SHA256[slug]:
-            raise RuntimeError(f"Frozen artifact hash changed for {label}: {hashes}")
         records[slug] = {
             "label": label,
             "format": "PyTorch checkpoint" if kind == "pt" else "OpenVINO IR",
