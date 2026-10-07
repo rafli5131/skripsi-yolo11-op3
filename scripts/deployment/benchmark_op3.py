@@ -32,8 +32,8 @@ import numpy as np
 import openvino as ov
 import psutil
 
-from op3_model_audit import EXPECTED_CLASSES, qat_validation_gate
-from op3_model_audit import ptq_validation_gate
+from _shared.op3_model_audit import EXPECTED_CLASSES, qat_validation_gate
+from _shared.op3_model_audit import ptq_validation_gate
 
 
 ROOT = Path(__file__).resolve().parents[2]
