@@ -26,7 +26,7 @@ import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String
 
-from op3_model_audit import qat_validation_gate, ptq_validation_gate
+from _shared.op3_model_audit import qat_validation_gate, ptq_validation_gate
 
 
 ROOT = Path(__file__).resolve().parents[2]
