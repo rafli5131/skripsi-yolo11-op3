@@ -23,7 +23,7 @@ from typing import Any
 
 import torch
 
-import export_openvino as base
+from _shared import openvino_export_core as base
 
 
 SYNTHETIC_KEY = "in_domain_synthetic"
