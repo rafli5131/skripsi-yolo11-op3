@@ -27,7 +27,7 @@ import openvino as ov
 import psutil
 from matplotlib.ticker import FormatStrFormatter
 
-from benchmark_op3 import ResourceSampler, letterbox, percentile_stats, postprocess
+from deployment.benchmark_op3 import ResourceSampler, letterbox, percentile_stats, postprocess
 from _shared.op3_model_audit import ptq_validation_gate
 
 
