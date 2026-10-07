@@ -6,7 +6,7 @@ import sys as _bootstrap_sys
 from pathlib import Path as _BootstrapPath
 _bootstrap_sys.path.insert(0, str(_BootstrapPath(__file__).resolve().parents[1]))
 
-from nncf_reference_quant import configure_nncf_reference_quantization
+from _shared.nncf_reference_quant import configure_nncf_reference_quantization
 import step09_export_openvino
 
 
