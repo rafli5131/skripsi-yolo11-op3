@@ -24,7 +24,7 @@ import psutil
 from matplotlib.ticker import FormatStrFormatter
 
 from benchmark_op3 import ResourceSampler, letterbox, percentile_stats, postprocess
-from op3_model_audit import ptq_validation_gate, sha256_file
+from op3_model_audit import ptq_validation_gate
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -49,7 +49,6 @@ def draw_detection_card(
     captured_at: str,
     host: str,
     camera_device: str,
-    model_sha: str,
     inference_ms: float,
     capture_duration_s: float,
     frame_count: int,
@@ -116,7 +115,6 @@ def draw_detection_card(
         f"Observed frames: {frame_count}",
         f"Capture window: {capture_duration_s:.1f} s",
         f"Selected inference: {inference_ms:.2f} ms",
-        f"Model SHA256: {model_sha[:16]}...",
         f"Captured: {captured_at}",
     ]
     for fact in facts:
@@ -305,7 +303,6 @@ def main() -> int:
     bin_path = xml_path.with_suffix(".bin")
     if not xml_path.is_file() or not bin_path.is_file():
         raise SystemExit(f"OpenVINO XML/BIN pair not found: {xml_path}, {bin_path}")
-    model_hash = sha256_file(xml_path)
     core = ov.Core()
     if "CPU" not in core.available_devices:
         raise SystemExit(f"OpenVINO CPU unavailable: {core.available_devices}")
@@ -375,7 +372,7 @@ def main() -> int:
     capture_at = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
     image = draw_detection_card(
         best["frame"], best["detections"], captured_at=capture_at, camera_device=args.camera_device,
-        host=platform.node(), model_sha=model_hash, inference_ms=best["inference_ms"],
+        host=platform.node(), inference_ms=best["inference_ms"],
         capture_duration_s=elapsed, frame_count=len(measurements), resource_summary=summary,
         model_label=model_label,
     )
@@ -410,8 +407,6 @@ def main() -> int:
             "name": model_label,
             "quantization_method": "none (FP32)" if args.model_kind == "fp32" else "existing calibrated PTQ INT8 comparator",
             "xml_path": str(xml_path),
-            "xml_sha256": model_hash,
-            "bin_sha256": sha256_file(bin_path),
         },
         "camera_device": args.camera_device,
         "camera_frames_captured": len(measurements),
