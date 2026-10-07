@@ -154,7 +154,7 @@ def child_code(candidate: dict[str, Any], resume: bool) -> str:
         "RANGE_INIT_BATCH": candidate["range_init_batch"],
     }
     assignments = "\n".join(f"q.{key} = {value!r}" for key, value in values.items())
-    argv = ["train_qat.py", "--resume"] if resume else ["train_qat.py"]
+    argv = ["step06_train_qat.py", "--resume"] if resume else ["step06_train_qat.py"]
     return f"""
 from pathlib import Path
 import sys
