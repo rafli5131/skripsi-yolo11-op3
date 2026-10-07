@@ -16,4 +16,4 @@ Epoch terakhir memiliki precision 0,94746, recall 0,94695, mAP50 0,97380, mAP50-
 
 ## Artefak terkait
 
-[`scripts/train_fp32.py`](../scripts/train_fp32.py), [manifest](../artifacts/checkpoints/fp32/manifest.json), [CSV](../artifacts/checkpoints/fp32/results.csv), `artifacts/checkpoints/fp32/{best,last}.pt`.
+[`scripts/step03_train_fp32.py`](../scripts/step03_train_fp32.py), [manifest](../artifacts/checkpoints/fp32/manifest.json), [CSV](../artifacts/checkpoints/fp32/results.csv), `artifacts/checkpoints/fp32/{best,last}.pt`.
