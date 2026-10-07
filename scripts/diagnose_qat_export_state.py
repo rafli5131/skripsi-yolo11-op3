@@ -39,7 +39,7 @@ from export_openvino import (
     restore_qat_with_controller,
 )
 from probe_qat_compatibility import require_cuda, require_project_root
-from smoke_train_qat import quantizers, quantizers_enabled, sha256_file
+from smoke_train_qat import quantizers, quantizers_enabled
 
 
 OUTPUT_PATH = Path("artifacts/openvino/qat_export_state_diagnostic.json")
@@ -144,7 +144,6 @@ def main() -> int:
             {
                 "source FP32 checkpoint": str(fp32_path),
                 "source QAT checkpoint": str(qat_path),
-                "QAT SHA256": sha256_file(qat_path),
                 "VAL image": str(image_path),
                 "preprocessing": "cv2 decode -> LetterBox(640, auto=False, stride=32) -> BGR to RGB -> NCHW float32 / 255",
                 "GPU": {"logical device": "cuda:0", "name": gpu_name},
