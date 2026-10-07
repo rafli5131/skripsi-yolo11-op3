@@ -177,7 +177,8 @@ diagnostic.get("calibration occurred") is False
     accepted = bool(true_qat and selection_accepted and export_accepted)
     return {
         "accepted": accepted,
-        "status": "VALID QAT INT8 OpenVINO" if accepted else "BLOCKED: no validated QAT OpenVINO artifact",
+        "status": "QAT manifest evidence accepted; artifact identity not checked" if accepted else "QAT manifest evidence incomplete",
+        "artifact_identity_verification": "not performed; SHA256 checks disabled by user request",
         "true_nncf_qat_provenance": true_qat,
         "reload_quantizer_count": reload_quantizers,
         "expected_quantizer_count": expected_quantizers,
@@ -249,7 +250,8 @@ def ptq_validation_gate(root: Path, model_xml: Path | None = None) -> dict[str, 
     accepted = bool(ptq_only and source_valid and comparison_valid and files_valid)
     return {
         "accepted": accepted,
-        "status": "VALID EXISTING PTQ INT8 COMPARATOR" if accepted else "BLOCKED: PTQ provenance gate failed",
+        "status": "PTQ manifest evidence accepted; artifact identity not checked" if accepted else "PTQ manifest evidence incomplete",
+        "artifact_identity_verification": "not performed; SHA256 checks disabled by user request",
         "model_xml": str(candidate),
         "ptq_only_provenance": ptq_only,
         "qat_checkpoint_used": manifest.get("QAT checkpoint used"),

@@ -1,0 +1,73 @@
+{
+  "timestamp_utc": "2026-10-07T12:22:57.174791+00:00",
+  "git_commit": "01af3977129b153adb1c4570a6be2a4551588ee0",
+  "hostname": "humanoid-NUC12WSHi5",
+  "python_version": "3.12.3",
+  "openvino_version": "2026.3.1-22476-759c5a6ab8c-releases/2026/3",
+  "available_devices": [
+    "CPU"
+  ],
+  "device": "CPU",
+  "measurement_scope": "Runtime load/compile/inference sanity only; not a latency or FPS benchmark",
+  "model_label_source": "User-confirmed artifact folder names",
+  "artifact_identity_verification": "Not performed; no SHA256 checks",
+  "models": {
+    "fp32": {
+      "path": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/artifacts/openvino/fp32/model.xml",
+      "declared_model_kind": "fp32",
+      "input_shape": "[1,3,640,640]",
+      "input_dtype": "f32",
+      "compile_success": true,
+      "outputs": [
+        {
+          "shape": [
+            1,
+            7,
+            8400
+          ],
+          "dtype": "float32",
+          "finite": true
+        }
+      ],
+      "inference_success": true
+    },
+    "ptq_int8": {
+      "path": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/artifacts/openvino/ptq_int8/model.xml",
+      "declared_model_kind": "ptq_int8",
+      "input_shape": "[1,3,640,640]",
+      "input_dtype": "f32",
+      "compile_success": true,
+      "outputs": [
+        {
+          "shape": [
+            1,
+            7,
+            8400
+          ],
+          "dtype": "float32",
+          "finite": true
+        }
+      ],
+      "inference_success": true
+    },
+    "qat_int8": {
+      "path": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/artifacts/openvino/qat_int8/model.xml",
+      "declared_model_kind": "qat_int8",
+      "input_shape": "[1,3,640,640]",
+      "input_dtype": "f32",
+      "compile_success": true,
+      "outputs": [
+        {
+          "shape": [
+            1,
+            7,
+            8400
+          ],
+          "dtype": "float32",
+          "finite": true
+        }
+      ],
+      "inference_success": true
+    }
+  }
+}

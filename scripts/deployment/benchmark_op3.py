@@ -1,10 +1,10 @@
 """Reproducible CPU-only OpenVINO and real-camera benchmark for OP3.
 
 Example:
-  python scripts/benchmark_op3.py --model-kind fp32 --model-xml .cache/hardware_models/fp32/model.xml
-  python scripts/benchmark_op3.py --mode camera --seconds 60 --model-kind fp32 --model-xml .cache/hardware_models/fp32/model.xml
+  python scripts/deployment/benchmark_op3.py --model-kind fp32 --model-xml .cache/hardware_models/fp32/model.xml
+  python scripts/deployment/benchmark_op3.py --mode camera --seconds 60 --model-kind fp32 --model-xml .cache/hardware_models/fp32/model.xml
 
-QAT runs are refused unless scripts/audit_op3_models.py can prove true-QAT
+QAT runs are refused unless scripts/deployment/audit_op3_models.py can prove true-QAT
 selection, accepted OpenVINO export, and numerical-equivalence evidence.
 """
 
@@ -32,13 +32,14 @@ import numpy as np
 import openvino as ov
 import psutil
 
-from _shared.op3_model_audit import EXPECTED_CLASSES, qat_validation_gate
+from _shared.op3_model_audit import EXPECTED_CLASSES, lfs_pointer, qat_validation_gate
 from _shared.op3_model_audit import ptq_validation_gate
 
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_FP32 = ROOT / ".cache/hardware_models/fp32/model.xml"
-DEFAULT_PTQ = ROOT / "experiments/ptq/backend_models/ptq_openvino_model/model.xml"
+DEFAULT_FP32 = ROOT / "artifacts/openvino/fp32/model.xml"
+DEFAULT_PTQ = ROOT / "artifacts/openvino/ptq_int8/model.xml"
+DEFAULT_QAT = ROOT / "artifacts/openvino/qat_int8/model.xml"
 OUTPUT_DIR = ROOT / "experiments/hardware_op3"
 SERVER_OUTPUT_DIR = ROOT / "experiments/server_openvino"
 
@@ -303,11 +304,19 @@ def main() -> int:
         if not gate["accepted"]:
             raise SystemExit("BLOCKED: existing PTQ artifact failed provenance validation")
 
-    default_model = DEFAULT_PTQ if args.model_kind == "ptq_int8" else DEFAULT_FP32
+    default_model = {
+        "fp32": DEFAULT_FP32,
+        "ptq_int8": DEFAULT_PTQ,
+        "qat_int8": DEFAULT_QAT,
+    }[args.model_kind]
     model_xml = (args.model_xml or default_model).expanduser().resolve()
     model_bin = model_xml.with_suffix(".bin")
     if not model_xml.is_file() or not model_bin.is_file():
         raise SystemExit(f"OpenVINO IR XML/BIN pair not found: {model_xml} and {model_bin}")
+    if lfs_pointer(model_xml) or lfs_pointer(model_bin):
+        raise SystemExit(
+            f"OpenVINO IR is still a Git LFS pointer, not a materialized model: {model_xml}"
+        )
     if args.confidence < 0 or args.confidence > 1 or args.iou < 0 or args.iou > 1:
         raise SystemExit("confidence and IoU thresholds must be in [0,1].")
 
@@ -500,6 +509,8 @@ def main() -> int:
         "command": " ".join([sys.executable, *sys.argv]),
         "model": {
             "kind": args.model_kind,
+            "kind_source": "user-selected model label and path",
+            "artifact_identity_verification": "not performed; no SHA256 checks",
             "xml_path": str(model_xml),
             "xml_size_bytes": model_xml.stat().st_size,
             "bin_path": str(model_bin),

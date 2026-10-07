@@ -1,0 +1,182 @@
+{
+  "run_id": "run_02",
+  "condition": "diam",
+  "completed": true,
+  "thermal_abort": false,
+  "statistics_ddof": 1,
+  "rss_start_bytes": 257523712,
+  "rss_end_bytes": 257716224,
+  "rss_growth_bytes": 192512,
+  "thermal_end_c": [
+    47.0,
+    43.0,
+    45.0
+  ],
+  "timestamp_utc": "2026-10-07T12:53:24.901367+00:00",
+  "git_commit": "01af3977129b153adb1c4570a6be2a4551588ee0",
+  "hostname": "humanoid-NUC12WSHi5",
+  "cpu_model": "x86_64",
+  "system_ram_total_bytes": 7875014656,
+  "openvino_version": "2026.3.1-22476-759c5a6ab8c-releases/2026/3",
+  "python_version": "3.12.3",
+  "ros_distro": "jazzy",
+  "command": "/home/humanoid/ros2_jazzy/.venv-op3-vision/bin/python /home/humanoid/ros2_jazzy/skripsi-yolo11-op3/ros2_ws/src/yolo11_op3_vision/yolo11_op3_vision/detector.py --ros-args -p model_path:=/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/artifacts/openvino/qat_int8/model.xml -p input_topic:=/thesis/image_raw -p output_dir:=/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/experiments/hardware_op3/final_qat -p result_stem:=diam_run_02 -p experiment_condition:=diam -p run_id:=run_02 -p benchmark_seconds:=60.0 -p final_experiment:=true -p warmup_camera_frames:=30 -p publish_benchmark:=false -p publish_debug_image:=false",
+  "model": {
+    "path": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/artifacts/openvino/qat_int8/model.xml",
+    "artifact_identity_verification": "not performed; user-provided model path",
+    "size_bytes": 666400,
+    "input_shape": [
+      1,
+      3,
+      640,
+      640
+    ],
+    "output_shape": [
+      1,
+      7,
+      8400
+    ]
+  },
+  "setup": {
+    "device": "CPU",
+    "imgsz": 640,
+    "batch": 1,
+    "input_topic": "/thesis/image_raw",
+    "warmup_inferences": 30,
+    "warmup_camera_frames": 30,
+    "publish_benchmark": false,
+    "benchmark_seconds_requested": 60.0,
+    "benchmark_seconds_measured": 60.004658785000174,
+    "resource_interval_seconds": 0.2,
+    "publish_debug_image": false,
+    "evidence_image_path": null
+  },
+  "results": {
+    "frames_received": 904,
+    "total_camera_frames_received_including_warmup": 934,
+    "frames_processed": 904,
+    "effective_fps": 15.065496884818215,
+    "detection_count": 1809,
+    "exceptions": 0,
+    "total_exceptions_including_warmup": 0,
+    "latency_ms": {
+      "camera_delivery_ms": {
+        "mean": 49.953372686946906,
+        "median": 50.086858,
+        "min": 42.24621,
+        "max": 66.048218,
+        "std": 3.7675081504366137,
+        "p50": 50.086858,
+        "p90": 54.4699236,
+        "p95": 54.8687937,
+        "p99": 56.82363028
+      },
+      "image_conversion_ms": {
+        "mean": 0.8053392765486725,
+        "median": 0.886658,
+        "min": 0.31754,
+        "max": 1.416548,
+        "std": 0.2562796033638475,
+        "p50": 0.886658,
+        "p90": 1.0583599000000001,
+        "p95": 1.10778865,
+        "p99": 1.20299565
+      },
+      "preprocess_ms": {
+        "mean": 3.8974920232300887,
+        "median": 4.3067285,
+        "min": 1.622586,
+        "max": 7.375132,
+        "std": 1.2542241225371573,
+        "p50": 4.3067285,
+        "p90": 5.0420485,
+        "p95": 5.225318699999998,
+        "p99": 6.47335976
+      },
+      "inference_ms": {
+        "mean": 13.17920421681416,
+        "median": 13.682359000000002,
+        "min": 10.99705,
+        "max": 24.291585,
+        "std": 1.385084711338736,
+        "p50": 13.682359000000002,
+        "p90": 14.4108555,
+        "p95": 14.85622115,
+        "p99": 16.20713605
+      },
+      "postprocess_ms": {
+        "mean": 0.33231385840707967,
+        "median": 0.3255795,
+        "min": 0.301688,
+        "max": 0.762597,
+        "std": 0.02916245820605694,
+        "p50": 0.3255795,
+        "p90": 0.349453,
+        "p95": 0.36563029999999996,
+        "p99": 0.45305647000000004
+      },
+      "callback_end_to_end_ms": {
+        "mean": 17.636819417035397,
+        "median": 18.58695,
+        "min": 13.415092,
+        "max": 31.233378,
+        "std": 2.5107100137844225,
+        "p50": 18.58695,
+        "p90": 19.8372445,
+        "p95": 20.394196799999996,
+        "p99": 23.088887910000004
+      },
+      "latency_ms": {
+        "mean": 17.455397344026547,
+        "median": 18.3994075,
+        "min": 13.2328,
+        "max": 30.913415,
+        "std": 2.5102507030187122,
+        "p50": 18.3994075,
+        "p90": 19.662661200000002,
+        "p95": 20.21056745,
+        "p99": 22.91342285
+      }
+    },
+    "cpu_percent": {
+      "process": {
+        "mean": 95.00745762711864,
+        "median": 99.1,
+        "min": 4.9,
+        "max": 157.4,
+        "std": 26.708215734714326,
+        "p50": 99.1,
+        "p90": 123.46000000000001,
+        "p95": 143.36,
+        "p99": 151.672
+      },
+      "system": {
+        "mean": 6.733898305084746,
+        "median": 6.9,
+        "min": 1.2,
+        "max": 10.2,
+        "std": 1.5796333607039383,
+        "p50": 6.9,
+        "p90": 8.64000000000001,
+        "p95": 9.3,
+        "p99": 10.006
+      }
+    },
+    "rss_mib": {
+      "mean": 245.75632944915253,
+      "median": 245.76171875,
+      "min": 245.63671875,
+      "max": 245.77734375,
+      "std": 0.017777733893823942,
+      "p50": 245.76171875,
+      "p90": 245.7734375,
+      "p95": 245.7734375,
+      "p99": 245.77734375
+    },
+    "resource_sample_count": 295
+  },
+  "raw_measurements": {
+    "timing_csv": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/experiments/hardware_op3/final_qat/latency/diam_run_02_frames.csv",
+    "resource_csv": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/experiments/hardware_op3/final_qat/resources/diam_run_02.csv"
+  }
+}

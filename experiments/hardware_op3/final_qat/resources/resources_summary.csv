@@ -1,0 +1,3 @@
+condition,samples,runs,cpu_usage_percent_mean,cpu_usage_percent_sd,cpu_usage_percent_peak,memory_used_mb_mean,memory_used_mb_sd,memory_used_mb_peak,memory_usage_percent_mean,memory_usage_percent_sd,memory_usage_percent_peak,detector_rss_mb_mean,detector_rss_mb_sd,detector_rss_mb_peak
+diam,885,3,6.416271186440678,1.5655386994857048,11.5,4083.7804471683617,8.394086884926374,4153.683968,56.576158192090396,0.10818817324138087,57.5,257.52517452655366,0.3085463563606845,257.818624
+berjalan,0,0,,,,,,,,,,,,

@@ -13,10 +13,14 @@ __pycache__/
 *.cache
 .ipynb_checkpoints/
 
+# Build products for the isolated thesis ROS 2 workspace
+ros2_ws/build/
+ros2_ws/install/
+ros2_ws/log/
+
 # Dataset payloads and generated experiment outputs
 data/raw/
 logs/
 runs/
 wandb/
 weights/
-

@@ -66,6 +66,10 @@ def main() -> int:
     fp32_native = inspect_blob("artifacts/checkpoints/fp32/best.pt", fp32_native_cache)
     fp32_xml = inspect_blob("artifacts/openvino/fp32/model.xml", fp32_xml_cache)
     fp32_bin = inspect_blob("artifacts/openvino/fp32/model.bin", fp32_bin_cache)
+    canonical_ptq_xml = inspect_blob("artifacts/openvino/ptq_int8/model.xml")
+    canonical_ptq_bin = inspect_blob("artifacts/openvino/ptq_int8/model.bin")
+    canonical_qat_xml = inspect_blob("artifacts/openvino/qat_int8/model.xml")
+    canonical_qat_bin = inspect_blob("artifacts/openvino/qat_int8/model.bin")
     ptq_fp32 = ptq_manifest.get("PTQ artifact")
     fp32_export_valid = bool(
         isinstance(ptq_fp32, dict)
@@ -94,9 +98,23 @@ def main() -> int:
         "qat_native_pytorch": qat_test.get("overall", {}),
         "note": "Dataset metrics only; not derived from live camera observations.",
     }
+    def payload_status(xml_record: dict[str, Any], bin_record: dict[str, Any]) -> str:
+        if not xml_record.get("exists") or not bin_record.get("exists"):
+            return "blocked: XML/BIN file is missing"
+        if xml_record.get("storage") == "Git LFS" or bin_record.get("storage") == "Git LFS":
+            return "blocked: Git LFS payload is not materialized in this working tree"
+        return "materialized; ready for runtime sanity test"
+
+    qat_payload_status = payload_status(canonical_qat_xml, canonical_qat_bin)
     inventory = {
         "timestamp_utc": datetime.now(timezone.utc).isoformat(),
         "git_commit": git_commit(),
+        "deployment_policy": {
+            "model_label_source": "user-confirmed trained/uploaded models; folder names determine deployment labels",
+            "artifact_identity_verification": "not performed; SHA256 checks disabled by user request",
+            "hardware": "NUC12 is the actual test host; no NUC11 requirement blocks deployment",
+        },
+        "runtime_sanity": read_json(ROOT / "experiments/hardware_op3/openvino_sanity.json"),
         "expected_class_mapping": EXPECTED_CLASSES,
         "fp32_baseline": {
             "name": "YOLO11n FP32 OpenVINO IR",
@@ -151,9 +169,33 @@ def main() -> int:
             "format": "OpenVINO IR XML + BIN",
             "xml": inspect_blob("artifacts/openvino/qat_int8/model.xml"),
             "bin": inspect_blob("artifacts/openvino/qat_int8/model.bin"),
-            "quantization_method": "true NNCF QAT export candidate; no PTQ/calibration",
-            "validity": "valid" if qat_gate["accepted"] else "rejected_or_unresolved",
+            "quantization_method": "QAT as declared by user; training method is described in repository manifests",
+            "validity": (
+                "manifest export accepted; deployment payload unresolved"
+                if qat_gate["accepted"] and qat_payload_status.startswith("blocked")
+                else "user-supplied QAT; manifest evidence accepted; identity not checked" if qat_gate["accepted"] else "manifest evidence incomplete"
+            ),
+            "deployment_status": qat_payload_status,
             "gate": qat_gate,
+        },
+        "canonical_openvino_artifacts": {
+            "fp32": {
+                "xml": fp32_xml,
+                "bin": fp32_bin,
+                "deployment_status": payload_status(fp32_xml, fp32_bin),
+            },
+            "ptq_int8": {
+                "xml": canonical_ptq_xml,
+                "bin": canonical_ptq_bin,
+                "deployment_status": payload_status(canonical_ptq_xml, canonical_ptq_bin),
+                "provenance_note": "Canonical branch path; audit separately from the existing experiments/ptq comparator.",
+            },
+            "qat_int8": {
+                "xml": canonical_qat_xml,
+                "bin": canonical_qat_bin,
+                "deployment_status": qat_payload_status,
+                "manifest_export_status": qat_gate["status"],
+            },
         },
         "ptq_openvino_int8": {
             "name": "YOLO11n existing calibrated PTQ INT8 OpenVINO comparator",
@@ -166,9 +208,20 @@ def main() -> int:
             "accuracy_metrics": "existing VAL diagnostic/comparator only; not held-out TEST metrics",
         },
         "dataset_accuracy": accuracy,
+        "current_branch_deployment_status": {
+            "git_commit": git_commit(),
+            "canonical_openvino_root": "artifacts/openvino",
+            "fp32": payload_status(fp32_xml, fp32_bin),
+            "ptq_int8": payload_status(canonical_ptq_xml, canonical_ptq_bin),
+            "qat_int8": qat_payload_status,
+            "qat_export_manifest_status": qat_gate["status"],
+            "qat_hardware_benchmark": "camera functional run recorded with visualization enabled; model label supplied by user",
+        },
         "ptq_comparison_status": ptq_comparison.get("models", {}).get("PTQ INT8", {}).get("status"),
         "warnings": [
-            "The existing historical qat_int8 model is never eligible for benchmarking unless all QAT gate checks pass.",
+            "Model labels follow user-confirmed artifact folder names; payload identity is not independently verified.",
+            "Canonical OpenVINO paths under artifacts/openvino are recorded separately from experiment comparator copies.",
+            "A passed export manifest does not mean a Git LFS pointer is a loadable model in the current working tree.",
             "PTQ metrics are not relabeled or used as QAT results.",
             "Dataset P/R/F1/mAP metrics are not derived from camera observations.",
         ],
