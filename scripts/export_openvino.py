@@ -42,13 +42,13 @@ from ultralytics import YOLO
 from ultralytics.data.augment import LetterBox
 from ultralytics.utils.export.openvino import torch2openvino
 
-from probe_qat_compatibility import (
+from step04_probe_qat_compatibility import (
     attach_ultralytics_training_args,
     require_cuda,
     require_project_root,
     restore_ultralytics_trainer_trainability,
 )
-from smoke_train_qat import quantizers, quantizers_enabled
+from step05_smoke_train_qat import quantizers, quantizers_enabled
 
 
 FP32_CHECKPOINT = Path("artifacts/checkpoints/fp32/best.pt")
