@@ -1,0 +1,291 @@
+{
+  "runtime": [
+    {
+      "mode": "synthetic",
+      "model": "FP32 PyTorch (tanpa OpenVINO)",
+      "inference_mean_ms": 52.70031942999291,
+      "inference_p95_ms": 54.3354604999422,
+      "pipeline_mean_ms": 55.311973123333324,
+      "effective_fps": 18.069370067308395,
+      "system_cpu_mean_percent": 49.865853658536594,
+      "process_cpu_mean_percent": 800.229268292683,
+      "system_memory_mean_mb": 4285.164469073171,
+      "rss_mean_mb": 375.5225287804878,
+      "rss_peak_mb": 391.385088
+    },
+    {
+      "mode": "synthetic",
+      "model": "FP32 OpenVINO",
+      "inference_mean_ms": 28.050357910000002,
+      "inference_p95_ms": 29.64108355,
+      "pipeline_mean_ms": 29.874479596666667,
+      "effective_fps": 33.45591542083358,
+      "system_cpu_mean_percent": 55.29545454545455,
+      "process_cpu_mean_percent": 893.2840909090908,
+      "system_memory_mean_mb": 4174.069573818182,
+      "rss_mean_mb": 240.745472,
+      "rss_peak_mb": 240.832512
+    },
+    {
+      "mode": "synthetic",
+      "model": "PTQ INT8 OpenVINO",
+      "inference_mean_ms": 11.540357333333333,
+      "inference_p95_ms": 11.830936450000001,
+      "pipeline_mean_ms": 13.165984033333334,
+      "effective_fps": 75.86243649547855,
+      "system_cpu_mean_percent": 20.589473684210528,
+      "process_cpu_mean_percent": 343.8315789473684,
+      "system_memory_mean_mb": 4155.23721431579,
+      "rss_mean_mb": 230.60803368421054,
+      "rss_peak_mb": 230.690816
+    },
+    {
+      "mode": "synthetic",
+      "model": "QAT INT8 OpenVINO",
+      "inference_mean_ms": 11.22649282,
+      "inference_p95_ms": 11.43519915,
+      "pipeline_mean_ms": 12.933697906666666,
+      "effective_fps": 77.22874308019875,
+      "system_cpu_mean_percent": 20.384210526315794,
+      "process_cpu_mean_percent": 341.16315789473674,
+      "system_memory_mean_mb": 4137.5351646315785,
+      "rss_mean_mb": 225.3612732631579,
+      "rss_peak_mb": 225.40288
+    },
+    {
+      "mode": "camera",
+      "model": "FP32 PyTorch (tanpa OpenVINO)",
+      "inference_mean_ms": 50.92328233839438,
+      "inference_p95_ms": 52.92689980033174,
+      "pipeline_mean_ms": 56.853797896682465,
+      "effective_fps": 17.578019402560702,
+      "system_cpu_mean_percent": 49.38053691275168,
+      "process_cpu_mean_percent": 783.5617449664429,
+      "system_memory_mean_mb": 4310.936459167786,
+      "rss_mean_mb": 388.9649017986577,
+      "rss_peak_mb": 407.646208
+    },
+    {
+      "mode": "camera",
+      "model": "FP32 OpenVINO",
+      "inference_mean_ms": 37.172444105815835,
+      "inference_p95_ms": 59.81142095,
+      "pipeline_mean_ms": 48.468972926494345,
+      "effective_fps": 20.625005991289353,
+      "system_cpu_mean_percent": 44.87885906040268,
+      "process_cpu_mean_percent": 706.8708053691275,
+      "system_memory_mean_mb": 4152.432763704698,
+      "rss_mean_mb": 242.7901800805369,
+      "rss_peak_mb": 243.347456
+    },
+    {
+      "mode": "camera",
+      "model": "PTQ INT8 OpenVINO",
+      "inference_mean_ms": 12.582408184115522,
+      "inference_p95_ms": 15.3498296,
+      "pipeline_mean_ms": 43.30762811191336,
+      "effective_fps": 23.08243672185426,
+      "system_cpu_mean_percent": 8.463087248322148,
+      "process_cpu_mean_percent": 127.38791946308727,
+      "system_memory_mean_mb": 4154.728695409396,
+      "rss_mean_mb": 233.91711699328857,
+      "rss_peak_mb": 234.524672
+    },
+    {
+      "mode": "camera",
+      "model": "QAT INT8 OpenVINO",
+      "inference_mean_ms": 12.095019894448251,
+      "inference_p95_ms": 14.8792823,
+      "pipeline_mean_ms": 41.113903196710076,
+      "effective_fps": 24.313859315528518,
+      "system_cpu_mean_percent": 8.543959731543623,
+      "process_cpu_mean_percent": 128.38523489932888,
+      "system_memory_mean_mb": 4142.140147973155,
+      "rss_mean_mb": 228.39778448322147,
+      "rss_peak_mb": 229.023744
+    }
+  ],
+  "thesis_runtime": [
+    {
+      "mode": "synthetic",
+      "model": "FP32 PyTorch (tanpa OpenVINO)",
+      "inference_mean_ms": 52.70031942999291,
+      "inference_p95_ms": 54.3354604999422,
+      "pipeline_mean_ms": 55.311973123333324,
+      "effective_fps": 18.069370067308395,
+      "system_cpu_mean_percent": 49.865853658536594,
+      "process_cpu_mean_percent": 800.229268292683,
+      "system_memory_mean_mb": 4285.164469073171,
+      "rss_mean_mb": 375.5225287804878,
+      "rss_peak_mb": 391.385088
+    },
+    {
+      "mode": "synthetic",
+      "model": "FP32 OpenVINO",
+      "inference_mean_ms": 28.050357910000002,
+      "inference_p95_ms": 29.64108355,
+      "pipeline_mean_ms": 29.874479596666667,
+      "effective_fps": 33.45591542083358,
+      "system_cpu_mean_percent": 55.29545454545455,
+      "process_cpu_mean_percent": 893.2840909090908,
+      "system_memory_mean_mb": 4174.069573818182,
+      "rss_mean_mb": 240.745472,
+      "rss_peak_mb": 240.832512
+    },
+    {
+      "mode": "synthetic",
+      "model": "QAT INT8 OpenVINO",
+      "inference_mean_ms": 11.22649282,
+      "inference_p95_ms": 11.43519915,
+      "pipeline_mean_ms": 12.933697906666666,
+      "effective_fps": 77.22874308019875,
+      "system_cpu_mean_percent": 20.384210526315794,
+      "process_cpu_mean_percent": 341.16315789473674,
+      "system_memory_mean_mb": 4137.5351646315785,
+      "rss_mean_mb": 225.3612732631579,
+      "rss_peak_mb": 225.40288
+    },
+    {
+      "mode": "camera",
+      "model": "FP32 PyTorch (tanpa OpenVINO)",
+      "inference_mean_ms": 50.92328233839438,
+      "inference_p95_ms": 52.92689980033174,
+      "pipeline_mean_ms": 56.853797896682465,
+      "effective_fps": 17.578019402560702,
+      "system_cpu_mean_percent": 49.38053691275168,
+      "process_cpu_mean_percent": 783.5617449664429,
+      "system_memory_mean_mb": 4310.936459167786,
+      "rss_mean_mb": 388.9649017986577,
+      "rss_peak_mb": 407.646208
+    },
+    {
+      "mode": "camera",
+      "model": "FP32 OpenVINO",
+      "inference_mean_ms": 37.172444105815835,
+      "inference_p95_ms": 59.81142095,
+      "pipeline_mean_ms": 48.468972926494345,
+      "effective_fps": 20.625005991289353,
+      "system_cpu_mean_percent": 44.87885906040268,
+      "process_cpu_mean_percent": 706.8708053691275,
+      "system_memory_mean_mb": 4152.432763704698,
+      "rss_mean_mb": 242.7901800805369,
+      "rss_peak_mb": 243.347456
+    },
+    {
+      "mode": "camera",
+      "model": "QAT INT8 OpenVINO",
+      "inference_mean_ms": 12.095019894448251,
+      "inference_p95_ms": 14.8792823,
+      "pipeline_mean_ms": 41.113903196710076,
+      "effective_fps": 24.313859315528518,
+      "system_cpu_mean_percent": 8.543959731543623,
+      "process_cpu_mean_percent": 128.38523489932888,
+      "system_memory_mean_mb": 4142.140147973155,
+      "rss_mean_mb": 228.39778448322147,
+      "rss_peak_mb": 229.023744
+    }
+  ],
+  "accuracy_native_pytorch_only": [
+    {
+      "model": "FP32 native PyTorch checkpoint",
+      "split": "TEST",
+      "precision": 0.9313469051335113,
+      "recall": 0.9505716686969364,
+      "F1": 0.9408610915046441,
+      "mAP50": 0.9642317504749923,
+      "mAP50-95": 0.7799081629168894
+    },
+    {
+      "model": "QAT native PyTorch checkpoint",
+      "split": "TEST",
+      "precision": 0.9341156433830985,
+      "recall": 0.9502079198462958,
+      "F1": 0.9420930669398871,
+      "mAP50": 0.972145259145894,
+      "mAP50-95": 0.76717861970828
+    }
+  ],
+  "provenance": [
+    {
+      "mode": "synthetic",
+      "model": "FP32 PyTorch (tanpa OpenVINO)",
+      "report": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/experiments/hardware_op3/comparison_models/20261007_four_models_run1/benchmark_fp32_pytorch.json",
+      "model_path": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/artifacts/checkpoints/fp32/best.pt",
+      "git_commit": "ab1a4dd1d31fe56840ebf818855b39f2329fd802",
+      "command": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/.cache/hardware_models/pytorch_venv/bin/python scripts/deployment/benchmark_op3_pytorch.py --mode synthetic --model artifacts/checkpoints/fp32/best.pt --device cpu --imgsz 640 --warmup 30 --iterations 300 --output-dir experiments/hardware_op3/comparison_models/20261007_four_models_run1 --evidence-dir experiments/hardware_op3/comparison_models/20261007_four_models_run1/evidence",
+      "raw_timing_csv": "experiments/hardware_op3/comparison_models/20261007_four_models_run1/benchmark_fp32_pytorch.csv",
+      "raw_resources_csv": "experiments/hardware_op3/comparison_models/20261007_four_models_run1/resources_fp32_pytorch.csv"
+    },
+    {
+      "mode": "synthetic",
+      "model": "FP32 OpenVINO",
+      "report": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/experiments/hardware_op3/comparison_models/20261007_four_models_run1/synthetic_fp32.json",
+      "model_path": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/artifacts/openvino/fp32/model.xml",
+      "git_commit": "ab1a4dd1d31fe56840ebf818855b39f2329fd802",
+      "command": "/home/humanoid/ros2_jazzy/.venv-op3-vision/bin/python scripts/deployment/benchmark_op3.py --mode synthetic --model-kind fp32 --model-xml artifacts/openvino/fp32/model.xml --device CPU --imgsz 640 --warmup 30 --iterations 300 --output-dir experiments/hardware_op3/comparison_models/20261007_four_models_run1 --result-stem synthetic_fp32",
+      "raw_timing_csv": "experiments/hardware_op3/comparison_models/20261007_four_models_run1/synthetic_fp32.csv",
+      "raw_resources_csv": "experiments/hardware_op3/comparison_models/20261007_four_models_run1/resources_synthetic_fp32.csv"
+    },
+    {
+      "mode": "synthetic",
+      "model": "PTQ INT8 OpenVINO",
+      "report": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/experiments/hardware_op3/comparison_models/20261007_four_models_run1/synthetic_ptq_int8.json",
+      "model_path": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/artifacts/openvino/ptq_int8/model.xml",
+      "git_commit": "ab1a4dd1d31fe56840ebf818855b39f2329fd802",
+      "command": "/home/humanoid/ros2_jazzy/.venv-op3-vision/bin/python scripts/deployment/benchmark_op3.py --mode synthetic --model-kind ptq_int8 --model-xml artifacts/openvino/ptq_int8/model.xml --device CPU --imgsz 640 --warmup 30 --iterations 300 --output-dir experiments/hardware_op3/comparison_models/20261007_four_models_run1 --result-stem synthetic_ptq_int8",
+      "raw_timing_csv": "experiments/hardware_op3/comparison_models/20261007_four_models_run1/synthetic_ptq_int8.csv",
+      "raw_resources_csv": "experiments/hardware_op3/comparison_models/20261007_four_models_run1/resources_synthetic_ptq_int8.csv"
+    },
+    {
+      "mode": "synthetic",
+      "model": "QAT INT8 OpenVINO",
+      "report": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/experiments/hardware_op3/comparison_models/20261007_four_models_run1/synthetic_qat_int8.json",
+      "model_path": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/artifacts/openvino/qat_int8/model.xml",
+      "git_commit": "ab1a4dd1d31fe56840ebf818855b39f2329fd802",
+      "command": "/home/humanoid/ros2_jazzy/.venv-op3-vision/bin/python scripts/deployment/benchmark_op3.py --mode synthetic --model-kind qat_int8 --model-xml artifacts/openvino/qat_int8/model.xml --device CPU --imgsz 640 --warmup 30 --iterations 300 --output-dir experiments/hardware_op3/comparison_models/20261007_four_models_run1 --result-stem synthetic_qat_int8",
+      "raw_timing_csv": "experiments/hardware_op3/comparison_models/20261007_four_models_run1/synthetic_qat_int8.csv",
+      "raw_resources_csv": "experiments/hardware_op3/comparison_models/20261007_four_models_run1/resources_synthetic_qat_int8.csv"
+    },
+    {
+      "mode": "camera",
+      "model": "FP32 PyTorch (tanpa OpenVINO)",
+      "report": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/experiments/hardware_op3/comparison_models/20261007_four_models_run1/camera_benchmark_fp32_pytorch.json",
+      "model_path": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/artifacts/checkpoints/fp32/best.pt",
+      "git_commit": "ab1a4dd1d31fe56840ebf818855b39f2329fd802",
+      "command": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/.cache/hardware_models/pytorch_venv/bin/python scripts/deployment/benchmark_op3_pytorch.py --mode camera --model artifacts/checkpoints/fp32/best.pt --device cpu --imgsz 640 --warmup 30 --iterations 300 --output-dir experiments/hardware_op3/comparison_models/20261007_four_models_run1 --evidence-dir experiments/hardware_op3/comparison_models/20261007_four_models_run1/evidence --camera-device /dev/video0 --seconds 60",
+      "raw_timing_csv": "experiments/hardware_op3/comparison_models/20261007_four_models_run1/camera_benchmark_fp32_pytorch.csv",
+      "raw_resources_csv": "experiments/hardware_op3/comparison_models/20261007_four_models_run1/resources_camera_benchmark_fp32_pytorch.csv"
+    },
+    {
+      "mode": "camera",
+      "model": "FP32 OpenVINO",
+      "report": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/experiments/hardware_op3/comparison_models/20261007_four_models_run1/camera_fp32.json",
+      "model_path": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/artifacts/openvino/fp32/model.xml",
+      "git_commit": "ab1a4dd1d31fe56840ebf818855b39f2329fd802",
+      "command": "/home/humanoid/ros2_jazzy/.venv-op3-vision/bin/python scripts/deployment/benchmark_op3.py --mode camera --model-kind fp32 --model-xml artifacts/openvino/fp32/model.xml --device CPU --imgsz 640 --warmup 30 --iterations 300 --output-dir experiments/hardware_op3/comparison_models/20261007_four_models_run1 --result-stem camera_fp32 --camera-device /dev/video0 --seconds 60",
+      "raw_timing_csv": "experiments/hardware_op3/comparison_models/20261007_four_models_run1/camera_fp32.csv",
+      "raw_resources_csv": "experiments/hardware_op3/comparison_models/20261007_four_models_run1/resources_camera_fp32.csv"
+    },
+    {
+      "mode": "camera",
+      "model": "PTQ INT8 OpenVINO",
+      "report": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/experiments/hardware_op3/comparison_models/20261007_four_models_run1/camera_ptq_int8.json",
+      "model_path": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/artifacts/openvino/ptq_int8/model.xml",
+      "git_commit": "ab1a4dd1d31fe56840ebf818855b39f2329fd802",
+      "command": "/home/humanoid/ros2_jazzy/.venv-op3-vision/bin/python scripts/deployment/benchmark_op3.py --mode camera --model-kind ptq_int8 --model-xml artifacts/openvino/ptq_int8/model.xml --device CPU --imgsz 640 --warmup 30 --iterations 300 --output-dir experiments/hardware_op3/comparison_models/20261007_four_models_run1 --result-stem camera_ptq_int8 --camera-device /dev/video0 --seconds 60",
+      "raw_timing_csv": "experiments/hardware_op3/comparison_models/20261007_four_models_run1/camera_ptq_int8.csv",
+      "raw_resources_csv": "experiments/hardware_op3/comparison_models/20261007_four_models_run1/resources_camera_ptq_int8.csv"
+    },
+    {
+      "mode": "camera",
+      "model": "QAT INT8 OpenVINO",
+      "report": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/experiments/hardware_op3/comparison_models/20261007_four_models_run1/camera_qat_int8.json",
+      "model_path": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/artifacts/openvino/qat_int8/model.xml",
+      "git_commit": "ab1a4dd1d31fe56840ebf818855b39f2329fd802",
+      "command": "/home/humanoid/ros2_jazzy/.venv-op3-vision/bin/python scripts/deployment/benchmark_op3.py --mode camera --model-kind qat_int8 --model-xml artifacts/openvino/qat_int8/model.xml --device CPU --imgsz 640 --warmup 30 --iterations 300 --output-dir experiments/hardware_op3/comparison_models/20261007_four_models_run1 --result-stem camera_qat_int8 --camera-device /dev/video0 --seconds 60",
+      "raw_timing_csv": "experiments/hardware_op3/comparison_models/20261007_four_models_run1/camera_qat_int8.csv",
+      "raw_resources_csv": "experiments/hardware_op3/comparison_models/20261007_four_models_run1/resources_camera_qat_int8.csv"
+    }
+  ],
+  "accuracy_note": "Frozen native checkpoint evaluation; not measured IR/live-camera accuracy"
+}

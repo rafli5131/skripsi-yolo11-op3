@@ -60,6 +60,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--resource-interval", type=float, default=0.2)
     parser.add_argument("--show", action="store_true", help="Show camera detections for functional verification only.")
     parser.add_argument("--result-stem", help="Override output filename stem; raw CSV and resource CSV use same stem.")
+    parser.add_argument("--output-dir", type=Path, help="Store a fresh comparison without overwriting historical runs.")
     return parser.parse_args()
 
 
@@ -459,7 +460,7 @@ def main() -> int:
         stem = "benchmark_fp32" if args.model_kind == "fp32" else f"benchmark_{args.model_kind}"
     else:
         stem = "camera_benchmark" if args.model_kind == "fp32" else f"camera_benchmark_{args.model_kind}"
-    output_dir = SERVER_OUTPUT_DIR if stem.startswith("server_benchmark_") else OUTPUT_DIR
+    output_dir = (args.output_dir or (SERVER_OUTPUT_DIR if stem.startswith("server_benchmark_") else OUTPUT_DIR)).expanduser().resolve()
     csv_path = output_dir / f"{stem}.csv"
     if args.mode == "synthetic" and stem == "benchmark_fp32":
         resource_name = "resources_fp32.csv"

@@ -1,0 +1,302 @@
+{
+  "command": "/home/humanoid/ros2_jazzy/.venv-op3-vision/bin/python scripts/deployment/benchmark_op3.py --mode camera --model-kind qat_int8 --model-xml artifacts/openvino/qat_int8/model.xml --device CPU --imgsz 640 --warmup 30 --iterations 300 --output-dir experiments/hardware_op3/comparison_models/20261007_four_models_run1 --result-stem camera_qat_int8 --camera-device /dev/video0 --seconds 60",
+  "cpu_model": "12th Gen Intel(R) Core(TM) i5-1240P",
+  "detection_observations": {
+    "accuracy_metrics": "not computed; live frames have no ground truth",
+    "last_frame": [
+      {
+        "class_id": 0,
+        "class_name": "ball",
+        "confidence": 0.9203352928161621,
+        "x1": 432.629150390625,
+        "x2": 486.58380126953125,
+        "y1": 177.1162109375,
+        "y2": 232.91702270507812
+      },
+      {
+        "class_id": 2,
+        "class_name": "robot",
+        "confidence": 0.8639911413192749,
+        "x1": 303.78338623046875,
+        "x2": 396.9670104980469,
+        "y1": 32.66497802734375,
+        "y2": 173.55276489257812
+      }
+    ],
+    "last_frame_count": 2,
+    "mean_per_frame": 2.0,
+    "total_over_processed_frames": 2918
+  },
+  "effective_end_to_end_fps": 24.313859315528518,
+  "experimental_setup": {
+    "batch": 1,
+    "camera_device": "/dev/video0",
+    "camera_dropped_frames": "unknown (V4L2/OpenCV capture has no source sequence number)",
+    "camera_frame_shape": [
+      480,
+      640,
+      3
+    ],
+    "camera_frames_processed": 1459,
+    "camera_frames_received": 1459,
+    "compile_time_ms_excluded_from_inference": 302.377066,
+    "confidence_threshold": 0.25,
+    "device": "CPU",
+    "duration_measured_seconds": 60.00692778,
+    "duration_requested_seconds": 60.0,
+    "input_resolution": [
+      640,
+      640
+    ],
+    "iou_threshold": 0.45,
+    "iterations_processed": 1459,
+    "iterations_requested": null,
+    "mode": "camera",
+    "resource_sample_interval_seconds": 0.2,
+    "visualization_enabled": false,
+    "warmups": 30
+  },
+  "fps_from_mean_inference_latency": 82.67865689572045,
+  "git_branch": "main",
+  "git_commit": "ab1a4dd1d31fe56840ebf818855b39f2329fd802",
+  "hostname": "humanoid-NUC12WSHi5",
+  "input": {
+    "dtype": "f32",
+    "shape": [
+      1,
+      3,
+      640,
+      640
+    ]
+  },
+  "latency_ms": {
+    "capture_ms": {
+      "max": 55.602717,
+      "mean": 26.28624985058259,
+      "median": 18.798992,
+      "min": 13.87239,
+      "p50": 18.798992,
+      "p90": 50.5556004,
+      "p95": 51.0393677,
+      "p99": 53.79769332000002,
+      "std": 13.404742122855518
+    },
+    "end_to_end_stage_sum_ms": {
+      "max": 74.61202000000002,
+      "mean": 41.03486646538725,
+      "median": 32.400402,
+      "min": 26.877035999999997,
+      "p50": 32.400402,
+      "p90": 69.026099,
+      "p95": 70.3224792,
+      "p99": 71.40721042,
+      "std": 15.305255374278216
+    },
+    "inference_ms": {
+      "max": 20.502117,
+      "mean": 12.095019894448251,
+      "median": 11.554216,
+      "min": 10.964095,
+      "p50": 11.554216,
+      "p90": 14.5912276,
+      "p95": 14.8792823,
+      "p99": 15.2580439,
+      "std": 1.2642832268675472
+    },
+    "loop_wall_ms": {
+      "max": 74.695513,
+      "mean": 41.113903196710076,
+      "median": 32.495365,
+      "min": 26.950447,
+      "p50": 32.495365,
+      "p90": 69.1155074,
+      "p95": 70.4027523,
+      "p99": 71.49196704,
+      "std": 15.308817033257961
+    },
+    "postprocess_ms": {
+      "max": 0.753967,
+      "mean": 0.32299549280328993,
+      "median": 0.319355,
+      "min": 0.290087,
+      "p50": 0.319355,
+      "p90": 0.32990200000000003,
+      "p95": 0.3468693,
+      "p99": 0.38008318,
+      "std": 0.01834560457046809
+    },
+    "preprocess_ms": {
+      "max": 6.210183,
+      "mean": 2.3306012275531183,
+      "median": 1.961911,
+      "min": 1.23407,
+      "p50": 1.961911,
+      "p90": 4.065741600000001,
+      "p95": 4.3940284,
+      "p99": 4.74521824,
+      "std": 0.9321935435725438
+    }
+  },
+  "model": {
+    "artifact_identity_verification": "not performed; no SHA256 checks",
+    "bin_path": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/artifacts/openvino/qat_int8/model.bin",
+    "bin_size_bytes": 2741080,
+    "kind": "qat_int8",
+    "kind_source": "user-selected model label and path",
+    "xml_path": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/artifacts/openvino/qat_int8/model.xml",
+    "xml_size_bytes": 666400
+  },
+  "official_minimums_met": true,
+  "openvino_version": "2026.3.1-22476-759c5a6ab8c-releases/2026/3",
+  "output": {
+    "dtype": "f32",
+    "finite": true,
+    "shape": [
+      1,
+      7,
+      8400
+    ]
+  },
+  "python_version": "3.12.3",
+  "raw_measurements_csv": "experiments/hardware_op3/comparison_models/20261007_four_models_run1/camera_qat_int8.csv",
+  "raw_resource_samples_csv": "experiments/hardware_op3/comparison_models/20261007_four_models_run1/resources_camera_qat_int8.csv",
+  "resource_summary": {
+    "per_core_cpu_percent": {
+      "mean_by_core": [
+        0.856375838926175,
+        37.54429530201344,
+        3.9758389261744935,
+        27.241275167785293,
+        2.3308724832214764,
+        27.19697986577187,
+        1.5872483221476523,
+        27.234563758389324,
+        1.274496644295303,
+        0.9409395973154371,
+        0.7751677852348998,
+        0.7922818791946314,
+        1.2221476510067124,
+        0.967449664429531,
+        0.7838926174496649,
+        1.1624161073825507
+      ],
+      "p95_by_core": [
+        5.0,
+        45.0,
+        10.0,
+        35.0,
+        10.0,
+        35.0,
+        5.3,
+        35.0,
+        5.0,
+        5.0,
+        4.8,
+        4.8,
+        5.0,
+        4.829999999999996,
+        4.8,
+        5.0
+      ],
+      "peak_by_core": [
+        9.5,
+        47.6,
+        19.0,
+        38.1,
+        23.8,
+        38.1,
+        14.3,
+        38.1,
+        10.0,
+        9.5,
+        14.3,
+        9.5,
+        10.0,
+        9.5,
+        15.0,
+        13.6
+      ]
+    },
+    "process_cpu_percent": {
+      "max": 163.9,
+      "mean": 128.38523489932888,
+      "median": 129.4,
+      "min": 74.6,
+      "p50": 129.4,
+      "p90": 149.3,
+      "p95": 149.6,
+      "p99": 154.5,
+      "std": 15.363177785088334
+    },
+    "rss_bytes": {
+      "max": 229023744.0,
+      "mean": 228397784.48322147,
+      "median": 228386816.0,
+      "min": 227840000.0,
+      "p50": 228386816.0,
+      "p90": 228913152.0,
+      "p95": 228962304.0,
+      "p99": 229011456.0,
+      "std": 370698.5609825115
+    },
+    "sample_count": 298,
+    "system_cpu_percent": {
+      "max": 12.5,
+      "mean": 8.543959731543623,
+      "median": 8.5,
+      "min": 0.0,
+      "p50": 8.5,
+      "p90": 10.0,
+      "p95": 10.3,
+      "p99": 11.1,
+      "std": 1.2241887157629212
+    },
+    "system_memory_available_bytes": {
+      "max": 3370455040.0,
+      "mean": 3362731276.0268455,
+      "median": 3368255488.0,
+      "min": 3337936896.0,
+      "p50": 3368255488.0,
+      "p90": 3369385984.0,
+      "p95": 3370196992.0,
+      "p99": 3370455040.0,
+      "std": 9583664.64029768
+    },
+    "system_memory_percent": {
+      "max": 57.6,
+      "mean": 57.286577181208045,
+      "median": 57.2,
+      "min": 57.2,
+      "p50": 57.2,
+      "p90": 57.5,
+      "p95": 57.6,
+      "p99": 57.6,
+      "std": 0.1288345893990087
+    },
+    "system_memory_used_bytes": {
+      "max": 4166934528.0,
+      "mean": 4142140147.9731545,
+      "median": 4136615936.0,
+      "min": 4134416384.0,
+      "p50": 4136615936.0,
+      "p90": 4156694528.0,
+      "p95": 4166656000.0,
+      "p99": 4166934528.0,
+      "std": 9583664.64029768
+    },
+    "vms_bytes": {
+      "max": 2129854464.0,
+      "mean": 2129527223.838926,
+      "median": 2129854464.0,
+      "min": 2128805888.0,
+      "p50": 2129854464.0,
+      "p90": 2129854464.0,
+      "p95": 2129854464.0,
+      "p99": 2129854464.0,
+      "std": 485849.8287727643
+    }
+  },
+  "ros_distro": "jazzy",
+  "system_ram_total_bytes": 7875014656,
+  "timestamp_utc": "2026-10-07T13:31:29.863515+00:00"
+}

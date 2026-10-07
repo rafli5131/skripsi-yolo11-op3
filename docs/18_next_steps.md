@@ -706,3 +706,9 @@ Tiga run diam: 2442 frame; latency gabungan 17.9763 ms; FPS efektif gabungan 13.
 Stability ROS 600 detik: 8260 frame, 13.7663 FPS, latency 17.6222 ms, nol exception, RSS growth 434176 bytes sebelum alokasi summary, suhu puncak 59 C. Ini observasi stability, bukan bukti mutlak tidak ada memory leak.
 
 Walking belum dilakukan sesuai instruksi pengguna; script siap. Jangan mengisi hasil berjalan sebelum ada run aktual. Laporan: experiments/hardware_op3/final_qat/FINAL_OP3_QAT_REPORT.md dan experiments/hardware_op3/stability_qat/20261007_ros_qat/STABILITY_REPORT.md.
+
+## Pembanding runtime FP32/PTQ/QAT (7 Oktober 2026)
+
+Atas permintaan pengguna, empat model diukur ulang secara standalone: FP32 native PyTorch tanpa OpenVINO, FP32 OpenVINO, PTQ INT8 OpenVINO, QAT INT8 OpenVINO. Seluruh IR berasal dari artifacts/openvino dan native dari artifacts/checkpoints/fp32/best.pt. Protocol: CPU batch 1, 640×640, warmup 30, synthetic 300 iteration, real C920 60 detik/model, visualization OFF. Native memakai rect=False agar input kamera tetap 640×640.
+
+Hasil lengkap: experiments/hardware_op3/comparison_models/20261007_four_models_run1/MODEL_COMPARISON_REPORT.md. Tabel skripsi comparison_thesis_fp32_qat.csv mengecualikan PTQ. Accuracy native checkpoint tetap dipisahkan dari runtime. ROS QAT/stability dan walking workflow di atas tetap terpisah; tidak ada klaim ROS benchmark empat model.
