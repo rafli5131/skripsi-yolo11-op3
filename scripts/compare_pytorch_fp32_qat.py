@@ -10,7 +10,6 @@ from __future__ import annotations
 
 import argparse
 import csv
-import hashlib
 import json
 import math
 from datetime import datetime, timezone
@@ -30,13 +29,6 @@ EXPECTED_CLASSES = ("ball", "gawang", "robot")
 class ComparisonError(RuntimeError):
     """Raised when the frozen source reports are incomplete or inconsistent."""
 
-
-def sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as stream:
-        for block in iter(lambda: stream.read(1024 * 1024), b""):
-            digest.update(block)
-    return digest.hexdigest()
 
 
 def read_json(path: Path) -> dict[str, Any]:
@@ -132,7 +124,6 @@ def checkpoint_metadata() -> dict[str, Any]:
         item: dict[str, Any] = {"path": str(path)}
         if path.is_file():
             item["bytes"] = path.stat().st_size
-            item["sha256"] = sha256_file(path)
         else:
             item["status"] = "missing; source report comparison still available"
         result[label] = item
