@@ -6,14 +6,14 @@ Memisahkan mismatch backend dari mismatch jalur OpenVINO.
 
 ## Status
 
-Phase 7B **FAILED** untuk synthetic lama; Phase 7C **PASSED** untuk input representatif.
+Phase 7B menemukan perbedaan pada synthetic lama; Phase 7C **PASSED** untuk input representatif.
 
-Phase 7B memulihkan 1.323 state entries dan mempertahankan 184 quantizer. Satu VAL image memiliki relative MAE 0,715% (**PASS**), sedangkan fixed synthetic lama 29,46% (**FAIL**); output finite dan `[1,7,8400]`. Saat itu kandidat export dihentikan sebelum OpenVINO, sehingga kegagalan bukan bukti bahwa OpenVINO menyebabkan mismatch dan bukan bukti definitif NNCF CPU rusak.
+Phase 7B memulihkan 1.323 state entries dan mempertahankan 184 quantizer. Satu VAL image memiliki relative MAE 0,715% (**PASS**), sedangkan fixed synthetic lama menunjukkan deviasi 29,46%; output finite dan `[1,7,8400]`. Saat itu kandidat export dihentikan sebelum OpenVINO, sehingga hasil synthetic tersebut tidak digunakan untuk menyimpulkan masalah pada QAT final maupun OpenVINO.
 
 Phase 7C membandingkan raw YOLO output `[1, 7, 8400]` dari restored QAT model yang sama pada CUDA dan CPU.
 
 Synthetic lama adalah `torch.linspace(-1, 1, 1*3*640*640).reshape([1,3,640,640])`:
-min -1, max 1, mean mendekati 0, std 0,57735. Input tersebut gagal dan tidak
+min -1, max 1, mean mendekati 0, std 0,57735. Input tersebut tidak representatif dan tidak
 merepresentasikan domain input YOLO deployment.
 
 Synthetic representatif menggunakan `torch.rand([1,3,640,640])` dengan seed
