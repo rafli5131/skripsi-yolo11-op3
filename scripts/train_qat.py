@@ -49,8 +49,6 @@ from smoke_train_qat import (  # noqa: E402
     quantizers_enabled,
     reload_and_validate,
     resolve_images,
-    sha256_file,
-    tensor_sha256,
     write_smoke_data_yaml,
     write_manifest,
 )
@@ -129,7 +127,6 @@ def read_resume_payload(path: Path) -> dict[str, Any]:
         "scaler_state_dict",
         "ema_state_dict",
         "best_fitness",
-        "parameter_fingerprint",
     }
     missing = sorted(required.difference(payload))
     if missing:
@@ -181,7 +178,6 @@ class FinalQATDetectionTrainer(QATSmokeDetectionTrainer):
             "method": "restored from NNCF compression_state; range initialization is not repeated on resume",
             "loaded_state_entries": int(loaded),
         }
-        self.parameter_fingerprint = dict(payload["parameter_fingerprint"])
         self.fake_quant_calls, self._fake_quant_hooks = self._install_resume_quantizer_counter(items)
         print(
             f"Resumed NNCF QAT model: quantizers={len(items)}; loaded_state_entries={loaded}; "
@@ -231,10 +227,6 @@ class FinalQATDetectionTrainer(QATSmokeDetectionTrainer):
             raise FinalQATStop("Cannot save final QAT before NNCF preparation.")
         model = unwrap_model(self.model)
         state_dict = cpu_state_dict(model)
-        fingerprint = dict(self.parameter_fingerprint or {})
-        if fingerprint.get("name") not in state_dict:
-            raise FinalQATStop("QAT fingerprint parameter is absent from the checkpoint state dictionary.")
-        fingerprint["after"] = tensor_sha256(state_dict[fingerprint["name"]])
         is_best = self.best_fitness == self.fitness
         if is_best:
             self.best_epoch = int(self.epoch) + 1
@@ -256,7 +248,6 @@ class FinalQATDetectionTrainer(QATSmokeDetectionTrainer):
             "best_metrics": self.best_metrics,
             "train_args": vars(self.args).copy(),
             "metrics": dict(self.metrics or {}),
-            "parameter_fingerprint": fingerprint,
         }
         self.wdir.mkdir(parents=True, exist_ok=True)
         self.qat_checkpoint_path = self.wdir / "qat_last.pt"
@@ -341,11 +332,7 @@ def freeze_artifacts(run_dir: Path, manifest_path: Path) -> dict[str, Any]:
         target = artifact_dir / source.name
         shutil.copy2(source, target)
         copied.append(target)
-    hashes = {path.name: sha256_file(path) for path in copied if path.suffix in {".pt", ".json"}}
-    (artifact_dir / "SHA256SUMS.txt").write_text(
-        "".join(f"{digest}  {name}\n" for name, digest in sorted(hashes.items())), encoding="utf-8"
-    )
-    return {"directory": str(artifact_dir), "files": [str(path) for path in copied], "sha256": hashes}
+    return {"directory": str(artifact_dir), "files": [str(path) for path in copied]}
 
 
 def reload_only() -> int:
@@ -441,7 +428,6 @@ def main() -> int:
             "timestamp": datetime.now(timezone.utc).isoformat(),
             "status": "started",
             "source FP32 checkpoint": str(source_checkpoint),
-            "source FP32 SHA256": sha256_file(source_checkpoint),
             "versions": {
                 "Python": platform.python_version(),
                 "torch": torch.__version__,
