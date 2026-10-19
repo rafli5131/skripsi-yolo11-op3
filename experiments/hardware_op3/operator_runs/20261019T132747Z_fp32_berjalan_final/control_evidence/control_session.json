@@ -1,0 +1,17 @@
+{
+  "ros_domain_id": 0,
+  "manager_launch_pid": 10006,
+  "manager_pid": 10009,
+  "auto_start_init_pose": false,
+  "auto_reconnect": false,
+  "manager_reused_from_qat_session": true,
+  "init_pose_repeated": false,
+  "gait_or_offsets_changed": false,
+  "gateway_or_fall_detector_active": false,
+  "preflight_observation_seconds": 6,
+  "joint_state_messages": 372,
+  "imu_messages": 364,
+  "walking_start_and_stop": "Existing run_op3.sh menu 7 then menu 8; operator authorized and confirmed actual motion.",
+  "manager_left_active_after_stop": true,
+  "torque_off_not_commanded": true
+}

@@ -1,0 +1,38 @@
+{
+  "diagnostic_only": true,
+  "not_pooled_with_final_walking": true,
+  "profiles": [
+    {
+      "model": "fp32",
+      "qos": "best_effort/depth5",
+      "frames": 381,
+      "duration_seconds": 15.004468578999877,
+      "effective_fps": 25.392435459743258,
+      "source": "experiments/hardware_op3/operator_runs/20261019T101101Z_ros_qos_ab_31903/decision_summary.json"
+    },
+    {
+      "model": "qat_int8",
+      "qos": "best_effort/depth5",
+      "frames": 203,
+      "duration_seconds": 15.015695214000516,
+      "effective_fps": 13.519187563871462,
+      "source": "experiments/hardware_op3/operator_runs/20261019T101101Z_ros_qos_ab_31903/decision_summary.json"
+    },
+    {
+      "model": "fp32",
+      "qos": "reliable/depth1",
+      "frames": 442,
+      "duration_seconds": 15.034651261999898,
+      "effective_fps": 29.39875307365164,
+      "source": "experiments/hardware_op3/operator_runs/20261019T101101Z_ros_qos_ab_31903/implementation_check_20261019T101759Z/fp32/run_metadata/diam_run_01.json"
+    },
+    {
+      "model": "qat_int8",
+      "qos": "reliable/depth1",
+      "frames": 449,
+      "duration_seconds": 15.003708303998792,
+      "effective_fps": 29.925935035695968,
+      "source": "experiments/hardware_op3/operator_runs/20261019T101101Z_ros_qos_ab_31903/implementation_check_20261019T101759Z/qat_int8/run_metadata/diam_run_01.json"
+    }
+  ]
+}

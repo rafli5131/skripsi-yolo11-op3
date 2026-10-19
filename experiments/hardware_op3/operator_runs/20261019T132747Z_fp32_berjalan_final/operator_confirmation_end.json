@@ -1,0 +1,10 @@
+{
+  "recorded_at_utc": "2026-10-19T13:32:25.403948+00:00",
+  "operator_statement": "sudah berjalan dengan baik selesai sekarang yang fp32 , kok bisa fps lebih tinggi yang fp32 coba cari tau entah qos nya dll",
+  "question_context": "Operator was asked to confirm stable stepping throughout all three FP32 runs, same support as QAT, no falls/stops, and stopped after software stop.",
+  "interpretation": "Reply accepted as confirmation FP32 movement session completed well and is now finished; same support was explicitly confirmed before session.",
+  "per_run_separate_attestations": false,
+  "walking_currently_stopped_operator_confirmed": true,
+  "physical_condition_limitation": "Operator-supported motion; floor contact and exact support amount not separately measured; no video ground truth.",
+  "accepted_for_inference_during_operator_supported_motion": true
+}

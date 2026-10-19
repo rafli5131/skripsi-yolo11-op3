@@ -1,0 +1,138 @@
+{
+  "created_utc": "2026-10-19T10:07:31.505248+00:00",
+  "diagnostic_only": true,
+  "original_six_runs": [
+    {
+      "model": "fp32",
+      "run": "run_01",
+      "effective_fps": 24.856396210060392,
+      "frames": 1492,
+      "duration_seconds": 60.02479150200088,
+      "inference_mean_ms": 30.521660754691688,
+      "pipeline_mean_ms": 34.036411959115284,
+      "callback_mean_ms": 34.22764107774799,
+      "header_delta_median_ms": 32.029,
+      "callback_busy_fraction": 0.8507758079642425,
+      "outside_timed_callback_ms_per_frame": 6.0034524222526
+    },
+    {
+      "model": "fp32",
+      "run": "run_02",
+      "effective_fps": 23.658908520585044,
+      "frames": 1420,
+      "duration_seconds": 60.01967498900012,
+      "inference_mean_ms": 31.195804794366197,
+      "pipeline_mean_ms": 34.915417588732396,
+      "callback_mean_ms": 35.10777186971831,
+      "header_delta_median_ms": 32.034,
+      "callback_busy_fraction": 0.8306115630272344,
+      "outside_timed_callback_ms_per_frame": 7.159604883098673
+    },
+    {
+      "model": "fp32",
+      "run": "run_03",
+      "effective_fps": 24.919537466634463,
+      "frames": 1496,
+      "duration_seconds": 60.03321698900072,
+      "inference_mean_ms": 30.717934461229945,
+      "pipeline_mean_ms": 34.236578050133694,
+      "callback_mean_ms": 34.428024370989306,
+      "header_delta_median_ms": 32.027,
+      "callback_busy_fraction": 0.8579304432150724,
+      "outside_timed_callback_ms_per_frame": 5.701131370321335
+    },
+    {
+      "model": "qat_int8",
+      "run": "run_01",
+      "effective_fps": 13.791294994591672,
+      "frames": 828,
+      "duration_seconds": 60.037871738999456,
+      "inference_mean_ms": 13.376629467391304,
+      "pipeline_mean_ms": 17.977837426328502,
+      "callback_mean_ms": 18.15951531763285,
+      "header_delta_median_ms": 67.988,
+      "callback_busy_fraction": 0.2504432327042807,
+      "outside_timed_callback_ms_per_frame": 54.349991613525916
+    },
+    {
+      "model": "qat_int8",
+      "run": "run_02",
+      "effective_fps": 13.213336911490885,
+      "frames": 793,
+      "duration_seconds": 60.01511997399939,
+      "inference_mean_ms": 13.47640937957125,
+      "pipeline_mean_ms": 18.25760984741488,
+      "callback_mean_ms": 18.439090933165197,
+      "header_delta_median_ms": 67.99,
+      "callback_busy_fraction": 0.24364192084152858,
+      "outside_timed_callback_ms_per_frame": 57.24201874400932
+    },
+    {
+      "model": "qat_int8",
+      "run": "run_03",
+      "effective_fps": 14.165579788003692,
+      "frames": 850,
+      "duration_seconds": 60.004603604000295,
+      "inference_mean_ms": 13.344802263529411,
+      "pipeline_mean_ms": 17.91853634470588,
+      "callback_mean_ms": 18.098458194117647,
+      "header_delta_median_ms": 67.988,
+      "callback_busy_fraction": 0.25637515358862273,
+      "outside_timed_callback_ms_per_frame": 52.495193104706225
+    }
+  ],
+  "raw_v4l2": {
+    "frames": 150,
+    "timestamp_effective_fps": 29.942875424377796,
+    "log": "camera_stream.txt"
+  },
+  "ros_camera_without_model": {
+    "frames": 261,
+    "effective_fps": 26.035753056218727,
+    "seconds": 10.024676430000909,
+    "camera_process_cpu_percent": {
+      "30592": 3.524827962725936
+    }
+  },
+  "qat_callback_profile": {
+    "fps": 12.861169645348262,
+    "inference_mean_ms": 13.547220093023256,
+    "extra_csv_and_wrapper_mean_ms": 0.09542821875000002,
+    "extra_csv_and_wrapper_p95_ms": 0.11254994999999982,
+    "full_callback_mean_ms": 18.6413053203125
+  },
+  "driver_trace": {
+    "wall_window_seconds": 9.982553005218506,
+    "successful_dqbuf_in_window": 299,
+    "detector_measured_frames": 165,
+    "driver_dequeue_rate_hz": 29.929240850774082,
+    "dqbuf_interval_mean_ms": 33.41214048782451,
+    "detector_fps": 16.493893891206394,
+    "limitation": "Short diagnostic under strace; counts compared over approximately the same measurement window. Not a formal DDS packet-loss counter or replacement thesis run."
+  },
+  "runtime_properties_readback": {
+    "method": "Compiled each model without inference and read properties during this investigation; no replay of old runtime metadata.",
+    "fp32": {
+      "performance_hint": "LATENCY",
+      "num_streams": 1,
+      "inference_num_threads": 12,
+      "enable_cpu_pinning": false
+    },
+    "qat_int8": {
+      "performance_hint": "LATENCY",
+      "num_streams": 1,
+      "inference_num_threads": 4,
+      "enable_cpu_pinning": true
+    }
+  },
+  "models_unchanged": true,
+  "confirmed_finding": "In the traced QAT diagnostic, the camera driver dequeued roughly 30 buffers/s while the detector received roughly 16.5 frames/s. The bottleneck is in delivery after camera capture through the ROS image path, rather than explained by measured inference or CSV-write duration. The particular DDS/queue/serialization mechanism is not established.",
+  "not_established": [
+    "A specific Fast DDS buffer, transport or fragmentation failure.",
+    "Auto-exposure as cause of the original FPS difference.",
+    "Attribution of cumulative UDP errors to this experiment.",
+    "Exactly which stage loses each image in the original 60-second runs."
+  ],
+  "code_or_model_changes": false,
+  "motion_commands_sent": false
+}

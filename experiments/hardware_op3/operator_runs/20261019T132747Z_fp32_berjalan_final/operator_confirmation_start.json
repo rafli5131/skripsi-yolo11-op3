@@ -1,0 +1,11 @@
+{
+  "recorded_at_utc": "2026-10-19T13:27:47.626522+00:00",
+  "operator_readiness_statement": "sudah",
+  "operator_walking_statement": "Ya, sudah melangkah stabil; mulai pengukuran FP32",
+  "scope": "Operator confirms physical safety, presence, kill ready and actual stable stepping immediately before FP32 measurement; same support as QAT session.",
+  "physical_support": "Same operator support as QAT session, confirmed in response to explicit question; exact support amount and floor contact not separately documented.",
+  "control": "Existing manager on domain 0; walking reactivated through scripts/run_op3.sh; no repeated init pose; existing gait unchanged.",
+  "stop": "Same menu stop after session plus operator physical kill; no motion gateway detected.",
+  "measurement_ros_domain_id": 73,
+  "eligibility_pending_operator_end_confirmation": true
+}

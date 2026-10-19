@@ -1,8 +1,8 @@
 # Draft hasil pengujian akhir skripsi
 
-Pembaruan: 2026-10-19T13:19:56.501888+00:00. Branch sumber akhir: `main`.
+Pembaruan: 2026-10-19T13:32:25.660498+00:00. Branch sumber akhir: `main`.
 
-Pembaruan ini menghitung ulang raw CSV dan JSON yang telah tersimpan. Training, seleksi checkpoint, export, dan FINAL TEST tidak diulang. Pengujian QAT dengan robot bergerak didampingi operator telah dilakukan tiga run × 60 detik. Kondisi fisik dan keterbatasan bukti dijelaskan pada Bagian 5.
+Pembaruan ini menghitung ulang raw CSV dan JSON yang telah tersimpan. Training, seleksi checkpoint, export, dan FINAL TEST tidak diulang. Pengujian QAT dan FP32 dengan robot bergerak didampingi operator masing-masing telah dilakukan tiga run × 60 detik. Kondisi fisik dan keterbatasan bukti dijelaskan pada Bagian 5 dan 5A.
 
 ## Ringkasan status
 
@@ -10,6 +10,7 @@ Pembaruan ini menghitung ulang raw CSV dan JSON yang telah tersimpan. Training, 
 - FINAL TEST native PyTorch FP32/QAT, benchmark standalone OpenVINO, ROS QAT diam 3 × 60 detik, dan stability QAT 600 detik tersedia.
 - Pengukuran tambahan ROS FP32/QAT 3 × 60 detik per model pada 19 Oktober tersedia dan dilaporkan terpisah dari referensi QAT diam 7 Oktober.
 - Pengujian QAT berjalan dengan pendampingan/penopangan operator 3 × 60 detik selesai: 1.807 frame, tiga `completed=true`, nol exception. Konfirmasi gerak tersedia sebelum dan sesudah sesi; rincian penopangan/kontak lantai serta bukti video tidak tersedia.
+- FP32 berjalan dengan pendampingan operator juga selesai 3 × 60 detik: 3655 frame, tiga `completed=true`, nol exception. Perbandingan FP32–QAT berjalan dan rekap empat kondisi tersedia pada Bagian 5A.
 - Uji QoS 15 detik hanya bukti perbaikan implementasi; bukan hasil utama penelitian. Pengujian berjalan utama tetap memakai BEST_EFFORT depth 5 sesuai instruksi dan protokol referensi legacy.
 - Tidak ada evaluasi akurasi berlabel OpenVINO. Confidence dan detection_count kamera live bukan precision, recall, F1, atau mAP.
 
@@ -138,6 +139,69 @@ Run berjalan lama 12,5234 detik (`final_qat`, 171 frame, `completed=false`) dan 
 
 Sumber: [raw CSV/JSON dan log](../experiments/hardware_op3/operator_runs/20261019T131319Z_qat_berjalan_final/), [rekap JSON](../experiments/hardware_op3/operator_runs/20261019T131319Z_qat_berjalan_final/analysis/qat_diam_vs_berjalan_recap.json), [tabel perbandingan CSV](../experiments/hardware_op3/operator_runs/20261019T131319Z_qat_berjalan_final/analysis/qat_diam_vs_berjalan.csv), [konfirmasi sebelum sesi](../experiments/hardware_op3/operator_runs/20261019T131319Z_qat_berjalan_final/operator_confirmation_start.json), [konfirmasi sesudah sesi](../experiments/hardware_op3/operator_runs/20261019T131319Z_qat_berjalan_final/operator_confirmation_end.json).
 
+## 5A. ROS FP32 — robot berjalan dan perbandingan dengan QAT
+
+FP32 berjalan menyusul sesi QAT dengan manager dan parameter gait yang sama, tanpa init pose ulang. Operator mengonfirmasi berjalan stabil dengan penopangan yang sama sebelum pengukuran, lalu mengonfirmasi kondisi sesudah sesi. Masing-masing run menggunakan 30 warmup inference + 30 frame, CPU, input 640×640/batch 1, C920 YUYV 640×480 pada 30 FPS, confidence 0,25, IoU 0,45, sampling 0,2 detik, BEST_EFFORT/depth 5, dan domain vision 73. Protocol JSON FP32–QAT berjalan cocok pada seluruh field selain path model.
+
+Semua run FP32 memiliki `completed=true`, durasi aktual ≥60 detik, `thermal_abort=false`, nol exception termasuk warmup, serta jumlah frame/resource yang cocok dengan raw CSV.
+
+| Model / kondisi | Frame | Durasi (s) | Inference mean / P95 (ms) | Pipeline mean / P95 (ms) | Effective FPS | Exception |
+|---|---:|---:|---:|---:|---:|---:|
+| FP32 berjalan run_01 | 1231 | 60,0065 | 33,9576 / 55,8076 | 36,4623 / 59,9422 | 20,5144 | 0 |
+| FP32 berjalan run_02 | 1190 | 60,0198 | 34,1952 / 58,8548 | 36,7979 / 63,3219 | 19,8268 | 0 |
+| FP32 berjalan run_03 | 1234 | 60,0166 | 34,2168 / 58,8241 | 36,6580 / 63,2791 | 20,5610 | 0 |
+| FP32 berjalan gabungan | 3655 | 180,0429 | 34,1225 / 58,3080 | 36,6377 / 62,6153 | 20,3007 | 0 |
+| QAT berjalan gabungan | 1807 | 180,0622 | 12,9642 / 14,8962 | 16,6935 / 19,3917 | 10,0354 | 0 |
+
+### Resource FP32 berjalan per run dan perbandingan model
+
+| Model / run | CPU sistem / proses mean (%) | RAM sistem mean (MB) | RSS mean / peak (MB) | Suhu mean / maksimum (°C) | Sampel |
+|---|---:|---:|---:|---:|---:|
+| run_01 | 43,7956 / 662,3734 | 3521,5546 | 271,3356 / 271,3559 | 59,2660 / 67,0000 | 297 |
+| run_02 | 42,7404 / 646,1448 | 3501,6018 | 271,8799 / 271,8925 | 61,9293 / 68,0000 | 297 |
+| run_03 | 44,3108 / 668,5165 | 3507,4229 | 272,0933 / 272,1178 | 63,3771 / 69,0000 | 297 |
+| fp32_berjalan gabungan | 43,6156 / 659,0116 | 3510,1931 | 271,7696 / 272,1178 | 61,5241 / 69,0000 | 891 |
+| qat_berjalan gabungan | 6,7054 / 62,1569 | 3455,5512 | 257,1154 / 257,3476 | 44,8670 / 54,0000 | 887 |
+
+### Variasi antar tiga run FP32 berjalan
+
+| Metrik | Rata-rata nilai per run | SD sampel antar-run |
+|---|---:|---:|
+| Frame | 1218,3333 | 24,5832 |
+| Effective FPS | 20,3007 | 0,4111 |
+| Mean inference (ms) | 34,1232 | 0,1438 |
+| Mean pipeline (ms) | 36,6394 | 0,1686 |
+| CPU sistem mean (%) | 43,6156 | 0,8005 |
+| CPU detector mean (%) | 659,0116 | 11,5585 |
+| RAM sistem mean (MB) | 3510,1931 | 10,2608 |
+| RSS detector mean (MB) | 271,7696 | 0,3907 |
+| Suhu mean (°C) | 61,5241 | 2,0853 |
+
+### Ringkasan ROS diam dan berjalan — dataset 19 Oktober
+
+Tabel berikut memakai sesi diam 19 Oktober untuk kedua model, terpisah dari referensi QAT diam 7 Oktober (2.442 frame) pada Bagian 4–5. Tiap baris adalah gabungan tiga run dari datasetnya sendiri; tidak ada pooling lintas model/kondisi/tanggal.
+
+| Model / kondisi | Frame | Durasi (s) | Inference mean / P95 (ms) | Pipeline mean / P95 (ms) | Effective FPS | Exception |
+|---|---:|---:|---:|---:|---:|---:|
+| FP32 diam | 4408 | 180,0777 | 30,8054 / 49,3312 | 34,3875 / 55,1134 | 24,4783 | 0 |
+| QAT diam | 2471 | 180,0576 | 13,3977 / 14,5546 | 18,0472 / 19,9430 | 13,7234 | 0 |
+| FP32 berjalan | 3655 | 180,0429 | 34,1225 / 58,3080 | 36,6377 / 62,6153 | 20,3007 | 0 |
+| QAT berjalan | 1807 | 180,0622 | 12,9642 / 14,8962 | 16,6935 / 19,3917 | 10,0354 | 0 |
+
+Pada sesi berjalan, mean inference FP32 34,1225 ms dan QAT 12,9642 ms (rasio FP32/QAT 2,6320). Namun effective FPS FP32 20,3007 dan QAT 10,0354. Jadi penurunan latency inference tidak diikuti kenaikan throughput kamera ROS pada konfigurasi ini. Nilai FPS berasal dari raw frame/durasi, bukan 1000/mean inference. Frame yang tidak diterima callback tidak tercatat sebagai exception. Tidak ada eksperimen QoS tambahan dilakukan.
+
+Perbandingan bersifat deskriptif: sesi berjalan berurutan QAT lalu FP32, adegan dan beban latar tidak sepenuhnya sama. Dukungan operator dikonfirmasi sama, tetapi tingkat penopangan/kontak lantai tidak diukur rinci; tidak tersedia video atau konfirmasi fisik terpisah setiap run. Ini bukan evaluasi gait berjalan mandiri atau bukti sebab-akibat gerakan robot. Sesi diam dan berjalan memakai tanggal/waktu serta commit metadata yang berbeda; nilai historis tidak diubah.
+
+Sumber: [raw FP32 berjalan](../experiments/hardware_op3/operator_runs/20261019T132747Z_fp32_berjalan_final/), [rekap JSON](../experiments/hardware_op3/operator_runs/20261019T132747Z_fp32_berjalan_final/analysis/ros_fp32_vs_qat_recap.json), [CSV model/kondisi](../experiments/hardware_op3/operator_runs/20261019T132747Z_fp32_berjalan_final/analysis/ros_fp32_vs_qat_conditions.csv), [konfirmasi operator](../experiments/hardware_op3/operator_runs/20261019T132747Z_fp32_berjalan_final/operator_confirmation_end.json).
+
+### Penjelasan perbedaan FPS FP32 dan QAT
+
+Kedua sesi berjalan benar-benar memakai BEST_EFFORT depth 5. QAT lebih cepat secara inference (12,9642 ms versus FP32 34,1225 ms), tetapi mean jarak header frame yang diterima lebih besar: 99,5814 ms versus 49,2730 ms. Ini menjelaskan FPS teramati yang lebih rendah tanpa menyatakan komputasi QAT lebih lambat. Tidak ditemukan pembatas skip-frame berbeda pada jalur detector.
+
+Diagnostik lama sekitar 15 detik memperlihatkan QAT BEST_EFFORT/5 13,5192 FPS dan verifikasi runner RELIABLE/1 29,9259 FPS; FP32 RELIABLE/1 29,3988 FPS. Angka diagnostik tersebut hanya bukti pengaruh konfigurasi implementasi, bukan hasil utama atau pengganti run berjalan. Dugaan terkuat adalah interaksi pengiriman ROS/QoS/DDS/antrean/scheduling dengan beban model; penyebab spesifik belum terbukti. Jumlah buffer kamera dan packet loss tidak diukur pada sesi final, sehingga pengaruh laju kamera/exposure belum dapat dieliminasi.
+
+Analisis lengkap: [diagnosis FPS berbasis data tersimpan](../experiments/hardware_op3/operator_runs/20261019T132747Z_fp32_berjalan_final/analysis/FPS_DIAGNOSIS.md). Tidak ada eksperimen QoS baru atau perubahan protokol/model setelah pengukuran.
+
 ## 6. Stability QAT 600 detik
 
 Stability adalah satu run terpisah; tidak dipool dengan run 60 detik.
@@ -198,8 +262,11 @@ Profil 15 detik BEST_EFFORT/5, RELIABLE/5, dan RELIABLE/1 beserta verifikasi scr
 - [Tabel diam versus berjalan](../experiments/hardware_op3/finalization/20261019T105633Z_main_and_walking_preflight/qat_diam_vs_berjalan.csv)
 - [Checksum sumber perhitungan](../experiments/hardware_op3/finalization/20261019T105633Z_main_and_walking_preflight/source_sha256.json)
 - [Snapshot keselamatan dan preservasi](../experiments/hardware_op3/finalization/20261019T105633Z_main_and_walking_preflight/safety_preflight.json)
-- Kode QoS berada di main. Tiga run inferensi QAT selama gerak didampingi operator telah selesai dan direkap dari raw data; keterbatasan kondisi fisik tetap berlaku.
+- Kode QoS berada di main. Tiga run inferensi per model QAT dan FP32 selama gerak didampingi operator telah selesai dan direkap dari raw data; keterbatasan kondisi fisik tetap berlaku.
 - [Hasil berjalan dan rekap terbaru](../experiments/hardware_op3/operator_runs/20261019T131319Z_qat_berjalan_final/analysis/WALKING_RESULTS.md)
 - [CSV diam versus berjalan terbaru](../experiments/hardware_op3/operator_runs/20261019T131319Z_qat_berjalan_final/analysis/qat_diam_vs_berjalan.csv)
 - [Checksum sumber rekap terbaru](../experiments/hardware_op3/operator_runs/20261019T131319Z_qat_berjalan_final/analysis/source_sha256.json)
 - Artefak preflight bertanggal 10:56 UTC di atas dipertahankan sebagai arsip persiapan, bukan status pengukuran terbaru.
+
+- [Rekap FP32–QAT ROS diam/berjalan terbaru](../experiments/hardware_op3/operator_runs/20261019T132747Z_fp32_berjalan_final/analysis/FP32_QAT_ROS_FINAL_RESULTS.md)
+- [CSV empat dataset ROS terbaru](../experiments/hardware_op3/operator_runs/20261019T132747Z_fp32_berjalan_final/analysis/ros_fp32_vs_qat_conditions.csv)

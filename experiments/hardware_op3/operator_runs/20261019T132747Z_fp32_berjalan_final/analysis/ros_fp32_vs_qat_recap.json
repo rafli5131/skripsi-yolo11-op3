@@ -1,0 +1,2265 @@
+{
+  "generated_at_utc": "2026-10-19T13:32:25.660498+00:00",
+  "scope": "FP32 versus QAT OpenVINO ROS: three stationary and three supported-walking runs per model, reported as separate datasets.",
+  "eligibility": "FP32 three technical runs complete; supported movement and stop confirmed by operator, subject to physical-evidence limitations.",
+  "datasets": {
+    "fp32_diam": {
+      "runs": [
+        {
+          "frames": 1492,
+          "duration_seconds": 60.02479150200088,
+          "effective_fps": 24.856396210060392,
+          "exceptions_in_frame_csv": 0,
+          "resource_samples": 297,
+          "inference_ms": {
+            "count": 1492,
+            "mean": 30.521660754691688,
+            "std_ddof1": 6.090753941635116,
+            "p95": 47.80392295,
+            "min": 25.997787,
+            "max": 64.195646
+          },
+          "pipeline_ms": {
+            "count": 1492,
+            "mean": 34.036411959115284,
+            "std_ddof1": 6.856940191969304,
+            "p95": 52.676254950000015,
+            "min": 29.198113,
+            "max": 71.542865
+          },
+          "callback_end_to_end_ms": {
+            "count": 1492,
+            "mean": 34.22764107774799,
+            "std_ddof1": 6.857394155832525,
+            "p95": 52.85528195000001,
+            "min": 29.381865,
+            "max": 71.77651
+          },
+          "frame_age_after_publish_ms": {
+            "count": 1492,
+            "mean": 93.45126858981233,
+            "std_ddof1": 21.195437457237354,
+            "p95": 131.51008745000001,
+            "min": 59.490027,
+            "max": 167.013007
+          },
+          "preprocess_ms": {
+            "count": 1492,
+            "mean": 3.0923169215817694,
+            "std_ddof1": 0.8599339277169591,
+            "p95": 4.670494700000001,
+            "min": 1.8362,
+            "max": 9.310683
+          },
+          "postprocess_ms": {
+            "count": 1492,
+            "mean": 0.3814500060321716,
+            "std_ddof1": 0.05626802558654199,
+            "p95": 0.52683765,
+            "min": 0.306324,
+            "max": 0.793917
+          },
+          "image_conversion_ms": {
+            "count": 1492,
+            "mean": 0.6382281796246648,
+            "std_ddof1": 0.23652280302572118,
+            "p95": 1.3777974500000005,
+            "min": 0.388496,
+            "max": 1.923055
+          },
+          "resources": {
+            "system_cpu_percent": {
+              "count": 297,
+              "mean": 45.96498316498317,
+              "std_ddof1": 9.209028293539015,
+              "p95": 53.1,
+              "min": 15.6,
+              "max": 54.3
+            },
+            "process_cpu_percent": {
+              "count": 297,
+              "mean": 719.5181818181818,
+              "std_ddof1": 145.6118723559565,
+              "p95": 829.4,
+              "min": 253.2,
+              "max": 853.7
+            },
+            "system_ram_mb": {
+              "count": 297,
+              "mean": 5642.33997274074,
+              "std_ddof1": 11.78856199298571,
+              "p95": 5661.6968191999995,
+              "min": 5613.187072,
+              "max": 5679.661056
+            },
+            "detector_rss_mb": {
+              "count": 297,
+              "mean": 271.41522014814814,
+              "std_ddof1": 3.466533878265874,
+              "p95": 273.977344,
+              "min": 262.660096,
+              "max": 273.977344
+            },
+            "temperature_c": {
+              "count": 297,
+              "mean": 68.05387205387206,
+              "std_ddof1": 4.345368008836896,
+              "p95": 73.0,
+              "min": 55.0,
+              "max": 75.0
+            }
+          },
+          "run_id": "run_01",
+          "condition": "diam",
+          "completed": true,
+          "exceptions_including_warmup": 0,
+          "measurement_start_utc": "2026-10-19T09:40:39.505770+00:00",
+          "first_frame_utc": "2026-10-19T09:40:39.506153+00:00",
+          "last_frame_utc": "2026-10-19T09:41:39.481056+00:00",
+          "git_commit_at_measurement": "a1bab9a7dc00989f86566c2bef2f16bb4bc81388",
+          "setup": {
+            "device": "CPU",
+            "imgsz": 640,
+            "batch": 1,
+            "input_topic": "/thesis/image_raw",
+            "warmup_inferences": 30,
+            "warmup_camera_frames": 30,
+            "publish_benchmark": false,
+            "benchmark_seconds_requested": 60.0,
+            "benchmark_seconds_measured": 60.02479150200088,
+            "resource_interval_seconds": 0.2,
+            "publish_debug_image": false,
+            "evidence_image_path": null
+          }
+        },
+        {
+          "frames": 1420,
+          "duration_seconds": 60.01967498900012,
+          "effective_fps": 23.658908520585044,
+          "exceptions_in_frame_csv": 0,
+          "resource_samples": 296,
+          "inference_ms": {
+            "count": 1420,
+            "mean": 31.195804794366197,
+            "std_ddof1": 6.64339100385365,
+            "p95": 51.85757785,
+            "min": 26.312604,
+            "max": 64.606793
+          },
+          "pipeline_ms": {
+            "count": 1420,
+            "mean": 34.915417588732396,
+            "std_ddof1": 7.506973613439472,
+            "p95": 57.85591759999999,
+            "min": 29.629835,
+            "max": 73.0144
+          },
+          "callback_end_to_end_ms": {
+            "count": 1420,
+            "mean": 35.10777186971831,
+            "std_ddof1": 7.50661449013102,
+            "p95": 58.033502349999985,
+            "min": 29.822077,
+            "max": 73.192178
+          },
+          "frame_age_after_publish_ms": {
+            "count": 1420,
+            "mean": 92.50198642746479,
+            "std_ddof1": 18.067620900779925,
+            "p95": 122.90412564999998,
+            "min": 59.912896,
+            "max": 167.854203
+          },
+          "preprocess_ms": {
+            "count": 1420,
+            "mean": 3.3021931084507044,
+            "std_ddof1": 1.0017718248207037,
+            "p95": 5.847354949999999,
+            "min": 1.80313,
+            "max": 10.018818
+          },
+          "postprocess_ms": {
+            "count": 1420,
+            "mean": 0.37714730211267605,
+            "std_ddof1": 0.05156917130050799,
+            "p95": 0.5090338999999999,
+            "min": 0.300386,
+            "max": 0.768676
+          },
+          "image_conversion_ms": {
+            "count": 1420,
+            "mean": 0.725667576056338,
+            "std_ddof1": 0.3052303438393943,
+            "p95": 1.5683589999999992,
+            "min": 0.292328,
+            "max": 2.376167
+          },
+          "resources": {
+            "system_cpu_percent": {
+              "count": 296,
+              "mean": 44.660472972972975,
+              "std_ddof1": 10.005332058759805,
+              "p95": 52.9,
+              "min": 13.7,
+              "max": 54.4
+            },
+            "process_cpu_percent": {
+              "count": 296,
+              "mean": 698.5648648648648,
+              "std_ddof1": 157.65275008319784,
+              "p95": 827.8249999999999,
+              "min": 203.0,
+              "max": 844.4
+            },
+            "system_ram_mb": {
+              "count": 296,
+              "mean": 5566.328887351351,
+              "std_ddof1": 53.207596792464926,
+              "p95": 5660.205056,
+              "min": 5502.836736,
+              "max": 5684.965376
+            },
+            "detector_rss_mb": {
+              "count": 296,
+              "mean": 270.89408,
+              "std_ddof1": 3.8345080788642125,
+              "p95": 273.145856,
+              "min": 262.4512,
+              "max": 273.158144
+            },
+            "temperature_c": {
+              "count": 296,
+              "mean": 71.68243243243244,
+              "std_ddof1": 2.161409339852634,
+              "p95": 75.0,
+              "min": 64.0,
+              "max": 76.0
+            }
+          },
+          "run_id": "run_02",
+          "condition": "diam",
+          "completed": true,
+          "exceptions_including_warmup": 0,
+          "measurement_start_utc": "2026-10-19T09:41:42.685463+00:00",
+          "first_frame_utc": "2026-10-19T09:41:42.685899+00:00",
+          "last_frame_utc": "2026-10-19T09:42:42.672522+00:00",
+          "git_commit_at_measurement": "a1bab9a7dc00989f86566c2bef2f16bb4bc81388",
+          "setup": {
+            "device": "CPU",
+            "imgsz": 640,
+            "batch": 1,
+            "input_topic": "/thesis/image_raw",
+            "warmup_inferences": 30,
+            "warmup_camera_frames": 30,
+            "publish_benchmark": false,
+            "benchmark_seconds_requested": 60.0,
+            "benchmark_seconds_measured": 60.01967498900012,
+            "resource_interval_seconds": 0.2,
+            "publish_debug_image": false,
+            "evidence_image_path": null
+          }
+        },
+        {
+          "frames": 1496,
+          "duration_seconds": 60.03321698900072,
+          "effective_fps": 24.919537466634463,
+          "exceptions_in_frame_csv": 0,
+          "resource_samples": 297,
+          "inference_ms": {
+            "count": 1496,
+            "mean": 30.717934461229948,
+            "std_ddof1": 6.097446354439937,
+            "p95": 48.42155925,
+            "min": 25.927984,
+            "max": 64.027368
+          },
+          "pipeline_ms": {
+            "count": 1496,
+            "mean": 34.23657805013369,
+            "std_ddof1": 6.775136005534007,
+            "p95": 54.015947000000004,
+            "min": 28.674382,
+            "max": 72.191196
+          },
+          "callback_end_to_end_ms": {
+            "count": 1496,
+            "mean": 34.428024370989306,
+            "std_ddof1": 6.77483443104352,
+            "p95": 54.218329749999995,
+            "min": 28.865999,
+            "max": 72.378006
+          },
+          "frame_age_after_publish_ms": {
+            "count": 1496,
+            "mean": 103.6044929959893,
+            "std_ddof1": 22.72995931723422,
+            "p95": 151.33018025,
+            "min": 59.787696,
+            "max": 188.787866
+          },
+          "preprocess_ms": {
+            "count": 1496,
+            "mean": 3.104448361631016,
+            "std_ddof1": 0.8081267767622934,
+            "p95": 4.32999725,
+            "min": 1.508637,
+            "max": 9.683403
+          },
+          "postprocess_ms": {
+            "count": 1496,
+            "mean": 0.3732613429144385,
+            "std_ddof1": 0.0480769495175366,
+            "p95": 0.49538675,
+            "min": 0.30421,
+            "max": 0.717243
+          },
+          "image_conversion_ms": {
+            "count": 1496,
+            "mean": 0.6223491704545454,
+            "std_ddof1": 0.2160096441955141,
+            "p95": 1.17875625,
+            "min": 0.213899,
+            "max": 1.835896
+          },
+          "resources": {
+            "system_cpu_percent": {
+              "count": 297,
+              "mean": 46.28181818181818,
+              "std_ddof1": 9.6914077677541,
+              "p95": 53.2,
+              "min": 0.9,
+              "max": 54.7
+            },
+            "process_cpu_percent": {
+              "count": 297,
+              "mean": 722.4639730639731,
+              "std_ddof1": 154.80895096546033,
+              "p95": 825.0,
+              "min": 0.0,
+              "max": 867.6
+            },
+            "system_ram_mb": {
+              "count": 297,
+              "mean": 5537.771892363637,
+              "std_ddof1": 10.50328572833886,
+              "p95": 5556.1854975999995,
+              "min": 5510.094848,
+              "max": 5567.049728
+            },
+            "detector_rss_mb": {
+              "count": 297,
+              "mean": 272.0711042154882,
+              "std_ddof1": 3.423546676874518,
+              "p95": 274.0224,
+              "min": 262.71744,
+              "max": 274.0224
+            },
+            "temperature_c": {
+              "count": 297,
+              "mean": 74.01683501683502,
+              "std_ddof1": 2.4857131127243304,
+              "p95": 77.0,
+              "min": 68.0,
+              "max": 79.0
+            }
+          },
+          "run_id": "run_03",
+          "condition": "diam",
+          "completed": true,
+          "exceptions_including_warmup": 0,
+          "measurement_start_utc": "2026-10-19T09:42:45.810476+00:00",
+          "first_frame_utc": "2026-10-19T09:42:45.811454+00:00",
+          "last_frame_utc": "2026-10-19T09:43:45.809453+00:00",
+          "git_commit_at_measurement": "a1bab9a7dc00989f86566c2bef2f16bb4bc81388",
+          "setup": {
+            "device": "CPU",
+            "imgsz": 640,
+            "batch": 1,
+            "input_topic": "/thesis/image_raw",
+            "warmup_inferences": 30,
+            "warmup_camera_frames": 30,
+            "publish_benchmark": false,
+            "benchmark_seconds_requested": 60.0,
+            "benchmark_seconds_measured": 60.03321698900072,
+            "resource_interval_seconds": 0.2,
+            "publish_debug_image": false,
+            "evidence_image_path": null
+          }
+        }
+      ],
+      "pooled": {
+        "frames": 4408,
+        "duration_seconds": 180.07768348000172,
+        "effective_fps": 24.478324658643913,
+        "exceptions_in_frame_csv": 0,
+        "resource_samples": 890,
+        "inference_ms": {
+          "count": 4408,
+          "mean": 30.8054425154265,
+          "std_ddof1": 6.281164402344661,
+          "p95": 49.33119029999999,
+          "min": 25.927984,
+          "max": 64.606793
+        },
+        "pipeline_ms": {
+          "count": 4408,
+          "mean": 34.38750916107078,
+          "std_ddof1": 7.054336410407222,
+          "p95": 55.113355249999955,
+          "min": 28.674382,
+          "max": 73.0144
+        },
+        "callback_end_to_end_ms": {
+          "count": 4408,
+          "mean": 34.57917445598911,
+          "std_ddof1": 7.054289972130764,
+          "p95": 55.306632899999954,
+          "min": 28.865999,
+          "max": 73.192178
+        },
+        "frame_age_after_publish_ms": {
+          "count": 4408,
+          "mean": 96.59129650294918,
+          "std_ddof1": 21.395993630772924,
+          "p95": 134.16788304999994,
+          "min": 59.490027,
+          "max": 188.787866
+        },
+        "preprocess_ms": {
+          "count": 4408,
+          "mean": 3.164043967785844,
+          "std_ddof1": 0.8966360814635393,
+          "p95": 5.102889349999992,
+          "min": 1.508637,
+          "max": 10.018818
+        },
+        "postprocess_ms": {
+          "count": 4408,
+          "mean": 0.37728483371143373,
+          "std_ddof1": 0.05218172310085881,
+          "p95": 0.5158068499999999,
+          "min": 0.300386,
+          "max": 0.793917
+        },
+        "image_conversion_ms": {
+          "count": 4408,
+          "mean": 0.6610069784482758,
+          "std_ddof1": 0.2584258698614738,
+          "p95": 1.4189631999999996,
+          "min": 0.213899,
+          "max": 2.376167
+        },
+        "resources": {
+          "system_cpu_percent": {
+            "count": 890,
+            "mean": 45.63685393258427,
+            "std_ddof1": 9.655082599977387,
+            "p95": 53.1,
+            "min": 0.9,
+            "max": 54.7
+          },
+          "process_cpu_percent": {
+            "count": 890,
+            "mean": 713.5324719101123,
+            "std_ddof1": 152.97060383388163,
+            "p95": 827.955,
+            "min": 0.0,
+            "max": 867.6
+          },
+          "system_ram_mb": {
+            "count": 890,
+            "mean": 5582.164690552809,
+            "std_ddof1": 54.534926610610995,
+            "p95": 5658.5361408,
+            "min": 5502.836736,
+            "max": 5684.965376
+          },
+          "detector_rss_mb": {
+            "count": 890,
+            "mean": 271.46077080449436,
+            "std_ddof1": 3.6075995808750454,
+            "p95": 274.0224,
+            "min": 262.4512,
+            "max": 274.0224
+          },
+          "temperature_c": {
+            "count": 890,
+            "mean": 71.25056179775281,
+            "std_ddof1": 3.99086762884149,
+            "p95": 76.0,
+            "min": 55.0,
+            "max": 79.0
+          }
+        }
+      },
+      "between_run_statistics": {
+        "frames": {
+          "mean_of_runs": 1469.3333333333333,
+          "sample_sd_ddof1": 42.770706486254504
+        },
+        "effective_fps": {
+          "mean_of_runs": 24.478280732426633,
+          "sample_sd_ddof1": 0.7102991065206767
+        },
+        "mean_inference_ms": {
+          "mean_of_runs": 30.811800003429276,
+          "sample_sd_ddof1": 0.3467356364241309
+        },
+        "mean_pipeline_ms": {
+          "mean_of_runs": 34.39613586599379,
+          "sample_sd_ddof1": 0.4607133020395421
+        },
+        "system_cpu_percent": {
+          "mean_of_runs": 45.63575810659144,
+          "sample_sd_ddof1": 0.859349711040914
+        },
+        "process_cpu_percent": {
+          "mean_of_runs": 713.5156732490066,
+          "sample_sd_ddof1": 13.03128639162064
+        },
+        "system_ram_mb": {
+          "mean_of_runs": 5582.146917485243,
+          "sample_sd_ddof1": 54.048852128658915
+        },
+        "detector_rss_mb": {
+          "mean_of_runs": 271.46013478787876,
+          "sample_sd_ddof1": 0.5897961466541043
+        },
+        "temperature_c": {
+          "mean_of_runs": 71.2510465010465,
+          "sample_sd_ddof1": 3.0047965306764595
+        }
+      }
+    },
+    "qat_diam_20261019": {
+      "runs": [
+        {
+          "frames": 828,
+          "duration_seconds": 60.037871738999456,
+          "effective_fps": 13.791294994591672,
+          "exceptions_in_frame_csv": 0,
+          "resource_samples": 295,
+          "inference_ms": {
+            "count": 828,
+            "mean": 13.376629467391304,
+            "std_ddof1": 1.1398263094111438,
+            "p95": 14.4790066,
+            "min": 11.055606,
+            "max": 16.340693
+          },
+          "pipeline_ms": {
+            "count": 828,
+            "mean": 17.977837426328502,
+            "std_ddof1": 1.9837359590895791,
+            "p95": 19.8268577,
+            "min": 13.293883,
+            "max": 22.942311
+          },
+          "callback_end_to_end_ms": {
+            "count": 828,
+            "mean": 18.15951531763285,
+            "std_ddof1": 1.983444902602515,
+            "p95": 20.00935875,
+            "min": 13.47279,
+            "max": 23.120551
+          },
+          "frame_age_after_publish_ms": {
+            "count": 828,
+            "mean": 50.87537277536232,
+            "std_ddof1": 3.219489532771312,
+            "p95": 54.77819585,
+            "min": 42.506602,
+            "max": 57.427109
+          },
+          "preprocess_ms": {
+            "count": 828,
+            "mean": 4.22375572705314,
+            "std_ddof1": 0.9799423426271501,
+            "p95": 5.1806041,
+            "min": 1.656507,
+            "max": 7.226374
+          },
+          "postprocess_ms": {
+            "count": 828,
+            "mean": 0.32917417512077296,
+            "std_ddof1": 0.02055604245176703,
+            "p95": 0.35468975,
+            "min": 0.303436,
+            "max": 0.727263
+          },
+          "image_conversion_ms": {
+            "count": 828,
+            "mean": 0.8815799166666667,
+            "std_ddof1": 0.213055350549282,
+            "p95": 1.0779868499999998,
+            "min": 0.354059,
+            "max": 1.819724
+          },
+          "resources": {
+            "system_cpu_percent": {
+              "count": 295,
+              "mean": 6.486440677966102,
+              "std_ddof1": 1.4094503231067284,
+              "p95": 8.4,
+              "min": 2.1,
+              "max": 10.4
+            },
+            "process_cpu_percent": {
+              "count": 295,
+              "mean": 90.3328813559322,
+              "std_ddof1": 24.516475860292903,
+              "p95": 123.27000000000001,
+              "min": 4.9,
+              "max": 148.6
+            },
+            "system_ram_mb": {
+              "count": 295,
+              "mean": 5508.910270915254,
+              "std_ddof1": 13.483688774365016,
+              "p95": 5542.209536,
+              "min": 5497.929728,
+              "max": 5550.743552
+            },
+            "detector_rss_mb": {
+              "count": 295,
+              "mean": 257.6620734915254,
+              "std_ddof1": 0.024027315198441198,
+              "p95": 257.687552,
+              "min": 257.531904,
+              "max": 257.691648
+            },
+            "temperature_c": {
+              "count": 295,
+              "mean": 61.728813559322035,
+              "std_ddof1": 2.728225535758578,
+              "p95": 65.0,
+              "min": 55.0,
+              "max": 79.0
+            }
+          },
+          "run_id": "run_01",
+          "condition": "diam",
+          "completed": true,
+          "exceptions_including_warmup": 0,
+          "measurement_start_utc": "2026-10-19T09:43:50.809273+00:00",
+          "first_frame_utc": "2026-10-19T09:43:50.810896+00:00",
+          "last_frame_utc": "2026-10-19T09:44:50.545962+00:00",
+          "git_commit_at_measurement": "a1bab9a7dc00989f86566c2bef2f16bb4bc81388",
+          "setup": {
+            "device": "CPU",
+            "imgsz": 640,
+            "batch": 1,
+            "input_topic": "/thesis/image_raw",
+            "warmup_inferences": 30,
+            "warmup_camera_frames": 30,
+            "publish_benchmark": false,
+            "benchmark_seconds_requested": 60.0,
+            "benchmark_seconds_measured": 60.037871738999456,
+            "resource_interval_seconds": 0.2,
+            "publish_debug_image": false,
+            "evidence_image_path": null
+          }
+        },
+        {
+          "frames": 793,
+          "duration_seconds": 60.01511997399939,
+          "effective_fps": 13.213336911490885,
+          "exceptions_in_frame_csv": 0,
+          "resource_samples": 295,
+          "inference_ms": {
+            "count": 793,
+            "mean": 13.476409379571248,
+            "std_ddof1": 1.1815110813314165,
+            "p95": 14.813954399999998,
+            "min": 11.125466,
+            "max": 21.006013
+          },
+          "pipeline_ms": {
+            "count": 793,
+            "mean": 18.25760984741488,
+            "std_ddof1": 1.983440806862358,
+            "p95": 20.417064599999996,
+            "min": 13.217427,
+            "max": 24.711004
+          },
+          "callback_end_to_end_ms": {
+            "count": 793,
+            "mean": 18.439090933165197,
+            "std_ddof1": 1.9832846921300884,
+            "p95": 20.598862999999998,
+            "min": 13.40269,
+            "max": 24.888374
+          },
+          "frame_age_after_publish_ms": {
+            "count": 793,
+            "mean": 51.493078553593946,
+            "std_ddof1": 3.2961111533405987,
+            "p95": 55.078191800000006,
+            "min": 42.294266,
+            "max": 59.805363
+          },
+          "preprocess_ms": {
+            "count": 793,
+            "mean": 4.401735950819672,
+            "std_ddof1": 0.9844444539393401,
+            "p95": 5.3337449999999995,
+            "min": 1.637103,
+            "max": 8.277867
+          },
+          "postprocess_ms": {
+            "count": 793,
+            "mean": 0.33165660403530894,
+            "std_ddof1": 0.022743883522586324,
+            "p95": 0.3622184,
+            "min": 0.300523,
+            "max": 0.723538
+          },
+          "image_conversion_ms": {
+            "count": 793,
+            "mean": 0.9059976784363177,
+            "std_ddof1": 0.19473533400009885,
+            "p95": 1.1029061999999998,
+            "min": 0.365093,
+            "max": 1.490223
+          },
+          "resources": {
+            "system_cpu_percent": {
+              "count": 295,
+              "mean": 6.278983050847458,
+              "std_ddof1": 1.5226070719756022,
+              "p95": 8.030000000000001,
+              "min": 1.5,
+              "max": 9.9
+            },
+            "process_cpu_percent": {
+              "count": 295,
+              "mean": 87.70847457627119,
+              "std_ddof1": 25.879464767354822,
+              "p95": 113.86,
+              "min": 0.0,
+              "max": 153.5
+            },
+            "system_ram_mb": {
+              "count": 295,
+              "mean": 5497.006142481356,
+              "std_ddof1": 9.406903285748172,
+              "p95": 5521.035264,
+              "min": 5489.082368,
+              "max": 5524.29568
+            },
+            "detector_rss_mb": {
+              "count": 295,
+              "mean": 257.9484463728814,
+              "std_ddof1": 0.01648909725657563,
+              "p95": 257.961984,
+              "min": 257.835008,
+              "max": 257.961984
+            },
+            "temperature_c": {
+              "count": 295,
+              "mean": 55.047457627118646,
+              "std_ddof1": 1.4654009611501995,
+              "p95": 57.0,
+              "min": 53.0,
+              "max": 58.0
+            }
+          },
+          "run_id": "run_02",
+          "condition": "diam",
+          "completed": true,
+          "exceptions_including_warmup": 0,
+          "measurement_start_utc": "2026-10-19T09:44:54.893382+00:00",
+          "first_frame_utc": "2026-10-19T09:44:54.895726+00:00",
+          "last_frame_utc": "2026-10-19T09:45:54.864315+00:00",
+          "git_commit_at_measurement": "a1bab9a7dc00989f86566c2bef2f16bb4bc81388",
+          "setup": {
+            "device": "CPU",
+            "imgsz": 640,
+            "batch": 1,
+            "input_topic": "/thesis/image_raw",
+            "warmup_inferences": 30,
+            "warmup_camera_frames": 30,
+            "publish_benchmark": false,
+            "benchmark_seconds_requested": 60.0,
+            "benchmark_seconds_measured": 60.01511997399939,
+            "resource_interval_seconds": 0.2,
+            "publish_debug_image": false,
+            "evidence_image_path": null
+          }
+        },
+        {
+          "frames": 850,
+          "duration_seconds": 60.004603604000295,
+          "effective_fps": 14.165579788003692,
+          "exceptions_in_frame_csv": 0,
+          "resource_samples": 295,
+          "inference_ms": {
+            "count": 850,
+            "mean": 13.344802263529411,
+            "std_ddof1": 1.1710899109597837,
+            "p95": 14.548917099999999,
+            "min": 10.944982,
+            "max": 17.157964
+          },
+          "pipeline_ms": {
+            "count": 850,
+            "mean": 17.91853634470588,
+            "std_ddof1": 2.077284892844579,
+            "p95": 19.851004,
+            "min": 13.132583,
+            "max": 23.012807
+          },
+          "callback_end_to_end_ms": {
+            "count": 850,
+            "mean": 18.098458194117647,
+            "std_ddof1": 2.076747805087559,
+            "p95": 20.02975805,
+            "min": 13.307336,
+            "max": 23.195214
+          },
+          "frame_age_after_publish_ms": {
+            "count": 850,
+            "mean": 51.05352178117647,
+            "std_ddof1": 3.292420782807283,
+            "p95": 54.88570755,
+            "min": 42.298991,
+            "max": 57.934531
+          },
+          "preprocess_ms": {
+            "count": 850,
+            "mean": 4.198141292941177,
+            "std_ddof1": 1.0517536910603318,
+            "p95": 5.16244885,
+            "min": 1.618176,
+            "max": 6.747375
+          },
+          "postprocess_ms": {
+            "count": 850,
+            "mean": 0.3274951623529412,
+            "std_ddof1": 0.013845638680064104,
+            "p95": 0.3528968,
+            "min": 0.30082,
+            "max": 0.491058
+          },
+          "image_conversion_ms": {
+            "count": 850,
+            "mean": 0.8783995247058823,
+            "std_ddof1": 0.22314182739122634,
+            "p95": 1.07113995,
+            "min": 0.295578,
+            "max": 1.521099
+          },
+          "resources": {
+            "system_cpu_percent": {
+              "count": 295,
+              "mean": 6.557627118644068,
+              "std_ddof1": 1.3925461667294776,
+              "p95": 8.4,
+              "min": 1.5,
+              "max": 10.7
+            },
+            "process_cpu_percent": {
+              "count": 295,
+              "mean": 92.34881355932204,
+              "std_ddof1": 23.936733297768995,
+              "p95": 122.70000000000002,
+              "min": 0.0,
+              "max": 153.7
+            },
+            "system_ram_mb": {
+              "count": 295,
+              "mean": 5490.7502592,
+              "std_ddof1": 6.6376404824015,
+              "p95": 5508.333568,
+              "min": 5485.719552,
+              "max": 5512.380416
+            },
+            "detector_rss_mb": {
+              "count": 295,
+              "mean": 257.27063473898306,
+              "std_ddof1": 0.02558346661864172,
+              "p95": 257.294336,
+              "min": 257.142784,
+              "max": 257.294336
+            },
+            "temperature_c": {
+              "count": 295,
+              "mean": 51.09152542372881,
+              "std_ddof1": 1.2461216207654815,
+              "p95": 53.0,
+              "min": 48.0,
+              "max": 55.0
+            }
+          },
+          "run_id": "run_03",
+          "condition": "diam",
+          "completed": true,
+          "exceptions_including_warmup": 0,
+          "measurement_start_utc": "2026-10-19T09:45:59.276233+00:00",
+          "first_frame_utc": "2026-10-19T09:45:59.277823+00:00",
+          "last_frame_utc": "2026-10-19T09:46:59.247862+00:00",
+          "git_commit_at_measurement": "a1bab9a7dc00989f86566c2bef2f16bb4bc81388",
+          "setup": {
+            "device": "CPU",
+            "imgsz": 640,
+            "batch": 1,
+            "input_topic": "/thesis/image_raw",
+            "warmup_inferences": 30,
+            "warmup_camera_frames": 30,
+            "publish_benchmark": false,
+            "benchmark_seconds_requested": 60.0,
+            "benchmark_seconds_measured": 60.004603604000295,
+            "resource_interval_seconds": 0.2,
+            "publish_debug_image": false,
+            "evidence_image_path": null
+          }
+        }
+      ],
+      "pooled": {
+        "frames": 2471,
+        "duration_seconds": 180.05759531699914,
+        "effective_fps": 13.723386651086273,
+        "exceptions_in_frame_csv": 0,
+        "resource_samples": 885,
+        "inference_ms": {
+          "count": 2471,
+          "mean": 13.397702857547552,
+          "std_ddof1": 1.16495207275637,
+          "p95": 14.554585,
+          "min": 10.944982,
+          "max": 21.006013
+        },
+        "pipeline_ms": {
+          "count": 2471,
+          "mean": 18.0472237519223,
+          "std_ddof1": 2.020829614764896,
+          "p95": 19.943042499999997,
+          "min": 13.132583,
+          "max": 24.711004
+        },
+        "callback_end_to_end_ms": {
+          "count": 2471,
+          "mean": 18.22823442250101,
+          "std_ddof1": 2.020527123907565,
+          "p95": 20.120234500000002,
+          "min": 13.307336,
+          "max": 24.888374
+        },
+        "frame_age_after_publish_ms": {
+          "count": 2471,
+          "mean": 51.13489011129098,
+          "std_ddof1": 3.278122540104075,
+          "p95": 54.904817,
+          "min": 42.294266,
+          "max": 59.805363
+        },
+        "preprocess_ms": {
+          "count": 2471,
+          "mean": 4.272062505058681,
+          "std_ddof1": 1.0102254719490165,
+          "p95": 5.191520000000001,
+          "min": 1.618176,
+          "max": 8.277867
+        },
+        "postprocess_ms": {
+          "count": 2471,
+          "mean": 0.32939327883447994,
+          "std_ddof1": 0.019394246299338003,
+          "p95": 0.3550395,
+          "min": 0.300523,
+          "max": 0.727263
+        },
+        "image_conversion_ms": {
+          "count": 2471,
+          "mean": 0.8883221068393363,
+          "std_ddof1": 0.21123934834155758,
+          "p95": 1.0818565,
+          "min": 0.295578,
+          "max": 1.819724
+        },
+        "resources": {
+          "system_cpu_percent": {
+            "count": 885,
+            "mean": 6.441016949152543,
+            "std_ddof1": 1.4459027322924813,
+            "p95": 8.379999999999995,
+            "min": 1.5,
+            "max": 10.7
+          },
+          "process_cpu_percent": {
+            "count": 885,
+            "mean": 90.13005649717515,
+            "std_ddof1": 24.83572954637888,
+            "p95": 118.89999999999998,
+            "min": 0.0,
+            "max": 153.7
+          },
+          "system_ram_mb": {
+            "count": 885,
+            "mean": 5498.888890865536,
+            "std_ddof1": 12.702354333080129,
+            "p95": 5523.562496,
+            "min": 5485.719552,
+            "max": 5550.743552
+          },
+          "detector_rss_mb": {
+            "count": 885,
+            "mean": 257.6270515344633,
+            "std_ddof1": 0.2788765346140135,
+            "p95": 257.957888,
+            "min": 257.142784,
+            "max": 257.961984
+          },
+          "temperature_c": {
+            "count": 885,
+            "mean": 55.95593220338983,
+            "std_ddof1": 4.795746767107491,
+            "p95": 64.0,
+            "min": 48.0,
+            "max": 79.0
+          }
+        }
+      },
+      "between_run_statistics": {
+        "frames": {
+          "mean_of_runs": 823.6666666666666,
+          "sample_sd_ddof1": 28.74601421646718
+        },
+        "effective_fps": {
+          "mean_of_runs": 13.72340389802875,
+          "sample_sd_ddof1": 0.47973797505694027
+        },
+        "mean_inference_ms": {
+          "mean_of_runs": 13.399280370163988,
+          "sample_sd_ddof1": 0.06866517163399162
+        },
+        "mean_pipeline_ms": {
+          "mean_of_runs": 18.051327872816422,
+          "sample_sd_ddof1": 0.1810893270007446
+        },
+        "system_cpu_percent": {
+          "mean_of_runs": 6.441016949152543,
+          "sample_sd_ddof1": 0.14476918002135772
+        },
+        "process_cpu_percent": {
+          "mean_of_runs": 90.13005649717515,
+          "sample_sd_ddof1": 2.326808954749556
+        },
+        "system_ram_mb": {
+          "mean_of_runs": 5498.888890865536,
+          "sample_sd_ddof1": 9.22524051085613
+        },
+        "detector_rss_mb": {
+          "mean_of_runs": 257.6270515344633,
+          "sample_sd_ddof1": 0.34026027665498426
+        },
+        "temperature_c": {
+          "mean_of_runs": 55.95593220338983,
+          "sample_sd_ddof1": 5.3765201814655565
+        }
+      }
+    },
+    "fp32_berjalan": {
+      "runs": [
+        {
+          "frames": 1231,
+          "duration_seconds": 60.00652816999991,
+          "effective_fps": 20.514434638053846,
+          "exceptions_in_frame_csv": 0,
+          "resource_samples": 297,
+          "inference_ms": {
+            "count": 1231,
+            "mean": 33.957616264013,
+            "std_ddof1": 8.945263447316773,
+            "p95": 55.807557,
+            "min": 25.7257,
+            "max": 66.370818
+          },
+          "pipeline_ms": {
+            "count": 1231,
+            "mean": 36.46232426888708,
+            "std_ddof1": 9.283014893073222,
+            "p95": 59.942212,
+            "min": 27.883146,
+            "max": 70.269457
+          },
+          "callback_end_to_end_ms": {
+            "count": 1231,
+            "mean": 36.690779282696994,
+            "std_ddof1": 9.284924640778282,
+            "p95": 60.170491,
+            "min": 28.091543,
+            "max": 70.498463
+          },
+          "frame_age_after_publish_ms": {
+            "count": 1231,
+            "mean": 71.81644639642568,
+            "std_ddof1": 10.359298174959209,
+            "p95": 94.62938650000001,
+            "min": 56.92669,
+            "max": 104.565256
+          },
+          "preprocess_ms": {
+            "count": 1231,
+            "mean": 2.001531857839155,
+            "std_ddof1": 0.610677506784953,
+            "p95": 3.311013,
+            "min": 1.518869,
+            "max": 6.458399
+          },
+          "postprocess_ms": {
+            "count": 1231,
+            "mean": 0.45956661332250204,
+            "std_ddof1": 0.09281837322963972,
+            "p95": 0.63017,
+            "min": 0.341432,
+            "max": 0.88577
+          },
+          "image_conversion_ms": {
+            "count": 1231,
+            "mean": 0.3785155548334687,
+            "std_ddof1": 0.11396192912218019,
+            "p95": 0.6517145,
+            "min": 0.22021,
+            "max": 0.944704
+          },
+          "resources": {
+            "system_cpu_percent": {
+              "count": 297,
+              "mean": 43.7956228956229,
+              "std_ddof1": 11.39451093399271,
+              "p95": 53.22,
+              "min": 3.1,
+              "max": 56.5
+            },
+            "process_cpu_percent": {
+              "count": 297,
+              "mean": 662.3734006734006,
+              "std_ddof1": 185.4524551135765,
+              "p95": 804.56,
+              "min": 0.0,
+              "max": 861.8
+            },
+            "system_ram_mb": {
+              "count": 297,
+              "mean": 3521.55464576431,
+              "std_ddof1": 4.586919716346579,
+              "p95": 3531.34592,
+              "min": 3515.625472,
+              "max": 3533.201408
+            },
+            "detector_rss_mb": {
+              "count": 297,
+              "mean": 271.3355757037037,
+              "std_ddof1": 0.02184408404836758,
+              "p95": 271.355904,
+              "min": 271.204352,
+              "max": 271.355904
+            },
+            "temperature_c": {
+              "count": 297,
+              "mean": 59.26599326599327,
+              "std_ddof1": 3.5829865109699113,
+              "p95": 65.0,
+              "min": 51.0,
+              "max": 67.0
+            }
+          },
+          "run_id": "run_01",
+          "condition": "berjalan",
+          "completed": true,
+          "exceptions_including_warmup": 0,
+          "measurement_start_utc": "2026-10-19T13:27:51.496594+00:00",
+          "first_frame_utc": "2026-10-19T13:27:51.496993+00:00",
+          "last_frame_utc": "2026-10-19T13:28:51.472024+00:00",
+          "git_commit_at_measurement": "37727ad266352e939cd312d7c8d263f8d609b190",
+          "setup": {
+            "device": "CPU",
+            "imgsz": 640,
+            "batch": 1,
+            "input_topic": "/thesis/image_raw",
+            "image_qos_reliability": "best_effort",
+            "image_qos_depth": 5,
+            "warmup_inferences": 30,
+            "warmup_camera_frames": 30,
+            "publish_benchmark": false,
+            "benchmark_seconds_requested": 60.0,
+            "benchmark_seconds_measured": 60.00652816999991,
+            "resource_interval_seconds": 0.2,
+            "publish_debug_image": false,
+            "evidence_image_path": null
+          }
+        },
+        {
+          "frames": 1190,
+          "duration_seconds": 60.01977922900005,
+          "effective_fps": 19.82679735391332,
+          "exceptions_in_frame_csv": 0,
+          "resource_samples": 297,
+          "inference_ms": {
+            "count": 1190,
+            "mean": 34.19519901848739,
+            "std_ddof1": 9.695387800046905,
+            "p95": 58.85484735,
+            "min": 25.807587,
+            "max": 66.405236
+          },
+          "pipeline_ms": {
+            "count": 1190,
+            "mean": 36.79788805630252,
+            "std_ddof1": 10.176950091858023,
+            "p95": 63.32192014999999,
+            "min": 27.906185,
+            "max": 70.998407
+          },
+          "callback_end_to_end_ms": {
+            "count": 1190,
+            "mean": 37.024529324369745,
+            "std_ddof1": 10.180525937514995,
+            "p95": 63.57793749999999,
+            "min": 28.094466,
+            "max": 71.218463
+          },
+          "frame_age_after_publish_ms": {
+            "count": 1190,
+            "mean": 72.97106956470589,
+            "std_ddof1": 11.182367524092534,
+            "p95": 96.84434745,
+            "min": 57.086125,
+            "max": 104.649002
+          },
+          "preprocess_ms": {
+            "count": 1190,
+            "mean": 2.0950549798319327,
+            "std_ddof1": 0.7287167247539292,
+            "p95": 3.7448578499999994,
+            "min": 1.503115,
+            "max": 6.895568
+          },
+          "postprocess_ms": {
+            "count": 1190,
+            "mean": 0.4620431336134454,
+            "std_ddof1": 0.10044240815842788,
+            "p95": 0.6231706499999999,
+            "min": 0.337095,
+            "max": 1.606737
+          },
+          "image_conversion_ms": {
+            "count": 1190,
+            "mean": 0.3935741075630252,
+            "std_ddof1": 0.13213179324549157,
+            "p95": 0.70975645,
+            "min": 0.21786,
+            "max": 1.072291
+          },
+          "resources": {
+            "system_cpu_percent": {
+              "count": 297,
+              "mean": 42.74040404040404,
+              "std_ddof1": 10.818595594947185,
+              "p95": 52.8,
+              "min": 2.5,
+              "max": 55.5
+            },
+            "process_cpu_percent": {
+              "count": 297,
+              "mean": 646.1447811447812,
+              "std_ddof1": 176.21899568598425,
+              "p95": 803.48,
+              "min": 0.0,
+              "max": 853.5
+            },
+            "system_ram_mb": {
+              "count": 297,
+              "mean": 3501.6018023434344,
+              "std_ddof1": 7.061774659632625,
+              "p95": 3514.90048,
+              "min": 3495.370752,
+              "max": 3515.035648
+            },
+            "detector_rss_mb": {
+              "count": 297,
+              "mean": 271.87994375757575,
+              "std_ddof1": 0.019100853790037967,
+              "p95": 271.89248,
+              "min": 271.757312,
+              "max": 271.89248
+            },
+            "temperature_c": {
+              "count": 297,
+              "mean": 61.92929292929293,
+              "std_ddof1": 3.0577300975909156,
+              "p95": 67.0,
+              "min": 54.0,
+              "max": 68.0
+            }
+          },
+          "run_id": "run_02",
+          "condition": "berjalan",
+          "completed": true,
+          "exceptions_including_warmup": 0,
+          "measurement_start_utc": "2026-10-19T13:28:54.740373+00:00",
+          "first_frame_utc": "2026-10-19T13:28:54.740842+00:00",
+          "last_frame_utc": "2026-10-19T13:29:54.730105+00:00",
+          "git_commit_at_measurement": "37727ad266352e939cd312d7c8d263f8d609b190",
+          "setup": {
+            "device": "CPU",
+            "imgsz": 640,
+            "batch": 1,
+            "input_topic": "/thesis/image_raw",
+            "image_qos_reliability": "best_effort",
+            "image_qos_depth": 5,
+            "warmup_inferences": 30,
+            "warmup_camera_frames": 30,
+            "publish_benchmark": false,
+            "benchmark_seconds_requested": 60.0,
+            "benchmark_seconds_measured": 60.01977922900005,
+            "resource_interval_seconds": 0.2,
+            "publish_debug_image": false,
+            "evidence_image_path": null
+          }
+        },
+        {
+          "frames": 1234,
+          "duration_seconds": 60.01663596399976,
+          "effective_fps": 20.560965808550144,
+          "exceptions_in_frame_csv": 0,
+          "resource_samples": 297,
+          "inference_ms": {
+            "count": 1234,
+            "mean": 34.21683357455429,
+            "std_ddof1": 9.43313134744526,
+            "p95": 58.824052849999994,
+            "min": 26.040786,
+            "max": 67.162781
+          },
+          "pipeline_ms": {
+            "count": 1234,
+            "mean": 36.65802867828201,
+            "std_ddof1": 9.882057262976437,
+            "p95": 63.279090599999996,
+            "min": 28.174887,
+            "max": 70.888764
+          },
+          "callback_end_to_end_ms": {
+            "count": 1234,
+            "mean": 36.875557975688814,
+            "std_ddof1": 9.884868027657152,
+            "p95": 63.52414065,
+            "min": 28.378502,
+            "max": 71.104107
+          },
+          "frame_age_after_publish_ms": {
+            "count": 1234,
+            "mean": 72.89213724878444,
+            "std_ddof1": 11.06849192589131,
+            "p95": 95.71793844999999,
+            "min": 57.53741,
+            "max": 109.492086
+          },
+          "preprocess_ms": {
+            "count": 1234,
+            "mean": 1.9619430510534845,
+            "std_ddof1": 0.6598513462276295,
+            "p95": 3.472404749999999,
+            "min": 1.499655,
+            "max": 6.628569
+          },
+          "postprocess_ms": {
+            "count": 1234,
+            "mean": 0.4345496118314425,
+            "std_ddof1": 0.08294083479989443,
+            "p95": 0.5968267499999999,
+            "min": 0.307527,
+            "max": 0.942825
+          },
+          "image_conversion_ms": {
+            "count": 1234,
+            "mean": 0.3790429594813614,
+            "std_ddof1": 0.12002715205166452,
+            "p95": 0.6784250999999998,
+            "min": 0.221303,
+            "max": 1.055327
+          },
+          "resources": {
+            "system_cpu_percent": {
+              "count": 297,
+              "mean": 44.310774410774414,
+              "std_ddof1": 10.522762573038136,
+              "p95": 53.62,
+              "min": 3.1,
+              "max": 57.3
+            },
+            "process_cpu_percent": {
+              "count": 297,
+              "mean": 668.5164983164983,
+              "std_ddof1": 169.94471168865488,
+              "p95": 817.24,
+              "min": 0.0,
+              "max": 849.0
+            },
+            "system_ram_mb": {
+              "count": 297,
+              "mean": 3507.4228665319865,
+              "std_ddof1": 2.531148413934591,
+              "p95": 3513.319424,
+              "min": 3500.589056,
+              "max": 3513.83552
+            },
+            "detector_rss_mb": {
+              "count": 297,
+              "mean": 272.09329432996634,
+              "std_ddof1": 0.023167765075798312,
+              "p95": 272.1144832,
+              "min": 271.978496,
+              "max": 272.11776
+            },
+            "temperature_c": {
+              "count": 297,
+              "mean": 63.377104377104374,
+              "std_ddof1": 2.6057137774023245,
+              "p95": 68.0,
+              "min": 57.0,
+              "max": 69.0
+            }
+          },
+          "run_id": "run_03",
+          "condition": "berjalan",
+          "completed": true,
+          "exceptions_including_warmup": 0,
+          "measurement_start_utc": "2026-10-19T13:29:58.253638+00:00",
+          "first_frame_utc": "2026-10-19T13:29:58.254080+00:00",
+          "last_frame_utc": "2026-10-19T13:30:58.237020+00:00",
+          "git_commit_at_measurement": "37727ad266352e939cd312d7c8d263f8d609b190",
+          "setup": {
+            "device": "CPU",
+            "imgsz": 640,
+            "batch": 1,
+            "input_topic": "/thesis/image_raw",
+            "image_qos_reliability": "best_effort",
+            "image_qos_depth": 5,
+            "warmup_inferences": 30,
+            "warmup_camera_frames": 30,
+            "publish_benchmark": false,
+            "benchmark_seconds_requested": 60.0,
+            "benchmark_seconds_measured": 60.01663596399976,
+            "resource_interval_seconds": 0.2,
+            "publish_debug_image": false,
+            "evidence_image_path": null
+          }
+        }
+      ],
+      "pooled": {
+        "frames": 3655,
+        "duration_seconds": 180.04294336299972,
+        "effective_fps": 20.3007123285629,
+        "exceptions_in_frame_csv": 0,
+        "resource_samples": 891,
+        "inference_ms": {
+          "count": 3655,
+          "mean": 34.12248565909713,
+          "std_ddof1": 9.357528368416288,
+          "p95": 58.30800149999999,
+          "min": 25.7257,
+          "max": 67.162781
+        },
+        "pipeline_ms": {
+          "count": 3655,
+          "mean": 36.63765125882353,
+          "std_ddof1": 9.781649579791843,
+          "p95": 62.615253899999985,
+          "min": 27.883146,
+          "max": 70.998407
+        },
+        "callback_end_to_end_ms": {
+          "count": 3655,
+          "mean": 36.86182701367989,
+          "std_ddof1": 9.784412288857574,
+          "p95": 62.84919939999998,
+          "min": 28.091543,
+          "max": 71.218463
+        },
+        "frame_age_after_publish_ms": {
+          "count": 3655,
+          "mean": 72.55554464049247,
+          "std_ddof1": 10.882650879492124,
+          "p95": 95.60330979999999,
+          "min": 56.92669,
+          "max": 109.492086
+        },
+        "preprocess_ms": {
+          "count": 3655,
+          "mean": 2.018615285362517,
+          "std_ddof1": 0.6695792770858613,
+          "p95": 3.5174885,
+          "min": 1.499655,
+          "max": 6.895568
+        },
+        "postprocess_ms": {
+          "count": 3655,
+          "mean": 0.4519266897400821,
+          "std_ddof1": 0.09305448619262327,
+          "p95": 0.6169203999999999,
+          "min": 0.307527,
+          "max": 1.606737
+        },
+        "image_conversion_ms": {
+          "count": 3655,
+          "mean": 0.38359640164158687,
+          "std_ddof1": 0.12232020838760442,
+          "p95": 0.6851398,
+          "min": 0.21786,
+          "max": 1.072291
+        },
+        "resources": {
+          "system_cpu_percent": {
+            "count": 891,
+            "mean": 43.61560044893378,
+            "std_ddof1": 10.925274951095442,
+            "p95": 53.2,
+            "min": 2.5,
+            "max": 57.3
+          },
+          "process_cpu_percent": {
+            "count": 891,
+            "mean": 659.0115600448934,
+            "std_ddof1": 177.37200262626968,
+            "p95": 809.75,
+            "min": 0.0,
+            "max": 861.8
+          },
+          "system_ram_mb": {
+            "count": 891,
+            "mean": 3510.19310487991,
+            "std_ddof1": 9.79706367339615,
+            "p95": 3528.626176,
+            "min": 3495.370752,
+            "max": 3533.201408
+          },
+          "detector_rss_mb": {
+            "count": 891,
+            "mean": 271.7696045970819,
+            "std_ddof1": 0.3199216444790099,
+            "p95": 272.113664,
+            "min": 271.204352,
+            "max": 272.11776
+          },
+          "temperature_c": {
+            "count": 891,
+            "mean": 61.52413019079686,
+            "std_ddof1": 3.5411277326561335,
+            "p95": 67.0,
+            "min": 51.0,
+            "max": 69.0
+          }
+        }
+      },
+      "between_run_statistics": {
+        "frames": {
+          "mean_of_runs": 1218.3333333333333,
+          "sample_sd_ddof1": 24.583192089989723
+        },
+        "effective_fps": {
+          "mean_of_runs": 20.300732600172438,
+          "sample_sd_ddof1": 0.41109883324081026
+        },
+        "mean_inference_ms": {
+          "mean_of_runs": 34.1232162856849,
+          "sample_sd_ddof1": 0.1438212045817741
+        },
+        "mean_pipeline_ms": {
+          "mean_of_runs": 36.63941366782387,
+          "sample_sd_ddof1": 0.1685545989195069
+        },
+        "system_cpu_percent": {
+          "mean_of_runs": 43.61560044893378,
+          "sample_sd_ddof1": 0.8005134827210907
+        },
+        "process_cpu_percent": {
+          "mean_of_runs": 659.0115600448934,
+          "sample_sd_ddof1": 11.558542797923854
+        },
+        "system_ram_mb": {
+          "mean_of_runs": 3510.19310487991,
+          "sample_sd_ddof1": 10.260831132161005
+        },
+        "detector_rss_mb": {
+          "mean_of_runs": 271.7696045970819,
+          "sample_sd_ddof1": 0.39072423382764937
+        },
+        "temperature_c": {
+          "mean_of_runs": 61.52413019079685,
+          "sample_sd_ddof1": 2.085288055755014
+        }
+      }
+    },
+    "qat_berjalan": {
+      "runs": [
+        {
+          "frames": 566,
+          "duration_seconds": 60.019701778000126,
+          "effective_fps": 9.43023679280366,
+          "exceptions_in_frame_csv": 0,
+          "resource_samples": 296,
+          "inference_ms": {
+            "count": 566,
+            "mean": 13.049421277385159,
+            "std_ddof1": 1.1089350256699597,
+            "p95": 14.89442325,
+            "min": 11.002929,
+            "max": 16.41348
+          },
+          "pipeline_ms": {
+            "count": 566,
+            "mean": 16.857714300353358,
+            "std_ddof1": 1.6164641500238675,
+            "p95": 19.29266175,
+            "min": 13.410523,
+            "max": 22.913147
+          },
+          "callback_end_to_end_ms": {
+            "count": 566,
+            "mean": 17.051157461130742,
+            "std_ddof1": 1.6189042162948066,
+            "p95": 19.484346000000002,
+            "min": 13.583111,
+            "max": 23.106004
+          },
+          "frame_age_after_publish_ms": {
+            "count": 566,
+            "mean": 49.23913536042403,
+            "std_ddof1": 2.7727666592114684,
+            "p95": 53.296786999999995,
+            "min": 42.901853,
+            "max": 56.679968
+          },
+          "preprocess_ms": {
+            "count": 566,
+            "mean": 3.406535381625442,
+            "std_ddof1": 0.7163720951274196,
+            "p95": 4.4378015,
+            "min": 1.705908,
+            "max": 6.481042
+          },
+          "postprocess_ms": {
+            "count": 566,
+            "mean": 0.35354731272084805,
+            "std_ddof1": 0.03958798221078591,
+            "p95": 0.418149,
+            "min": 0.295399,
+            "max": 0.818719
+          },
+          "image_conversion_ms": {
+            "count": 566,
+            "mean": 0.6187577738515901,
+            "std_ddof1": 0.1294261045596621,
+            "p95": 0.83716275,
+            "min": 0.31939,
+            "max": 0.982817
+          },
+          "resources": {
+            "system_cpu_percent": {
+              "count": 296,
+              "mean": 6.647635135135135,
+              "std_ddof1": 1.9085342184599479,
+              "p95": 9.6,
+              "min": 3.1,
+              "max": 12.1
+            },
+            "process_cpu_percent": {
+              "count": 296,
+              "mean": 59.08547297297297,
+              "std_ddof1": 35.17490570904128,
+              "p95": 113.4,
+              "min": 0.0,
+              "max": 138.1
+            },
+            "system_ram_mb": {
+              "count": 296,
+              "mean": 3458.5560285405404,
+              "std_ddof1": 5.157939011310489,
+              "p95": 3465.330688,
+              "min": 3444.822016,
+              "max": 3465.658368
+            },
+            "detector_rss_mb": {
+              "count": 296,
+              "mean": 256.8210542702703,
+              "std_ddof1": 0.02366990671820307,
+              "p95": 256.843776,
+              "min": 256.704512,
+              "max": 256.847872
+            },
+            "temperature_c": {
+              "count": 296,
+              "mean": 44.63513513513514,
+              "std_ddof1": 1.7000444606295653,
+              "p95": 47.0,
+              "min": 43.0,
+              "max": 54.0
+            }
+          },
+          "run_id": "run_01",
+          "condition": "berjalan",
+          "completed": true,
+          "exceptions_including_warmup": 0,
+          "measurement_start_utc": "2026-10-19T13:13:26.159889+00:00",
+          "first_frame_utc": "2026-10-19T13:13:26.162177+00:00",
+          "last_frame_utc": "2026-10-19T13:14:25.970845+00:00",
+          "git_commit_at_measurement": "d8bbb019ce113acaa1790804240aafd616da6dbb",
+          "setup": {
+            "device": "CPU",
+            "imgsz": 640,
+            "batch": 1,
+            "input_topic": "/thesis/image_raw",
+            "image_qos_reliability": "best_effort",
+            "image_qos_depth": 5,
+            "warmup_inferences": 30,
+            "warmup_camera_frames": 30,
+            "publish_benchmark": false,
+            "benchmark_seconds_requested": 60.0,
+            "benchmark_seconds_measured": 60.019701778000126,
+            "resource_interval_seconds": 0.2,
+            "publish_debug_image": false,
+            "evidence_image_path": null
+          }
+        },
+        {
+          "frames": 603,
+          "duration_seconds": 60.03343614900041,
+          "effective_fps": 10.044402564320654,
+          "exceptions_in_frame_csv": 0,
+          "resource_samples": 296,
+          "inference_ms": {
+            "count": 603,
+            "mean": 12.790829207296849,
+            "std_ddof1": 1.1987234594088794,
+            "p95": 14.7780451,
+            "min": 11.113629,
+            "max": 16.05267
+          },
+          "pipeline_ms": {
+            "count": 603,
+            "mean": 16.42984988557214,
+            "std_ddof1": 1.7292140946491052,
+            "p95": 19.168729499999998,
+            "min": 13.271319,
+            "max": 22.362819
+          },
+          "callback_end_to_end_ms": {
+            "count": 603,
+            "mean": 16.6370816053068,
+            "std_ddof1": 1.727205822159751,
+            "p95": 19.3267481,
+            "min": 13.469253,
+            "max": 22.601024
+          },
+          "frame_age_after_publish_ms": {
+            "count": 603,
+            "mean": 48.38776793034826,
+            "std_ddof1": 2.9796139554425594,
+            "p95": 53.0989158,
+            "min": 42.441571,
+            "max": 56.995184
+          },
+          "preprocess_ms": {
+            "count": 603,
+            "mean": 3.2356822852404643,
+            "std_ddof1": 0.7350331776753006,
+            "p95": 4.357648,
+            "min": 1.680903,
+            "max": 6.273613
+          },
+          "postprocess_ms": {
+            "count": 603,
+            "mean": 0.3579671807628524,
+            "std_ddof1": 0.052993444455122,
+            "p95": 0.42292820000000003,
+            "min": 0.170945,
+            "max": 0.924275
+          },
+          "image_conversion_ms": {
+            "count": 603,
+            "mean": 0.5880586583747927,
+            "std_ddof1": 0.1401384376641643,
+            "p95": 0.8462730999999999,
+            "min": 0.284684,
+            "max": 1.081165
+          },
+          "resources": {
+            "system_cpu_percent": {
+              "count": 296,
+              "mean": 6.65304054054054,
+              "std_ddof1": 1.7315979330493334,
+              "p95": 9.625,
+              "min": 2.5,
+              "max": 10.8
+            },
+            "process_cpu_percent": {
+              "count": 296,
+              "mean": 61.38277027027027,
+              "std_ddof1": 32.29572161035399,
+              "p95": 113.775,
+              "min": 0.0,
+              "max": 138.4
+            },
+            "system_ram_mb": {
+              "count": 296,
+              "mean": 3454.2332125405405,
+              "std_ddof1": 3.6124585657217314,
+              "p95": 3461.394432,
+              "min": 3448.737792,
+              "max": 3462.557696
+            },
+            "detector_rss_mb": {
+              "count": 296,
+              "mean": 257.1933751351351,
+              "std_ddof1": 0.017327809696070555,
+              "p95": 257.21344,
+              "min": 257.101824,
+              "max": 257.216512
+            },
+            "temperature_c": {
+              "count": 296,
+              "mean": 44.847972972972975,
+              "std_ddof1": 1.0769680979550074,
+              "p95": 47.0,
+              "min": 43.0,
+              "max": 52.0
+            }
+          },
+          "run_id": "run_02",
+          "condition": "berjalan",
+          "completed": true,
+          "exceptions_including_warmup": 0,
+          "measurement_start_utc": "2026-10-19T13:14:31.647155+00:00",
+          "first_frame_utc": "2026-10-19T13:14:31.648505+00:00",
+          "last_frame_utc": "2026-10-19T13:15:31.584092+00:00",
+          "git_commit_at_measurement": "d8bbb019ce113acaa1790804240aafd616da6dbb",
+          "setup": {
+            "device": "CPU",
+            "imgsz": 640,
+            "batch": 1,
+            "input_topic": "/thesis/image_raw",
+            "image_qos_reliability": "best_effort",
+            "image_qos_depth": 5,
+            "warmup_inferences": 30,
+            "warmup_camera_frames": 30,
+            "publish_benchmark": false,
+            "benchmark_seconds_requested": 60.0,
+            "benchmark_seconds_measured": 60.03343614900041,
+            "resource_interval_seconds": 0.2,
+            "publish_debug_image": false,
+            "evidence_image_path": null
+          }
+        },
+        {
+          "frames": 638,
+          "duration_seconds": 60.00903322199974,
+          "effective_fps": 10.631732686639994,
+          "exceptions_in_frame_csv": 0,
+          "resource_samples": 295,
+          "inference_ms": {
+            "count": 638,
+            "mean": 13.052584927899687,
+            "std_ddof1": 1.3411611234073364,
+            "p95": 14.9911088,
+            "min": 11.126304,
+            "max": 19.661673
+          },
+          "pipeline_ms": {
+            "count": 638,
+            "mean": 16.797007070532917,
+            "std_ddof1": 1.949970230642988,
+            "p95": 19.994977399999996,
+            "min": 13.434975,
+            "max": 22.84258
+          },
+          "callback_end_to_end_ms": {
+            "count": 638,
+            "mean": 17.004763985893415,
+            "std_ddof1": 1.9497849464903898,
+            "p95": 20.208158849999997,
+            "min": 13.648505,
+            "max": 23.031792
+          },
+          "frame_age_after_publish_ms": {
+            "count": 638,
+            "mean": 49.33474585736677,
+            "std_ddof1": 2.922441380632807,
+            "p95": 53.7294732,
+            "min": 42.884574,
+            "max": 57.61349
+          },
+          "preprocess_ms": {
+            "count": 638,
+            "mean": 3.337170239811912,
+            "std_ddof1": 0.8162712288991958,
+            "p95": 4.759786849999999,
+            "min": 1.764131,
+            "max": 6.272671
+          },
+          "postprocess_ms": {
+            "count": 638,
+            "mean": 0.3658345235109718,
+            "std_ddof1": 0.03174151518758493,
+            "p95": 0.4215834,
+            "min": 0.309399,
+            "max": 0.591564
+          },
+          "image_conversion_ms": {
+            "count": 638,
+            "mean": 0.6047208056426332,
+            "std_ddof1": 0.1382136040362092,
+            "p95": 0.83597555,
+            "min": 0.325613,
+            "max": 1.177642
+          },
+          "resources": {
+            "system_cpu_percent": {
+              "count": 295,
+              "mean": 6.81593220338983,
+              "std_ddof1": 1.6087083577895651,
+              "p95": 9.4,
+              "min": 2.5,
+              "max": 12.0
+            },
+            "process_cpu_percent": {
+              "count": 295,
+              "mean": 66.01559322033899,
+              "std_ddof1": 28.76458330348422,
+              "p95": 112.08000000000001,
+              "min": 0.0,
+              "max": 148.6
+            },
+            "system_ram_mb": {
+              "count": 295,
+              "mean": 3453.8587500474578,
+              "std_ddof1": 4.498209745679405,
+              "p95": 3459.620864,
+              "min": 3446.710272,
+              "max": 3459.866624
+            },
+            "detector_rss_mb": {
+              "count": 295,
+              "mean": 257.33256070508475,
+              "std_ddof1": 0.01840092728634951,
+              "p95": 257.347584,
+              "min": 257.2288,
+              "max": 257.347584
+            },
+            "temperature_c": {
+              "count": 295,
+              "mean": 45.11864406779661,
+              "std_ddof1": 1.1705680021729998,
+              "p95": 48.0,
+              "min": 43.0,
+              "max": 51.0
+            }
+          },
+          "run_id": "run_03",
+          "condition": "berjalan",
+          "completed": true,
+          "exceptions_including_warmup": 0,
+          "measurement_start_utc": "2026-10-19T13:15:35.971050+00:00",
+          "first_frame_utc": "2026-10-19T13:15:35.973874+00:00",
+          "last_frame_utc": "2026-10-19T13:16:35.862510+00:00",
+          "git_commit_at_measurement": "d8bbb019ce113acaa1790804240aafd616da6dbb",
+          "setup": {
+            "device": "CPU",
+            "imgsz": 640,
+            "batch": 1,
+            "input_topic": "/thesis/image_raw",
+            "image_qos_reliability": "best_effort",
+            "image_qos_depth": 5,
+            "warmup_inferences": 30,
+            "warmup_camera_frames": 30,
+            "publish_benchmark": false,
+            "benchmark_seconds_requested": 60.0,
+            "benchmark_seconds_measured": 60.00903322199974,
+            "resource_interval_seconds": 0.2,
+            "publish_debug_image": false,
+            "evidence_image_path": null
+          }
+        }
+      ],
+      "pooled": {
+        "frames": 1807,
+        "duration_seconds": 180.06217114900028,
+        "effective_fps": 10.035422701333081,
+        "exceptions_in_frame_csv": 0,
+        "resource_samples": 887,
+        "inference_ms": {
+          "count": 1807,
+          "mean": 12.964245511344771,
+          "std_ddof1": 1.2301215731103619,
+          "p95": 14.896242099999998,
+          "min": 11.002929,
+          "max": 19.661673
+        },
+        "pipeline_ms": {
+          "count": 1807,
+          "mean": 16.693500988378528,
+          "std_ddof1": 1.7862743782420178,
+          "p95": 19.3917448,
+          "min": 13.271319,
+          "max": 22.913147
+        },
+        "callback_end_to_end_ms": {
+          "count": 1807,
+          "mean": 16.896599199778638,
+          "std_ddof1": 1.7858720581139562,
+          "p95": 19.6081771,
+          "min": 13.469253,
+          "max": 23.106004
+        },
+        "frame_age_after_publish_ms": {
+          "count": 1807,
+          "mean": 48.98878944825678,
+          "std_ddof1": 2.925668619563778,
+          "p95": 53.3889556,
+          "min": 42.441571,
+          "max": 57.61349
+        },
+        "preprocess_ms": {
+          "count": 1807,
+          "mean": 3.3250304687327064,
+          "std_ddof1": 0.7618741344748463,
+          "p95": 4.4687985999999995,
+          "min": 1.680903,
+          "max": 6.481042
+        },
+        "postprocess_ms": {
+          "count": 1807,
+          "mean": 0.35936049529607084,
+          "std_ddof1": 0.04251833748361788,
+          "p95": 0.42161499999999996,
+          "min": 0.170945,
+          "max": 0.924275
+        },
+        "image_conversion_ms": {
+          "count": 1807,
+          "mean": 0.6035573574986165,
+          "std_ddof1": 0.13666658123646086,
+          "p95": 0.8416383,
+          "min": 0.284684,
+          "max": 1.177642
+        },
+        "resources": {
+          "system_cpu_percent": {
+            "count": 887,
+            "mean": 6.705411499436302,
+            "std_ddof1": 1.7538522659157132,
+            "p95": 9.6,
+            "min": 2.5,
+            "max": 12.1
+          },
+          "process_cpu_percent": {
+            "count": 887,
+            "mean": 62.156933483652764,
+            "std_ddof1": 32.28161520785245,
+            "p95": 113.57,
+            "min": 0.0,
+            "max": 148.6
+          },
+          "system_ram_mb": {
+            "count": 887,
+            "mean": 3455.5512363291996,
+            "std_ddof1": 4.94649771400259,
+            "p95": 3464.769536,
+            "min": 3444.822016,
+            "max": 3465.658368
+          },
+          "detector_rss_mb": {
+            "count": 887,
+            "mean": 257.1154188410372,
+            "std_ddof1": 0.21697233721875275,
+            "p95": 257.347584,
+            "min": 256.704512,
+            "max": 257.347584
+          },
+          "temperature_c": {
+            "count": 887,
+            "mean": 44.86696730552424,
+            "std_ddof1": 1.3573236438297114,
+            "p95": 47.0,
+            "min": 43.0,
+            "max": 54.0
+          }
+        }
+      },
+      "between_run_statistics": {
+        "frames": {
+          "mean_of_runs": 602.3333333333334,
+          "sample_sd_ddof1": 36.004629331980816
+        },
+        "effective_fps": {
+          "mean_of_runs": 10.035457347921437,
+          "sample_sd_ddof1": 0.6007978931377128
+        },
+        "mean_inference_ms": {
+          "mean_of_runs": 12.964278470860565,
+          "sample_sd_ddof1": 0.15021979711156974
+        },
+        "mean_pipeline_ms": {
+          "mean_of_runs": 16.694857085486138,
+          "sample_sd_ddof1": 0.2315015203898488
+        },
+        "system_cpu_percent": {
+          "mean_of_runs": 6.705535959688502,
+          "sample_sd_ddof1": 0.09564414550520865
+        },
+        "process_cpu_percent": {
+          "mean_of_runs": 62.161278821194074,
+          "sample_sd_ddof1": 3.530042256635776
+        },
+        "system_ram_mb": {
+          "mean_of_runs": 3455.5493303761796,
+          "sample_sd_ddof1": 2.610599725802403
+        },
+        "detector_rss_mb": {
+          "mean_of_runs": 257.11566337016336,
+          "sample_sd_ddof1": 0.26445991572527094
+        },
+        "temperature_c": {
+          "mean_of_runs": 44.867250725301574,
+          "sample_sd_ddof1": 0.24233024118337165
+        }
+      }
+    }
+  },
+  "walking_protocol_comparison": {
+    "device": {
+      "fp32": "CPU",
+      "qat": "CPU",
+      "equal": true
+    },
+    "imgsz": {
+      "fp32": 640,
+      "qat": 640,
+      "equal": true
+    },
+    "batch": {
+      "fp32": 1,
+      "qat": 1,
+      "equal": true
+    },
+    "seconds": {
+      "fp32": 60.0,
+      "qat": 60.0,
+      "equal": true
+    },
+    "runs": {
+      "fp32": 3,
+      "qat": 3,
+      "equal": true
+    },
+    "warmup_inferences": {
+      "fp32": 30,
+      "qat": 30,
+      "equal": true
+    },
+    "warmup_camera_frames": {
+      "fp32": 30,
+      "qat": 30,
+      "equal": true
+    },
+    "resource_interval_seconds": {
+      "fp32": 0.2,
+      "qat": 0.2,
+      "equal": true
+    },
+    "confidence_threshold": {
+      "fp32": 0.25,
+      "qat": 0.25,
+      "equal": true
+    },
+    "iou_threshold": {
+      "fp32": 0.45,
+      "qat": 0.45,
+      "equal": true
+    },
+    "camera_device": {
+      "fp32": "/dev/video0",
+      "qat": "/dev/video0",
+      "equal": true
+    },
+    "image_qos_reliability": {
+      "fp32": "best_effort",
+      "qat": "best_effort",
+      "equal": true
+    },
+    "image_qos_depth": {
+      "fp32": 5,
+      "qat": 5,
+      "equal": true
+    },
+    "capture_resolution": {
+      "fp32": [
+        640,
+        480
+      ],
+      "qat": [
+        640,
+        480
+      ],
+      "equal": true
+    },
+    "capture_framerate": {
+      "fp32": 30,
+      "qat": 30,
+      "equal": true
+    },
+    "publish_debug_image": {
+      "fp32": false,
+      "qat": false,
+      "equal": true
+    },
+    "publish_benchmark": {
+      "fp32": false,
+      "qat": false,
+      "equal": true
+    }
+  },
+  "model_identity_current": {
+    "fp32": {
+      "xml": {
+        "bytes": 324944,
+        "sha256": "233bb872e218ab3bf525188b0e105eea9f2a79e60ffecb4b767e63939ba257e7"
+      },
+      "bin": {
+        "bytes": 10431992,
+        "sha256": "e85f45438b5f7c8858b1a168a03f61b12a73b8159391529d19b84e09ff854026"
+      }
+    },
+    "qat_int8": {
+      "xml": {
+        "bytes": 666400,
+        "sha256": "10cb9dfa3539650a0bc46d60ad708f9ff79fc1e2dc79c5ac4a73ff4943326657"
+      },
+      "bin": {
+        "bytes": 2741080,
+        "sha256": "82246726edcd780685657f673caa2b40719a8c22b67e3702ca3d1f226b8fcf81"
+      }
+    }
+  },
+  "limitations": [
+    "Walking sessions were sequential, QAT before FP32, without randomized order or identical visual scenes; ambient/background system conditions may differ.",
+    "Operator confirmed the same support for FP32 as QAT. Support amount and floor contact were not separately measured; no independent video or per-run physical ground truth. This is inference during supported movement, not autonomous gait validation.",
+    "No motion gateway/fall-detector process was active; physical safety was monitored by the operator. Controller init was not repeated and gait/offsets were unchanged between the two walking sessions.",
+    "Technical completion and zero exceptions do not prove all camera frames were delivered. BEST_EFFORT/depth5 was retained for both models as requested; higher FPS cannot be inferred from lower inference latency.",
+    "Stationary measurements are earlier 19 October sessions with different background loads; legacy QoS was not explicitly recorded in per-run metadata. The QAT stationary reference from 7 October remains a separate dataset in the thesis.",
+    "Detector process CPU/RSS exclude camera/manager. System CPU/RAM include other processes. MB is decimal; temperature is the maximum thermal-zone reading per sample, not necessarily an identified CPU package sensor.",
+    "Historical git_commit measurement fields and all old raw data remain unchanged. New FP32 and prior QAT commits differ due to reporting commits; relevant pipeline code was not changed.",
+    "No accuracy metrics are inferred from live camera confidence; frozen TEST results remain separate."
+  ],
+  "definitions": {
+    "pipeline_ms": "Callback entry until detections ready before publication",
+    "inference_ms": "OpenVINO inference and output copy; no compile/warmup",
+    "effective_fps": "Successful frames / actual measured seconds",
+    "p95": "Linear interpolation over pooled successful raw frame values",
+    "sd": "Sample standard deviation ddof=1; between-run SD separate from pooled frame SD",
+    "resources": "Mean concatenated periodic samples, not time weighted; RAM/RSS bytes divided by 1e6",
+    "frame_age_after_publish_ms": "ROS now minus camera header after processing/publication; not pure transport latency"
+  }
+}

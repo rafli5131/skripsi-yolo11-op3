@@ -1,0 +1,79 @@
+[INFO] [launch]: All log files can be found below /home/humanoid/.ros/log/2026-10-19-20-09-07-113561-humanoid-NUC12WSHi5-10006
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [op3_manager-1]: process started with pid [10009]
+[INFO] [zmp_node-2]: process started with pid [10010]
+[INFO] [zmp_visualizer-3]: process started with pid [10011]
+[op3_manager-1] [INFO] [1792415347.200626882] [op3_manager]: manager->init
+[op3_manager-1] [INFO] [1792415347.203702108] [op3_manager]: Waiting for U2D2/OpenCR on /dev/serial/by-id/usb-FTDI_USB__-__Serial_Converter_FT7W960L-if00-port0 (the manager will keep retrying while the robot is off or disconnected).
+[op3_manager-1] [INFO] [1792415347.235803066] [op3_manager]: Dynamixel power enabled through OpenCR.
+[op3_manager-1] [INFO] [1792415347.252184598] [op3_manager]: U2D2/OpenCR connection is ready.
+[op3_manager-1] /dev/serial/by-id/usb-FTDI_USB__-__Serial_Converter_FT7W960L-if00-port0 added. (baudrate: 2000000)
+[op3_manager-1] (/dev/serial/by-id/usb-FTDI_USB__-__Serial_Converter_FT7W960L-if00-port0) [ID:  1]     XM430-W350 added. 
+[op3_manager-1] (/dev/serial/by-id/usb-FTDI_USB__-__Serial_Converter_FT7W960L-if00-port0) [ID:  2]     XM430-W350 added. 
+[op3_manager-1] (/dev/serial/by-id/usb-FTDI_USB__-__Serial_Converter_FT7W960L-if00-port0) [ID:  3]     XM430-W350 added. 
+[op3_manager-1] (/dev/serial/by-id/usb-FTDI_USB__-__Serial_Converter_FT7W960L-if00-port0) [ID:  4]     XM430-W350 added. 
+[op3_manager-1] (/dev/serial/by-id/usb-FTDI_USB__-__Serial_Converter_FT7W960L-if00-port0) [ID:  5]     XM430-W350 added. 
+[op3_manager-1] (/dev/serial/by-id/usb-FTDI_USB__-__Serial_Converter_FT7W960L-if00-port0) [ID:  6]     XM430-W350 added. 
+[op3_manager-1] (/dev/serial/by-id/usb-FTDI_USB__-__Serial_Converter_FT7W960L-if00-port0) [ID:  7]     XM430-W350 added. 
+[op3_manager-1] (/dev/serial/by-id/usb-FTDI_USB__-__Serial_Converter_FT7W960L-if00-port0) [ID:  8]     XM430-W350 added. 
+[op3_manager-1] (/dev/serial/by-id/usb-FTDI_USB__-__Serial_Converter_FT7W960L-if00-port0) [ID:  9]     XM430-W350 added. 
+[op3_manager-1] (/dev/serial/by-id/usb-FTDI_USB__-__Serial_Converter_FT7W960L-if00-port0) [ID: 10]     XM430-W350 added. 
+[op3_manager-1] (/dev/serial/by-id/usb-FTDI_USB__-__Serial_Converter_FT7W960L-if00-port0) [ID: 11]     XM430-W350 added. 
+[op3_manager-1] (/dev/serial/by-id/usb-FTDI_USB__-__Serial_Converter_FT7W960L-if00-port0) [ID: 12]     XM430-W350 added. 
+[op3_manager-1] (/dev/serial/by-id/usb-FTDI_USB__-__Serial_Converter_FT7W960L-if00-port0) [ID: 13]     XM430-W350 added. 
+[op3_manager-1] (/dev/serial/by-id/usb-FTDI_USB__-__Serial_Converter_FT7W960L-if00-port0) [ID: 14]     XM430-W350 added. 
+[op3_manager-1] (/dev/serial/by-id/usb-FTDI_USB__-__Serial_Converter_FT7W960L-if00-port0) [ID: 15]     XM430-W350 added. 
+[op3_manager-1] (/dev/serial/by-id/usb-FTDI_USB__-__Serial_Converter_FT7W960L-if00-port0) [ID: 16]     XM430-W350 added. 
+[op3_manager-1] (/dev/serial/by-id/usb-FTDI_USB__-__Serial_Converter_FT7W960L-if00-port0) [ID: 17]     XM430-W350 added. 
+[op3_manager-1] (/dev/serial/by-id/usb-FTDI_USB__-__Serial_Converter_FT7W960L-if00-port0) [ID: 18]     XM430-W350 added. 
+[op3_manager-1] (/dev/serial/by-id/usb-FTDI_USB__-__Serial_Converter_FT7W960L-if00-port0) [ID: 19]     XM430-W350 added. 
+[op3_manager-1] (/dev/serial/by-id/usb-FTDI_USB__-__Serial_Converter_FT7W960L-if00-port0) [ID: 20]     XM430-W350 added. 
+[op3_manager-1] (/dev/serial/by-id/usb-FTDI_USB__-__Serial_Converter_FT7W960L-if00-port0) [ID:200]        OPEN-CR added. 
+[zmp_node-2] [INFO] [1792415347.485383707] [zmp_node]: ZMP node started. Waiting for sensor data...
+[zmp_node-2] [INFO] [1792415347.485891853] [zmp_node]: Subscribing to IMU topics: /robotis/open_cr/imu and /robotis_op3/imu
+[zmp_node-2] [INFO] [1792415347.486075372] [zmp_node]: Subscribing to joint state topics: /robotis/present_joint_states and /robotis_op3/joint_states
+[zmp_node-2] [INFO] [1792415347.486246617] [zmp_node]: Subscribing to COM topics: /robotis_op3/com and /robotis_op3/com
+[zmp_visualizer-3] [INFO] [1792415347.529123252] [zmp_visualizer]: ZMP Visualizer Node Initialized
+[zmp_node-2] [WARN] [1792415347.616569311] [zmp_node]: Waiting for IMU data...
+[zmp_node-2] [WARN] [1792415347.617365200] [zmp_node]: Waiting for Joint States...
+[zmp_node-2] [WARN] [1792415349.716141820] [zmp_node]: Waiting for IMU data...
+[zmp_node-2] [WARN] [1792415349.716877820] [zmp_node]: Waiting for Joint States...
+[zmp_node-2] [WARN] [1792415351.716414588] [zmp_node]: Waiting for IMU data...
+[zmp_node-2] [WARN] [1792415351.717179794] [zmp_node]: Waiting for Joint States...
+[zmp_node-2] [WARN] [1792415353.816271095] [zmp_node]: Waiting for IMU data...
+[zmp_node-2] [WARN] [1792415353.816967519] [zmp_node]: Waiting for Joint States...
+[op3_manager-1] [INFO] [1792415354.068814402] [robotis_controller]: Load offsets...
+[op3_manager-1] [INFO] [1792415354.384350069] [op3_action_module]: Action Module speed_ratio: 1.00
+[op3_manager-1] [WARN] [1792415354.393250881] [op3_head_control_module]: Head control - angle unit : 30.000000
+[op3_manager-1] [INFO] [1792415354.419622831] [op3_tuning_module]: parse pose for moving init pose
+[op3_manager-1] [WARN] [1792415354.420075765] [op3_tuning_module]: Get the init gain from Dxl init file
+[op3_manager-1] [INFO] [1792415354.420944681] [robotis_controller]: FIRST BULKREAD
+[op3_manager-1] [INFO] [1792415354.435656384] [robotis_controller]: FIRST BULKREAD END
+[op3_manager-1] [WARN] [1792415354.444210908] [robotis_controller]: Real-time timer scheduling unavailable (error=1: Operation not permitted); retrying with normal scheduling.
+[op3_manager-1] [INFO] [1792415401.161264460] [op3_base_module]: Base Module is enabled
+[op3_manager-1] [INFO] [1792415401.161648807] [robotis_controller]: Successfully set control module: base_module
+[op3_manager-1] [INFO] [1792415401.176132079] [op3_base_module]: callServiceSettingModule : result : 1
+[op3_manager-1] [INFO] [1792415401.180383638] [op3_base_module]: [start] send trajectory
+[op3_manager-1] [INFO] [1792415409.183802981] [op3_base_module]: [end] send trajectory
+[op3_manager-1] [INFO] [1792415526.252272347] [op3_base_module]: Base Module is enabled
+[op3_manager-1] [INFO] [1792415526.252325263] [op3_walking_module]: Walking Enable
+[op3_manager-1] [WARN] [1792415526.275479416] [op3_walking_module]: x_offset: -0.015
+[op3_manager-1] [WARN] [1792415526.275535794] [op3_walking_module]: y_offset: 0.005
+[op3_manager-1] [WARN] [1792415526.275540572] [op3_walking_module]: z_offset: 0.04
+[op3_manager-1] [WARN] [1792415526.275552851] [op3_walking_module]: roll_offset: 0
+[op3_manager-1] [WARN] [1792415526.275556556] [op3_walking_module]: pitch_offset: 0
+[op3_manager-1] [WARN] [1792415526.275559894] [op3_walking_module]: yaw_offset: 0
+[op3_manager-1] [WARN] [1792415526.275563497] [op3_walking_module]: hip_pitch_offset: 7
+[op3_manager-1] [WARN] [1792415526.275567668] [op3_walking_module]: period_time: 600
+[op3_manager-1] [WARN] [1792415526.275571159] [op3_walking_module]: dsp_ratio: 0.26
+[op3_manager-1] [WARN] [1792415526.275579862] [op3_walking_module]: step_forward_back_ratio: 0.28
+[op3_manager-1] [WARN] [1792415526.275585514] [op3_walking_module]: foot_height: 0.05
+[op3_manager-1] [WARN] [1792415526.275589395] [op3_walking_module]: swing_right_left: 0.02
+[op3_manager-1] [WARN] [1792415526.275594606] [op3_walking_module]: swing_top_down: 0.005
+[op3_manager-1] [WARN] [1792415526.275598097] [op3_walking_module]: pelvis_offset: 3
+[op3_manager-1] [WARN] [1792415526.275601858] [op3_walking_module]: arm_swing_gain: 0.3
+[op3_manager-1] [WARN] [1792415526.275605161] [op3_walking_module]: balance_hip_roll_gain: 0.42
+[op3_manager-1] [WARN] [1792415526.275613746] [op3_walking_module]: balance_knee_gain: 0.32
+[op3_manager-1] [WARN] [1792415526.275617807] [op3_walking_module]: balance_ankle_roll_gain: 0.7
+[op3_manager-1] [WARN] [1792415526.275621321] [op3_walking_module]: balance_ankle_pitch_gain: 0.85
+[op3_manager-1] [WARN] [1792415526.275624689] [op3_walking_module]: balance : TRUE

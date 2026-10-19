@@ -1,0 +1,154 @@
+{
+  "fp32": {
+    "frames": 3655,
+    "duration_seconds": 180.04294336299972,
+    "effective_fps": 20.3007123285629,
+    "header_gap_ms": {
+      "mean": 49.27304381161008,
+      "median": 40.0945,
+      "p95": 84.10445,
+      "over_50ms_count": 313,
+      "count": 3652
+    },
+    "callback_start_gap_ms": {
+      "mean": 49.27361272642673,
+      "median": 40.70091247558594,
+      "p95": 84.82557535171509,
+      "over_50ms_count": 710,
+      "count": 3652
+    },
+    "callback_duration_fraction_percent": 74.83213461099643,
+    "per_run": [
+      {
+        "run": "run_01",
+        "header_gap_ms": {
+          "mean": 48.767739024390245,
+          "median": 40.061499999999995,
+          "p95": 84.0951,
+          "over_50ms_count": 87,
+          "count": 1230
+        },
+        "callback_start_gap_ms": {
+          "mean": 48.76018772280313,
+          "median": 40.53449630737305,
+          "p95": 84.46234464645386,
+          "over_50ms_count": 208,
+          "count": 1230
+        },
+        "callback_duration_fraction_percent": 75.26905934141477
+      },
+      {
+        "run": "run_02",
+        "header_gap_ms": {
+          "mean": 50.446100925147185,
+          "median": 40.14,
+          "p95": 84.1156,
+          "over_50ms_count": 124,
+          "count": 1189
+        },
+        "callback_start_gap_ms": {
+          "mean": 50.453543161724276,
+          "median": 41.22209548950195,
+          "p95": 84.99979972839355,
+          "over_50ms_count": 260,
+          "count": 1189
+        },
+        "callback_duration_fraction_percent": 73.40778400383003
+      },
+      {
+        "run": "run_03",
+        "header_gap_ms": {
+          "mean": 48.64592295214923,
+          "median": 40.113,
+          "p95": 84.1064,
+          "over_50ms_count": 102,
+          "count": 1233
+        },
+        "callback_start_gap_ms": {
+          "mean": 48.647964281080604,
+          "median": 40.44604301452637,
+          "p95": 84.78507995605469,
+          "over_50ms_count": 242,
+          "count": 1233
+        },
+        "callback_duration_fraction_percent": 75.81970867093463
+      }
+    ]
+  },
+  "qat": {
+    "frames": 1807,
+    "duration_seconds": 180.06217114900028,
+    "effective_fps": 10.035422701333081,
+    "header_gap_ms": {
+      "mean": 99.58136917960088,
+      "median": 83.9255,
+      "p95": 251.31544999999963,
+      "over_50ms_count": 1174,
+      "count": 1804
+    },
+    "callback_start_gap_ms": {
+      "mean": 99.5747731160166,
+      "median": 83.22703838348389,
+      "p95": 248.51616621017456,
+      "over_50ms_count": 1174,
+      "count": 1804
+    },
+    "callback_duration_fraction_percent": 16.956451518478495,
+    "per_run": [
+      {
+        "run": "run_01",
+        "header_gap_ms": {
+          "mean": 105.85603185840708,
+          "median": 60.054,
+          "p95": 283.9117999999982,
+          "over_50ms_count": 444,
+          "count": 565
+        },
+        "callback_start_gap_ms": {
+          "mean": 105.85604937730638,
+          "median": 60.51802635192871,
+          "p95": 284.02523994445625,
+          "over_50ms_count": 444,
+          "count": 565
+        },
+        "callback_duration_fraction_percent": 16.079645244984377
+      },
+      {
+        "run": "run_02",
+        "header_gap_ms": {
+          "mean": 99.56422093023255,
+          "median": 83.926,
+          "p95": 251.9843,
+          "over_50ms_count": 331,
+          "count": 602
+        },
+        "callback_start_gap_ms": {
+          "mean": 99.56077563010182,
+          "median": 82.96680450439453,
+          "p95": 252.323579788208,
+          "over_50ms_count": 331,
+          "count": 602
+        },
+        "callback_duration_fraction_percent": 16.71095451391556
+      },
+      {
+        "run": "run_03",
+        "header_gap_ms": {
+          "mean": 94.032136577708,
+          "median": 83.98,
+          "p95": 208.006,
+          "over_50ms_count": 399,
+          "count": 637
+        },
+        "callback_start_gap_ms": {
+          "mean": 94.01669681914373,
+          "median": 83.7709903717041,
+          "p95": 208.44745635986328,
+          "over_50ms_count": 399,
+          "count": 637
+        },
+        "callback_duration_fraction_percent": 18.07901050974216
+      }
+    ]
+  }
+}
