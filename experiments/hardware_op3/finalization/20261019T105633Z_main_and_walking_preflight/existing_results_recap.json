@@ -1,0 +1,2104 @@
+{
+  "generated_utc": "2026-10-19T10:56:33.169619+00:00",
+  "definitions": {
+    "std": "sample standard deviation ddof=1",
+    "pooled_latency": "All successful measured frame values concatenated; mean and linear-interpolation P95. No warmup or failed/ineligible walking frames.",
+    "effective_fps": "sum(successful frames) / sum(actual measured seconds)",
+    "between_run_std": "sample standard deviation across the three per-run summary means/FPS",
+    "resource_mean": "mean across recorded periodic samples, not time-weighted integral",
+    "memory_units": "decimal MB=bytes/1000000"
+  },
+  "final_test": {
+    "fp32": {
+      "evaluator_configuration": {
+        "augment": false,
+        "batch": 16,
+        "cache": false,
+        "conf": 0.001,
+        "conf_source": "Ultralytics detection validation default resolved from conf=None; not tuned on TEST",
+        "device": "0",
+        "fraction": 1.0,
+        "imgsz": 640,
+        "iou": 0.7,
+        "plots": true,
+        "rect": true,
+        "split": "test",
+        "workers": 2
+      },
+      "evaluator_return": {
+        "fitness": 0.77991,
+        "metrics/mAP50(B)": 0.96423,
+        "metrics/mAP50-95(B)": 0.77991,
+        "metrics/precision(B)": 0.93135,
+        "metrics/recall(B)": 0.95057,
+        "val/box_loss": 1.00699,
+        "val/cls_loss": 0.68821,
+        "val/dfl_loss": 1.17054
+      },
+      "fake_quant_calls": null,
+      "model": "FP32 PyTorch",
+      "overall": {
+        "F1": 0.9408610915046441,
+        "mAP50": 0.9642317504749923,
+        "mAP50-95": 0.7799081629168894,
+        "precision": 0.9313469051335113,
+        "recall": 0.9505716686969364
+      },
+      "per_class": {
+        "ball": {
+          "F1": 0.9800169509991293,
+          "mAP50": 0.9847619047619048,
+          "mAP50-95": 0.9129888910112578,
+          "precision": 0.9722085387628167,
+          "recall": 0.9879518072289156
+        },
+        "gawang": {
+          "F1": 0.8657195455005953,
+          "mAP50": 0.9233522694330923,
+          "mAP50-95": 0.568273217075351,
+          "precision": 0.8469513872455595,
+          "recall": 0.8853383458646616
+        },
+        "robot": {
+          "F1": 0.9766496060330314,
+          "mAP50": 0.9845810772299799,
+          "mAP50-95": 0.8584623806640591,
+          "precision": 0.9748807893921577,
+          "recall": 0.978424852997232
+        }
+      },
+      "test_annotations": 734,
+      "test_images": 592,
+      "timing": {
+        "label": "DIAGNOSTIC \u2014 NOT FINAL DEPLOYMENT BENCHMARK",
+        "unit": "milliseconds per image",
+        "values": {
+          "inference": 2.8222381527460105,
+          "loss": 2.1710505259122597,
+          "postprocess": 0.7331217387439432,
+          "preprocess": 0.35371247999923855
+        }
+      }
+    },
+    "qat": {
+      "evaluator_configuration": {
+        "augment": false,
+        "batch": 16,
+        "cache": false,
+        "conf": 0.001,
+        "conf_source": "Ultralytics detection validation default resolved from conf=None; not tuned on TEST",
+        "device": "0",
+        "fraction": 1.0,
+        "imgsz": 640,
+        "iou": 0.7,
+        "plots": true,
+        "rect": true,
+        "split": "test",
+        "workers": 2
+      },
+      "evaluator_return": {
+        "fitness": 0.76718,
+        "metrics/mAP50(B)": 0.97215,
+        "metrics/mAP50-95(B)": 0.76718,
+        "metrics/precision(B)": 0.93412,
+        "metrics/recall(B)": 0.95021,
+        "val/box_loss": 0.99506,
+        "val/cls_loss": 0.69739,
+        "val/dfl_loss": 1.15496
+      },
+      "fake_quant_calls": 7398,
+      "model": "QAT NNCF fake-quantized PyTorch",
+      "overall": {
+        "F1": 0.9420930669398871,
+        "mAP50": 0.972145259145894,
+        "mAP50-95": 0.76717861970828,
+        "precision": 0.9341156433830985,
+        "recall": 0.9502079198462958
+      },
+      "per_class": {
+        "ball": {
+          "F1": 0.9706632889244308,
+          "mAP50": 0.9891912354909903,
+          "mAP50-95": 0.8795534960892626,
+          "precision": 0.9429988054250686,
+          "recall": 1.0
+        },
+        "gawang": {
+          "F1": 0.8898667654360505,
+          "mAP50": 0.9458072365953298,
+          "mAP50-95": 0.5970267721499483,
+          "precision": 0.8987761987245911,
+          "recall": 0.881132234115159
+        },
+        "robot": {
+          "F1": 0.9650111151836117,
+          "mAP50": 0.9814373053513619,
+          "mAP50-95": 0.8249555908856289,
+          "precision": 0.9605719259996356,
+          "recall": 0.9694915254237289
+        }
+      },
+      "test_annotations": 734,
+      "test_images": 592,
+      "timing": {
+        "label": "DIAGNOSTIC \u2014 NOT FINAL DEPLOYMENT BENCHMARK",
+        "unit": "milliseconds per image",
+        "values": {
+          "inference": 13.805565932400626,
+          "loss": 0.38422368674513857,
+          "postprocess": 0.549881816589953,
+          "preprocess": 0.20122350306829084
+        }
+      }
+    }
+  },
+  "model_sizes": {
+    "fp32": {
+      "parts": {
+        "xml": {
+          "bytes": 324944,
+          "sha256": "233bb872e218ab3bf525188b0e105eea9f2a79e60ffecb4b767e63939ba257e7"
+        },
+        "bin": {
+          "bytes": 10431992,
+          "sha256": "e85f45438b5f7c8858b1a168a03f61b12a73b8159391529d19b84e09ff854026"
+        }
+      },
+      "total_bytes": 10756936
+    },
+    "qat_int8": {
+      "parts": {
+        "xml": {
+          "bytes": 666400,
+          "sha256": "10cb9dfa3539650a0bc46d60ad708f9ff79fc1e2dc79c5ac4a73ff4943326657"
+        },
+        "bin": {
+          "bytes": 2741080,
+          "sha256": "82246726edcd780685657f673caa2b40719a8c22b67e3702ca3d1f226b8fcf81"
+        }
+      },
+      "total_bytes": 3407480
+    }
+  },
+  "standalone": [
+    {
+      "mode": "synthetic",
+      "model": "fp32",
+      "frames": 300,
+      "duration_seconds": 8.967024104,
+      "effective_fps": 33.45591542083358,
+      "timings": {
+        "inference_ms": {
+          "n": 300,
+          "mean": 28.050357910000002,
+          "std": 1.1658625700185576,
+          "p95": 29.64108355,
+          "min": 25.575338,
+          "max": 40.086083
+        },
+        "loop_wall_ms": {
+          "n": 300,
+          "mean": 29.874479596666667,
+          "std": 1.165499184550451,
+          "p95": 31.48930585,
+          "min": 27.331803,
+          "max": 41.827804
+        }
+      },
+      "resources": {
+        "system_cpu_percent": {
+          "n": 44,
+          "mean": 55.29545454545455,
+          "std": 8.609458145320492,
+          "p95": 58.339999999999996,
+          "min": 0.0,
+          "max": 59.1
+        },
+        "process_cpu_percent": {
+          "n": 44,
+          "mean": 893.2840909090908,
+          "std": 19.423384889088798,
+          "p95": 921.455,
+          "min": 818.1,
+          "max": 922.1
+        },
+        "system_ram_mb": {
+          "n": 44,
+          "mean": 4174.069573818183,
+          "std": 7.3587699670603754,
+          "p95": 4181.479424,
+          "min": 4158.795776,
+          "max": 4181.630976
+        },
+        "rss_mb": {
+          "n": 44,
+          "mean": 240.74547200000003,
+          "std": 0.05270020912363241,
+          "p95": 240.82432,
+          "min": 240.648192,
+          "max": 240.832512
+        },
+        "temperature_c": {
+          "n": 0,
+          "mean": null,
+          "std": null,
+          "p95": null,
+          "min": null,
+          "max": null
+        }
+      },
+      "metadata": "experiments/hardware_op3/comparison_models/20261007_four_models_run1/synthetic_fp32.json"
+    },
+    {
+      "mode": "synthetic",
+      "model": "qat_int8",
+      "frames": 300,
+      "duration_seconds": 3.884564063,
+      "effective_fps": 77.22874308019875,
+      "timings": {
+        "inference_ms": {
+          "n": 300,
+          "mean": 11.22649282,
+          "std": 0.15116004056427162,
+          "p95": 11.43519915,
+          "min": 10.873276,
+          "max": 12.714152
+        },
+        "loop_wall_ms": {
+          "n": 300,
+          "mean": 12.933697906666666,
+          "std": 0.17549930867804828,
+          "p95": 13.2231385,
+          "min": 12.443113,
+          "max": 14.609589
+        }
+      },
+      "resources": {
+        "system_cpu_percent": {
+          "n": 19,
+          "mean": 20.384210526315794,
+          "std": 4.947868582407168,
+          "p95": 22.01,
+          "min": 0.0,
+          "max": 22.1
+        },
+        "process_cpu_percent": {
+          "n": 19,
+          "mean": 341.16315789473674,
+          "std": 2.495375840388637,
+          "p95": 343.7,
+          "min": 338.4,
+          "max": 343.7
+        },
+        "system_ram_mb": {
+          "n": 19,
+          "mean": 4137.535164631579,
+          "std": 0.5566933253517743,
+          "p95": 4138.51648,
+          "min": 4136.886272,
+          "max": 4138.51648
+        },
+        "rss_mb": {
+          "n": 19,
+          "mean": 225.3612732631579,
+          "std": 0.01668072820433646,
+          "p95": 225.3918208,
+          "min": 225.325056,
+          "max": 225.40288
+        },
+        "temperature_c": {
+          "n": 0,
+          "mean": null,
+          "std": null,
+          "p95": null,
+          "min": null,
+          "max": null
+        }
+      },
+      "metadata": "experiments/hardware_op3/comparison_models/20261007_four_models_run1/synthetic_qat_int8.json"
+    },
+    {
+      "mode": "camera",
+      "model": "fp32",
+      "frames": 1238,
+      "duration_seconds": 60.024224988,
+      "effective_fps": 20.625005991289353,
+      "timings": {
+        "inference_ms": {
+          "n": 1238,
+          "mean": 37.172444105815835,
+          "std": 11.62608150288672,
+          "p95": 59.81142095,
+          "min": 26.119218,
+          "max": 63.02548
+        },
+        "loop_wall_ms": {
+          "n": 1238,
+          "mean": 48.468972926494345,
+          "std": 23.699578647475647,
+          "p95": 96.1018319,
+          "min": 28.75091,
+          "max": 103.580373
+        }
+      },
+      "resources": {
+        "system_cpu_percent": {
+          "n": 298,
+          "mean": 44.87885906040268,
+          "std": 3.8021776553483253,
+          "p95": 51.1,
+          "min": 0.0,
+          "max": 54.2
+        },
+        "process_cpu_percent": {
+          "n": 298,
+          "mean": 706.8708053691275,
+          "std": 43.73848962607273,
+          "p95": 807.4,
+          "min": 558.0,
+          "max": 854.5
+        },
+        "system_ram_mb": {
+          "n": 298,
+          "mean": 4152.432763704698,
+          "std": 5.937594073976673,
+          "p95": 4164.636672,
+          "min": 4140.11392,
+          "max": 4169.228288
+        },
+        "rss_mb": {
+          "n": 298,
+          "mean": 242.79018008053689,
+          "std": 0.3326352347438109,
+          "p95": 243.290112,
+          "min": 242.110464,
+          "max": 243.347456
+        },
+        "temperature_c": {
+          "n": 0,
+          "mean": null,
+          "std": null,
+          "p95": null,
+          "min": null,
+          "max": null
+        }
+      },
+      "metadata": "experiments/hardware_op3/comparison_models/20261007_four_models_run1/camera_fp32.json"
+    },
+    {
+      "mode": "camera",
+      "model": "qat_int8",
+      "frames": 1459,
+      "duration_seconds": 60.00692778,
+      "effective_fps": 24.313859315528518,
+      "timings": {
+        "inference_ms": {
+          "n": 1459,
+          "mean": 12.095019894448251,
+          "std": 1.2647167201862581,
+          "p95": 14.8792823,
+          "min": 10.964095,
+          "max": 20.502117
+        },
+        "loop_wall_ms": {
+          "n": 1459,
+          "mean": 41.113903196710076,
+          "std": 15.314066070625739,
+          "p95": 70.4027523,
+          "min": 26.950447,
+          "max": 74.695513
+        }
+      },
+      "resources": {
+        "system_cpu_percent": {
+          "n": 298,
+          "mean": 8.543959731543623,
+          "std": 1.2262479076568997,
+          "p95": 10.3,
+          "min": 0.0,
+          "max": 12.5
+        },
+        "process_cpu_percent": {
+          "n": 298,
+          "mean": 128.38523489932888,
+          "std": 15.3890199863384,
+          "p95": 149.6,
+          "min": 74.6,
+          "max": 163.9
+        },
+        "system_ram_mb": {
+          "n": 298,
+          "mean": 4142.140147973155,
+          "std": 9.5997851977638,
+          "p95": 4166.656,
+          "min": 4134.416384,
+          "max": 4166.934528
+        },
+        "rss_mb": {
+          "n": 298,
+          "mean": 228.39778448322144,
+          "std": 0.37132210820366673,
+          "p95": 228.962304,
+          "min": 227.84,
+          "max": 229.023744
+        },
+        "temperature_c": {
+          "n": 0,
+          "mean": null,
+          "std": null,
+          "p95": null,
+          "min": null,
+          "max": null
+        }
+      },
+      "metadata": "experiments/hardware_op3/comparison_models/20261007_four_models_run1/camera_qat_int8.json"
+    }
+  ],
+  "qat_stationary_reference": {
+    "folder": "experiments/hardware_op3/final_qat",
+    "condition": "diam",
+    "runs": [
+      {
+        "run_id": "run_01",
+        "frames": 809,
+        "duration_seconds": 60.00344517400026,
+        "effective_fps": 13.48255917062814,
+        "timings": {
+          "inference_ms": {
+            "n": 809,
+            "mean": 13.47699316563659,
+            "std": 1.205096649775997,
+            "p95": 14.984808199999998,
+            "min": 11.032551,
+            "max": 19.065771
+          },
+          "latency_ms": {
+            "n": 809,
+            "mean": 18.076797331273177,
+            "std": 2.037816089519176,
+            "p95": 20.360843999999986,
+            "min": 13.227581,
+            "max": 23.995065
+          },
+          "callback_end_to_end_ms": {
+            "n": 809,
+            "mean": 18.25941672682324,
+            "std": 2.0385378910454395,
+            "p95": 20.538696199999986,
+            "min": 13.404945,
+            "max": 24.17045
+          }
+        },
+        "resources": {
+          "system_cpu_percent": {
+            "n": 295,
+            "mean": 6.441694915254237,
+            "std": 1.4330847188385674,
+            "p95": 8.23,
+            "min": 1.2,
+            "max": 10.2
+          },
+          "process_cpu_percent": {
+            "n": 295,
+            "mean": 88.6464406779661,
+            "std": 24.2096507547938,
+            "p95": 118.13,
+            "min": 4.9,
+            "max": 148.3
+          },
+          "system_ram_mb": {
+            "n": 295,
+            "mean": 4086.1780280406783,
+            "std": 8.529067830880212,
+            "p95": 4101.57056,
+            "min": 4073.79968,
+            "max": 4105.25696
+          },
+          "rss_mb": {
+            "n": 295,
+            "mean": 257.7876749016949,
+            "std": 0.027193751888172607,
+            "p95": 257.818624,
+            "min": 257.654784,
+            "max": 257.818624
+          },
+          "temperature_c": {
+            "n": 295,
+            "mean": 44.05084745762712,
+            "std": 2.700615505640286,
+            "p95": 49.30000000000001,
+            "min": 40.0,
+            "max": 53.0
+          }
+        },
+        "resource_samples": 295,
+        "exceptions": 0,
+        "source_metadata": "experiments/hardware_op3/final_qat/run_metadata/diam_run_01.json",
+        "git_commit_at_measurement": "01af3977129b153adb1c4570a6be2a4551588ee0",
+        "setup": {
+          "device": "CPU",
+          "imgsz": 640,
+          "batch": 1,
+          "input_topic": "/thesis/image_raw",
+          "warmup_inferences": 30,
+          "warmup_camera_frames": 30,
+          "publish_benchmark": false,
+          "benchmark_seconds_requested": 60.0,
+          "benchmark_seconds_measured": 60.00344517400026,
+          "resource_interval_seconds": 0.2,
+          "publish_debug_image": false,
+          "evidence_image_path": null
+        }
+      },
+      {
+        "run_id": "run_02",
+        "frames": 904,
+        "duration_seconds": 60.004658785000174,
+        "effective_fps": 15.065496884818215,
+        "timings": {
+          "inference_ms": {
+            "n": 904,
+            "mean": 13.17920421681416,
+            "std": 1.385084711338736,
+            "p95": 14.85622115,
+            "min": 10.99705,
+            "max": 24.291585
+          },
+          "latency_ms": {
+            "n": 904,
+            "mean": 17.455397344026547,
+            "std": 2.5102507030187122,
+            "p95": 20.21056745,
+            "min": 13.2328,
+            "max": 30.913415
+          },
+          "callback_end_to_end_ms": {
+            "n": 904,
+            "mean": 17.636819417035397,
+            "std": 2.5107100137844225,
+            "p95": 20.394196799999996,
+            "min": 13.415092,
+            "max": 31.233378
+          }
+        },
+        "resources": {
+          "system_cpu_percent": {
+            "n": 295,
+            "mean": 6.733898305084746,
+            "std": 1.5796333607039383,
+            "p95": 9.3,
+            "min": 1.2,
+            "max": 10.2
+          },
+          "process_cpu_percent": {
+            "n": 295,
+            "mean": 95.00745762711864,
+            "std": 26.708215734714326,
+            "p95": 143.36,
+            "min": 4.9,
+            "max": 157.4
+          },
+          "system_ram_mb": {
+            "n": 295,
+            "mean": 4080.1290135864406,
+            "std": 4.687984923917233,
+            "p95": 4087.021568,
+            "min": 4071.579648,
+            "max": 4100.272128
+          },
+          "rss_mb": {
+            "n": 295,
+            "mean": 257.6941889084746,
+            "std": 0.018641305095448767,
+            "p95": 257.712128,
+            "min": 257.568768,
+            "max": 257.716224
+          },
+          "temperature_c": {
+            "n": 295,
+            "mean": 44.884745762711866,
+            "std": 1.567181876421178,
+            "p95": 47.30000000000001,
+            "min": 43.0,
+            "max": 56.0
+          }
+        },
+        "resource_samples": 295,
+        "exceptions": 0,
+        "source_metadata": "experiments/hardware_op3/final_qat/run_metadata/diam_run_02.json",
+        "git_commit_at_measurement": "01af3977129b153adb1c4570a6be2a4551588ee0",
+        "setup": {
+          "device": "CPU",
+          "imgsz": 640,
+          "batch": 1,
+          "input_topic": "/thesis/image_raw",
+          "warmup_inferences": 30,
+          "warmup_camera_frames": 30,
+          "publish_benchmark": false,
+          "benchmark_seconds_requested": 60.0,
+          "benchmark_seconds_measured": 60.004658785000174,
+          "resource_interval_seconds": 0.2,
+          "publish_debug_image": false,
+          "evidence_image_path": null
+        }
+      },
+      {
+        "run_id": "run_03",
+        "frames": 729,
+        "duration_seconds": 60.0038317970002,
+        "effective_fps": 12.1492241106583,
+        "timings": {
+          "inference_ms": {
+            "n": 729,
+            "mean": 13.651942836762688,
+            "std": 1.125551176755288,
+            "p95": 15.180227,
+            "min": 11.074149,
+            "max": 18.123501
+          },
+          "latency_ms": {
+            "n": 729,
+            "mean": 18.510841112482854,
+            "std": 1.757696747479975,
+            "p95": 21.242837,
+            "min": 13.111163,
+            "max": 23.934792
+          },
+          "callback_end_to_end_ms": {
+            "n": 729,
+            "mean": 18.692074880658435,
+            "std": 1.7582810025131692,
+            "p95": 21.4358116,
+            "min": 13.287678,
+            "max": 24.143944
+          }
+        },
+        "resources": {
+          "system_cpu_percent": {
+            "n": 295,
+            "mean": 6.0732203389830515,
+            "std": 1.6125975588037298,
+            "p95": 7.8,
+            "min": 1.2,
+            "max": 11.5
+          },
+          "process_cpu_percent": {
+            "n": 295,
+            "mean": 82.19762711864405,
+            "std": 27.751420159712453,
+            "p95": 109.0,
+            "min": 0.0,
+            "max": 147.8
+          },
+          "system_ram_mb": {
+            "n": 295,
+            "mean": 4085.034299877966,
+            "std": 9.81913691477672,
+            "p95": 4101.6659968,
+            "min": 4060.659712,
+            "max": 4153.683968
+          },
+          "rss_mb": {
+            "n": 295,
+            "mean": 257.0936597694915,
+            "std": 0.022825555152092152,
+            "p95": 257.118208,
+            "min": 256.970752,
+            "max": 257.118208
+          },
+          "temperature_c": {
+            "n": 295,
+            "mean": 45.179661016949154,
+            "std": 0.887321824793048,
+            "p95": 46.0,
+            "min": 45.0,
+            "max": 52.0
+          }
+        },
+        "resource_samples": 295,
+        "exceptions": 0,
+        "source_metadata": "experiments/hardware_op3/final_qat/run_metadata/diam_run_03.json",
+        "git_commit_at_measurement": "01af3977129b153adb1c4570a6be2a4551588ee0",
+        "setup": {
+          "device": "CPU",
+          "imgsz": 640,
+          "batch": 1,
+          "input_topic": "/thesis/image_raw",
+          "warmup_inferences": 30,
+          "warmup_camera_frames": 30,
+          "publish_benchmark": false,
+          "benchmark_seconds_requested": 60.0,
+          "benchmark_seconds_measured": 60.0038317970002,
+          "resource_interval_seconds": 0.2,
+          "publish_debug_image": false,
+          "evidence_image_path": null
+        }
+      }
+    ],
+    "pooled": {
+      "frames": 2442,
+      "duration_seconds": 180.01193575600064,
+      "effective_fps": 13.565767123964704,
+      "exceptions": 0,
+      "resource_samples": 885,
+      "timings": {
+        "inference_ms": {
+          "n": 2442,
+          "mean": 13.418982150286652,
+          "std": 1.2676175857983396,
+          "p95": 14.9847682,
+          "min": 10.99705,
+          "max": 24.291585
+        },
+        "latency_ms": {
+          "n": 2442,
+          "mean": 17.976335549140046,
+          "std": 2.1945913375753907,
+          "p95": 20.644402199999995,
+          "min": 13.111163,
+          "max": 30.913415
+        },
+        "callback_end_to_end_ms": {
+          "n": 2442,
+          "mean": 18.158098064291565,
+          "std": 2.195151666640872,
+          "p95": 20.823329549999993,
+          "min": 13.287678,
+          "max": 31.233378
+        }
+      },
+      "resources": {
+        "system_cpu_percent": {
+          "n": 885,
+          "mean": 6.416271186440677,
+          "std": 1.5655386994857048,
+          "p95": 8.6,
+          "min": 1.2,
+          "max": 11.5
+        },
+        "process_cpu_percent": {
+          "n": 885,
+          "mean": 88.61717514124294,
+          "std": 26.752164858013483,
+          "p95": 120.59999999999991,
+          "min": 0.0,
+          "max": 157.4
+        },
+        "system_ram_mb": {
+          "n": 885,
+          "mean": 4083.7804471683617,
+          "std": 8.394086884926374,
+          "p95": 4099.608576,
+          "min": 4060.659712,
+          "max": 4153.683968
+        },
+        "rss_mb": {
+          "n": 885,
+          "mean": 257.5251745265537,
+          "std": 0.3085463563606845,
+          "p95": 257.818624,
+          "min": 256.970752,
+          "max": 257.818624
+        },
+        "temperature_c": {
+          "n": 885,
+          "mean": 44.70508474576271,
+          "std": 1.9321134416507009,
+          "p95": 47.799999999999955,
+          "min": 40.0,
+          "max": 56.0
+        }
+      }
+    },
+    "between_run_means": {
+      "effective_fps": {
+        "n": 3,
+        "mean": 13.565760055368218,
+        "std": 1.459915584457793,
+        "p95": 14.907203113399207,
+        "min": 12.1492241106583,
+        "max": 15.065496884818215
+      },
+      "inference_mean_ms": {
+        "n": 3,
+        "mean": 13.436046739737812,
+        "std": 0.2390144515361419,
+        "p95": 13.634447869650078,
+        "min": 13.17920421681416,
+        "max": 13.651942836762688
+      },
+      "pipeline_mean_ms": {
+        "n": 3,
+        "mean": 18.01434526259419,
+        "std": 0.530486175837812,
+        "p95": 18.467436734361886,
+        "min": 17.455397344026547,
+        "max": 18.510841112482854
+      },
+      "system_cpu_percent": {
+        "n": 3,
+        "mean": 6.416271186440678,
+        "std": 0.33107192302150446,
+        "p95": 6.704677966101695,
+        "min": 6.0732203389830515,
+        "max": 6.733898305084746
+      },
+      "process_cpu_percent": {
+        "n": 3,
+        "mean": 88.61717514124292,
+        "std": 6.404965399414064,
+        "p95": 94.37135593220339,
+        "min": 82.19762711864405,
+        "max": 95.00745762711864
+      },
+      "system_ram_mb": {
+        "n": 3,
+        "mean": 4083.7804471683617,
+        "std": 3.2135267121857036,
+        "p95": 4086.0636552244073,
+        "min": 4080.1290135864406,
+        "max": 4086.1780280406783
+      },
+      "rss_mb": {
+        "n": 3,
+        "mean": 257.52517452655366,
+        "std": 0.3766147194466822,
+        "p95": 257.7783263023729,
+        "min": 257.0936597694915,
+        "max": 257.7876749016949
+      },
+      "temperature_c": {
+        "n": 3,
+        "mean": 44.70508474576271,
+        "std": 0.585460138425941,
+        "p95": 45.150169491525425,
+        "min": 44.05084745762712,
+        "max": 45.179661016949154
+      }
+    },
+    "protocol": {
+      "model_path": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/artifacts/openvino/qat_int8/model.xml",
+      "device": "CPU",
+      "imgsz": 640,
+      "batch": 1,
+      "seconds": 60.0,
+      "runs": 3,
+      "warmup_inferences": 30,
+      "warmup_camera_frames": 30,
+      "resource_interval_seconds": 0.2,
+      "confidence_threshold": 0.25,
+      "iou_threshold": 0.45,
+      "camera_device": "/dev/video0",
+      "capture_resolution": [
+        640,
+        480
+      ],
+      "capture_framerate": 30,
+      "publish_debug_image": false,
+      "publish_benchmark": false
+    }
+  },
+  "qat_stability": {
+    "folder": "experiments/hardware_op3/stability_qat/20261007_ros_qat",
+    "condition": "stability",
+    "runs": [
+      {
+        "run_id": "run_01",
+        "frames": 8260,
+        "duration_seconds": 600.0161936560007,
+        "effective_fps": 13.766295122253977,
+        "timings": {
+          "inference_ms": {
+            "n": 8260,
+            "mean": 13.250014361985473,
+            "std": 1.2086516759289352,
+            "p95": 14.472336649999999,
+            "min": 10.911657,
+            "max": 24.169227
+          },
+          "latency_ms": {
+            "n": 8260,
+            "mean": 17.6222128279661,
+            "std": 2.0601421421127757,
+            "p95": 19.63811995,
+            "min": 12.922644,
+            "max": 28.577239
+          },
+          "callback_end_to_end_ms": {
+            "n": 8260,
+            "mean": 17.80271121731235,
+            "std": 2.059902435975055,
+            "p95": 19.81772035,
+            "min": 13.105249,
+            "max": 29.011981
+          }
+        },
+        "resources": {
+          "system_cpu_percent": {
+            "n": 2957,
+            "mean": 6.366148123097733,
+            "std": 1.6554929100044886,
+            "p95": 9.0,
+            "min": 0.6,
+            "max": 16.9
+          },
+          "process_cpu_percent": {
+            "n": 2957,
+            "mean": 88.27984443692932,
+            "std": 27.283740137473607,
+            "p95": 128.9,
+            "min": 0.0,
+            "max": 163.6
+          },
+          "system_ram_mb": {
+            "n": 2957,
+            "mean": 4090.413327496787,
+            "std": 9.111367898645522,
+            "p95": 4108.812288,
+            "min": 4076.7488,
+            "max": 4165.255168
+          },
+          "rss_mb": {
+            "n": 2957,
+            "mean": 258.3647619506256,
+            "std": 0.05003891376332055,
+            "p95": 258.37568,
+            "min": 257.994752,
+            "max": 258.658304
+          },
+          "temperature_c": {
+            "n": 2957,
+            "mean": 46.8606695975651,
+            "std": 1.7313275892538387,
+            "p95": 50.0,
+            "min": 44.0,
+            "max": 59.0
+          }
+        },
+        "resource_samples": 2957,
+        "exceptions": 0,
+        "source_metadata": "experiments/hardware_op3/stability_qat/20261007_ros_qat/run_metadata/stability_run_01.json",
+        "git_commit_at_measurement": "01af3977129b153adb1c4570a6be2a4551588ee0",
+        "setup": {
+          "device": "CPU",
+          "imgsz": 640,
+          "batch": 1,
+          "input_topic": "/thesis/image_raw",
+          "warmup_inferences": 30,
+          "warmup_camera_frames": 30,
+          "publish_benchmark": false,
+          "benchmark_seconds_requested": 600.0,
+          "benchmark_seconds_measured": 600.0161936560007,
+          "resource_interval_seconds": 0.2,
+          "publish_debug_image": false,
+          "evidence_image_path": null
+        }
+      }
+    ],
+    "pooled": {
+      "frames": 8260,
+      "duration_seconds": 600.0161936560007,
+      "effective_fps": 13.766295122253977,
+      "exceptions": 0,
+      "resource_samples": 2957,
+      "timings": {
+        "inference_ms": {
+          "n": 8260,
+          "mean": 13.250014361985473,
+          "std": 1.2086516759289352,
+          "p95": 14.472336649999999,
+          "min": 10.911657,
+          "max": 24.169227
+        },
+        "latency_ms": {
+          "n": 8260,
+          "mean": 17.6222128279661,
+          "std": 2.0601421421127757,
+          "p95": 19.63811995,
+          "min": 12.922644,
+          "max": 28.577239
+        },
+        "callback_end_to_end_ms": {
+          "n": 8260,
+          "mean": 17.80271121731235,
+          "std": 2.059902435975055,
+          "p95": 19.81772035,
+          "min": 13.105249,
+          "max": 29.011981
+        }
+      },
+      "resources": {
+        "system_cpu_percent": {
+          "n": 2957,
+          "mean": 6.366148123097733,
+          "std": 1.6554929100044886,
+          "p95": 9.0,
+          "min": 0.6,
+          "max": 16.9
+        },
+        "process_cpu_percent": {
+          "n": 2957,
+          "mean": 88.27984443692932,
+          "std": 27.283740137473607,
+          "p95": 128.9,
+          "min": 0.0,
+          "max": 163.6
+        },
+        "system_ram_mb": {
+          "n": 2957,
+          "mean": 4090.413327496787,
+          "std": 9.111367898645522,
+          "p95": 4108.812288,
+          "min": 4076.7488,
+          "max": 4165.255168
+        },
+        "rss_mb": {
+          "n": 2957,
+          "mean": 258.3647619506256,
+          "std": 0.05003891376332055,
+          "p95": 258.37568,
+          "min": 257.994752,
+          "max": 258.658304
+        },
+        "temperature_c": {
+          "n": 2957,
+          "mean": 46.8606695975651,
+          "std": 1.7313275892538387,
+          "p95": 50.0,
+          "min": 44.0,
+          "max": 59.0
+        }
+      }
+    },
+    "between_run_means": {
+      "effective_fps": {
+        "n": 1,
+        "mean": 13.766295122253977,
+        "std": null,
+        "p95": 13.766295122253977,
+        "min": 13.766295122253977,
+        "max": 13.766295122253977
+      },
+      "inference_mean_ms": {
+        "n": 1,
+        "mean": 13.250014361985473,
+        "std": null,
+        "p95": 13.250014361985473,
+        "min": 13.250014361985473,
+        "max": 13.250014361985473
+      },
+      "pipeline_mean_ms": {
+        "n": 1,
+        "mean": 17.6222128279661,
+        "std": null,
+        "p95": 17.6222128279661,
+        "min": 17.6222128279661,
+        "max": 17.6222128279661
+      },
+      "system_cpu_percent": {
+        "n": 1,
+        "mean": 6.366148123097733,
+        "std": null,
+        "p95": 6.366148123097733,
+        "min": 6.366148123097733,
+        "max": 6.366148123097733
+      },
+      "process_cpu_percent": {
+        "n": 1,
+        "mean": 88.27984443692932,
+        "std": null,
+        "p95": 88.27984443692932,
+        "min": 88.27984443692932,
+        "max": 88.27984443692932
+      },
+      "system_ram_mb": {
+        "n": 1,
+        "mean": 4090.413327496787,
+        "std": null,
+        "p95": 4090.413327496787,
+        "min": 4090.413327496787,
+        "max": 4090.413327496787
+      },
+      "rss_mb": {
+        "n": 1,
+        "mean": 258.3647619506256,
+        "std": null,
+        "p95": 258.3647619506256,
+        "min": 258.3647619506256,
+        "max": 258.3647619506256
+      },
+      "temperature_c": {
+        "n": 1,
+        "mean": 46.8606695975651,
+        "std": null,
+        "p95": 46.8606695975651,
+        "min": 46.8606695975651,
+        "max": 46.8606695975651
+      }
+    },
+    "protocol": {
+      "model_path": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/artifacts/openvino/qat_int8/model.xml",
+      "device": "CPU",
+      "imgsz": 640,
+      "batch": 1,
+      "seconds": 600.0,
+      "runs": 1,
+      "warmup_inferences": 30,
+      "warmup_camera_frames": 30,
+      "resource_interval_seconds": 0.2,
+      "confidence_threshold": 0.25,
+      "iou_threshold": 0.45,
+      "camera_device": "/dev/video0",
+      "capture_resolution": [
+        640,
+        480
+      ],
+      "capture_framerate": 30,
+      "publish_debug_image": false,
+      "publish_benchmark": false
+    }
+  },
+  "additional_stationary_ros_comparison": {
+    "fp32": {
+      "folder": "experiments/hardware_op3/operator_runs/20261019T094035Z_ros_fp32_vs_qat_diam_29153/fp32",
+      "condition": "diam",
+      "runs": [
+        {
+          "run_id": "run_01",
+          "frames": 1492,
+          "duration_seconds": 60.02479150200088,
+          "effective_fps": 24.856396210060392,
+          "timings": {
+            "inference_ms": {
+              "n": 1492,
+              "mean": 30.521660754691688,
+              "std": 6.090753941635116,
+              "p95": 47.80392295,
+              "min": 25.997787,
+              "max": 64.195646
+            },
+            "latency_ms": {
+              "n": 1492,
+              "mean": 34.036411959115284,
+              "std": 6.856940191969305,
+              "p95": 52.676254950000015,
+              "min": 29.198113,
+              "max": 71.542865
+            },
+            "callback_end_to_end_ms": {
+              "n": 1492,
+              "mean": 34.22764107774799,
+              "std": 6.857394155832525,
+              "p95": 52.85528195000001,
+              "min": 29.381865,
+              "max": 71.77651
+            }
+          },
+          "resources": {
+            "system_cpu_percent": {
+              "n": 297,
+              "mean": 45.96498316498317,
+              "std": 9.209028293539015,
+              "p95": 53.1,
+              "min": 15.6,
+              "max": 54.3
+            },
+            "process_cpu_percent": {
+              "n": 297,
+              "mean": 719.5181818181818,
+              "std": 145.6118723559565,
+              "p95": 829.4,
+              "min": 253.2,
+              "max": 853.7
+            },
+            "system_ram_mb": {
+              "n": 297,
+              "mean": 5642.339972740741,
+              "std": 11.788561992985708,
+              "p95": 5661.6968191999995,
+              "min": 5613.187072,
+              "max": 5679.661056
+            },
+            "rss_mb": {
+              "n": 297,
+              "mean": 271.41522014814814,
+              "std": 3.466533878265874,
+              "p95": 273.977344,
+              "min": 262.660096,
+              "max": 273.977344
+            },
+            "temperature_c": {
+              "n": 297,
+              "mean": 68.05387205387206,
+              "std": 4.345368008836896,
+              "p95": 73.0,
+              "min": 55.0,
+              "max": 75.0
+            }
+          },
+          "resource_samples": 297,
+          "exceptions": 0,
+          "source_metadata": "experiments/hardware_op3/operator_runs/20261019T094035Z_ros_fp32_vs_qat_diam_29153/fp32/run_metadata/diam_run_01.json",
+          "git_commit_at_measurement": "a1bab9a7dc00989f86566c2bef2f16bb4bc81388",
+          "setup": {
+            "device": "CPU",
+            "imgsz": 640,
+            "batch": 1,
+            "input_topic": "/thesis/image_raw",
+            "warmup_inferences": 30,
+            "warmup_camera_frames": 30,
+            "publish_benchmark": false,
+            "benchmark_seconds_requested": 60.0,
+            "benchmark_seconds_measured": 60.02479150200088,
+            "resource_interval_seconds": 0.2,
+            "publish_debug_image": false,
+            "evidence_image_path": null
+          }
+        },
+        {
+          "run_id": "run_02",
+          "frames": 1420,
+          "duration_seconds": 60.01967498900012,
+          "effective_fps": 23.658908520585044,
+          "timings": {
+            "inference_ms": {
+              "n": 1420,
+              "mean": 31.195804794366197,
+              "std": 6.643391003853651,
+              "p95": 51.85757785,
+              "min": 26.312604,
+              "max": 64.606793
+            },
+            "latency_ms": {
+              "n": 1420,
+              "mean": 34.915417588732396,
+              "std": 7.506973613439472,
+              "p95": 57.85591759999999,
+              "min": 29.629835,
+              "max": 73.0144
+            },
+            "callback_end_to_end_ms": {
+              "n": 1420,
+              "mean": 35.10777186971831,
+              "std": 7.50661449013102,
+              "p95": 58.033502349999985,
+              "min": 29.822077,
+              "max": 73.192178
+            }
+          },
+          "resources": {
+            "system_cpu_percent": {
+              "n": 296,
+              "mean": 44.660472972972975,
+              "std": 10.005332058759805,
+              "p95": 52.9,
+              "min": 13.7,
+              "max": 54.4
+            },
+            "process_cpu_percent": {
+              "n": 296,
+              "mean": 698.564864864865,
+              "std": 157.65275008319784,
+              "p95": 827.8249999999999,
+              "min": 203.0,
+              "max": 844.4
+            },
+            "system_ram_mb": {
+              "n": 296,
+              "mean": 5566.328887351351,
+              "std": 53.207596792464926,
+              "p95": 5660.205056,
+              "min": 5502.836736,
+              "max": 5684.965376
+            },
+            "rss_mb": {
+              "n": 296,
+              "mean": 270.89408000000003,
+              "std": 3.834508078864213,
+              "p95": 273.145856,
+              "min": 262.4512,
+              "max": 273.158144
+            },
+            "temperature_c": {
+              "n": 296,
+              "mean": 71.68243243243244,
+              "std": 2.1614093398526335,
+              "p95": 75.0,
+              "min": 64.0,
+              "max": 76.0
+            }
+          },
+          "resource_samples": 296,
+          "exceptions": 0,
+          "source_metadata": "experiments/hardware_op3/operator_runs/20261019T094035Z_ros_fp32_vs_qat_diam_29153/fp32/run_metadata/diam_run_02.json",
+          "git_commit_at_measurement": "a1bab9a7dc00989f86566c2bef2f16bb4bc81388",
+          "setup": {
+            "device": "CPU",
+            "imgsz": 640,
+            "batch": 1,
+            "input_topic": "/thesis/image_raw",
+            "warmup_inferences": 30,
+            "warmup_camera_frames": 30,
+            "publish_benchmark": false,
+            "benchmark_seconds_requested": 60.0,
+            "benchmark_seconds_measured": 60.01967498900012,
+            "resource_interval_seconds": 0.2,
+            "publish_debug_image": false,
+            "evidence_image_path": null
+          }
+        },
+        {
+          "run_id": "run_03",
+          "frames": 1496,
+          "duration_seconds": 60.03321698900072,
+          "effective_fps": 24.919537466634463,
+          "timings": {
+            "inference_ms": {
+              "n": 1496,
+              "mean": 30.717934461229945,
+              "std": 6.097446354439937,
+              "p95": 48.42155925,
+              "min": 25.927984,
+              "max": 64.027368
+            },
+            "latency_ms": {
+              "n": 1496,
+              "mean": 34.236578050133694,
+              "std": 6.775136005534006,
+              "p95": 54.015947000000004,
+              "min": 28.674382,
+              "max": 72.191196
+            },
+            "callback_end_to_end_ms": {
+              "n": 1496,
+              "mean": 34.428024370989306,
+              "std": 6.77483443104352,
+              "p95": 54.218329749999995,
+              "min": 28.865999,
+              "max": 72.378006
+            }
+          },
+          "resources": {
+            "system_cpu_percent": {
+              "n": 297,
+              "mean": 46.28181818181818,
+              "std": 9.6914077677541,
+              "p95": 53.2,
+              "min": 0.9,
+              "max": 54.7
+            },
+            "process_cpu_percent": {
+              "n": 297,
+              "mean": 722.4639730639731,
+              "std": 154.80895096546033,
+              "p95": 825.0,
+              "min": 0.0,
+              "max": 867.6
+            },
+            "system_ram_mb": {
+              "n": 297,
+              "mean": 5537.771892363637,
+              "std": 10.50328572833886,
+              "p95": 5556.1854975999995,
+              "min": 5510.094848,
+              "max": 5567.049728
+            },
+            "rss_mb": {
+              "n": 297,
+              "mean": 272.0711042154882,
+              "std": 3.423546676874518,
+              "p95": 274.0224,
+              "min": 262.71744,
+              "max": 274.0224
+            },
+            "temperature_c": {
+              "n": 297,
+              "mean": 74.01683501683502,
+              "std": 2.48571311272433,
+              "p95": 77.0,
+              "min": 68.0,
+              "max": 79.0
+            }
+          },
+          "resource_samples": 297,
+          "exceptions": 0,
+          "source_metadata": "experiments/hardware_op3/operator_runs/20261019T094035Z_ros_fp32_vs_qat_diam_29153/fp32/run_metadata/diam_run_03.json",
+          "git_commit_at_measurement": "a1bab9a7dc00989f86566c2bef2f16bb4bc81388",
+          "setup": {
+            "device": "CPU",
+            "imgsz": 640,
+            "batch": 1,
+            "input_topic": "/thesis/image_raw",
+            "warmup_inferences": 30,
+            "warmup_camera_frames": 30,
+            "publish_benchmark": false,
+            "benchmark_seconds_requested": 60.0,
+            "benchmark_seconds_measured": 60.03321698900072,
+            "resource_interval_seconds": 0.2,
+            "publish_debug_image": false,
+            "evidence_image_path": null
+          }
+        }
+      ],
+      "pooled": {
+        "frames": 4408,
+        "duration_seconds": 180.07768348000172,
+        "effective_fps": 24.478324658643913,
+        "exceptions": 0,
+        "resource_samples": 890,
+        "timings": {
+          "inference_ms": {
+            "n": 4408,
+            "mean": 30.805442515426495,
+            "std": 6.281164402344662,
+            "p95": 49.33119029999999,
+            "min": 25.927984,
+            "max": 64.606793
+          },
+          "latency_ms": {
+            "n": 4408,
+            "mean": 34.38750916107078,
+            "std": 7.054336410407222,
+            "p95": 55.113355249999955,
+            "min": 28.674382,
+            "max": 73.0144
+          },
+          "callback_end_to_end_ms": {
+            "n": 4408,
+            "mean": 34.57917445598911,
+            "std": 7.054289972130764,
+            "p95": 55.306632899999954,
+            "min": 28.865999,
+            "max": 73.192178
+          }
+        },
+        "resources": {
+          "system_cpu_percent": {
+            "n": 890,
+            "mean": 45.636853932584266,
+            "std": 9.655082599977385,
+            "p95": 53.1,
+            "min": 0.9,
+            "max": 54.7
+          },
+          "process_cpu_percent": {
+            "n": 890,
+            "mean": 713.5324719101123,
+            "std": 152.97060383388163,
+            "p95": 827.955,
+            "min": 0.0,
+            "max": 867.6
+          },
+          "system_ram_mb": {
+            "n": 890,
+            "mean": 5582.164690552809,
+            "std": 54.534926610610995,
+            "p95": 5658.5361408,
+            "min": 5502.836736,
+            "max": 5684.965376
+          },
+          "rss_mb": {
+            "n": 890,
+            "mean": 271.46077080449436,
+            "std": 3.6075995808750454,
+            "p95": 274.0224,
+            "min": 262.4512,
+            "max": 274.0224
+          },
+          "temperature_c": {
+            "n": 890,
+            "mean": 71.25056179775281,
+            "std": 3.99086762884149,
+            "p95": 76.0,
+            "min": 55.0,
+            "max": 79.0
+          }
+        }
+      },
+      "between_run_means": {
+        "effective_fps": {
+          "n": 3,
+          "mean": 24.478280732426636,
+          "std": 0.7102991065206767,
+          "p95": 24.913223340977055,
+          "min": 23.658908520585044,
+          "max": 24.919537466634463
+        },
+        "inference_mean_ms": {
+          "n": 3,
+          "mean": 30.811800003429273,
+          "std": 0.34673563642413135,
+          "p95": 31.14801776105257,
+          "min": 30.521660754691688,
+          "max": 31.195804794366197
+        },
+        "pipeline_mean_ms": {
+          "n": 3,
+          "mean": 34.39613586599379,
+          "std": 0.46071330203954086,
+          "p95": 34.847533634872526,
+          "min": 34.036411959115284,
+          "max": 34.915417588732396
+        },
+        "system_cpu_percent": {
+          "n": 3,
+          "mean": 45.635758106591446,
+          "std": 0.859349711040914,
+          "p95": 46.25013468013468,
+          "min": 44.660472972972975,
+          "max": 46.28181818181818
+        },
+        "process_cpu_percent": {
+          "n": 3,
+          "mean": 713.5156732490065,
+          "std": 13.031286391620574,
+          "p95": 722.1693939393939,
+          "min": 698.564864864865,
+          "max": 722.4639730639731
+        },
+        "system_ram_mb": {
+          "n": 3,
+          "mean": 5582.146917485244,
+          "std": 54.048852128659426,
+          "p95": 5634.738864201802,
+          "min": 5537.771892363637,
+          "max": 5642.339972740741
+        },
+        "rss_mb": {
+          "n": 3,
+          "mean": 271.4601347878788,
+          "std": 0.5897961466540771,
+          "p95": 272.0055158087542,
+          "min": 270.89408000000003,
+          "max": 272.0711042154882
+        },
+        "temperature_c": {
+          "n": 3,
+          "mean": 71.2510465010465,
+          "std": 3.0047965306764595,
+          "p95": 73.78339475839476,
+          "min": 68.05387205387206,
+          "max": 74.01683501683502
+        }
+      },
+      "protocol": {
+        "model_path": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/artifacts/openvino/fp32/model.xml",
+        "device": "CPU",
+        "imgsz": 640,
+        "batch": 1,
+        "seconds": 60.0,
+        "runs": 3,
+        "warmup_inferences": 30,
+        "warmup_camera_frames": 30,
+        "resource_interval_seconds": 0.2,
+        "confidence_threshold": 0.25,
+        "iou_threshold": 0.45,
+        "camera_device": "/dev/video0",
+        "capture_resolution": [
+          640,
+          480
+        ],
+        "capture_framerate": 30,
+        "publish_debug_image": false,
+        "publish_benchmark": false
+      }
+    },
+    "qat_int8": {
+      "folder": "experiments/hardware_op3/operator_runs/20261019T094035Z_ros_fp32_vs_qat_diam_29153/qat_int8",
+      "condition": "diam",
+      "runs": [
+        {
+          "run_id": "run_01",
+          "frames": 828,
+          "duration_seconds": 60.037871738999456,
+          "effective_fps": 13.791294994591672,
+          "timings": {
+            "inference_ms": {
+              "n": 828,
+              "mean": 13.376629467391304,
+              "std": 1.1398263094111438,
+              "p95": 14.4790066,
+              "min": 11.055606,
+              "max": 16.340693
+            },
+            "latency_ms": {
+              "n": 828,
+              "mean": 17.977837426328502,
+              "std": 1.9837359590895793,
+              "p95": 19.8268577,
+              "min": 13.293883,
+              "max": 22.942311
+            },
+            "callback_end_to_end_ms": {
+              "n": 828,
+              "mean": 18.15951531763285,
+              "std": 1.9834449026025152,
+              "p95": 20.00935875,
+              "min": 13.47279,
+              "max": 23.120551
+            }
+          },
+          "resources": {
+            "system_cpu_percent": {
+              "n": 295,
+              "mean": 6.486440677966102,
+              "std": 1.4094503231067286,
+              "p95": 8.4,
+              "min": 2.1,
+              "max": 10.4
+            },
+            "process_cpu_percent": {
+              "n": 295,
+              "mean": 90.33288135593219,
+              "std": 24.516475860292903,
+              "p95": 123.27000000000001,
+              "min": 4.9,
+              "max": 148.6
+            },
+            "system_ram_mb": {
+              "n": 295,
+              "mean": 5508.910270915255,
+              "std": 13.483688774365016,
+              "p95": 5542.209536,
+              "min": 5497.929728,
+              "max": 5550.743552
+            },
+            "rss_mb": {
+              "n": 295,
+              "mean": 257.6620734915254,
+              "std": 0.024027315198441198,
+              "p95": 257.687552,
+              "min": 257.531904,
+              "max": 257.691648
+            },
+            "temperature_c": {
+              "n": 295,
+              "mean": 61.728813559322035,
+              "std": 2.728225535758578,
+              "p95": 65.0,
+              "min": 55.0,
+              "max": 79.0
+            }
+          },
+          "resource_samples": 295,
+          "exceptions": 0,
+          "source_metadata": "experiments/hardware_op3/operator_runs/20261019T094035Z_ros_fp32_vs_qat_diam_29153/qat_int8/run_metadata/diam_run_01.json",
+          "git_commit_at_measurement": "a1bab9a7dc00989f86566c2bef2f16bb4bc81388",
+          "setup": {
+            "device": "CPU",
+            "imgsz": 640,
+            "batch": 1,
+            "input_topic": "/thesis/image_raw",
+            "warmup_inferences": 30,
+            "warmup_camera_frames": 30,
+            "publish_benchmark": false,
+            "benchmark_seconds_requested": 60.0,
+            "benchmark_seconds_measured": 60.037871738999456,
+            "resource_interval_seconds": 0.2,
+            "publish_debug_image": false,
+            "evidence_image_path": null
+          }
+        },
+        {
+          "run_id": "run_02",
+          "frames": 793,
+          "duration_seconds": 60.01511997399939,
+          "effective_fps": 13.213336911490885,
+          "timings": {
+            "inference_ms": {
+              "n": 793,
+              "mean": 13.47640937957125,
+              "std": 1.1815110813314165,
+              "p95": 14.813954399999998,
+              "min": 11.125466,
+              "max": 21.006013
+            },
+            "latency_ms": {
+              "n": 793,
+              "mean": 18.25760984741488,
+              "std": 1.983440806862358,
+              "p95": 20.417064599999996,
+              "min": 13.217427,
+              "max": 24.711004
+            },
+            "callback_end_to_end_ms": {
+              "n": 793,
+              "mean": 18.439090933165193,
+              "std": 1.9832846921300884,
+              "p95": 20.598862999999998,
+              "min": 13.40269,
+              "max": 24.888374
+            }
+          },
+          "resources": {
+            "system_cpu_percent": {
+              "n": 295,
+              "mean": 6.278983050847458,
+              "std": 1.5226070719756022,
+              "p95": 8.030000000000001,
+              "min": 1.5,
+              "max": 9.9
+            },
+            "process_cpu_percent": {
+              "n": 295,
+              "mean": 87.70847457627119,
+              "std": 25.879464767354822,
+              "p95": 113.86,
+              "min": 0.0,
+              "max": 153.5
+            },
+            "system_ram_mb": {
+              "n": 295,
+              "mean": 5497.006142481356,
+              "std": 9.406903285748173,
+              "p95": 5521.035264,
+              "min": 5489.082368,
+              "max": 5524.29568
+            },
+            "rss_mb": {
+              "n": 295,
+              "mean": 257.94844637288134,
+              "std": 0.016489097256575633,
+              "p95": 257.961984,
+              "min": 257.835008,
+              "max": 257.961984
+            },
+            "temperature_c": {
+              "n": 295,
+              "mean": 55.047457627118646,
+              "std": 1.4654009611501995,
+              "p95": 57.0,
+              "min": 53.0,
+              "max": 58.0
+            }
+          },
+          "resource_samples": 295,
+          "exceptions": 0,
+          "source_metadata": "experiments/hardware_op3/operator_runs/20261019T094035Z_ros_fp32_vs_qat_diam_29153/qat_int8/run_metadata/diam_run_02.json",
+          "git_commit_at_measurement": "a1bab9a7dc00989f86566c2bef2f16bb4bc81388",
+          "setup": {
+            "device": "CPU",
+            "imgsz": 640,
+            "batch": 1,
+            "input_topic": "/thesis/image_raw",
+            "warmup_inferences": 30,
+            "warmup_camera_frames": 30,
+            "publish_benchmark": false,
+            "benchmark_seconds_requested": 60.0,
+            "benchmark_seconds_measured": 60.01511997399939,
+            "resource_interval_seconds": 0.2,
+            "publish_debug_image": false,
+            "evidence_image_path": null
+          }
+        },
+        {
+          "run_id": "run_03",
+          "frames": 850,
+          "duration_seconds": 60.004603604000295,
+          "effective_fps": 14.165579788003692,
+          "timings": {
+            "inference_ms": {
+              "n": 850,
+              "mean": 13.344802263529411,
+              "std": 1.1710899109597837,
+              "p95": 14.548917099999999,
+              "min": 10.944982,
+              "max": 17.157964
+            },
+            "latency_ms": {
+              "n": 850,
+              "mean": 17.91853634470588,
+              "std": 2.077284892844579,
+              "p95": 19.851004,
+              "min": 13.132583,
+              "max": 23.012807
+            },
+            "callback_end_to_end_ms": {
+              "n": 850,
+              "mean": 18.098458194117647,
+              "std": 2.076747805087559,
+              "p95": 20.02975805,
+              "min": 13.307336,
+              "max": 23.195214
+            }
+          },
+          "resources": {
+            "system_cpu_percent": {
+              "n": 295,
+              "mean": 6.557627118644068,
+              "std": 1.3925461667294774,
+              "p95": 8.4,
+              "min": 1.5,
+              "max": 10.7
+            },
+            "process_cpu_percent": {
+              "n": 295,
+              "mean": 92.34881355932204,
+              "std": 23.936733297768995,
+              "p95": 122.70000000000002,
+              "min": 0.0,
+              "max": 153.7
+            },
+            "system_ram_mb": {
+              "n": 295,
+              "mean": 5490.750259200001,
+              "std": 6.637640482401499,
+              "p95": 5508.333568,
+              "min": 5485.719552,
+              "max": 5512.380416
+            },
+            "rss_mb": {
+              "n": 295,
+              "mean": 257.27063473898306,
+              "std": 0.02558346661864172,
+              "p95": 257.294336,
+              "min": 257.142784,
+              "max": 257.294336
+            },
+            "temperature_c": {
+              "n": 295,
+              "mean": 51.09152542372881,
+              "std": 1.2461216207654817,
+              "p95": 53.0,
+              "min": 48.0,
+              "max": 55.0
+            }
+          },
+          "resource_samples": 295,
+          "exceptions": 0,
+          "source_metadata": "experiments/hardware_op3/operator_runs/20261019T094035Z_ros_fp32_vs_qat_diam_29153/qat_int8/run_metadata/diam_run_03.json",
+          "git_commit_at_measurement": "a1bab9a7dc00989f86566c2bef2f16bb4bc81388",
+          "setup": {
+            "device": "CPU",
+            "imgsz": 640,
+            "batch": 1,
+            "input_topic": "/thesis/image_raw",
+            "warmup_inferences": 30,
+            "warmup_camera_frames": 30,
+            "publish_benchmark": false,
+            "benchmark_seconds_requested": 60.0,
+            "benchmark_seconds_measured": 60.004603604000295,
+            "resource_interval_seconds": 0.2,
+            "publish_debug_image": false,
+            "evidence_image_path": null
+          }
+        }
+      ],
+      "pooled": {
+        "frames": 2471,
+        "duration_seconds": 180.05759531699914,
+        "effective_fps": 13.723386651086273,
+        "exceptions": 0,
+        "resource_samples": 885,
+        "timings": {
+          "inference_ms": {
+            "n": 2471,
+            "mean": 13.397702857547552,
+            "std": 1.16495207275637,
+            "p95": 14.554585,
+            "min": 10.944982,
+            "max": 21.006013
+          },
+          "latency_ms": {
+            "n": 2471,
+            "mean": 18.0472237519223,
+            "std": 2.020829614764896,
+            "p95": 19.943042499999997,
+            "min": 13.132583,
+            "max": 24.711004
+          },
+          "callback_end_to_end_ms": {
+            "n": 2471,
+            "mean": 18.22823442250101,
+            "std": 2.020527123907565,
+            "p95": 20.120234500000002,
+            "min": 13.307336,
+            "max": 24.888374
+          }
+        },
+        "resources": {
+          "system_cpu_percent": {
+            "n": 885,
+            "mean": 6.441016949152543,
+            "std": 1.4459027322924813,
+            "p95": 8.379999999999995,
+            "min": 1.5,
+            "max": 10.7
+          },
+          "process_cpu_percent": {
+            "n": 885,
+            "mean": 90.13005649717515,
+            "std": 24.835729546378875,
+            "p95": 118.89999999999998,
+            "min": 0.0,
+            "max": 153.7
+          },
+          "system_ram_mb": {
+            "n": 885,
+            "mean": 5498.888890865536,
+            "std": 12.702354333080127,
+            "p95": 5523.562496,
+            "min": 5485.719552,
+            "max": 5550.743552
+          },
+          "rss_mb": {
+            "n": 885,
+            "mean": 257.62705153446325,
+            "std": 0.2788765346140135,
+            "p95": 257.957888,
+            "min": 257.142784,
+            "max": 257.961984
+          },
+          "temperature_c": {
+            "n": 885,
+            "mean": 55.95593220338983,
+            "std": 4.795746767107491,
+            "p95": 64.0,
+            "min": 48.0,
+            "max": 79.0
+          }
+        }
+      },
+      "between_run_means": {
+        "effective_fps": {
+          "n": 3,
+          "mean": 13.72340389802875,
+          "std": 0.4797379750569402,
+          "p95": 14.12815130866249,
+          "min": 13.213336911490885,
+          "max": 14.165579788003692
+        },
+        "inference_mean_ms": {
+          "n": 3,
+          "mean": 13.399280370163988,
+          "std": 0.06866517163399262,
+          "p95": 13.466431388353255,
+          "min": 13.344802263529411,
+          "max": 13.47640937957125
+        },
+        "pipeline_mean_ms": {
+          "n": 3,
+          "mean": 18.05132787281642,
+          "std": 0.1810893270007446,
+          "p95": 18.229632605306243,
+          "min": 17.91853634470588,
+          "max": 18.25760984741488
+        },
+        "system_cpu_percent": {
+          "n": 3,
+          "mean": 6.441016949152542,
+          "std": 0.14476918002135772,
+          "p95": 6.550508474576271,
+          "min": 6.278983050847458,
+          "max": 6.557627118644068
+        },
+        "process_cpu_percent": {
+          "n": 3,
+          "mean": 90.13005649717513,
+          "std": 2.3268089547495556,
+          "p95": 92.14722033898305,
+          "min": 87.70847457627119,
+          "max": 92.34881355932204
+        },
+        "system_ram_mb": {
+          "n": 3,
+          "mean": 5498.888890865538,
+          "std": 9.225240510856224,
+          "p95": 5507.719858071865,
+          "min": 5490.750259200001,
+          "max": 5508.910270915255
+        },
+        "rss_mb": {
+          "n": 3,
+          "mean": 257.6270515344633,
+          "std": 0.3402602766549574,
+          "p95": 257.91980908474574,
+          "min": 257.27063473898306,
+          "max": 257.94844637288134
+        },
+        "temperature_c": {
+          "n": 3,
+          "mean": 55.95593220338983,
+          "std": 5.3765201814655565,
+          "p95": 61.06067796610169,
+          "min": 51.09152542372881,
+          "max": 61.728813559322035
+        }
+      },
+      "protocol": {
+        "model_path": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/artifacts/openvino/qat_int8/model.xml",
+        "device": "CPU",
+        "imgsz": 640,
+        "batch": 1,
+        "seconds": 60.0,
+        "runs": 3,
+        "warmup_inferences": 30,
+        "warmup_camera_frames": 30,
+        "resource_interval_seconds": 0.2,
+        "confidence_threshold": 0.25,
+        "iou_threshold": 0.45,
+        "camera_device": "/dev/video0",
+        "capture_resolution": [
+          640,
+          480
+        ],
+        "capture_framerate": 30,
+        "publish_debug_image": false,
+        "publish_benchmark": false
+      }
+    }
+  },
+  "walking_final": {
+    "status": "BELUM TERUKUR",
+    "valid_runs": 0,
+    "required_runs": 3,
+    "measurements": null
+  },
+  "excluded_incomplete_walking": [
+    {
+      "source": "experiments/hardware_op3/final_qat/run_metadata/berjalan_run_01.json",
+      "completed": false,
+      "duration_seconds": 12.523421550999956,
+      "frames": 171,
+      "final_eligible": false,
+      "reason": "Incomplete measurement"
+    },
+    {
+      "source": "experiments/hardware_op3/operator_runs/20261019T092114_qat_int8_ros_berjalan_27433/run_metadata/berjalan_run_01.json",
+      "completed": false,
+      "duration_seconds": 16.699067658000786,
+      "frames": 216,
+      "final_eligible": false,
+      "reason": "Incomplete measurement"
+    }
+  ],
+  "old_walking_technical_candidates_unverified": [
+    {
+      "source": "experiments/hardware_op3/operator_runs/20261019T092437_qat_int8_ros_berjalan_27824/run_metadata/berjalan_run_01.json",
+      "run_id": "run_01",
+      "completed": true,
+      "frames": 836,
+      "duration_seconds": 60.03569484500076,
+      "final_eligible": false,
+      "reason": "No per-run physical walking attestation available; not a substitute for the newly requested run"
+    },
+    {
+      "source": "experiments/hardware_op3/operator_runs/20261019T092437_qat_int8_ros_berjalan_27824/run_metadata/berjalan_run_02.json",
+      "run_id": "run_02",
+      "completed": true,
+      "frames": 881,
+      "duration_seconds": 60.00208960599957,
+      "final_eligible": false,
+      "reason": "No per-run physical walking attestation available; not a substitute for the newly requested run"
+    },
+    {
+      "source": "experiments/hardware_op3/operator_runs/20261019T092437_qat_int8_ros_berjalan_27824/run_metadata/berjalan_run_03.json",
+      "run_id": "run_03",
+      "completed": true,
+      "frames": 1181,
+      "duration_seconds": 60.02040846099953,
+      "final_eligible": false,
+      "reason": "No per-run physical walking attestation available; not a substitute for the newly requested run"
+    }
+  ]
+}

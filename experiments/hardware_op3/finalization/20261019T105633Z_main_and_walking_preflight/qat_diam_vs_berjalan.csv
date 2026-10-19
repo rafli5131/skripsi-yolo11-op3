@@ -1,0 +1,3 @@
+model,condition,status,runs,frames,actual_seconds,latency_mean_ms,latency_p95_ms,inference_mean_ms,effective_fps,system_cpu_mean_percent,process_cpu_mean_percent,system_ram_mean_mb,rss_mean_mb,temperature_max_c,exceptions
+qat_int8,diam,measured_reference,3,2442,180.01193575600064,17.976335549140046,20.644402199999995,13.418982150286652,13.565767123964704,6.416271186440677,88.61717514124294,4083.7804471683617,257.5251745265537,56.0,0
+qat_int8,berjalan,BELUM TERUKUR; safety/operator confirmation pending,,,,,,,,,,,,,

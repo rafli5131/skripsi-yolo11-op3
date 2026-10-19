@@ -1,0 +1,83 @@
+{
+  "timestamp_utc": "2026-10-19T10:56:33.169604+00:00",
+  "main_after_fast_forward": "53d971fe661525db53b441654187b3b3879736a9",
+  "main_push_verified": true,
+  "backup_root": "/tmp/op3-main-finalization-epjotpmi",
+  "preserved_experiment_files": 461,
+  "preserved_untracked_files": 105,
+  "preserved_artifact_files": 60,
+  "serial_devices": {
+    "usb-FTDI_USB__-__Serial_Converter_FT7W960L-if00-port0": "/dev/ttyUSB0"
+  },
+  "actuator_communication_health": "Not verified; no servo traffic sent",
+  "camera": {
+    "pids": [
+      {
+        "pid": "4074",
+        "args": [
+          "/usr/bin/python3",
+          "/opt/ros/jazzy/bin/ros2",
+          "run",
+          "usb_cam",
+          "usb_cam_node_exe",
+          "--ros-args",
+          "-r",
+          "image_raw:=/thesis/image_raw",
+          "-p",
+          "video_device:=/dev/video0",
+          "-p",
+          "image_width:=640",
+          "-p",
+          "image_height:=480",
+          "-p",
+          "framerate:=30.0",
+          "-p",
+          "io_method:=mmap",
+          "-p",
+          "pixel_format:=yuyv2rgb",
+          "-p",
+          "camera_name:=thesis_camera",
+          "-p",
+          "frame_id:=camera"
+        ]
+      },
+      {
+        "pid": "4095",
+        "args": [
+          "/home/humanoid/ros2_jazzy/install/usb_cam/lib/usb_cam/usb_cam_node_exe",
+          "--ros-args",
+          "-r",
+          "image_raw:=/thesis/image_raw",
+          "-p",
+          "video_device:=/dev/video0",
+          "-p",
+          "image_width:=640",
+          "-p",
+          "image_height:=480",
+          "-p",
+          "framerate:=30.0",
+          "-p",
+          "io_method:=mmap",
+          "-p",
+          "pixel_format:=yuyv2rgb",
+          "-p",
+          "camera_name:=thesis_camera",
+          "-p",
+          "frame_id:=camera"
+        ]
+      }
+    ]
+  },
+  "status_snapshots": {
+    "0": "safety_domain_0.json",
+    "73": "safety_domain_73.json"
+  },
+  "walking_status": "NOT_RUN_SAFETY_UNVERIFIED",
+  "blockers": [
+    "Operator physical safety and per-run actual walking confirmation not yet received.",
+    "No live manager/motion gateway/fall detector status observed on ROS domains 0 and 73.",
+    "Effective stop via the active controller has not been verified by operator.",
+    "/dev/video0 is occupied by an existing yuyv2rgb camera process, while the reference camera log records yuyv."
+  ],
+  "actuator_commands_sent": false
+}

@@ -1,0 +1,209 @@
+{
+  "all_six_runs_verified": true,
+  "csv_row_counts_and_latency_statistics_match_json": true,
+  "models_unchanged_since_session_start": true,
+  "aggregation": "Arithmetic mean and sample standard deviation of three per-run values; P95 shown separately per run.",
+  "post_session_relevant_processes": [],
+  "models": {
+    "fp32": {
+      "runs": [
+        {
+          "model": "fp32",
+          "run": 1,
+          "seconds": 60.02479150200088,
+          "frames": 1492,
+          "fps": 24.856396210060392,
+          "inference_mean_ms": 30.521660754691688,
+          "inference_p95_ms": 47.80392295,
+          "pipeline_mean_ms": 34.036411959115284,
+          "pipeline_p95_ms": 52.676254950000015,
+          "callback_mean_ms": 34.22764107774799,
+          "callback_p95_ms": 52.85528195000001,
+          "system_cpu_percent": 45.96498316498317,
+          "process_cpu_percent": 719.5181818181818,
+          "rss_mib": 258.841724537037,
+          "system_ram_used_mib": 5380.954716435185,
+          "resource_samples": 297,
+          "max_sampled_temperature_c": 75.0
+        },
+        {
+          "model": "fp32",
+          "run": 2,
+          "seconds": 60.01967498900012,
+          "frames": 1420,
+          "fps": 23.658908520585044,
+          "inference_mean_ms": 31.195804794366197,
+          "inference_p95_ms": 51.85757785,
+          "pipeline_mean_ms": 34.915417588732396,
+          "pipeline_p95_ms": 57.85591759999999,
+          "callback_mean_ms": 35.10777186971831,
+          "callback_p95_ms": 58.033502349999985,
+          "system_cpu_percent": 44.660472972972975,
+          "process_cpu_percent": 698.564864864865,
+          "rss_mib": 258.3447265625,
+          "system_ram_used_mib": 5308.4648965371625,
+          "resource_samples": 296,
+          "max_sampled_temperature_c": 76.0
+        },
+        {
+          "model": "fp32",
+          "run": 3,
+          "seconds": 60.03321698900072,
+          "frames": 1496,
+          "fps": 24.919537466634463,
+          "inference_mean_ms": 30.717934461229945,
+          "inference_p95_ms": 48.42155925,
+          "pipeline_mean_ms": 34.236578050133694,
+          "pipeline_p95_ms": 54.015947000000004,
+          "callback_mean_ms": 34.428024370989306,
+          "callback_p95_ms": 54.218329749999995,
+          "system_cpu_percent": 46.28181818181818,
+          "process_cpu_percent": 722.4639730639731,
+          "rss_mib": 259.4672243265993,
+          "system_ram_used_mib": 5281.230823863636,
+          "resource_samples": 297,
+          "max_sampled_temperature_c": 79.0
+        }
+      ],
+      "aggregate": {
+        "fps": {
+          "mean_of_runs": 24.478280732426633,
+          "sample_std_between_runs": 0.7102991065206767
+        },
+        "inference_mean_ms": {
+          "mean_of_runs": 30.811800003429276,
+          "sample_std_between_runs": 0.34673563642413135
+        },
+        "pipeline_mean_ms": {
+          "mean_of_runs": 34.39613586599379,
+          "sample_std_between_runs": 0.46071330203954086
+        },
+        "callback_mean_ms": {
+          "mean_of_runs": 34.587812439485205,
+          "sample_std_between_runs": 0.4613097905624964
+        },
+        "system_cpu_percent": {
+          "mean_of_runs": 45.63575810659144,
+          "sample_std_between_runs": 0.859349711040914
+        },
+        "process_cpu_percent": {
+          "mean_of_runs": 713.5156732490066,
+          "sample_std_between_runs": 13.031286391620574
+        },
+        "rss_mib": {
+          "mean_of_runs": 258.88455847537875,
+          "sample_std_between_runs": 0.5624734369793702
+        },
+        "system_ram_used_mib": {
+          "mean_of_runs": 5323.550145611995,
+          "sample_std_between_runs": 51.54500210634162
+        },
+        "total_frames": 4408,
+        "total_seconds": 180.07768348000172,
+        "max_sampled_temperature_c": 79.0,
+        "model_xml_bin_bytes": 10756936,
+        "model_xml_bin_mib": 10.258613586425781
+      }
+    },
+    "qat_int8": {
+      "runs": [
+        {
+          "model": "qat_int8",
+          "run": 1,
+          "seconds": 60.037871738999456,
+          "frames": 828,
+          "fps": 13.791294994591672,
+          "inference_mean_ms": 13.376629467391304,
+          "inference_p95_ms": 14.4790066,
+          "pipeline_mean_ms": 17.977837426328502,
+          "pipeline_p95_ms": 19.8268577,
+          "callback_mean_ms": 18.15951531763285,
+          "callback_p95_ms": 20.00935875,
+          "system_cpu_percent": 6.486440677966102,
+          "process_cpu_percent": 90.33288135593219,
+          "rss_mib": 245.72570180084745,
+          "system_ram_used_mib": 5253.706236758475,
+          "resource_samples": 295,
+          "max_sampled_temperature_c": 79.0
+        },
+        {
+          "model": "qat_int8",
+          "run": 2,
+          "seconds": 60.01511997399939,
+          "frames": 793,
+          "fps": 13.213336911490885,
+          "inference_mean_ms": 13.47640937957125,
+          "inference_p95_ms": 14.813954399999998,
+          "pipeline_mean_ms": 18.25760984741488,
+          "pipeline_p95_ms": 20.417064599999996,
+          "callback_mean_ms": 18.439090933165193,
+          "callback_p95_ms": 20.598862999999998,
+          "system_cpu_percent": 6.278983050847458,
+          "process_cpu_percent": 87.70847457627119,
+          "rss_mib": 245.99880826271186,
+          "system_ram_used_mib": 5242.353575211864,
+          "resource_samples": 295,
+          "max_sampled_temperature_c": 58.0
+        },
+        {
+          "model": "qat_int8",
+          "run": 3,
+          "seconds": 60.004603604000295,
+          "frames": 850,
+          "fps": 14.165579788003692,
+          "inference_mean_ms": 13.344802263529411,
+          "inference_p95_ms": 14.548917099999999,
+          "pipeline_mean_ms": 17.91853634470588,
+          "pipeline_p95_ms": 19.851004,
+          "callback_mean_ms": 18.098458194117647,
+          "callback_p95_ms": 20.02975805,
+          "system_cpu_percent": 6.557627118644068,
+          "process_cpu_percent": 92.34881355932204,
+          "rss_mib": 245.3523967161017,
+          "system_ram_used_mib": 5236.3875,
+          "resource_samples": 295,
+          "max_sampled_temperature_c": 55.0
+        }
+      ],
+      "aggregate": {
+        "fps": {
+          "mean_of_runs": 13.72340389802875,
+          "sample_std_between_runs": 0.47973797505694027
+        },
+        "inference_mean_ms": {
+          "mean_of_runs": 13.399280370163988,
+          "sample_std_between_runs": 0.06866517163399262
+        },
+        "pipeline_mean_ms": {
+          "mean_of_runs": 18.051327872816422,
+          "sample_std_between_runs": 0.1810893270007446
+        },
+        "callback_mean_ms": {
+          "mean_of_runs": 18.232354814971895,
+          "sample_std_between_runs": 0.1816228510050766
+        },
+        "system_cpu_percent": {
+          "mean_of_runs": 6.441016949152543,
+          "sample_std_between_runs": 0.14476918002135772
+        },
+        "process_cpu_percent": {
+          "mean_of_runs": 90.13005649717513,
+          "sample_std_between_runs": 2.3268089547495556
+        },
+        "rss_mib": {
+          "mean_of_runs": 245.69230225988701,
+          "sample_std_between_runs": 0.32449748673912515
+        },
+        "system_ram_used_mib": {
+          "mean_of_runs": 5244.149103990113,
+          "sample_std_between_runs": 8.797874937874422
+        },
+        "total_frames": 2471,
+        "total_seconds": 180.05759531699914,
+        "max_sampled_temperature_c": 79.0,
+        "model_xml_bin_bytes": 3407480,
+        "model_xml_bin_mib": 3.2496261596679688
+      }
+    }
+  }
+}

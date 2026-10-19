@@ -1,0 +1,107 @@
+{
+  "completed": true,
+  "models_unchanged": true,
+  "runs": {
+    "fp32": [
+      {
+        "model": "fp32",
+        "run": 1,
+        "completed": true,
+        "measured_seconds": 60.02479150200088,
+        "frames_processed": 1492,
+        "effective_fps": 24.856396210060392,
+        "inference_mean_ms": 30.521660754691688,
+        "inference_p95_ms": 47.80392295,
+        "pipeline_mean_ms": 34.036411959115284,
+        "pipeline_p95_ms": 52.676254950000015,
+        "process_cpu_mean_percent": 719.5181818181818,
+        "system_cpu_mean_percent": 45.96498316498317,
+        "rss_mean_mib": 258.841724537037,
+        "report_path": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/experiments/hardware_op3/operator_runs/20261019T094035Z_ros_fp32_vs_qat_diam_29153/fp32/run_metadata/diam_run_01.json"
+      },
+      {
+        "model": "fp32",
+        "run": 2,
+        "completed": true,
+        "measured_seconds": 60.01967498900012,
+        "frames_processed": 1420,
+        "effective_fps": 23.658908520585044,
+        "inference_mean_ms": 31.195804794366197,
+        "inference_p95_ms": 51.85757785,
+        "pipeline_mean_ms": 34.915417588732396,
+        "pipeline_p95_ms": 57.85591759999999,
+        "process_cpu_mean_percent": 698.564864864865,
+        "system_cpu_mean_percent": 44.660472972972975,
+        "rss_mean_mib": 258.3447265625,
+        "report_path": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/experiments/hardware_op3/operator_runs/20261019T094035Z_ros_fp32_vs_qat_diam_29153/fp32/run_metadata/diam_run_02.json"
+      },
+      {
+        "model": "fp32",
+        "run": 3,
+        "completed": true,
+        "measured_seconds": 60.03321698900072,
+        "frames_processed": 1496,
+        "effective_fps": 24.919537466634463,
+        "inference_mean_ms": 30.717934461229945,
+        "inference_p95_ms": 48.42155925,
+        "pipeline_mean_ms": 34.236578050133694,
+        "pipeline_p95_ms": 54.015947000000004,
+        "process_cpu_mean_percent": 722.4639730639731,
+        "system_cpu_mean_percent": 46.28181818181818,
+        "rss_mean_mib": 259.4672243265993,
+        "report_path": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/experiments/hardware_op3/operator_runs/20261019T094035Z_ros_fp32_vs_qat_diam_29153/fp32/run_metadata/diam_run_03.json"
+      }
+    ],
+    "qat_int8": [
+      {
+        "model": "qat_int8",
+        "run": 1,
+        "completed": true,
+        "measured_seconds": 60.037871738999456,
+        "frames_processed": 828,
+        "effective_fps": 13.791294994591672,
+        "inference_mean_ms": 13.376629467391304,
+        "inference_p95_ms": 14.4790066,
+        "pipeline_mean_ms": 17.977837426328502,
+        "pipeline_p95_ms": 19.8268577,
+        "process_cpu_mean_percent": 90.33288135593219,
+        "system_cpu_mean_percent": 6.486440677966102,
+        "rss_mean_mib": 245.72570180084745,
+        "report_path": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/experiments/hardware_op3/operator_runs/20261019T094035Z_ros_fp32_vs_qat_diam_29153/qat_int8/run_metadata/diam_run_01.json"
+      },
+      {
+        "model": "qat_int8",
+        "run": 2,
+        "completed": true,
+        "measured_seconds": 60.01511997399939,
+        "frames_processed": 793,
+        "effective_fps": 13.213336911490885,
+        "inference_mean_ms": 13.47640937957125,
+        "inference_p95_ms": 14.813954399999998,
+        "pipeline_mean_ms": 18.25760984741488,
+        "pipeline_p95_ms": 20.417064599999996,
+        "process_cpu_mean_percent": 87.70847457627119,
+        "system_cpu_mean_percent": 6.278983050847458,
+        "rss_mean_mib": 245.99880826271186,
+        "report_path": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/experiments/hardware_op3/operator_runs/20261019T094035Z_ros_fp32_vs_qat_diam_29153/qat_int8/run_metadata/diam_run_02.json"
+      },
+      {
+        "model": "qat_int8",
+        "run": 3,
+        "completed": true,
+        "measured_seconds": 60.004603604000295,
+        "frames_processed": 850,
+        "effective_fps": 14.165579788003692,
+        "inference_mean_ms": 13.344802263529411,
+        "inference_p95_ms": 14.548917099999999,
+        "pipeline_mean_ms": 17.91853634470588,
+        "pipeline_p95_ms": 19.851004,
+        "process_cpu_mean_percent": 92.34881355932204,
+        "system_cpu_mean_percent": 6.557627118644068,
+        "rss_mean_mib": 245.3523967161017,
+        "report_path": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/experiments/hardware_op3/operator_runs/20261019T094035Z_ros_fp32_vs_qat_diam_29153/qat_int8/run_metadata/diam_run_03.json"
+      }
+    ]
+  },
+  "condition_verification": "Stationary condition requested by operator; no motion telemetry or independent physical verification recorded."
+}
