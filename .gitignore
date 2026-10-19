@@ -13,6 +13,15 @@ __pycache__/
 *.cache
 .ipynb_checkpoints/
 
+# Additional local Python/IDE artefacts
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+.venv-op3-vision/
+.DS_Store
+Thumbs.db
+
 # Build products for the isolated thesis ROS 2 workspace
 ros2_ws/build/
 ros2_ws/install/
