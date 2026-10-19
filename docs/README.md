@@ -62,3 +62,7 @@ Urutan tahap final ada di [timeline eksperimen](20_experiment_timeline.md). [Rin
 - [Analisis dukungan Ultralytics QAT](ultralytics_qat_support_analysis.md)
 
 - [29 Urutan script untuk laporan](29_urutan_skrip_laporan.md) — entry point bernomor dari dataset sampai OpenVINO.
+
+## Pemeliharaan repository
+
+- [31 Audit dan cleanup repository](31_repository_cleanup.md) — berkas mana yang dipertahankan, duplikasi yang dibersihkan, dan cara verifikasi.

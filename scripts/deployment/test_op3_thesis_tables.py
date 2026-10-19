@@ -25,6 +25,10 @@ class MeasurementTests(unittest.TestCase):
                       'setup':{'benchmark_seconds_measured':2}, 'results':{'frames_processed':2}}
             (root/'run_metadata/run.json').write_text(json.dumps(report))
             runs, samples = build(root)
+            self.assertFalse((root/'tables/table_3_2_resources_raw.md').exists())
+            self.assertFalse((root/'resources/resources_all.md').exists())
+            self.assertEqual((root/'tables/table_3_2_resources_raw.csv').read_bytes(),
+                             (root/'resources/resources_all.csv').read_bytes())
             self.assertEqual(runs[0]['fps'], 1)
             self.assertEqual(runs[0]['latency_mean_ms'], 15)
             self.assertIsNone(samples[1]['cpu_usage_percent_mean'])
