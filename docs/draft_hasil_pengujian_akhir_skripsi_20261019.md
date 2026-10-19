@@ -1,15 +1,15 @@
 # Draft hasil pengujian akhir skripsi
 
-Pembaruan: 2026-10-19T10:56:33.171701+00:00. Branch sumber akhir: `main`.
+Pembaruan: 2026-10-19T13:19:56.501888+00:00. Branch sumber akhir: `main`.
 
-Pembaruan ini menghitung ulang raw CSV dan JSON yang telah tersimpan. Training, seleksi checkpoint, export, dan FINAL TEST tidak diulang. Pengujian berjalan baru belum dijalankan karena kesiapan keselamatan/operator belum terverifikasi. Tahap eksperimen berjalan belum dinyatakan selesai.
+Pembaruan ini menghitung ulang raw CSV dan JSON yang telah tersimpan. Training, seleksi checkpoint, export, dan FINAL TEST tidak diulang. Pengujian QAT dengan robot bergerak didampingi operator telah dilakukan tiga run × 60 detik. Kondisi fisik dan keterbatasan bukti dijelaskan pada Bagian 5.
 
 ## Ringkasan status
 
 - Perubahan QoS commit `53d971f` telah di-fast-forward ke main dan push normal ke origin/main.
 - FINAL TEST native PyTorch FP32/QAT, benchmark standalone OpenVINO, ROS QAT diam 3 × 60 detik, dan stability QAT 600 detik tersedia.
 - Pengukuran tambahan ROS FP32/QAT 3 × 60 detik per model pada 19 Oktober tersedia dan dilaporkan terpisah dari referensi QAT diam 7 Oktober.
-- Pengujian berjalan baru 3 × 60 detik: **BELUM TERUKUR**. Tidak ada angka berjalan final yang diisi dari perkiraan atau dari run yang belum memiliki bukti kondisi fisik.
+- Pengujian QAT berjalan dengan pendampingan/penopangan operator 3 × 60 detik selesai: 1.807 frame, tiga `completed=true`, nol exception. Konfirmasi gerak tersedia sebelum dan sesudah sesi; rincian penopangan/kontak lantai serta bukti video tidak tersedia.
 - Uji QoS 15 detik hanya bukti perbaikan implementasi; bukan hasil utama penelitian. Pengujian berjalan utama tetap memakai BEST_EFFORT depth 5 sesuai instruksi dan protokol referensi legacy.
 - Tidak ada evaluasi akurasi berlabel OpenVINO. Confidence dan detection_count kamera live bukan precision, recall, F1, atau mAP.
 
@@ -56,7 +56,7 @@ Sumber: [raw benchmark standalone](../experiments/hardware_op3/comparison_models
 
 Konfigurasi referensi: C920 640 × 480 YUYV, CPU, input 640 × 640, confidence 0,25, IoU 0,45, batch 1, warmup 30 inference + 30 frame kamera, sampling 0,2 detik, debug image/telemetry benchmark dimatikan. Kamera berjalan kontinu selama ketiga run pada runner lama.
 
-QoS legacy BEST_EFFORT depth 5 berasal dari penggunaan qos_profile_sensor_data pada kode legacy. Metadata lama tidak menyimpan field QoS secara eksplisit. Pengukuran baru akan mencatat QoS tersebut secara eksplisit; keterbatasan bukti historis tetap dinyatakan.
+QoS legacy BEST_EFFORT depth 5 berasal dari penggunaan qos_profile_sensor_data pada kode legacy. Metadata lama tidak menyimpan field QoS secara eksplisit. Pengukuran berjalan baru mencatat QoS tersebut secara eksplisit; keterbatasan bukti historis tetap dinyatakan.
 
 | Run | Frame | Durasi (s) | Inference mean / P95 (ms) | Pipeline mean / P95 (ms) | Effective FPS | Exception |
 |---|---:|---:|---:|---:|---:|---:|
@@ -94,27 +94,49 @@ Sumber: [metadata dan raw QAT diam](../experiments/hardware_op3/final_qat/), [re
 
 ## 5. ROS QAT INT8 — robot diam versus berjalan
 
-| Kondisi | Status | Run sah | Frame gabungan | Durasi aktual (s) | Pipeline mean / P95 (ms) | Effective FPS | Exception |
-|---|---|---:|---:|---:|---:|---:|---:|
-| Robot diam | Terukur, referensi | 3 | 2442 | 180,0119 | 17,9763 / 20,6444 | 13,5658 | 0 |
-| Robot berjalan | **BELUM TERUKUR — keselamatan/operator belum terverifikasi** | — | — | — | — | — | — |
+Tiga run berjalan baru telah selesai pada 19 Oktober 2026. Kondisi gerak dikonfirmasi operator sebelum sesi; setelah sesi operator menyatakan robot tidak jatuh dan sudah berhenti. Robot didampingi/ditopang operator; jumlah penopangan dan kontak kaki dengan lantai tidak didokumentasikan eksplisit. Hasil ini merupakan pengujian inferensi saat robot bergerak dengan pendampingan, bukan validasi gait berjalan mandiri. Konfirmasi terpisah setiap run dan video tidak tersedia.
 
-Tidak ada angka berjalan baru yang diisi. Pengamatan terbaru tidak menerima status gateway/fall detector pada domain 0 maupun 73. Kamera /dev/video0 masih dipakai proses lain dengan format yuyv2rgb. Adaptor FTDI ttyUSB0 terdeteksi, tetapi kesehatan komunikasi Dynamixel dan kesiapan mekanis belum dapat dibuktikan dari keberadaan perangkat.
+Seluruh run berjalan memiliki `completed=true`, durasi aktual ≥60 detik, `thermal_abort=false`, dan nol exception termasuk warmup. Pemeriksaan raw CSV sesuai jumlah frame/resource pada JSON. Warmup 30 inference + 30 frame kamera per run, C920 YUYV 640×480, input 640×640/batch 1, CPU, confidence 0,25, IoU 0,45, sampling 0,2 detik, BEST_EFFORT depth 5, debug image/telemetry dimatikan. Kamera kontinu selama tiga run; detector baru untuk setiap run. Domain vision 73 dipisahkan dari kontrol domain 0.
 
-Run tidak lengkap tetap dikecualikan:
+| Kondisi / run | Frame | Durasi (s) | Inference mean / P95 (ms) | Pipeline mean / P95 (ms) | Effective FPS | Exception |
+|---|---:|---:|---:|---:|---:|---:|
+| Berjalan run_01 | 566 | 60,0197 | 13,0494 / 14,8944 | 16,8577 / 19,2927 | 9,4302 | 0 |
+| Berjalan run_02 | 603 | 60,0334 | 12,7908 / 14,7780 | 16,4298 / 19,1687 | 10,0444 | 0 |
+| Berjalan run_03 | 638 | 60,0090 | 13,0526 / 14,9911 | 16,7970 / 19,9950 | 10,6317 | 0 |
+| Diam gabungan | 2442 | 180,0119 | 13,4190 / 14,9848 | 17,9763 / 20,6444 | 13,5658 | 0 |
+| Berjalan gabungan | 1807 | 180,0622 | 12,9642 / 14,8962 | 16,6935 / 19,3917 | 10,0354 | 0 |
 
-| Sumber lokal | Durasi (s) | Frame | completed | Keputusan |
-|---|---:|---:|---|---|
-| final_qat | 12,5234 | 171 | false | Bukan hasil final |
-| 20261019T092114_qat_int8_ros_berjalan_27433 | 16,6991 | 216 | false | Bukan hasil final |
+### Resource berjalan per run dan perbandingan gabungan
 
-Run operator 20261019T092437_qat_int8_ros_berjalan_27824 memiliki tiga pengukuran yang secara teknis completed=true. Bukti operator bahwa robot benar-benar berjalan sepanjang setiap run belum tersedia, sehingga tidak dimasukkan sebagai hasil berjalan final dan tidak menggantikan pengujian baru yang diminta. Seluruh berkasnya dipertahankan secara lokal.
+| Kondisi / run | CPU sistem / proses mean (%) | RAM sistem mean (MB) | RSS mean / peak (MB) | Suhu mean / maksimum (°C) | Sampel |
+|---|---:|---:|---:|---:|---:|
+| run_01 | 6,6476 / 59,0855 | 3458,5560 | 256,8211 / 256,8479 | 44,6351 / 54,0000 | 296 |
+| run_02 | 6,6530 / 61,3828 | 3454,2332 | 257,1934 / 257,2165 | 44,8480 / 52,0000 | 296 |
+| run_03 | 6,8159 / 66,0156 | 3453,8588 | 257,3326 / 257,3476 | 45,1186 / 51,0000 | 295 |
+| diam gabungan | 6,4163 / 88,6172 | 4083,7804 | 257,5252 / 257,8186 | 44,7051 / 56,0000 | 885 |
+| berjalan gabungan | 6,7054 / 62,1569 | 3455,5512 | 257,1154 / 257,3476 | 44,8670 / 54,0000 | 887 |
 
-Rencana pengukuran baru: tepat tiga run 60 detik dengan BEST_EFFORT depth 5, kamera YUYV, dan parameter referensi di atas; operator menjalankan dan menghentikan walking melalui kontrol existing. Tiap run harus memiliki catatan waktu serta konfirmasi gerak nyata sepanjang interval, tanpa fall/kehilangan komunikasi/kondisi tidak aman. Label condition atau operator-confirmed saja tidak cukup.
+### Variasi antar tiga run berjalan
 
-Perbedaan/keterbatasan yang harus tetap dicatat: commit sumber lama dan baru berbeda, QoS/domain lama tidak dicatat eksplisit, identitas hash model saat pengukuran lama tidak diverifikasi, beban proses kontrol/adegan kamera dapat berbeda. Jika format kamera atau QoS berubah, perbandingan tidak dinyatakan sepenuhnya setara.
+| Metrik | Rata-rata nilai per run | SD sampel antar-run |
+|---|---:|---:|
+| Frame | 602,3333 | 36,0046 |
+| Effective FPS | 10,0355 | 0,6008 |
+| Mean inference (ms) | 12,9643 | 0,1502 |
+| Mean pipeline (ms) | 16,6949 | 0,2315 |
+| CPU sistem mean (%) | 6,7055 | 0,0956 |
+| CPU detector mean (%) | 62,1613 | 3,5300 |
+| RAM sistem mean (MB) | 3455,5493 | 2,6106 |
+| RSS detector mean (MB) | 257,1157 | 0,2645 |
+| Suhu mean (°C) | 44,8673 | 0,2423 |
 
-Berkas persiapan: [rencana walking](../experiments/hardware_op3/finalization/20261019T105633Z_main_and_walking_preflight/walking_plan.json), [snapshot keselamatan](../experiments/hardware_op3/finalization/20261019T105633Z_main_and_walking_preflight/safety_preflight.json), [tabel diam versus berjalan](../experiments/hardware_op3/finalization/20261019T105633Z_main_and_walking_preflight/qat_diam_vs_berjalan.csv).
+FPS gabungan diam 13,5658 dan berjalan 10,0354; perubahan relatif -26,0239%. Mean inference berjalan 12,9642 ms dan pipeline 16,6935 ms. FPS berjalan lebih rendah meskipun latency frame yang diproses tidak meningkat. Pengiriman frame sebelum callback, adegan kamera dan beban sistem tidak dikendalikan sepenuhnya; data ini tidak membuktikan bahwa gerak robot sendiri menyebabkan penurunan FPS. CPU proses yang lebih rendah dapat sejalan dengan lebih sedikit frame yang diproses, tetapi penyebabnya tidak diuji lebih lanjut.
+
+Perbandingan ini bersifat deskriptif. Parameter utama terverifikasi cocok melalui protocol.json dan setup JSON, serta format kamera melalui log. Namun tanggal/commit, adegan dan beban kontrol berbeda; QoS/domain lama tidak dicatat eksplisit dan identitas model lama tidak diverifikasi. Perbandingan tidak dinyatakan sepenuhnya setara atau sebagai efek kausal gerakan robot.
+
+Run berjalan lama 12,5234 detik (`final_qat`, 171 frame, `completed=false`) dan 16,6991 detik (`20261019T092114...`, 216 frame, `completed=false`) tetap dikecualikan. Sesi `20261019T092437...` tetap arsip; tidak dicampurkan ke tiga run baru. Metadata commit historis tidak diubah.
+
+Sumber: [raw CSV/JSON dan log](../experiments/hardware_op3/operator_runs/20261019T131319Z_qat_berjalan_final/), [rekap JSON](../experiments/hardware_op3/operator_runs/20261019T131319Z_qat_berjalan_final/analysis/qat_diam_vs_berjalan_recap.json), [tabel perbandingan CSV](../experiments/hardware_op3/operator_runs/20261019T131319Z_qat_berjalan_final/analysis/qat_diam_vs_berjalan.csv), [konfirmasi sebelum sesi](../experiments/hardware_op3/operator_runs/20261019T131319Z_qat_berjalan_final/operator_confirmation_start.json), [konfirmasi sesudah sesi](../experiments/hardware_op3/operator_runs/20261019T131319Z_qat_berjalan_final/operator_confirmation_end.json).
 
 ## 6. Stability QAT 600 detik
 
@@ -161,19 +183,23 @@ Profil 15 detik BEST_EFFORT/5, RELIABLE/5, dan RELIABLE/1 beserta verifikasi scr
 ## 10. Checklist operator sebelum walking
 
 - [ ] Operator di lokasi memastikan mekanik, postur, penopangan, dan area eksperimen aman.
-- [ ] Kontrol existing aktif dan domain ROS diketahui; status gateway/fall detector fresh dan recovery/interlock normal.
+- [ ] Kontrol existing dan domain ROS diketahui. Bila gateway/fall detector digunakan, status harus fresh dan recovery/interlock normal. Sesi berjalan ini memakai manager langsung tanpa gateway/fall detector; keselamatan dipantau operator.
 - [ ] Komunikasi Dynamixel sehat menurut kontrol/log existing; keberadaan ttyUSB0 saja tidak cukup.
 - [ ] Operator mengetahui dan sudah memverifikasi kontrol stop yang efektif pada owner gerak aktif. CMD_STOP gateway melewati validasi permission epoch dan jalur stop walking; perintah itu tidak otomatis menyelesaikan recovery/action.
-- [ ] Operator menutup sesi kamera lain agar runner memakai C920 640×480 YUYV sesuai referensi. Codex tidak mematikan sesi/proses kontrol atau melepas interlock.
-- [ ] Operator mengaktifkan walking melalui antarmuka existing, lalu mengonfirmasi gerak nyata pada setiap interval run; Codex hanya menjalankan pengukuran.
+- [ ] Sesi kamera lain ditutup atas izin operator agar runner memakai C920 640×480 YUYV sesuai referensi; interlock tidak dilewati.
+- [ ] Aktivasi manager/init/walking melalui kontrol existing membutuhkan persetujuan operator di lokasi. Dalam sesi ini perintah dikirim melalui run_op3.sh atas persetujuan eksplisit operator; operator mengonfirmasi postur stabil, gerak, dan berhenti. Gait/offset tidak diubah.
 - [ ] Jika fall/putus komunikasi/gerak tidak aman terjadi, operator menghentikan motion melalui kontrol terverifikasi; benchmark dihentikan dan run tidak sah dikecualikan.
 - [ ] Output baru, BEST_EFFORT depth 5, domain vision-only 73, serta konfirmasi sebelum/sesudah tiap run siap dicatat.
 
-## Artefak rekap dan status akhir sementara
+## Artefak rekap dan status akhir
 
 - [Rekap JSON dari sumber mentah](../experiments/hardware_op3/finalization/20261019T105633Z_main_and_walking_preflight/existing_results_recap.json)
 - [Rekap per run ROS](../experiments/hardware_op3/finalization/20261019T105633Z_main_and_walking_preflight/ros_per_run_recap.csv)
 - [Tabel diam versus berjalan](../experiments/hardware_op3/finalization/20261019T105633Z_main_and_walking_preflight/qat_diam_vs_berjalan.csv)
 - [Checksum sumber perhitungan](../experiments/hardware_op3/finalization/20261019T105633Z_main_and_walking_preflight/source_sha256.json)
 - [Snapshot keselamatan dan preservasi](../experiments/hardware_op3/finalization/20261019T105633Z_main_and_walking_preflight/safety_preflight.json)
-- Kode QoS telah berada di main. Pengujian berjalan belum selesai; finalisasi penelitian masih memerlukan tiga run yang sah setelah operator memenuhi syarat keselamatan.
+- Kode QoS berada di main. Tiga run inferensi QAT selama gerak didampingi operator telah selesai dan direkap dari raw data; keterbatasan kondisi fisik tetap berlaku.
+- [Hasil berjalan dan rekap terbaru](../experiments/hardware_op3/operator_runs/20261019T131319Z_qat_berjalan_final/analysis/WALKING_RESULTS.md)
+- [CSV diam versus berjalan terbaru](../experiments/hardware_op3/operator_runs/20261019T131319Z_qat_berjalan_final/analysis/qat_diam_vs_berjalan.csv)
+- [Checksum sumber rekap terbaru](../experiments/hardware_op3/operator_runs/20261019T131319Z_qat_berjalan_final/analysis/source_sha256.json)
+- Artefak preflight bertanggal 10:56 UTC di atas dipertahankan sebagai arsip persiapan, bukan status pengukuran terbaru.

@@ -1,0 +1,16 @@
+{
+  "manager_launch_pid": 10006,
+  "manager_pid": 10009,
+  "ros_domain_id": 0,
+  "auto_start_init_pose": false,
+  "auto_reconnect": false,
+  "startup_observation_seconds": 25.01186382500009,
+  "joint_state_messages": 1545,
+  "imu_messages": 1551,
+  "init_pose_log_end_utc": "2026-10-19T13:10:09.183803+00:00",
+  "walking_start": "Sent via existing run_op3.sh menu 7 after operator confirmed stable init; existing gait unchanged.",
+  "walking_stop": "Sent via same menu 8 after run_03; operator confirmed stopped.",
+  "gateway_or_fall_detector_detected": false,
+  "manager_left_running_after_stop": true,
+  "torque_off_not_commanded": true
+}

@@ -1,0 +1,10 @@
+{
+  "recorded_at_utc": "2026-10-19T13:13:19.253518+00:00",
+  "operator_statement": "iya sudah berjalan , langsung uji aja",
+  "scope": "Operator confirms walking immediately before starting session; per-run continuity requires post-session confirmation.",
+  "physical_support": "Operator previously stated robot held/supported; ground contact and support amount not independently verified.",
+  "control": "scripts/run_op3.sh; ROS_DOMAIN_ID=0; existing walking parameters unchanged",
+  "stop": "Operator reported physical kill button; software stop through same run_op3.sh menu, no motion gateway detected",
+  "measurement_ros_domain_id": 73,
+  "eligibility_pending_operator_continuity_confirmation": true
+}
