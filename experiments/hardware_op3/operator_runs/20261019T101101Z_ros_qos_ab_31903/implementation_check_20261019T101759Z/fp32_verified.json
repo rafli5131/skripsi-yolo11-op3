@@ -1,0 +1,10 @@
+{
+  "model": "fp32",
+  "completed": true,
+  "fps": 29.39875307365164,
+  "pipeline_mean_ms": 32.16431191855204,
+  "pipeline_p95_ms": 33.819356500000005,
+  "image_age_after_publish_mean_ms": 82.57641959276017,
+  "image_age_after_publish_p95_ms": 94.5986963,
+  "exceptions": 0
+}

@@ -1,0 +1,19 @@
+{
+  "diagnostic_only": true,
+  "seconds_per_model": 15,
+  "models": [
+    "fp32",
+    "qat_int8"
+  ],
+  "branch": "fix/ros-camera-qos-20261019",
+  "source_sha256": {
+    "scripts/run_op3.sh": "66b7119fae6fecd98d6eb51dfc1e0aa3f37bcbad3f0b416b5596c9df36465207",
+    "scripts/deployment/run_op3_qat_experiments.py": "5e0dc4e67ae58b5a67e44155102364e1dec58bac4389227266afc79412fe0c3c",
+    "ros2_ws/src/yolo11_op3_vision/yolo11_op3_vision/detector.py": "686a8356ebd4f8e728ecde5c3a2ddbf84b01772a01ecfe66832bd44267ebfb01"
+  },
+  "image_qos_reliability": "reliable",
+  "image_qos_depth": 1,
+  "ros_domain_id": 73,
+  "automatic_discovery_range": "LOCALHOST",
+  "method": "Unmodified deployment runner path with new explicit QoS parameters; no runtime monkeypatch."
+}

@@ -1,0 +1,158 @@
+diff --git a/ros2_ws/src/yolo11_op3_vision/yolo11_op3_vision/detector.py b/ros2_ws/src/yolo11_op3_vision/yolo11_op3_vision/detector.py
+index a35a303..005d615 100644
+--- a/ros2_ws/src/yolo11_op3_vision/yolo11_op3_vision/detector.py
++++ b/ros2_ws/src/yolo11_op3_vision/yolo11_op3_vision/detector.py
+@@ -20,7 +20,7 @@ import psutil
+ import rclpy
+ from cv_bridge import CvBridge
+ from rclpy.node import Node
+-from rclpy.qos import qos_profile_sensor_data
++from rclpy.qos import QoSProfile, ReliabilityPolicy
+ from sensor_msgs.msg import Image
+ from std_msgs.msg import String
+ from vision_msgs.msg import Detection2D, Detection2DArray, ObjectHypothesisWithPose
+@@ -153,6 +153,8 @@ class Yolo11Op3Vision(Node):
+         super().__init__("yolo11_op3_vision")
+         self.declare_parameter("model_path", "")
+         self.declare_parameter("input_topic", "/image_raw")
++        self.declare_parameter("image_qos_reliability", "best_effort")
++        self.declare_parameter("image_qos_depth", 5)
+         self.declare_parameter("device", "CPU")
+         self.declare_parameter("imgsz", 640)
+         self.declare_parameter("confidence_threshold", 0.25)
+@@ -175,6 +177,18 @@ class Yolo11Op3Vision(Node):
+ 
+         self.model_path = Path(self.get_parameter("model_path").value).expanduser()
+         self.input_topic = str(self.get_parameter("input_topic").value)
++        self.image_qos_reliability = str(self.get_parameter("image_qos_reliability").value)
++        self.image_qos_depth = int(self.get_parameter("image_qos_depth").value)
++        if self.image_qos_reliability not in {"best_effort", "reliable"} or self.image_qos_depth < 1:
++            raise ValueError("Image QoS requires best_effort/reliable and depth >= 1")
++        image_qos = QoSProfile(
++            depth=self.image_qos_depth,
++            reliability=(
++                ReliabilityPolicy.RELIABLE
++                if self.image_qos_reliability == "reliable"
++                else ReliabilityPolicy.BEST_EFFORT
++            ),
++        )
+         self.device = str(self.get_parameter("device").value).upper()
+         self.imgsz = int(self.get_parameter("imgsz").value)
+         self.confidence_threshold = float(self.get_parameter("confidence_threshold").value)
+@@ -255,7 +269,7 @@ class Yolo11Op3Vision(Node):
+             else None
+         )
+         self.subscription = self.create_subscription(
+-            Image, self.input_topic, self.on_image, qos_profile_sensor_data
++            Image, self.input_topic, self.on_image, image_qos
+         )
+         self.frame_rows: list[dict[str, Any]] = []
+         self.resource_rows: list[dict[str, Any]] = []
+@@ -284,7 +298,8 @@ class Yolo11Op3Vision(Node):
+ 
+         self.get_logger().info(
+             f"OpenVINO {self.ov_version} on CPU; model={self.model_path}; "
+-            f"input={self.input_topic}; output=/vision/detections"
++            f"input={self.input_topic}; output=/vision/detections; "
++            f"image_qos={self.image_qos_reliability}, depth={self.image_qos_depth}"
+         )
+ 
+     @staticmethod
+@@ -528,6 +543,8 @@ class Yolo11Op3Vision(Node):
+                 "imgsz": self.imgsz,
+                 "batch": 1,
+                 "input_topic": self.input_topic,
++                "image_qos_reliability": self.image_qos_reliability,
++                "image_qos_depth": self.image_qos_depth,
+                 "warmup_inferences": self.warmup_iterations,
+                 "warmup_camera_frames": self.camera_warmups_done,
+                 "publish_benchmark": self.publish_benchmark,
+diff --git a/scripts/deployment/run_op3_qat_experiments.py b/scripts/deployment/run_op3_qat_experiments.py
+index 43b2f9f..1e015fa 100644
+--- a/scripts/deployment/run_op3_qat_experiments.py
++++ b/scripts/deployment/run_op3_qat_experiments.py
+@@ -32,6 +32,8 @@ def main():
+     parser.add_argument('--run-start', type=int, default=1)
+     parser.add_argument('--camera-device', required=True)
+     parser.add_argument('--input-topic', default='/thesis/image_raw')
++    parser.add_argument('--image-qos-reliability', choices=['best_effort', 'reliable'], default='best_effort')
++    parser.add_argument('--image-qos-depth', type=int, default=5)
+     parser.add_argument('--model-kind', choices=['fp32', 'ptq_int8', 'qat_int8'], default='qat_int8')
+     parser.add_argument('--model', type=Path)
+     parser.add_argument('--output', type=Path)
+@@ -43,6 +45,8 @@ def main():
+         parser.error('Confirm actual robot condition with --operator-confirmed; this script never moves the robot')
+     if args.runs < 1 or args.seconds <= 0 or args.run_start < 1:
+         parser.error('Runs, duration and start index must be positive')
++    if args.image_qos_depth < 1:
++        parser.error('Image QoS depth must be positive')
+     if args.condition == 'stability' and args.seconds < 600:
+         parser.error('Stability measurements require at least 600 seconds')
+     camera_path = Path(args.camera_device).resolve()
+@@ -65,6 +69,8 @@ def main():
+                 'warmup_inferences': 30, 'warmup_camera_frames': 30,
+                 'resource_interval_seconds': .2, 'confidence_threshold': .25,
+                 'iou_threshold': .45, 'camera_device': str(camera_path),
++                'image_qos_reliability': args.image_qos_reliability,
++                'image_qos_depth': args.image_qos_depth,
+                 'capture_resolution': [640, 480], 'capture_framerate': 30,
+                 'publish_debug_image': functional, 'publish_benchmark': functional}
+     protocol_path = args.output/'protocol.json'
+@@ -105,6 +111,8 @@ def main():
+             for number in range(args.run_start, args.run_start+args.runs):
+                 run_id = f'run_{number:02d}'
+                 params = {'model_path': str(args.model.resolve()), 'input_topic': args.input_topic,
++                          'image_qos_reliability': args.image_qos_reliability,
++                          'image_qos_depth': args.image_qos_depth,
+                           'output_dir': str(args.output.resolve()), 'result_stem': f'{args.condition}_{run_id}',
+                           'experiment_condition': args.condition, 'run_id': run_id,
+                           'benchmark_seconds': args.seconds, 'final_experiment': not functional,
+diff --git a/scripts/run_op3.sh b/scripts/run_op3.sh
+index 42c9a14..c2cbb9e 100644
+--- a/scripts/run_op3.sh
++++ b/scripts/run_op3.sh
+@@ -8,6 +8,8 @@ ACTION=""
+ CONDITION="diam"
+ DRY_RUN=false
+ CAMERA_DEVICE="${OP3_CAMERA_DEVICE:-/dev/video0}"
++IMAGE_QOS_RELIABILITY="best_effort"
++IMAGE_QOS_DEPTH=5
+ OV_PYTHON="${OP3_PYTHON:-${REPO_ROOT}/../.venv-op3-vision/bin/python}"
+ TORCH_PYTHON="${OP3_TORCH_PYTHON:-${REPO_ROOT}/.cache/hardware_models/pytorch_venv/bin/python}"
+ ROS_READY=false
+@@ -16,6 +18,7 @@ usage() {
+   echo "Usage: bash scripts/run_op3.sh [--model fp32|qat|ptq|non_openvino]"
+   echo "       [--action visual|synthetic|camera|ros|manager|init|start|stop|soccer|soccer_observe]"
+   echo "       [--condition diam|berjalan] [--camera-device /dev/video0] [--dry-run]"
++  echo "       [--image-qos-reliability best_effort|reliable] [--image-qos-depth N] (ROS only)"
+   echo "Without arguments: interactive model and operation menu."
+ }
+ while [[ $# -gt 0 ]]; do
+@@ -24,6 +27,8 @@ while [[ $# -gt 0 ]]; do
+     --action) ACTION="$2"; shift 2;;
+     --condition) CONDITION="$2"; shift 2;;
+     --camera-device) CAMERA_DEVICE="$2"; shift 2;;
++    --image-qos-reliability) IMAGE_QOS_RELIABILITY="$2"; shift 2;;
++    --image-qos-depth) IMAGE_QOS_DEPTH="$2"; shift 2;;
+     --dry-run) DRY_RUN=true; shift;;
+     --help|-h) usage; exit 0;;
+     *) usage >&2; exit 2;;
+@@ -32,6 +37,10 @@ done
+ case "${MODEL}" in qat) MODEL=qat_int8;; ptq) MODEL=ptq_int8;; non_openvino) MODEL=fp32_pytorch;; esac
+ case "${MODEL}" in fp32|qat_int8|ptq_int8|fp32_pytorch);; *) echo "Unknown model" >&2; exit 2;; esac
+ case "${CONDITION}" in diam|berjalan);; *) echo "Condition must be diam or berjalan" >&2; exit 2;; esac
++case "${IMAGE_QOS_RELIABILITY}" in best_effort|reliable);; *) echo "Image QoS must be best_effort or reliable" >&2; exit 2;; esac
++if [[ ! "${IMAGE_QOS_DEPTH}" =~ ^[1-9][0-9]*$ ]]; then
++  echo "Image QoS depth must be a positive integer" >&2; exit 2
++fi
+ run() {
+   printf 'Command: '; printf '%q ' "$@"; printf '\n'
+   if ! ${DRY_RUN}; then "$@"; fi
+@@ -120,6 +129,7 @@ execute() {
+         load_ros || return
+         run "$OV_PYTHON" scripts/deployment/run_op3_qat_experiments.py \
+           --model-kind "$MODEL" --condition "$CONDITION" --operator-confirmed \
++          --image-qos-reliability "$IMAGE_QOS_RELIABILITY" --image-qos-depth "$IMAGE_QOS_DEPTH" \
+           --runs 3 --seconds 60 --camera-device "$CAMERA_DEVICE" --output "$output" || return
+       else
+         local mode="synthetic" duration=60

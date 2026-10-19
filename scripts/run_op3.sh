@@ -8,6 +8,8 @@ ACTION=""
 CONDITION="diam"
 DRY_RUN=false
 CAMERA_DEVICE="${OP3_CAMERA_DEVICE:-/dev/video0}"
+IMAGE_QOS_RELIABILITY="best_effort"
+IMAGE_QOS_DEPTH=5
 OV_PYTHON="${OP3_PYTHON:-${REPO_ROOT}/../.venv-op3-vision/bin/python}"
 TORCH_PYTHON="${OP3_TORCH_PYTHON:-${REPO_ROOT}/.cache/hardware_models/pytorch_venv/bin/python}"
 ROS_READY=false
@@ -16,6 +18,7 @@ usage() {
   echo "Usage: bash scripts/run_op3.sh [--model fp32|qat|ptq|non_openvino]"
   echo "       [--action visual|synthetic|camera|ros|manager|init|start|stop|soccer|soccer_observe]"
   echo "       [--condition diam|berjalan] [--camera-device /dev/video0] [--dry-run]"
+  echo "       [--image-qos-reliability best_effort|reliable] [--image-qos-depth N] (ROS only)"
   echo "Without arguments: interactive model and operation menu."
 }
 while [[ $# -gt 0 ]]; do
@@ -24,6 +27,8 @@ while [[ $# -gt 0 ]]; do
     --action) ACTION="$2"; shift 2;;
     --condition) CONDITION="$2"; shift 2;;
     --camera-device) CAMERA_DEVICE="$2"; shift 2;;
+    --image-qos-reliability) IMAGE_QOS_RELIABILITY="$2"; shift 2;;
+    --image-qos-depth) IMAGE_QOS_DEPTH="$2"; shift 2;;
     --dry-run) DRY_RUN=true; shift;;
     --help|-h) usage; exit 0;;
     *) usage >&2; exit 2;;
@@ -32,6 +37,10 @@ done
 case "${MODEL}" in qat) MODEL=qat_int8;; ptq) MODEL=ptq_int8;; non_openvino) MODEL=fp32_pytorch;; esac
 case "${MODEL}" in fp32|qat_int8|ptq_int8|fp32_pytorch);; *) echo "Unknown model" >&2; exit 2;; esac
 case "${CONDITION}" in diam|berjalan);; *) echo "Condition must be diam or berjalan" >&2; exit 2;; esac
+case "${IMAGE_QOS_RELIABILITY}" in best_effort|reliable);; *) echo "Image QoS must be best_effort or reliable" >&2; exit 2;; esac
+if [[ ! "${IMAGE_QOS_DEPTH}" =~ ^[1-9][0-9]*$ ]]; then
+  echo "Image QoS depth must be a positive integer" >&2; exit 2
+fi
 run() {
   printf 'Command: '; printf '%q ' "$@"; printf '\n'
   if ! ${DRY_RUN}; then "$@"; fi
@@ -120,6 +129,7 @@ execute() {
         load_ros || return
         run "$OV_PYTHON" scripts/deployment/run_op3_qat_experiments.py \
           --model-kind "$MODEL" --condition "$CONDITION" --operator-confirmed \
+          --image-qos-reliability "$IMAGE_QOS_RELIABILITY" --image-qos-depth "$IMAGE_QOS_DEPTH" \
           --runs 3 --seconds 60 --camera-device "$CAMERA_DEVICE" --output "$output" || return
       else
         local mode="synthetic" duration=60

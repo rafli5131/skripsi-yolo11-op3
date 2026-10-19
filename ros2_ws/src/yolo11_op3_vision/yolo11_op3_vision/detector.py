@@ -20,7 +20,7 @@ import psutil
 import rclpy
 from cv_bridge import CvBridge
 from rclpy.node import Node
-from rclpy.qos import qos_profile_sensor_data
+from rclpy.qos import QoSProfile, ReliabilityPolicy
 from sensor_msgs.msg import Image
 from std_msgs.msg import String
 from vision_msgs.msg import Detection2D, Detection2DArray, ObjectHypothesisWithPose
@@ -153,6 +153,8 @@ class Yolo11Op3Vision(Node):
         super().__init__("yolo11_op3_vision")
         self.declare_parameter("model_path", "")
         self.declare_parameter("input_topic", "/image_raw")
+        self.declare_parameter("image_qos_reliability", "best_effort")
+        self.declare_parameter("image_qos_depth", 5)
         self.declare_parameter("device", "CPU")
         self.declare_parameter("imgsz", 640)
         self.declare_parameter("confidence_threshold", 0.25)
@@ -175,6 +177,18 @@ class Yolo11Op3Vision(Node):
 
         self.model_path = Path(self.get_parameter("model_path").value).expanduser()
         self.input_topic = str(self.get_parameter("input_topic").value)
+        self.image_qos_reliability = str(self.get_parameter("image_qos_reliability").value)
+        self.image_qos_depth = int(self.get_parameter("image_qos_depth").value)
+        if self.image_qos_reliability not in {"best_effort", "reliable"} or self.image_qos_depth < 1:
+            raise ValueError("Image QoS requires best_effort/reliable and depth >= 1")
+        image_qos = QoSProfile(
+            depth=self.image_qos_depth,
+            reliability=(
+                ReliabilityPolicy.RELIABLE
+                if self.image_qos_reliability == "reliable"
+                else ReliabilityPolicy.BEST_EFFORT
+            ),
+        )
         self.device = str(self.get_parameter("device").value).upper()
         self.imgsz = int(self.get_parameter("imgsz").value)
         self.confidence_threshold = float(self.get_parameter("confidence_threshold").value)
@@ -255,7 +269,7 @@ class Yolo11Op3Vision(Node):
             else None
         )
         self.subscription = self.create_subscription(
-            Image, self.input_topic, self.on_image, qos_profile_sensor_data
+            Image, self.input_topic, self.on_image, image_qos
         )
         self.frame_rows: list[dict[str, Any]] = []
         self.resource_rows: list[dict[str, Any]] = []
@@ -284,7 +298,8 @@ class Yolo11Op3Vision(Node):
 
         self.get_logger().info(
             f"OpenVINO {self.ov_version} on CPU; model={self.model_path}; "
-            f"input={self.input_topic}; output=/vision/detections"
+            f"input={self.input_topic}; output=/vision/detections; "
+            f"image_qos={self.image_qos_reliability}, depth={self.image_qos_depth}"
         )
 
     @staticmethod
@@ -528,6 +543,8 @@ class Yolo11Op3Vision(Node):
                 "imgsz": self.imgsz,
                 "batch": 1,
                 "input_topic": self.input_topic,
+                "image_qos_reliability": self.image_qos_reliability,
+                "image_qos_depth": self.image_qos_depth,
                 "warmup_inferences": self.warmup_iterations,
                 "warmup_camera_frames": self.camera_warmups_done,
                 "publish_benchmark": self.publish_benchmark,

@@ -1,0 +1,3 @@
+[INFO] [1792405081.732986002] [yolo11_op3_vision]: OpenVINO 2026.3.1-22476-759c5a6ab8c-releases/2026/3 on CPU; model=/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/artifacts/openvino/fp32/model.xml; input=/thesis/image_raw; output=/vision/detections; image_qos=reliable, depth=1
+[INFO] [1792405082.786263064] [yolo11_op3_vision]: Measurement started: diam/run_01; camera warmup=30
+[INFO] [1792405097.834485923] [yolo11_op3_vision]: ROS benchmark results saved to /home/humanoid/ros2_jazzy/skripsi-yolo11-op3/experiments/hardware_op3/operator_runs/20261019T101101Z_ros_qos_ab_31903/implementation_check_20261019T101759Z/fp32/run_metadata/diam_run_01.json

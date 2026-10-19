@@ -1,0 +1,23 @@
+{
+  "model_path": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/artifacts/openvino/fp32/model.xml",
+  "device": "CPU",
+  "imgsz": 640,
+  "batch": 1,
+  "seconds": 15.0,
+  "runs": 1,
+  "warmup_inferences": 30,
+  "warmup_camera_frames": 30,
+  "resource_interval_seconds": 0.2,
+  "confidence_threshold": 0.25,
+  "iou_threshold": 0.45,
+  "camera_device": "/dev/video0",
+  "image_qos_reliability": "reliable",
+  "image_qos_depth": 1,
+  "capture_resolution": [
+    640,
+    480
+  ],
+  "capture_framerate": 30,
+  "publish_debug_image": false,
+  "publish_benchmark": false
+}

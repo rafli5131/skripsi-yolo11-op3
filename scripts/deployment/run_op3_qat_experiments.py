@@ -32,6 +32,8 @@ def main():
     parser.add_argument('--run-start', type=int, default=1)
     parser.add_argument('--camera-device', required=True)
     parser.add_argument('--input-topic', default='/thesis/image_raw')
+    parser.add_argument('--image-qos-reliability', choices=['best_effort', 'reliable'], default='best_effort')
+    parser.add_argument('--image-qos-depth', type=int, default=5)
     parser.add_argument('--model-kind', choices=['fp32', 'ptq_int8', 'qat_int8'], default='qat_int8')
     parser.add_argument('--model', type=Path)
     parser.add_argument('--output', type=Path)
@@ -43,6 +45,8 @@ def main():
         parser.error('Confirm actual robot condition with --operator-confirmed; this script never moves the robot')
     if args.runs < 1 or args.seconds <= 0 or args.run_start < 1:
         parser.error('Runs, duration and start index must be positive')
+    if args.image_qos_depth < 1:
+        parser.error('Image QoS depth must be positive')
     if args.condition == 'stability' and args.seconds < 600:
         parser.error('Stability measurements require at least 600 seconds')
     camera_path = Path(args.camera_device).resolve()
@@ -65,6 +69,8 @@ def main():
                 'warmup_inferences': 30, 'warmup_camera_frames': 30,
                 'resource_interval_seconds': .2, 'confidence_threshold': .25,
                 'iou_threshold': .45, 'camera_device': str(camera_path),
+                'image_qos_reliability': args.image_qos_reliability,
+                'image_qos_depth': args.image_qos_depth,
                 'capture_resolution': [640, 480], 'capture_framerate': 30,
                 'publish_debug_image': functional, 'publish_benchmark': functional}
     protocol_path = args.output/'protocol.json'
@@ -105,6 +111,8 @@ def main():
             for number in range(args.run_start, args.run_start+args.runs):
                 run_id = f'run_{number:02d}'
                 params = {'model_path': str(args.model.resolve()), 'input_topic': args.input_topic,
+                          'image_qos_reliability': args.image_qos_reliability,
+                          'image_qos_depth': args.image_qos_depth,
                           'output_dir': str(args.output.resolve()), 'result_stem': f'{args.condition}_{run_id}',
                           'experiment_condition': args.condition, 'run_id': run_id,
                           'benchmark_seconds': args.seconds, 'final_experiment': not functional,

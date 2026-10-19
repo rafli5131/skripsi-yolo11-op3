@@ -1,0 +1,10 @@
+{
+  "model": "qat_int8",
+  "completed": true,
+  "fps": 29.925935035695968,
+  "pipeline_mean_ms": 13.712440171492204,
+  "pipeline_p95_ms": 14.4145128,
+  "image_age_after_publish_mean_ms": 56.43086425167038,
+  "image_age_after_publish_p95_ms": 58.744594400000004,
+  "exceptions": 0
+}

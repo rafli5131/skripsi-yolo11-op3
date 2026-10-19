@@ -1,0 +1,17 @@
+{
+  "diagnostic_only": true,
+  "model": "qat_int8",
+  "reliability": "reliable",
+  "depth": 1,
+  "measured_seconds": 15.026661162000892,
+  "frames": 450,
+  "fps": 29.946772283516356,
+  "inference_mean_ms": 11.368576017777777,
+  "pipeline_mean_ms": 13.680070751111112,
+  "pipeline_p95_ms": 14.24567995,
+  "image_age_at_callback_mean_ms": 42.70548349555556,
+  "image_age_at_callback_p95_ms": 44.3575983,
+  "image_age_after_publish_mean_ms": 56.59952504444445,
+  "image_age_after_publish_p95_ms": 58.69968005,
+  "exceptions": 0
+}

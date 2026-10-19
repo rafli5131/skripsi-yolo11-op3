@@ -1,0 +1,182 @@
+{
+  "run_id": "run_01",
+  "condition": "diam",
+  "completed": true,
+  "thermal_abort": false,
+  "statistics_ddof": 1,
+  "rss_start_bytes": 271167488,
+  "rss_end_bytes": 264450048,
+  "rss_growth_bytes": -6717440,
+  "thermal_end_c": [
+    65.0,
+    67.0,
+    47.0
+  ],
+  "timestamp_utc": "2026-10-19T10:11:03.742454+00:00",
+  "git_commit": "a1bab9a7dc00989f86566c2bef2f16bb4bc81388",
+  "hostname": "humanoid-NUC12WSHi5",
+  "cpu_model": "x86_64",
+  "system_ram_total_bytes": 7875010560,
+  "openvino_version": "2026.3.1-22476-759c5a6ab8c-releases/2026/3",
+  "python_version": "3.12.3",
+  "ros_distro": "jazzy",
+  "command": "/home/humanoid/ros2_jazzy/.venv-op3-vision/bin/python -c /home/humanoid/ros2_jazzy/skripsi-yolo11-op3/experiments/hardware_op3/operator_runs/20261019T101101Z_ros_qos_ab_31903/fp32_best_effort fp32 best_effort",
+  "model": {
+    "path": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/artifacts/openvino/fp32/model.xml",
+    "artifact_identity_verification": "not performed; user-provided model path",
+    "size_bytes": 324944,
+    "input_shape": [
+      1,
+      3,
+      640,
+      640
+    ],
+    "output_shape": [
+      1,
+      7,
+      8400
+    ]
+  },
+  "setup": {
+    "device": "CPU",
+    "imgsz": 640,
+    "batch": 1,
+    "input_topic": "/thesis/image_raw",
+    "warmup_inferences": 30,
+    "warmup_camera_frames": 30,
+    "publish_benchmark": false,
+    "benchmark_seconds_requested": 15.0,
+    "benchmark_seconds_measured": 15.004468578999877,
+    "resource_interval_seconds": 0.2,
+    "publish_debug_image": false,
+    "evidence_image_path": null
+  },
+  "results": {
+    "frames_received": 381,
+    "total_camera_frames_received_including_warmup": 411,
+    "frames_processed": 381,
+    "effective_fps": 25.392435459743258,
+    "detection_count": 762,
+    "exceptions": 0,
+    "total_exceptions_including_warmup": 0,
+    "latency_ms": {
+      "camera_delivery_ms": {
+        "mean": 88.89853541469815,
+        "median": 87.811519,
+        "min": 57.95949,
+        "max": 132.56415,
+        "std": 17.873501554081745,
+        "p50": 87.811519,
+        "p90": 111.638794,
+        "p95": 120.188449,
+        "p99": 128.4664446
+      },
+      "image_conversion_ms": {
+        "mean": 0.6025155826771653,
+        "median": 0.577671,
+        "min": 0.274709,
+        "max": 1.716205,
+        "std": 0.19969112945850204,
+        "p50": 0.577671,
+        "p90": 0.633396,
+        "p95": 0.707164,
+        "p99": 1.5717526
+      },
+      "preprocess_ms": {
+        "mean": 3.0806261233595804,
+        "median": 2.998075,
+        "min": 1.560099,
+        "max": 7.368903,
+        "std": 0.7620717665446767,
+        "p50": 2.998075,
+        "p90": 3.226388,
+        "p95": 4.171572,
+        "p99": 6.765183199999996
+      },
+      "inference_ms": {
+        "mean": 30.12447559317586,
+        "median": 29.043956,
+        "min": 25.780798,
+        "max": 63.277349,
+        "std": 5.410433976771497,
+        "p50": 29.043956,
+        "p90": 30.703614,
+        "p95": 39.064758,
+        "p99": 59.3730824
+      },
+      "postprocess_ms": {
+        "mean": 0.3793835275590551,
+        "median": 0.375308,
+        "min": 0.308489,
+        "max": 0.686053,
+        "std": 0.04243090553665362,
+        "p50": 0.375308,
+        "p90": 0.39907,
+        "p95": 0.426183,
+        "p99": 0.5635724
+      },
+      "callback_end_to_end_ms": {
+        "mean": 33.82005359580052,
+        "median": 32.566498,
+        "min": 28.985567,
+        "max": 70.720321,
+        "std": 6.0214840168064105,
+        "p50": 32.566498,
+        "p90": 34.376445,
+        "p95": 42.51165,
+        "p99": 66.441761
+      },
+      "latency_ms": {
+        "mean": 33.626989614173226,
+        "median": 32.379409,
+        "min": 28.792231,
+        "max": 70.551081,
+        "std": 6.023307393823762,
+        "p50": 32.379409,
+        "p90": 34.174258,
+        "p95": 42.339228,
+        "p99": 66.23835899999999
+      }
+    },
+    "cpu_percent": {
+      "process": {
+        "mean": 725.7351351351352,
+        "median": 802.45,
+        "min": 248.1,
+        "max": 829.8,
+        "std": 140.52518073229618,
+        "p50": 802.45,
+        "p90": 820.84,
+        "p95": 823.405,
+        "p99": 828.7049999999999
+      },
+      "system": {
+        "mean": 46.19054054054054,
+        "median": 50.55,
+        "min": 17.0,
+        "max": 53.4,
+        "std": 8.910608867453723,
+        "p50": 50.55,
+        "p90": 52.57,
+        "p95": 52.934999999999995,
+        "p99": 53.254
+      }
+    },
+    "rss_mib": {
+      "mean": 257.7655722128378,
+      "median": 259.37109375,
+      "min": 249.8359375,
+      "max": 260.10546875,
+      "std": 3.3940230794628863,
+      "p50": 259.37109375,
+      "p90": 259.5,
+      "p95": 259.5130859375,
+      "p99": 260.10546875
+    },
+    "resource_sample_count": 74
+  },
+  "raw_measurements": {
+    "timing_csv": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/experiments/hardware_op3/operator_runs/20261019T101101Z_ros_qos_ab_31903/fp32_best_effort/latency/diam_run_01_frames.csv",
+    "resource_csv": "/home/humanoid/ros2_jazzy/skripsi-yolo11-op3/experiments/hardware_op3/operator_runs/20261019T101101Z_ros_qos_ab_31903/fp32_best_effort/resources/diam_run_01.csv"
+  }
+}

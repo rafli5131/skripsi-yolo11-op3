@@ -1,0 +1,22 @@
+{
+  "diagnostic_only": true,
+  "model": "fp32",
+  "reliability": "best_effort",
+  "depth": 5,
+  "history": "1",
+  "durability": "2",
+  "measured_seconds": 15.004468578999877,
+  "frames": 381,
+  "fps": 25.392435459743258,
+  "inference_mean_ms": 30.12447559317586,
+  "pipeline_mean_ms": 33.626989614173226,
+  "pipeline_p95_ms": 42.339228,
+  "image_age_at_callback_mean_ms": 55.05155743832021,
+  "image_age_at_callback_p95_ms": 87.405914,
+  "image_age_after_publish_mean_ms": 88.89853541469815,
+  "image_age_after_publish_p95_ms": 120.188449,
+  "system_cpu_mean_percent": 46.19054054054054,
+  "process_cpu_mean_percent": 725.7351351351352,
+  "rss_mean_mib": 257.7655722128378,
+  "exceptions": 0
+}
