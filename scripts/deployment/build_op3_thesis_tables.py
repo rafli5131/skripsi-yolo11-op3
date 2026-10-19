@@ -18,7 +18,7 @@ def stats(values):
             'peak': max(values) if values else None}
 
 
-def write_table(path, rows):
+def write_table(path, rows, *, markdown=True):
     if not rows:
         return
     fields = list(rows[0])
@@ -27,6 +27,8 @@ def write_table(path, rows):
         writer = csv.DictWriter(stream, fieldnames=fields)
         writer.writeheader()
         writer.writerows(rows)
+    if not markdown:
+        return
     def cell(value):
         if value is None:
             return 'belum diukur / tidak tersedia'
@@ -68,10 +70,10 @@ def build(root):
                 row[f'{field}_{name}'] = value
         resources.append(row)
     write_table(root/'tables/table_3_1_latency.csv', summaries)
-    write_table(root/'tables/table_3_2_resources_raw.csv', samples)
+    write_table(root/'tables/table_3_2_resources_raw.csv', samples, markdown=False)
     write_table(root/'tables/table_3_3_resources_summary.csv', resources)
     write_table(root/'latency/runs_summary.csv', summaries)
-    write_table(root/'resources/resources_all.csv', samples)
+    write_table(root/'resources/resources_all.csv', samples, markdown=False)
     write_table(root/'resources/resources_summary.csv', resources)
     metadata = {'ddof': 1, 'fps_definition': 'successful measured frames / measured wall duration',
                 'latency_definition': 'image callback entry through postprocess completion, before publication',

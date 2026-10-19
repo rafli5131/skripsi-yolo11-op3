@@ -506,14 +506,13 @@ experiments/hardware_op3/final_qat/
 ├── resources/
 │   ├── diam_run_*.csv
 │   ├── berjalan_run_*.csv
-│   ├── resources_all.csv
+│   ├── resources_all.csv  # CSV raw gabungan; tidak dibuat salinan Markdown besar
 │   ├── resources_summary.csv
 │   └── metadata.json
 ├── tables/
 │   ├── table_3_1_latency.csv
 │   ├── table_3_1_latency.md
 │   ├── table_3_2_resources_raw.csv
-│   ├── table_3_2_resources_raw.md
 │   ├── table_3_3_resources_summary.csv
 │   └── table_3_3_resources_summary.md
 └── FINAL_OP3_QAT_REPORT.md
