@@ -1,5 +1,7 @@
 # Langkah Berikutnya — Implementasi ke ROBOTIS OP3 dan Pengambilan Data Final
 
+> **ARSIP RENCANA (status 7 Oktober 2026).** Dokumen ini mempertahankan instruksi dan status yang berlaku saat pekerjaan OP3 masih berjalan. Pernyataan “belum diuji/belum diukur” di bawah merupakan catatan historis, **bukan status repository terkini**. Pengujian ROS FP32/QAT kondisi diam dan berjalan dengan pendampingan operator (masing-masing 3 × 60 detik), serta stability QAT 600 detik, telah selesai. Baca [hasil final ROS](../experiments/hardware_op3/operator_runs/20261019T132747Z_fp32_berjalan_final/analysis/FP32_QAT_ROS_FINAL_RESULTS.md), [draft hasil skripsi](draft_hasil_pengujian_akhir_skripsi_20261019.md), dan [snapshot eksperimen `495a3a8`](https://github.com/rafli5131/skripsi-yolo11-op3/commit/495a3a893db3bfdfd24395cb25bf3a3cc300456c). Dokumen ini bukan instruksi untuk mengulang eksperimen.
+
 ## 0. Status kode saat ini (7 Oktober 2026)
 
 Dokumen ini membedakan implementasi yang tersedia dari pekerjaan final yang masih perlu dilakukan. Pengukuran dilakukan pada workspace `main` commit `01af397` dengan perubahan implementasi lokal; metadata menyimpan kondisi worktree tersebut. Logger final diimplementasikan; 3 run diam dan stability ROS 10 menit selesai tanpa exception. Data historical dipertahankan.

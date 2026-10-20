@@ -11,7 +11,9 @@ Repository penelitian deteksi objek `ball`, `gawang`, dan `robot` dengan tiga mo
 | QAT INT8 OpenVINO | Direct OpenVINO; gate equivalence/provenance accepted | [Provenance](docs/26_provenance_dan_verifikasi.md) |
 | Benchmark CPU server | FP32/PTQ/QAT selesai; diagnostik host | [Laporan server](docs/23_server_openvino_benchmark.md) |
 | Evaluasi deteksi VAL server | FP32 native/OV, PTQ, QAT selesai | [Perbandingan precision/F1/mAP](docs/28_server_val_detection_comparison.md) |
-| ROBOTIS OP3 (QAT ROS 2) | Kondisi diam: 3 × 60 detik dan stability 600 detik selesai; kondisi berjalan belum diukur | [Hasil OP3](experiments/hardware_op3/HARDWARE_TEST_REPORT.md) |
+| ROBOTIS OP3 (FP32/QAT ROS 2) | Kondisi diam dan berjalan didampingi operator: masing-masing 3 × 60 detik per model; stability QAT 600 detik selesai | [Hasil final ROS](experiments/hardware_op3/operator_runs/20261019T132747Z_fp32_berjalan_final/analysis/FP32_QAT_ROS_FINAL_RESULTS.md) |
+
+**Status final eksperimen (19 Oktober 2026):** Semua pengukuran inti telah selesai dan tersimpan di `main`. [Snapshot final eksperimen `495a3a8`](https://github.com/rafli5131/skripsi-yolo11-op3/commit/495a3a893db3bfdfd24395cb25bf3a3cc300456c) mencakup kode, model, raw data, dan laporan pengujian. [Draft hasil pengujian](docs/draft_hasil_pengujian_akhir_skripsi_20261019.md) dan [rekap FP32–QAT ROS diam/berjalan](experiments/hardware_op3/operator_runs/20261019T132747Z_fp32_berjalan_final/analysis/FP32_QAT_ROS_FINAL_RESULTS.md) menjadi referensi terkini. Pengujian berjalan dilaksanakan dengan pendampingan operator, bukan pembuktian gait mandiri. QAT mempercepat inferensi tetapi FPS efektif ROS pada konfigurasi BEST_EFFORT/depth 5 tidak meningkat.
 
 Eksperimen export awal dipertahankan sebagai riwayat pengembangan, sedangkan IR QAT final yang digunakan sekarang adalah artefak direct OpenVINO yang telah lolos validasi.
 
@@ -27,7 +29,7 @@ artifacts/openvino/qat_int8/      IR QAT final yang diterima
 experiments/ptq/                 PTQ comparator + hasil VAL
 experiments/final_test/          held-out TEST PyTorch
 experiments/server_openvino/     raw benchmark server + README hasil
-experiments/hardware_op3/        hasil OP3 diam, stability, dan perbandingan 4 model
+experiments/hardware_op3/        hasil OP3 diam/berjalan, stability, dan perbandingan model
 docs/                           metode, provenance, kegagalan, hasil
 ```
 

@@ -1,5 +1,7 @@
 # Pengujian Hardware OP3 — FP32, PTQ dan QAT
 
+> **Catatan status historis (7 Oktober 2026):** Isi tabel dan protokol di bawah mendokumentasikan pengujian pada tanggal tersebut; pernyataan “berjalan belum diuji” hanya berlaku saat laporan ini dibuat. Pengujian ROS **FP32 dan QAT** pada kondisi diam dan berjalan **dengan pendampingan operator**, masing-masing 3 × 60 detik per model/kondisi, sudah selesai pada **19 Oktober 2026**. Lihat [hasil final ROS](operator_runs/20261019T132747Z_fp32_berjalan_final/analysis/FP32_QAT_ROS_FINAL_RESULTS.md), [hasil QAT berjalan](operator_runs/20261019T131319Z_qat_berjalan_final/analysis/WALKING_RESULTS.md), dan [draft hasil akhir skripsi](../../docs/draft_hasil_pengujian_akhir_skripsi_20261019.md). Gerak tersebut bukan pembuktian gait mandiri. Snapshot eksperimen: [`495a3a8`](https://github.com/rafli5131/skripsi-yolo11-op3/commit/495a3a893db3bfdfd24395cb25bf3a3cc300456c).
+
 Pengujian tanggal 7 Oktober 2026 memuat perbandingan baru **FP32 PyTorch tanpa OpenVINO, FP32 OpenVINO, PTQ INT8 OpenVINO, dan QAT INT8 OpenVINO**. IR dibaca langsung dari `artifacts/openvino/`. Perbandingan standalone dipisahkan dari tiga run ROS QAT dan stability QAT. Tabel skripsi khusus FP32/QAT tersedia tanpa baris PTQ. Laporan campuran historical tetap ada di [arsip](archive/HARDWARE_TEST_REPORT_MIXED_20261007.md).
 
 ## 1. Hardware
@@ -89,7 +91,7 @@ Raw data dan detail: [STABILITY_REPORT.md](stability_qat/20261007_ros_qat/STABIL
 
 ## 11. Limitations
 
-- Berjalan belum diuji sesuai instruksi operator; script siap dan tidak mengirim command motion.
+- Pada sesi **7 Oktober 2026**, kondisi berjalan belum diuji sesuai instruksi operator; script disiapkan tanpa mengirim command motion. **Pembaruan:** hasil berjalan 3 × 60 detik per model sudah tersedia pada sesi 19 Oktober 2026 (tautan laporan final di bagian atas).
 - Kamera diminta 30 Hz, tetapi throughput frame aktual lebih rendah. Auto exposure dan dynamic framerate teramati aktif; kemungkinan pengaruhnya belum diuji secara terisolasi. Setting tidak diubah selama pengukuran.
 - Dropped frame kamera tidak diketahui dari callback yang diterima saja.
 - Pengukuran memakai onboard NUC12 aktual dan versi software yang tercatat di metadata.
@@ -120,7 +122,7 @@ Jalankan dari root repository. Run diam yang sudah ada tidak boleh ditimpa; runn
 
 ```bash
 bash scripts/run_op3_qat_measurements.sh --condition diam --operator-confirmed --runs 3 --seconds 60 --camera-device /dev/video0
-# Berjalan nanti setelah operator menjalankan walking dan memastikan kondisi aktual:
+# Contoh perintah historis; pengujian berjalan telah selesai pada 19 Oktober 2026. Reproduksi hanya dengan persetujuan operator:
 bash scripts/run_op3_qat_measurements.sh --condition berjalan --operator-confirmed --runs 3 --seconds 60 --camera-device /dev/video0
 python3 scripts/deployment/build_op3_thesis_tables.py --root experiments/hardware_op3/final_qat
 ```
