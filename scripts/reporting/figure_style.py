@@ -61,12 +61,14 @@ def comparison(overview, detail, categories, series, unit, decimals=3,
         raise ValueError('Absolute magnitude comparisons require nonnegative values')
     x = np.arange(len(categories))
     width = .72 / len(series)
+    if len(series) == 2:
+        detail.hlines(x, np.min(values, axis=0), np.max(values, axis=0), color='#AAAAAA', linewidth=1.4, zorder=1)
     for i, (name, ys) in enumerate(series.items()):
         color = COLORS[i % len(COLORS)]
         offset = (i - (len(series) - 1) / 2) * width
         bars = overview.bar(x + offset, ys, width, label=name, color=color)
         # Values are explicit on the focused panel to avoid crowded bar labels.
-        yp = x + (i - (len(series) - 1) / 2) * .20
+        yp = x if len(series) == 2 else x + (i - (len(series) - 1) / 2) * .20
         detail.scatter(ys, yp, s=52, color=color,
                        marker=['o', 's', '^', 'D', 'v'][i % 5], label=name, zorder=3, clip_on=False)
         for y, v in zip(yp, ys):
@@ -85,7 +87,7 @@ def comparison(overview, detail, categories, series, unit, decimals=3,
     detail.set_xlabel(unit)
     detail.set_title(f'Detail titik: rentang {low:.{decimals}f}–{high:.{decimals}f}')
     style_axis(detail, 'x')
-    return {'kind': 'magnitude_and_focused_dots', 'unit': unit,
+    return {'kind': 'magnitude_and_focused_dots', 'connector': 'within_category_aggregate' if len(series) == 2 else None, 'unit': unit,
             'overview_min': 0, 'focus_limits': [low, high],
             'categories': list(categories),
             'series': {k: [float(v) for v in vs] for k, vs in series.items()}}

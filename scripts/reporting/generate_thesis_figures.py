@@ -227,10 +227,13 @@ class Figures:
                     group_rows = sorted((r for r in runs if r['dataset'] == group), key=lambda r: r['run_id'])
                     y = [float(r[key]) for r in group_rows]
                     vals.extend(y)
-                    ax.plot(range(1, len(y)+1), y, color=COLORS[i], marker=['o', 's'][i], label=model.upper())
+                    ax.scatter(i + np.linspace(-.10, .10, len(y)), y, color=COLORS[i], marker=['o', 's'][i], s=55, label=model.upper())
+                    ax.plot([i-.23, i+.23], [np.mean(y)]*2, color='#222222', linewidth=2)
+                    ax.annotate(f'mean {np.mean(y):.3f}', (i, np.mean(y)), xytext=(15, 10), textcoords='offset points', fontsize=10)
                 ax.set_ylim(*local_limits(vals))
-                ax.set_xticks([1, 2, 3])
-                ax.set_xlabel('Run')
+                ax.set_xticks([0, 1], ['FP32', 'QAT'])
+                ax.set_xlim(-.45, 1.65)
+                ax.set_xlabel('Model')
                 ax.set_ylabel(unit)
                 ax.set_title(condition)
                 ax.legend(frameon=False)
@@ -238,7 +241,7 @@ class Figures:
             fig.suptitle(title + ' pada tiga run ROS', fontsize=16)
             self.save(fig, 'ros_runs_' + key, [runs_source],
                       'Skala lokal tiap kondisi; pengulangan sesi, bukan replikasi seed training.\n'
-                      'Semua tiga run ditampilkan tanpa menyimpulkan signifikansi statistik.')
+                      'Titik: setiap run (n=3/model/kondisi). Garis pendek: mean; bukan CI/SEM. Tidak ada pasangan run lintas model.')
 
         source = HARDWARE + 'comparison_models/20261007_four_models_run1/comparison_all.csv'
         all_rows = self.rows(source)
@@ -269,8 +272,25 @@ class Figures:
             style_axis(ax)
         fig.suptitle('Distribusi latensi CPU server', fontsize=16)
         self.save(fig, 'server_latency_distribution', sources,
-                  '300 iterasi/model, 30 warm-up; median dan sebaran dari CSV asli, outlier tetap terlihat.\n'
+                  '300 iterasi/model, 30 warm-up; box Q1–Q3, garis median, whisker 1,5 IQR; outlier tetap terlihat.\n'
                   'Server AMD EPYC 7413 adalah diagnostik host, bukan latensi robot.')
+
+        fig, axes = plt.subplots(1, 2, figsize=(14, 5.8))
+        for ax, key, title in zip(axes, ['inference_ms', 'loop_wall_ms'], ['Inferensi', 'Loop standalone']):
+            for i, source in enumerate(sources):
+                sample = np.sort([float(r[key]) for r in self.rows(source)])
+                ax.step(sample, np.arange(1, len(sample)+1)/len(sample), where='post',
+                        color=COLORS[i], linestyle=['-', '--', ':'][i], label=['FP32', 'PTQ', 'QAT'][i])
+            ax.set_xlabel('Latensi (ms)')
+            ax.set_ylabel('Proporsi observasi ≤ latensi')
+            ax.set_ylim(0, 1.03)
+            ax.set_title(title)
+            ax.legend(frameon=False)
+            style_axis(ax)
+        fig.suptitle('Distribusi kumulatif empiris latensi server', fontsize=16)
+        self.save(fig, 'server_latency_ecdf', sources,
+                  'ECDF memakai semua 300 observasi/model, tanpa bin atau asumsi distribusi.\n'
+                  'Observasi dalam sesi, bukan 300 replikasi eksperimen independen; server diagnostik.')
 
     def stability(self):
         source = STABILITY + 'latency/stability_run_01_frames.csv'
@@ -312,6 +332,20 @@ class Figures:
                   'Perubahan RSS kecil tetap berlabel MB. Satu run tidak membuktikan ada/tidak ada memory leak.')
 
     def write_index(self):
+        with (self.output / 'chart_selection_audit.csv').open('w', newline='') as stream:
+            writer = csv.writer(stream)
+            writer.writerow(['figure', 'chart_family', 'decision', 'sources', 'interpretation'])
+            for item in self.inventory:
+                name = item['figure']
+                family = ('run_dot_and_mean' if name.startswith('ros_runs_') else
+                          'ecdf' if name.endswith('_ecdf') else
+                          'boxplot_with_outliers' if name == 'server_latency_distribution' else
+                          'time_series' if name.startswith('stability_') else
+                          'line_by_epoch' if name.startswith(('fp32_', 'qat_c')) and name != 'qat_candidate_best' else
+                          'signed_delta_and_zero_bar' if name == 'test_overall_and_delta' else
+                          'small_multiple_dots' if name == 'test_overall_focused' else
+                          'zero_bar_and_dot_comparison')
+                writer.writerow([name, family, 'sesuai setelah peninjauan', '; '.join(item['sources']), item['note']])
         (self.output / 'figure_inventory.json').write_text(json.dumps(self.inventory, indent=2, ensure_ascii=False) + '\n')
         text = ['# Grafik hasil penelitian', '',
                 'Dibuat dari CSV/JSON beku, tanpa training, evaluasi ulang, atau pengukuran robot.', '',
@@ -327,7 +361,8 @@ class Figures:
         for item in self.inventory:
             text.append(f"| [{item['figure']}]({item['figure']}.png) | " + '<br>'.join(
                 f'[{p}](../../{p})' for p in item['sources']) + ' |')
-        text.extend(['', 'Lihat [alasan revisi dan cara menjalankan](../32_revisi_visualisasi_grafik.md).', ''])
+        text.extend(['', 'Lihat [alasan revisi dan cara menjalankan](../32_revisi_visualisasi_grafik.md).',
+                'Lihat [riset pemilihan grafik dan audit akademis](../33_pemilihan_grafik_akademis.md).', ''])
         (self.output / 'README.md').write_text('\n'.join(text))
 
 

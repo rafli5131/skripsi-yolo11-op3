@@ -6,6 +6,7 @@
     ],
     "note": "C4 − C3 = +0.132 poin persentase; seleksi memakai VAL.\nPanel kanan memakai posisi titik dan skala lokal, bukan panjang batang.",
     "kind": "magnitude_and_focused_dots",
+    "connector": null,
     "unit": "mAP50–95 (%)",
     "overview_min": 0,
     "focus_limits": [
@@ -317,6 +318,7 @@
     ],
     "note": "Checkpoint PyTorch; split TEST yang sama. Perubahan tiap kelas dapat berbeda.\nPanel kanan memakai posisi titik dan skala lokal, bukan panjang batang.",
     "kind": "magnitude_and_focused_dots",
+    "connector": "within_category_aggregate",
     "unit": "Skor (%)",
     "overview_min": 0,
     "focus_limits": [
@@ -349,6 +351,7 @@
     ],
     "note": "Checkpoint PyTorch; split TEST yang sama. Perubahan tiap kelas dapat berbeda.\nPanel kanan memakai posisi titik dan skala lokal, bukan panjang batang.",
     "kind": "magnitude_and_focused_dots",
+    "connector": "within_category_aggregate",
     "unit": "Skor (%)",
     "overview_min": 0,
     "focus_limits": [
@@ -381,6 +384,7 @@
     ],
     "note": "Checkpoint PyTorch; split TEST yang sama. Perubahan tiap kelas dapat berbeda.\nPanel kanan memakai posisi titik dan skala lokal, bukan panjang batang.",
     "kind": "magnitude_and_focused_dots",
+    "connector": "within_category_aggregate",
     "unit": "Skor (%)",
     "overview_min": 0,
     "focus_limits": [
@@ -413,6 +417,7 @@
     ],
     "note": "Checkpoint PyTorch; split TEST yang sama. Perubahan tiap kelas dapat berbeda.\nPanel kanan memakai posisi titik dan skala lokal, bukan panjang batang.",
     "kind": "magnitude_and_focused_dots",
+    "connector": "within_category_aggregate",
     "unit": "Skor (%)",
     "overview_min": 0,
     "focus_limits": [
@@ -445,6 +450,7 @@
     ],
     "note": "Checkpoint PyTorch; split TEST yang sama. Perubahan tiap kelas dapat berbeda.\nPanel kanan memakai posisi titik dan skala lokal, bukan panjang batang.",
     "kind": "magnitude_and_focused_dots",
+    "connector": "within_category_aggregate",
     "unit": "Skor (%)",
     "overview_min": 0,
     "focus_limits": [
@@ -476,6 +482,7 @@
     ],
     "note": "3 × sekitar 60 detik/model/kondisi, BEST_EFFORT depth 5.\nFrame terproses berbeda; CPU/RSS bukan energi per frame atau seluruh RAM robot.\nPanel kanan memakai posisi titik dan skala lokal, bukan panjang batang.",
     "kind": "magnitude_and_focused_dots",
+    "connector": "within_category_aggregate",
     "unit": "ms",
     "overview_min": 0,
     "focus_limits": [
@@ -504,6 +511,7 @@
     ],
     "note": "3 × sekitar 60 detik/model/kondisi, BEST_EFFORT depth 5.\nFrame terproses berbeda; CPU/RSS bukan energi per frame atau seluruh RAM robot.\nPanel kanan memakai posisi titik dan skala lokal, bukan panjang batang.",
     "kind": "magnitude_and_focused_dots",
+    "connector": "within_category_aggregate",
     "unit": "ms",
     "overview_min": 0,
     "focus_limits": [
@@ -532,6 +540,7 @@
     ],
     "note": "3 × sekitar 60 detik/model/kondisi, BEST_EFFORT depth 5.\nFrame terproses berbeda; CPU/RSS bukan energi per frame atau seluruh RAM robot.\nPanel kanan memakai posisi titik dan skala lokal, bukan panjang batang.",
     "kind": "magnitude_and_focused_dots",
+    "connector": "within_category_aggregate",
     "unit": "ms",
     "overview_min": 0,
     "focus_limits": [
@@ -560,6 +569,7 @@
     ],
     "note": "3 × sekitar 60 detik/model/kondisi, BEST_EFFORT depth 5.\nFrame terproses berbeda; CPU/RSS bukan energi per frame atau seluruh RAM robot.\nPanel kanan memakai posisi titik dan skala lokal, bukan panjang batang.",
     "kind": "magnitude_and_focused_dots",
+    "connector": "within_category_aggregate",
     "unit": "frame/detik",
     "overview_min": 0,
     "focus_limits": [
@@ -588,6 +598,7 @@
     ],
     "note": "3 × sekitar 60 detik/model/kondisi, BEST_EFFORT depth 5.\nFrame terproses berbeda; CPU/RSS bukan energi per frame atau seluruh RAM robot.\nPanel kanan memakai posisi titik dan skala lokal, bukan panjang batang.",
     "kind": "magnitude_and_focused_dots",
+    "connector": "within_category_aggregate",
     "unit": "% multi-core",
     "overview_min": 0,
     "focus_limits": [
@@ -616,6 +627,7 @@
     ],
     "note": "3 × sekitar 60 detik/model/kondisi, BEST_EFFORT depth 5.\nFrame terproses berbeda; CPU/RSS bukan energi per frame atau seluruh RAM robot.\nPanel kanan memakai posisi titik dan skala lokal, bukan panjang batang.",
     "kind": "magnitude_and_focused_dots",
+    "connector": "within_category_aggregate",
     "unit": "%",
     "overview_min": 0,
     "focus_limits": [
@@ -644,6 +656,7 @@
     ],
     "note": "3 × sekitar 60 detik/model/kondisi, BEST_EFFORT depth 5.\nFrame terproses berbeda; CPU/RSS bukan energi per frame atau seluruh RAM robot.\nPanel kanan memakai posisi titik dan skala lokal, bukan panjang batang.",
     "kind": "magnitude_and_focused_dots",
+    "connector": "within_category_aggregate",
     "unit": "MB desimal",
     "overview_min": 0,
     "focus_limits": [
@@ -672,6 +685,7 @@
     ],
     "note": "3 × sekitar 60 detik/model/kondisi, BEST_EFFORT depth 5.\nFrame terproses berbeda; CPU/RSS bukan energi per frame atau seluruh RAM robot.\nPanel kanan memakai posisi titik dan skala lokal, bukan panjang batang.",
     "kind": "magnitude_and_focused_dots",
+    "connector": "within_category_aggregate",
     "unit": "MB desimal",
     "overview_min": 0,
     "focus_limits": [
@@ -698,14 +712,14 @@
     "sources": [
       "experiments/hardware_op3/operator_runs/20261019T132747Z_fp32_berjalan_final/analysis/per_run_recap.csv"
     ],
-    "note": "Skala lokal tiap kondisi; pengulangan sesi, bukan replikasi seed training.\nSemua tiga run ditampilkan tanpa menyimpulkan signifikansi statistik."
+    "note": "Skala lokal tiap kondisi; pengulangan sesi, bukan replikasi seed training.\nTitik: setiap run (n=3/model/kondisi). Garis pendek: mean; bukan CI/SEM. Tidak ada pasangan run lintas model."
   },
   {
     "figure": "ros_runs_inference_mean_ms",
     "sources": [
       "experiments/hardware_op3/operator_runs/20261019T132747Z_fp32_berjalan_final/analysis/per_run_recap.csv"
     ],
-    "note": "Skala lokal tiap kondisi; pengulangan sesi, bukan replikasi seed training.\nSemua tiga run ditampilkan tanpa menyimpulkan signifikansi statistik."
+    "note": "Skala lokal tiap kondisi; pengulangan sesi, bukan replikasi seed training.\nTitik: setiap run (n=3/model/kondisi). Garis pendek: mean; bukan CI/SEM. Tidak ada pasangan run lintas model."
   },
   {
     "figure": "standalone_synthetic_inference_mean_ms",
@@ -714,6 +728,7 @@
     ],
     "note": "Input model 640×640, batch 1, warm-up 30.\nSintetis dan kamera merupakan protokol berbeda; scene kamera antarrun tidak identik.\nPanel kanan memakai posisi titik dan skala lokal, bukan panjang batang.",
     "kind": "magnitude_and_focused_dots",
+    "connector": null,
     "unit": "ms",
     "overview_min": 0,
     "focus_limits": [
@@ -742,6 +757,7 @@
     ],
     "note": "Input model 640×640, batch 1, warm-up 30.\nSintetis dan kamera merupakan protokol berbeda; scene kamera antarrun tidak identik.\nPanel kanan memakai posisi titik dan skala lokal, bukan panjang batang.",
     "kind": "magnitude_and_focused_dots",
+    "connector": null,
     "unit": "frame/detik",
     "overview_min": 0,
     "focus_limits": [
@@ -770,6 +786,7 @@
     ],
     "note": "Input model 640×640, batch 1, warm-up 30.\nSintetis dan kamera merupakan protokol berbeda; scene kamera antarrun tidak identik.\nPanel kanan memakai posisi titik dan skala lokal, bukan panjang batang.",
     "kind": "magnitude_and_focused_dots",
+    "connector": null,
     "unit": "% multi-core",
     "overview_min": 0,
     "focus_limits": [
@@ -798,6 +815,7 @@
     ],
     "note": "Input model 640×640, batch 1, warm-up 30.\nSintetis dan kamera merupakan protokol berbeda; scene kamera antarrun tidak identik.\nPanel kanan memakai posisi titik dan skala lokal, bukan panjang batang.",
     "kind": "magnitude_and_focused_dots",
+    "connector": null,
     "unit": "MB desimal",
     "overview_min": 0,
     "focus_limits": [
@@ -826,6 +844,7 @@
     ],
     "note": "Input model 640×640, batch 1, warm-up 30.\nSintetis dan kamera merupakan protokol berbeda; scene kamera antarrun tidak identik.\nPanel kanan memakai posisi titik dan skala lokal, bukan panjang batang.",
     "kind": "magnitude_and_focused_dots",
+    "connector": null,
     "unit": "ms",
     "overview_min": 0,
     "focus_limits": [
@@ -854,6 +873,7 @@
     ],
     "note": "Input model 640×640, batch 1, warm-up 30.\nSintetis dan kamera merupakan protokol berbeda; scene kamera antarrun tidak identik.\nPanel kanan memakai posisi titik dan skala lokal, bukan panjang batang.",
     "kind": "magnitude_and_focused_dots",
+    "connector": null,
     "unit": "frame/detik",
     "overview_min": 0,
     "focus_limits": [
@@ -882,6 +902,7 @@
     ],
     "note": "Input model 640×640, batch 1, warm-up 30.\nSintetis dan kamera merupakan protokol berbeda; scene kamera antarrun tidak identik.\nPanel kanan memakai posisi titik dan skala lokal, bukan panjang batang.",
     "kind": "magnitude_and_focused_dots",
+    "connector": null,
     "unit": "% multi-core",
     "overview_min": 0,
     "focus_limits": [
@@ -910,6 +931,7 @@
     ],
     "note": "Input model 640×640, batch 1, warm-up 30.\nSintetis dan kamera merupakan protokol berbeda; scene kamera antarrun tidak identik.\nPanel kanan memakai posisi titik dan skala lokal, bukan panjang batang.",
     "kind": "magnitude_and_focused_dots",
+    "connector": null,
     "unit": "MB desimal",
     "overview_min": 0,
     "focus_limits": [
@@ -938,7 +960,16 @@
       "experiments/server_openvino/server_benchmark_ptq_int8.csv",
       "experiments/server_openvino/server_benchmark_qat_int8.csv"
     ],
-    "note": "300 iterasi/model, 30 warm-up; median dan sebaran dari CSV asli, outlier tetap terlihat.\nServer AMD EPYC 7413 adalah diagnostik host, bukan latensi robot."
+    "note": "300 iterasi/model, 30 warm-up; box Q1–Q3, garis median, whisker 1,5 IQR; outlier tetap terlihat.\nServer AMD EPYC 7413 adalah diagnostik host, bukan latensi robot."
+  },
+  {
+    "figure": "server_latency_ecdf",
+    "sources": [
+      "experiments/server_openvino/server_benchmark_fp32.csv",
+      "experiments/server_openvino/server_benchmark_ptq_int8.csv",
+      "experiments/server_openvino/server_benchmark_qat_int8.csv"
+    ],
+    "note": "ECDF memakai semua 300 observasi/model, tanpa bin atau asumsi distribusi.\nObservasi dalam sesi, bukan 300 replikasi eksperimen independen; server diagnostik."
   },
   {
     "figure": "stability_latency",

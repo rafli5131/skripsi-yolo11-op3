@@ -26,7 +26,9 @@ class FigureContracts(unittest.TestCase):
         self.assertEqual(axes[0].get_ylim()[0], 0)
         np.testing.assert_allclose([p.get_height() for p in axes[0].patches],
                                    [93.13469, 95.05717, 93.41156, 95.02079])
-        for collection, expected in zip(axes[1].collections, series.values()):
+        from matplotlib.collections import PathCollection
+        dots = [c for c in axes[1].collections if isinstance(c, PathCollection)]
+        for collection, expected in zip(dots, series.values()):
             np.testing.assert_allclose(collection.get_offsets()[:, 0], expected)
         plt.close(fig)
 

@@ -24,7 +24,7 @@ Eksperimen export awal dipertahankan sebagai riwayat pengembangan, sedangkan IR 
 [Galeri grafik hasil](docs/figures/README.md) menyediakan konteks batang dari nol,
 tampilan titik berskala lokal, dan selisih bertanda agar perbedaan kecil terbaca.
 [Catatan revisi dan cara membuat ulang](docs/32_revisi_visualisasi_grafik.md)
-menjelaskan pemilihan skala. Seluruh grafik dibuat dari CSV/JSON yang sudah tersimpan,
+menjelaskan pemilihan skala. [Riset dan audit pemilihan grafik](docs/33_pemilihan_grafik_akademis.md) memetakan jenis data ke bentuk grafik dan sumber akademisnya. Seluruh grafik dibuat dari CSV/JSON yang sudah tersimpan,
 tanpa menjalankan training atau pengukuran baru.
 
 ## Peta cepat

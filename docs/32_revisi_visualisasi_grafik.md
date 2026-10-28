@@ -85,3 +85,7 @@ PR curve dan confusion matrix tidak direkonstruksi dari skor agregat.
 Pilih grafik detail ketika membahas selisih kecil. Konteks besaran tetap ada pada gambar
 pasangan. Dokumen Word dan PPT yang sudah diekspor tidak otomatis berubah oleh pembaruan
 repository ini; gambar baru dapat menggantikan gambar lama dengan judul/caption yang sesuai.
+
+## Peninjauan pemilihan jenis grafik
+
+[Riset dan audit akademis lanjutan](33_pemilihan_grafik_akademis.md) menjelaskan pemilihan bentuk, termasuk titik tiap run, dumbbell, box plot, dan ECDF.
