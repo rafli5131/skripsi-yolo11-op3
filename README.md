@@ -19,6 +19,14 @@ Eksperimen export awal dipertahankan sebagai riwayat pengembangan, sedangkan IR 
 
 [Tahapan eksperimen](docs/20_experiment_timeline.md) menempatkan seleksi QAT best sebelum FINAL TEST dan export final. [Ringkasan hasil server di samping raw JSON/CSV](experiments/server_openvino/README.md) mencakup kualitas deteksi VAL empat model dan benchmark latency sintetis tiga IR sebagai dua run terpisah.
 
+## Grafik untuk skripsi dan seminar hasil
+
+[Galeri grafik hasil](docs/figures/README.md) menyediakan konteks batang dari nol,
+tampilan titik berskala lokal, dan selisih bertanda agar perbedaan kecil terbaca.
+[Catatan revisi dan cara membuat ulang](docs/32_revisi_visualisasi_grafik.md)
+menjelaskan pemilihan skala. Seluruh grafik dibuat dari CSV/JSON yang sudah tersimpan,
+tanpa menjalankan training atau pengukuran baru.
+
 ## Peta cepat
 
 ```text
