@@ -32,8 +32,7 @@ def plot_camera(root, rows):
         comparison(*pair, labels, {'Measured': values}, title, decimals=3)
     fig.suptitle('OP3 / NUC12: measured standalone C920 comparison\nCPU, batch 1, model 640×640, warmup 30, camera 60s/model, visualization OFF')
     fig.subplots_adjust(top=.92, bottom=.08, left=.09, right=.97, wspace=.50, hspace=.90)
-    fig.text(.5, .015, 'Left: absolute bars start at zero. Right: focused dots, local scale shown.\n'
-             'Sequential live-camera sessions do not guarantee identical frames.', ha='center')
+    fig.text(.5, .015, 'Kamera C920; durasi 60 detik per model. Skala panel kanan diperbesar.', ha='center')
     output = root/'evidence/four_model_camera_comparison.png'
     output.parent.mkdir(exist_ok=True)
     fig.savefig(output, dpi=160)

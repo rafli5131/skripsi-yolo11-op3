@@ -77,7 +77,7 @@ def comparison(overview, detail, categories, series, unit, decimals=3,
     overview.set_xticks(x, categories)
     overview.set_ylim(0, max(float(values.max()) * 1.18, 1e-6))
     overview.set_ylabel(unit)
-    overview.set_title('Konteks: batang mulai dari nol')
+    overview.set_title('Perbandingan nilai')
     overview.legend(loc='upper left', bbox_to_anchor=(0, 1.02), frameon=False)
     style_axis(overview)
     low, high = local_limits(values, bounds or (0, float('inf')))
@@ -85,7 +85,7 @@ def comparison(overview, detail, categories, series, unit, decimals=3,
     detail.set_ylim(len(categories) - .45, -.55)
     detail.set_yticks(x, categories)
     detail.set_xlabel(unit)
-    detail.set_title(f'Detail titik: rentang {low:.{decimals}f}–{high:.{decimals}f}')
+    detail.set_title(f'Detail ({low:.{decimals}f}–{high:.{decimals}f})')
     style_axis(detail, 'x')
     return {'kind': 'magnitude_and_focused_dots', 'connector': 'within_category_aggregate' if len(series) == 2 else None, 'unit': unit,
             'overview_min': 0, 'focus_limits': [low, high],
@@ -107,6 +107,6 @@ def delta_plot(ax, categories, baseline, candidate, unit, decimals=4):
     ax.invert_yaxis()
     ax.axvline(0, color='#333333', linewidth=1)
     ax.set_xlabel(unit)
-    ax.set_title('Selisih QAT − FP32 (tanda dipertahankan)')
+    ax.set_title('Selisih QAT − FP32')
     style_axis(ax, 'x')
     return delta.tolist()

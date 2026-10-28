@@ -36,8 +36,7 @@ def plot_resources(csv_path, output):
     axes[-1].set_xlabel('Measured elapsed time (seconds)')
     fig.suptitle(f"{rows[0]['condition']} / {rows[0]['run_id']}\nSource: {csv_path.name}")
     fig.subplots_adjust(top=.92, bottom=.08, left=.16, right=.97, hspace=.35)
-    fig.text(.5, .015, 'Local y-scale per panel; all measured samples shown. CPU and RAM scopes are separate.\n'
-             'A zoomed RSS scale reveals small changes, not evidence of a memory leak.', ha='center', fontsize=10)
+    fig.text(.5, .015, 'Skala y berbeda pada setiap panel.', ha='center', fontsize=10)
     output.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(output, dpi=160)
     plt.close(fig)

@@ -30,6 +30,27 @@ MODELS = ['FP32 PyTorch\ntanpa OpenVINO', 'FP32\nOpenVINO',
 METRICS = ['precision', 'recall', 'F1', 'mAP50', 'mAP50-95']
 
 
+def figure_caption(name):
+    """Short publication captions; detailed interpretation stays in the source index."""
+    if name.startswith('ros_runs_'):
+        return 'n = 3 run per model dan kondisi. Garis horizontal menunjukkan rata-rata.'
+    if name == 'server_latency_distribution':
+        return 'n = 300 iterasi per model. Box: Q1–Q3; whisker: 1,5 IQR.'
+    if name == 'server_latency_ecdf':
+        return 'n = 300 iterasi per model.'
+    if name == 'test_overall_and_delta':
+        return 'TEST: 592 citra dan 734 anotasi.'
+    if name == 'test_overall_focused':
+        return 'TEST: 592 citra dan 734 anotasi. Skala y berbeda pada setiap panel.'
+    if name == 'stability_latency':
+        return 'Garis tebal menunjukkan rata-rata per 5 detik.'
+    if name == 'stability_resources':
+        return 'Durasi pengujian sekitar 600 detik. Skala y berbeda pada setiap panel.'
+    if name.startswith(('fp32_', 'qat_c')) and name != 'qat_candidate_best':
+        return 'Skala y berbeda pada setiap panel.' if name != 'qat_candidate_history' else 'Validasi lima kandidat QAT.'
+    return 'Skala panel kanan diperbesar.'
+
+
 class Figures:
     def __init__(self, root, output, formats):
         self.root, self.output, self.formats = root, output, formats
@@ -47,7 +68,7 @@ class Figures:
     def save(self, fig, name, sources, note, metadata=None):
         # Reserve title/footer space explicitly rather than squeezing plot labels.
         fig.subplots_adjust(top=.83, bottom=.23, left=.09, right=.96, wspace=.48, hspace=.65)
-        fig.text(.5, .035, note, ha='center', va='bottom', fontsize=10, wrap=True)
+        fig.text(.5, .035, figure_caption(name), ha='center', va='bottom', fontsize=10, wrap=True)
         for extension in self.formats:
             buffer = io.BytesIO()
             fig.savefig(buffer, format=extension, dpi=180,
@@ -168,7 +189,7 @@ class Figures:
         axes[0].set_xticks(x, METRICS)
         axes[0].set_ylim(0, 105)
         axes[0].set_ylabel('Skor (%)')
-        axes[0].set_title('Konteks penuh: batang mulai dari nol')
+        axes[0].set_title('Nilai metrik')
         axes[0].legend(frameon=False)
         style_axis(axes[0])
         delta = delta_plot(axes[1], METRICS, av, bv, 'Selisih (poin persentase)')
