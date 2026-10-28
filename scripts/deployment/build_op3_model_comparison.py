@@ -20,19 +20,19 @@ def plot_camera(root, rows):
         return None
     camera = [r for r in rows if r['mode'] == 'camera']
     labels = ['FP32 PyTorch\ntanpa OpenVINO', 'FP32\nOpenVINO', 'PTQ INT8\nOpenVINO', 'QAT INT8\nOpenVINO']
-    fig, axes = plt.subplots(2, 2, figsize=(12, 8))
-    for ax, field, title in zip(axes.flat,
+    import sys
+    sys.path.insert(0, str(REPO))
+    from scripts.reporting.figure_style import comparison, configure
+    configure()
+    fig, axes = plt.subplots(4, 2, figsize=(15, 17))
+    for pair, field, title in zip(axes,
             ['inference_mean_ms', 'effective_fps', 'system_cpu_mean_percent', 'rss_peak_mb'],
             ['Inference mean (ms)', 'Effective real-camera FPS', 'System CPU mean (%)', 'Detector RSS peak (MB decimal)']):
-        values = [r[field] for r in camera]
-        bars = ax.bar(labels, values, color=['#5470c6', '#91cc75', '#fac858', '#ee6666'])
-        ax.bar_label(bars, labels=[f'{v:.2f}' for v in values], padding=3)
-        ax.set_title(title)
-        ax.grid(axis='y', alpha=.25)
-        ax.set_axisbelow(True)
-        ax.set_ylim(0, max(values)*1.2)
-    fig.suptitle('OP3 / NUC12 — measured standalone C920 comparison\nCPU, batch 1, model 640×640, warmup 30, camera 60s/model, visualization OFF')
-    fig.tight_layout()
+        values = [float(r[field]) for r in camera]
+        comparison(*pair, labels, {'Measured': values}, title, decimals=3)
+    fig.suptitle('OP3 / NUC12: measured standalone C920 comparison\nCPU, batch 1, model 640×640, warmup 30, camera 60s/model, visualization OFF')
+    fig.subplots_adjust(top=.92, bottom=.08, left=.09, right=.97, wspace=.50, hspace=.90)
+    fig.text(.5, .015, 'Kamera C920; durasi 60 detik per model. Skala panel kanan diperbesar.', ha='center')
     output = root/'evidence/four_model_camera_comparison.png'
     output.parent.mkdir(exist_ok=True)
     fig.savefig(output, dpi=160)
