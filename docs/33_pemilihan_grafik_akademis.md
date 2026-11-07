@@ -49,7 +49,7 @@ yang diklaim berasal dari semua paper tersebut. Nomor gambar/tabel merujuk versi
 | Latensi/CPU/RSS terhadap detik | Time series, panel terpisah | Menampilkan perubahan dan lonjakan sepanjang pengamatan. Ringkasan 5 detik melengkapi, tidak menghapus observasi asli. |
 | Precision–recall | PR curve evaluator | Memerlukan pasangan precision/recall pada berbagai ambang; tidak dapat dibuat dari satu skor mAP. |
 | Salah prediksi antar kelas | Confusion-matrix heatmap | Perlu hitungan asli dan definisi normalisasi. Matriks arsip tidak dilabel ulang sebagai evaluasi final yang berbeda. |
-| Accuracy–latency trade-off | Scatter jika evaluasi dan artefak sebanding | Belum dibuat untuk TEST-versus-ROS di sini: TEST checkpoint PyTorch dan runtime IR tidak membentuk pasangan evaluasi berlabel deployment yang terverifikasi. |
+| Accuracy–latency trade-off | Scatter jika evaluasi dan artefak sebanding | Belum dibuat untuk TEST-versus-ROS di sini karena kualitas deteksi dievaluasi pada checkpoint PyTorch, sedangkan kinerja robot diukur pada runtime OpenVINO; kedua evaluasi memiliki konteks berbeda. |
 
 ## Hasil audit dan perubahan yang dilakukan
 
