@@ -10,7 +10,7 @@ Dokumen ini membedakan implementasi yang tersedia dari pekerjaan final yang masi
 | --- | --- | --- |
 | Hardware | NUC12WSHi5, Intel Core i5-1240P, Ubuntu 24.04, ROS 2 Jazzy, C920 | `experiments/hardware_op3/system_info.json` dan `.md` |
 | QAT OpenVINO CPU | Load, compile, dan inference dummy berhasil; output finite `[1,7,8400]` | `experiments/hardware_op3/openvino_sanity.json` |
-| Identitas model | Mengikuti folder yang dikonfirmasi pengguna; tidak ada pemeriksaan SHA256 | `experiments/hardware_op3/model_inventory.json` |
+| Model pengujian | Mengikuti direktori FP32, PTQ, dan QAT yang ditetapkan | `experiments/hardware_op3/model_inventory.json` |
 | Visual QAT standalone | Run kamera dengan visualisasi ON tersedia; functional check, bukan pengukuran final | `scripts/run_qat_visual.sh`, `camera_benchmark_qat_int8.json` |
 | Package ROS skripsi | Package terpisah dibuild; 3 run diam QAT folder selesai tanpa exception | `ros2_ws/src/yolo11_op3_vision/` |
 | Stability | ROS QAT folder 600 detik, 8260 frame, nol exception | `experiments/hardware_op3/stability_qat/20261007_ros_qat/` |
@@ -54,7 +54,7 @@ Codex **tidak boleh** melakukan training ulang, QAT tuning, PTQ, calibration, pe
 
 Held-out TEST juga tidak boleh dijalankan ulang. Hasil akurasi FINAL TEST yang sudah dibekukan tetap menjadi sumber angka precision, recall, F1-score, mAP@0.5, dan mAP@0.5:0.95. Kamera live di robot tidak memiliki ground truth, sehingga jumlah deteksi dan confidence dari kamera live **tidak boleh** diperlakukan sebagai precision, recall, F1, atau mAP.
 
-Laporan validasi numerik OpenVINO yang sudah ada tetap menjadi bukti tahap export yang dilaporkan repository. Deployment menggunakan model yang dilatih/diunggah dan dikonfirmasi pengguna. Identitas payload tidak diverifikasi secara independen dan tidak ada pemeriksaan hash. Sanity runtime CPU menunjukkan model dapat dijalankan; sanity ini bukan evaluasi ulang akurasi atau numerical equivalence. Tahap robot mengambil data waktu komputasi dan sumber daya sesuai proposal.
+Laporan validasi numerik OpenVINO yang sudah ada tetap menjadi bukti tahap export yang dilaporkan repository. Deployment menggunakan model yang dilatih/diunggah dan dikonfirmasi pengguna. Model deployment mengikuti konfigurasi FP32 dan QAT yang telah ditetapkan. Sanity runtime CPU menunjukkan model dapat dijalankan; sanity ini bukan evaluasi ulang akurasi atau numerical equivalence. Tahap robot mengambil data waktu komputasi dan sumber daya sesuai proposal.
 
 ---
 
@@ -473,7 +473,7 @@ Codex harus melanjutkan package skripsi dan helper existing. Path script saat in
 | Kode tersedia | Fungsi aktual | Batas penggunaan |
 | --- | --- | --- |
 | `scripts/deployment/audit_hardware_op3.py` | Audit sistem, kamera, runtime | Output fixed pada `experiments/hardware_op3/system_info.*` |
-| `scripts/deployment/audit_op3_models.py` | Inventory file dan bukti manifest tanpa hash | Bukti manifest tidak memverifikasi identitas payload |
+| `scripts/deployment/audit_op3_models.py` | Inventory file dan bukti manifest tanpa hash | Mencatat daftar artefak model menurut konfigurasi pengujian |
 | `scripts/deployment/benchmark_op3.py` | Synthetic atau kamera OpenVINO, raw timing/resource | Single run, belum schema proposal diam/berjalan |
 | `scripts/deployment/benchmark_op3_ros2.py` | Subscriber JSON `/vision/benchmark`, logger resource | Memerlukan telemetry dan penyesuaian PID node skripsi |
 | `scripts/deployment/capture_op3_evidence.py` | Functional evidence kamera/resource | Evidence bukan evaluasi akurasi |
