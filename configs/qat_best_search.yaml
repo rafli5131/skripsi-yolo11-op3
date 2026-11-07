@@ -3,7 +3,7 @@
 # IMPORTANT:
 # - Selection uses TRAIN + VAL only.
 # - TEST is evaluated once after the best QAT candidate is frozen.
-# - PTQ metrics are never copied/relabelled as QAT metrics.
+# - Selection metrics come from QAT candidates evaluated on VAL.
 # - All candidates use the existing NNCF create_compressed_model() QAT path.
 
 selection_metric: mAP50-95
