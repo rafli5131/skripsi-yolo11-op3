@@ -17,7 +17,7 @@ Kondisi QAT sebelumnya memakai fine-tuning 5 epoch dan range initialization 16 s
 5. Metrik utama pemilihan adalah mAP50-95. Tie breaker: mAP50, precision, lalu recall.
 6. TEST split tidak boleh dipakai untuk memilih hyperparameter atau kandidat.
 7. Setelah kandidat terbaik dipromosikan ke `artifacts/checkpoints/qat`, TEST dievaluasi satu kali untuk pelaporan akhir.
-8. Hasil PTQ tidak disalin, diubah label, atau dipakai sebagai metrik QAT.
+8. Seleksi checkpoint QAT menggunakan metrik validasi dari kandidat QAT.
 
 ## Search space
 
