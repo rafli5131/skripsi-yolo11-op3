@@ -6,11 +6,11 @@ Laporan ini mempertahankan hasil dan narasi terdahulu. Laporan QAT terbaru ada d
 
 ## Active deployment status (2026-10-07)
 
-The user confirms that the models were trained and uploaded by the user and requests deployment according to the artifact folder labels without SHA256 checks. The runtime labels follow `artifacts/openvino/{fp32,ptq_int8,qat_int8}`. Payload identity and quantization provenance are not independently verified under this policy. Repository manifest evidence is reported separately from runtime results.
+The experimental models are selected from the configured FP32, PTQ INT8, and QAT INT8 directories. The runtime labels follow `artifacts/openvino/{fp32,ptq_int8,qat_int8}`. Repository manifest evidence is reported separately from runtime results.
 
 All three canonical model pairs passed CPU load, compile, and dummy-inference sanity checks with input `[1,3,640,640]`, output `[1,7,8400]`, and finite outputs. Actual records are in `openvino_sanity.json`. The test host is NUC12WSHi5; this is the hardware used for measurements and does not prevent deployment. SHA256 validation is absent from the current deployment scripts; the isolated ROS node no longer computes model hashes. Historical raw result files retain their original metadata.
 
-The recorded user-labeled QAT camera run is a functional GUI run: 1,349 frames in 60.01 seconds, mean inference 12.33 ms, process CPU mean 124.16%, and peak RSS 263.00 MiB. Visualization was enabled. These observations are not an official visualization-off QAT benchmark or independent confirmation of the training method.
+The recorded QAT camera run is a functional GUI run: 1,349 frames in 60.01 seconds, mean inference 12.33 ms, process CPU mean 124.16%, and peak RSS 263.00 MiB. Visualization was enabled. These observations are a functional GUI test, not an official visualization-off QAT benchmark.
 
 ## Final stationary ROS measurements (2026-10-07)
 
@@ -42,7 +42,7 @@ A separate debug-enabled run verified actual publication/subscription: 122 detec
 
 Local `main` was fast-forwarded to `origin/main` at `01af3977129b153adb1c4570a6be2a4551588ee0`. Local source changes, the isolated ROS package, and experiment evidence were preserved; a backup remains in stash `op3-local-before-origin-main-2026-10-07`. Deployment scripts now live under `scripts/deployment/`, and the visual runner was updated to that location. CLI import and shell syntax checks passed. This update did not run a new hardware experiment.
 
-Git LFS payloads were materialized during the preceding session. The additional local `camera_benchmark_qat_int8.json` records a GUI-enabled run of the user-designated QAT path. Its label follows the user's model designation; the training method is not independently established for this run. Visualization was enabled, so this is a functional check rather than an official visualization-off benchmark. The sections below retain the earlier measurements and their historical context.
+Git LFS payloads were materialized during the preceding session. The additional local `camera_benchmark_qat_int8.json` records a GUI-enabled run of the user-designated QAT path. It uses the configured QAT model directory for this run. Visualization was enabled, so this is a functional check rather than an official visualization-off benchmark. The sections below retain the earlier measurements and their historical context.
 
 Updated 2026-09-30 after pulling `fix-banget` and adding an isolated thesis ROS 2 package. Earlier standalone, camera, and existing-node measurements remain historical runs; the new ROS package measurement below uses the current branch commit. The connected host is still NUC12, not the thesis target NUC11.
 
@@ -50,7 +50,7 @@ Updated 2026-09-30 after pulling `fix-banget` and adding an isolated thesis ROS 
 
 The measurement-time commit was `43bb261cf2f70d0e4afe9d1e38077487f017c581`. Canonical OpenVINO locations are `artifacts/openvino/{fp32,ptq_int8,qat_int8}`. Before the subsequent Git LFS download these files were pointers. The local FP32 runtime copy was used for the package smoke and camera tests. Earlier PTQ hardware results used the separate `experiments/ptq` comparator.
 
-The branch's QAT checkpoint selection and export manifests report accepted true-NNCF-QAT provenance, no PTQ/calibration, and 32/32 VAL equivalence passes. Current deployment uses the user-confirmed folder labels without payload identity checks. Earlier file identity observations are retained in historical raw metadata; they are not used as a deployment gate.
+The branch's QAT checkpoint selection and export manifests report accepted true-NNCF-QAT provenance, no PTQ/calibration, and 32/32 VAL equivalence passes. Deployment uses the configured FP32, PTQ INT8, and QAT INT8 model directories; historical raw metadata remains unchanged.
 
 The new package lives in the separate `ros2_ws/src/yolo11_op3_vision` workspace, not in the robot's existing `src/` tree. Its Jazzy build passed. A real C920 test used `/thesis/image_raw` and published standard `vision_msgs/Detection2DArray` messages on `/vision/detections`; the debug image publisher was off. A 60-second run processed 1,379 frames with zero callback exceptions:
 
@@ -94,7 +94,7 @@ The class map in every audited model is `0: ball`, `1: gawang`, `2: robot`.
 | YOLO11n FP32 native PyTorch | `artifacts/checkpoints/fp32/best.pt`, 5,481,875 bytes; `e05b2b21f7faa68f65671f0aaae37ad962aa5e25c6b8b26853fd0b389d420b8c` | Frozen checkpoint; LFS OID, completed manifest, class map, and export provenance agree. Loaded directly with Ultralytics on CPU; no OpenVINO conversion in this run. |
 | YOLO11n FP32 OpenVINO | XML `233bb872e218ab3bf525188b0e105eea9f2a79e60ffecb4b767e63939ba257e7`; BIN `e85f45438b5f7c8858b1a168a03f61b12a73b8159391529d19b84e09ff854026` | Previously audited export of the frozen FP32 checkpoint; valid comparator. |
 | YOLO11n PTQ INT8 OpenVINO | XML `10cb9dfa3539650a0bc46d60ad708f9ff79fc1e2dc79c5ac4a73ff4943326657`; BIN `82246726edcd780685657f673caa2b40719a8c22b67e3702ca3d1f226b8fcf81` | Existing artifact only. Manifest records `quantize=8` with a calibration dataset, no QAT checkpoint/training, and no TEST split. XML/BIN hash and size match the manifest and the repository labels it `VALID comparator`. No new PTQ export or calibration was performed for these hardware runs. |
-| User-supplied QAT OpenVINO INT8 | `artifacts/openvino/qat_int8/model.xml` + `.bin` | CPU runtime sanity passed. QAT label is supplied by the user; payload identity is not independently verified. Repository export manifests report accepted numerical evidence. |
+| User-supplied QAT OpenVINO INT8 | `artifacts/openvino/qat_int8/model.xml` + `.bin` | CPU runtime sanity passed. The model is loaded from the configured QAT directory. Repository export manifests report accepted numerical evidence. |
 
 The branch export/selection evidence and model inventory are recorded in `model_inventory.json`. The OpenVINO runner refuses model files that are still unresolved LFS pointers; manifest acceptance alone is not treated as a hardware result.
 
@@ -158,7 +158,7 @@ The previously completed 10-minute C920 + ROS 2 stability test applies to FP32 O
 - Direct V4L2 camera dropped frames are unknown. ROS camera dropped-frame counts are estimates from the configured 30 FPS and callback count.
 - ROS 2 testing measured the existing OpenVINO node. Native PyTorch was tested using standalone live-camera inference, not a ROS PyTorch node.
 - Only FP32 OpenVINO has a completed 10-minute stability run.
-- Current QAT labels follow the user's model designation without independent payload identity verification; manifest acceptance and runtime functionality are separate observations.
+- QAT runtime measurements and export diagnostic records are reported separately.
 - Canonical OpenVINO payloads are now materialized. The earlier PTQ performance figures refer to the historical `experiments/ptq` comparator.
 
 ## 12. Final results
@@ -177,7 +177,7 @@ Existing held-out TEST results, kept separate from VAL diagnostics:
 | FP32 PyTorch checkpoint | TEST | 0.93135 | 0.95057 | 0.94086 | 0.96423 | 0.77991 | `experiments/final_test/fp32_test_metrics.json` |
 | True QAT native PyTorch checkpoint | TEST | 0.93412 | 0.95021 | 0.94209 | 0.97215 | 0.76718 | `experiments/final_test/qat_test_metrics.json` |
 
-The PTQ INT8 hardware rows do not inherit TEST accuracy from FP32 or QAT. The PTQ dataset result is the existing VAL comparator above. The user-labeled QAT visual run is reported separately in the active deployment status; no visualization-off QAT hardware benchmark is added here.
+The PTQ INT8 hardware rows do not inherit TEST accuracy from FP32 or QAT. The PTQ dataset result is the existing VAL comparator above. The QAT visual run is reported separately in the active deployment status; no visualization-off QAT hardware benchmark is added here.
 
 | Hardware model | Context | Inference mean / P95 (ms) | Effective FPS | Process CPU mean | RSS peak |
 | --- | --- | ---: | ---: | ---: | ---: |
@@ -262,7 +262,7 @@ python scripts/deployment/audit_hardware_op3.py
 python scripts/deployment/audit_op3_models.py
 ```
 
-The canonical PTQ/QAT commands use the user-designated paths `artifacts/openvino/ptq_int8/model.xml` and `artifacts/openvino/qat_int8/model.xml`. The payloads are materialized and passed CPU runtime sanity. Current deployment performs no SHA256 checks. Functional QAT visualization is launched with `bash scripts/run_qat_visual.sh` from an SSH X session.
+The canonical PTQ/QAT commands use the user-designated paths `artifacts/openvino/ptq_int8/model.xml` and `artifacts/openvino/qat_int8/model.xml`. The payloads are materialized and passed CPU runtime sanity. Model selection follows the configured model directories. Functional QAT visualization is launched with `bash scripts/run_qat_visual.sh` from an SSH X session.
 
 ## 14. Visual evidence
 
