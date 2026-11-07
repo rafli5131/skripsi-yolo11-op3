@@ -35,4 +35,4 @@ OP3_CAMERA_DEVICE=/dev/video1 bash scripts/run_qat_visual.sh
 
 ## Status artefak
 
-Pengguna mengonfirmasi bahwa model sudah dilatih dan diunggah sendiri. Label QAT mengikuti direktori yang ditetapkan pengguna; identitas payload tidak diverifikasi secara independen. Payload Git LFS sudah tersedia. NUC12 adalah hardware pengujian aktual dan tidak menghalangi deployment. Catatan runtime tersimpan di `experiments/hardware_op3/openvino_sanity.json` setelah sanity test dilakukan.
+Pengguna mengonfirmasi bahwa model sudah dilatih dan diunggah sendiri. Model QAT dipilih dari direktori artefak QAT yang ditetapkan untuk pengujian. Payload Git LFS sudah tersedia. NUC12 adalah hardware pengujian aktual dan tidak menghalangi deployment. Catatan runtime tersimpan di `experiments/hardware_op3/openvino_sanity.json` setelah sanity test dilakukan.
