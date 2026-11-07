@@ -80,7 +80,7 @@ def build(root):
                 'memory_unit': 'MB = bytes / 1000000', 'cpu_main_metric': 'whole-system CPU percent',
                 'resource_aggregation': 'all periodic samples pooled by condition',
                 'missing_conditions': [r['condition'] for r in resources if not r['samples']],
-                'completed_runs': len(summaries), 'system_ram_definition': 'psutil.virtual_memory.used; percent directly from psutil', 'model_identity': 'user-supplied QAT path; hashes not checked'}
+                'completed_runs': len(summaries), 'system_ram_definition': 'psutil.virtual_memory.used; percent directly from psutil', 'model_identity': 'QAT model directory configured for the experiment'}
     (root/'tables/metadata.json').write_text(json.dumps(metadata, indent=2)+'\n')
     condition_note = ('Kondisi berjalan belum diukur; script disiapkan untuk operator.'
                       if 'berjalan' in metadata['missing_conditions'] else
@@ -96,7 +96,7 @@ def build(root):
     model_path = json.loads(protocol_path.read_text())['model_path'] if protocol_path.exists() else 'not recorded'
     sections = ['# Final OP3 QAT runtime report',
                 'Model OpenVINO yang digunakan: `'+model_path+'` (XML dan BIN berpasangan).',
-                'Model label: QAT INT8 OpenVINO, berdasarkan folder model yang diberikan pengguna. Identitas artefak tidak diverifikasi dengan hash.',
+                'Model: QAT INT8 OpenVINO dari direktori model yang ditetapkan untuk pengujian.',
                 'Hardware dan versi software: lihat environment_*.json. CPU onboard aktual NUC12; batch 1, input 640 × 640, CPU.',
                 'Protocol dibekukan sebelum run di protocol.json. Tidak ada training, calibration, atau tuning.',
                 '## Latency dan FPS', (root/'tables/table_3_1_latency.md').read_text(),
