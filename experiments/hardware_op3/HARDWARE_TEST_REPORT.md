@@ -21,7 +21,7 @@ Python 3.12.3, OpenVINO 2026.3.1-22476-759c5a6ab8c-releases/2026/3, ROS 2 jazzy.
 | PTQ INT8 OpenVINO | OpenVINO CPU | `artifacts/openvino/ptq_int8/model.xml` + `model.bin` |
 | QAT INT8 OpenVINO | OpenVINO CPU | `artifacts/openvino/qat_int8/model.xml` + `model.bin` |
 
-Label QAT/PTQ mengikuti model yang ditetapkan pengguna. Tidak ada pemeriksaan hash; manifest/checkpoint penelitian tidak diubah. Mapping tetap `0: ball`, `1: gawang`, `2: robot`. Ketiga IR berhasil compile/inference CPU dengan output finite `[1,7,8400]`. Native FP32 tidak menggunakan OpenVINO. Tidak ada training, export ulang, calibration, atau tuning.
+Model QAT dan PTQ digunakan dari direktori artefak yang ditetapkan untuk masing-masing pengujian. Manifest dan checkpoint penelitian tidak diubah. Mapping tetap `0: ball`, `1: gawang`, `2: robot`. Ketiga IR berhasil compile/inference CPU dengan output finite `[1,7,8400]`. Native FP32 tidak menggunakan OpenVINO. Tidak ada training, export ulang, calibration, atau tuning.
 
 ## 4. Experimental setup
 
