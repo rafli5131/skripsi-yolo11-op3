@@ -16,7 +16,7 @@ Selama pengembangan pernah dicoba jalur `strip()`, ONNX, serta beberapa variasi 
 
 ## Pembersihan
 
-File model debug berukuran besar yang tidak lagi diperlukan telah dipisahkan atau dibersihkan agar tidak tertukar dengan artefak final. JSON diagnostic dapat tetap dipertahankan sebagai catatan proses pengembangan.
+File model debug berukuran besar yang tidak lagi diperlukan telah dipisahkan atau dibersihkan agar direktori artefak final tetap teratur. JSON diagnostic dapat tetap dipertahankan sebagai catatan proses pengembangan.
 
 Artefak yang menjadi rujukan deployment:
 
