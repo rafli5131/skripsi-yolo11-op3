@@ -133,7 +133,7 @@ Seluruh run berjalan memiliki `completed=true`, durasi aktual ≥60 detik, `ther
 
 FPS gabungan diam 13,5658 dan berjalan 10,0354; perubahan relatif -26,0239%. Mean inference berjalan 12,9642 ms dan pipeline 16,6935 ms. FPS berjalan lebih rendah meskipun latency frame yang diproses tidak meningkat. Pengiriman frame sebelum callback, adegan kamera dan beban sistem tidak dikendalikan sepenuhnya; data ini tidak membuktikan bahwa gerak robot sendiri menyebabkan penurunan FPS. CPU proses yang lebih rendah dapat sejalan dengan lebih sedikit frame yang diproses, tetapi penyebabnya tidak diuji lebih lanjut.
 
-Perbandingan ini bersifat deskriptif. Parameter utama terverifikasi cocok melalui protocol.json dan setup JSON, serta format kamera melalui log. Namun tanggal/commit, adegan dan beban kontrol berbeda; QoS/domain lama tidak dicatat eksplisit dan identitas model lama tidak diverifikasi. Perbandingan tidak dinyatakan sepenuhnya setara atau sebagai efek kausal gerakan robot.
+Perbandingan ini bersifat deskriptif. Parameter utama terverifikasi cocok melalui protocol.json dan setup JSON, serta format kamera melalui log. Namun tanggal/commit, adegan, dan beban kontrol berbeda; QoS/domain lama juga tidak dicatat secara eksplisit. Perbandingan tidak dinyatakan sepenuhnya setara atau sebagai efek kausal gerakan robot.
 
 Run berjalan lama 12,5234 detik (`final_qat`, 171 frame, `completed=false`) dan 16,6991 detik (`20261019T092114...`, 216 frame, `completed=false`) tetap dikecualikan. Sesi `20261019T092437...` tetap arsip; tidak dicampurkan ke tiga run baru. Metadata commit historis tidak diubah.
 
