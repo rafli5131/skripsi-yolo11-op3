@@ -38,7 +38,7 @@ Ukuran model adalah jumlah XML + BIN, dalam MB desimal; ukuran checkpoint pelati
 | FP32 | 324944 | 10431992 | 10,7569 |
 | QAT INT8 | 666400 | 2741080 | 3,4075 |
 
-Pasangan XML/BIN QAT berukuran 68,32% lebih kecil. Checksum saat finalisasi sesuai dengan snapshot sebelum merge. Metadata runtime lama hanya mencatat path dan tidak memverifikasi identitas payload; keterbatasan historis ini tidak diubah secara retroaktif.
+Pasangan XML/BIN QAT berukuran 68,32% lebih kecil. Checksum saat finalisasi sesuai dengan snapshot sebelum merge. Konfigurasi model dalam pengujian robot mengikuti model FP32 dan QAT yang telah ditetapkan.
 
 ## 3. Benchmark OpenVINO standalone pada CPU OP3
 
