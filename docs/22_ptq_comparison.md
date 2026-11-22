@@ -1,4 +1,13 @@
-# PTQ INT8 sebagai Pembanding
+# Lampiran hasil pengujian PTQ INT8
+
+Hasil PTQ INT8 digunakan sebagai pembanding tambahan di lampiran. Hasil utama penelitian membandingkan FP32 dan QAT. Grafik benchmark yang menyertakan PTQ tersedia di [lampiran grafik](figures/appendix_ptq/README.md).
+
+| Pengujian tambahan | Tabel dan data |
+| --- | --- |
+| VAL historis | Tabel pada lampiran ini |
+| VAL server | [Laporan metrik deteksi](28_server_val_detection_comparison.md) |
+| Benchmark sintetis CPU server | [Laporan latensi, FPS, dan sumber daya](23_server_openvino_benchmark.md) |
+| Benchmark standalone OP3, mode sintetis dan kamera | [Rekap pengukuran](../experiments/hardware_op3/comparison_models/20261007_four_models_run1/comparison_all.csv) |
 
 ## Peran dan sumber
 

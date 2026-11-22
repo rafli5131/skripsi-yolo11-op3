@@ -732,20 +732,16 @@
     "unit": "ms",
     "overview_min": 0,
     "focus_limits": [
-      0,
-      65.14246741299078
+      6.179333293,
+      33.097517437
     ],
     "categories": [
-      "FP32 PyTorch\ntanpa OpenVINO",
       "FP32\nOpenVINO",
-      "PTQ INT8\nOpenVINO",
       "QAT INT8\nOpenVINO"
     ],
     "series": {
       "Nilai terukur": [
-        52.70031942999291,
         28.050357910000002,
-        11.540357333333333,
         11.22649282
       ]
     }
@@ -761,20 +757,16 @@
     "unit": "frame/detik",
     "overview_min": 0,
     "focus_limits": [
-      0.3215581634412885,
-      94.97655498406586
+      20.324067123024022,
+      90.36059137800831
     ],
     "categories": [
-      "FP32 PyTorch\ntanpa OpenVINO",
       "FP32\nOpenVINO",
-      "PTQ INT8\nOpenVINO",
       "QAT INT8\nOpenVINO"
     ],
     "series": {
       "Nilai terukur": [
-        18.069370067308395,
         33.45591542083358,
-        75.86243649547855,
         77.22874308019875
       ]
     }
@@ -794,16 +786,12 @@
       1058.9203708133969
     ],
     "categories": [
-      "FP32 PyTorch\ntanpa OpenVINO",
       "FP32\nOpenVINO",
-      "PTQ INT8\nOpenVINO",
       "QAT INT8\nOpenVINO"
     ],
     "series": {
       "Nilai terukur": [
-        800.229268292683,
         893.2840909090908,
-        343.8315789473684,
         341.16315789473674
       ]
     }
@@ -819,20 +807,16 @@
     "unit": "MB desimal",
     "overview_min": 0,
     "focus_limits": [
-      180.31289660795892,
-      420.57090543568677
+      220.74601364210525,
+      245.36073162105265
     ],
     "categories": [
-      "FP32 PyTorch\ntanpa OpenVINO",
       "FP32\nOpenVINO",
-      "PTQ INT8\nOpenVINO",
       "QAT INT8\nOpenVINO"
     ],
     "series": {
       "Nilai terukur": [
-        375.5225287804878,
         240.745472,
-        230.60803368421054,
         225.3612732631579
       ]
     }
@@ -848,20 +832,16 @@
     "unit": "ms",
     "overview_min": 0,
     "focus_limits": [
-      0.44654116126441323,
-      62.571761071578216
+      4.571792631037976,
+      44.69567136922611
     ],
     "categories": [
-      "FP32 PyTorch\ntanpa OpenVINO",
       "FP32\nOpenVINO",
-      "PTQ INT8\nOpenVINO",
       "QAT INT8\nOpenVINO"
     ],
     "series": {
       "Nilai terukur": [
-        50.92328233839438,
         37.172444105815835,
-        12.582408184115522,
         12.095019894448251
       ]
     }
@@ -877,20 +857,16 @@
     "unit": "frame/detik",
     "overview_min": 0,
     "focus_limits": [
-      15.557267428670357,
-      26.334611289418863
+      19.518349994017605,
+      25.42051531280027
     ],
     "categories": [
-      "FP32 PyTorch\ntanpa OpenVINO",
       "FP32\nOpenVINO",
-      "PTQ INT8\nOpenVINO",
       "QAT INT8\nOpenVINO"
     ],
     "series": {
       "Nilai terukur": [
-        17.578019402560702,
         20.625005991289353,
-        23.08243672185426,
         24.313859315528518
       ]
     }
@@ -907,19 +883,15 @@
     "overview_min": 0,
     "focus_limits": [
       0,
-      980.4138926174496
+      880.4164765100671
     ],
     "categories": [
-      "FP32 PyTorch\ntanpa OpenVINO",
       "FP32\nOpenVINO",
-      "PTQ INT8\nOpenVINO",
       "QAT INT8\nOpenVINO"
     ],
     "series": {
       "Nilai terukur": [
-        783.5617449664429,
         706.8708053691275,
-        127.38791946308727,
         128.38523489932888
       ]
     }
@@ -935,20 +907,16 @@
     "unit": "MB desimal",
     "overview_min": 0,
     "focus_limits": [
-      180.2276492885906,
-      437.13503699328857
+      224.08006580402684,
+      247.10789875973154
     ],
     "categories": [
-      "FP32 PyTorch\ntanpa OpenVINO",
       "FP32\nOpenVINO",
-      "PTQ INT8\nOpenVINO",
       "QAT INT8\nOpenVINO"
     ],
     "series": {
       "Nilai terukur": [
-        388.9649017986577,
         242.7901800805369,
-        233.91711699328857,
         228.39778448322147
       ]
     }
@@ -957,7 +925,6 @@
     "figure": "server_latency_distribution",
     "sources": [
       "experiments/server_openvino/server_benchmark_fp32.csv",
-      "experiments/server_openvino/server_benchmark_ptq_int8.csv",
       "experiments/server_openvino/server_benchmark_qat_int8.csv"
     ],
     "note": "300 iterasi/model, 30 warm-up; box Q1–Q3, garis median, whisker 1,5 IQR; outlier tetap terlihat.\nServer AMD EPYC 7413 adalah diagnostik host, bukan latensi robot."
@@ -966,7 +933,6 @@
     "figure": "server_latency_ecdf",
     "sources": [
       "experiments/server_openvino/server_benchmark_fp32.csv",
-      "experiments/server_openvino/server_benchmark_ptq_int8.csv",
       "experiments/server_openvino/server_benchmark_qat_int8.csv"
     ],
     "note": "ECDF memakai semua 300 observasi/model, tanpa bin atau asumsi distribusi.\nObservasi dalam sesi, bukan 300 replikasi eksperimen independen; server diagnostik."
