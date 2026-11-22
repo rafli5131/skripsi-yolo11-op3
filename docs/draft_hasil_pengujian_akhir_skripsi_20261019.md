@@ -188,7 +188,7 @@ Tabel berikut memakai sesi diam 19 Oktober untuk kedua model, terpisah dari refe
 | FP32 berjalan | 3655 | 180,0429 | 34,1225 / 58,3080 | 36,6377 / 62,6153 | 20,3007 | 0 |
 | QAT berjalan | 1807 | 180,0622 | 12,9642 / 14,8962 | 16,6935 / 19,3917 | 10,0354 | 0 |
 
-Pada sesi berjalan, mean inference FP32 34,1225 ms dan QAT 12,9642 ms (rasio FP32/QAT 2,6320). Namun effective FPS FP32 20,3007 dan QAT 10,0354. Jadi penurunan latency inference tidak diikuti kenaikan throughput kamera ROS pada konfigurasi ini. Nilai FPS berasal dari raw frame/durasi, bukan 1000/mean inference. Frame yang tidak diterima callback tidak tercatat sebagai exception. Tidak ada eksperimen QoS tambahan dilakukan.
+Pada pengujian kamera langsung dengan ROS 2, **FPS efektif QAT INT8 lebih rendah daripada FP32 OpenVINO pada kedua kondisi**. Saat robot diam, FPS turun dari **24,48 menjadi 13,72 (−43,9%)** dan rata-rata waktu inferensi turun dari **30,81 menjadi 13,40 ms**. Saat robot bergerak didampingi, FPS turun dari **20,30 menjadi 10,04 (−50,6%)** dan rata-rata waktu inferensi turun dari **34,12 menjadi 12,96 ms**. FPS efektif dihitung dari jumlah frame yang diproses dibagi durasi pengujian. Penyebab spesifik penurunan FPS belum terisolasi.
 
 Perbandingan bersifat deskriptif: sesi berjalan berurutan QAT lalu FP32, adegan dan beban latar tidak sepenuhnya sama. Dukungan operator dikonfirmasi sama, tetapi tingkat penopangan/kontak lantai tidak diukur rinci; tidak tersedia video atau konfirmasi fisik terpisah setiap run. Ini bukan evaluasi gait berjalan mandiri atau bukti sebab-akibat gerakan robot. Sesi diam dan berjalan memakai tanggal/waktu serta commit metadata yang berbeda; nilai historis tidak diubah.
 
