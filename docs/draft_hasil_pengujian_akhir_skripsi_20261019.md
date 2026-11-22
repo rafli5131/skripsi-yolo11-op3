@@ -270,3 +270,7 @@ Profil 15 detik BEST_EFFORT/5, RELIABLE/5, dan RELIABLE/1 beserta verifikasi scr
 
 - [Rekap FP32–QAT ROS diam/berjalan terbaru](../experiments/hardware_op3/operator_runs/20261019T132747Z_fp32_berjalan_final/analysis/FP32_QAT_ROS_FINAL_RESULTS.md)
 - [CSV empat dataset ROS terbaru](../experiments/hardware_op3/operator_runs/20261019T132747Z_fp32_berjalan_final/analysis/ros_fp32_vs_qat_conditions.csv)
+
+## Lampiran. Pengujian tambahan PTQ INT8
+
+[Rekap data PTQ INT8](22_ptq_comparison.md) memuat hasil VAL dan benchmark tambahan. [Lampiran grafik](figures/appendix_ptq/README.md) memuat perbandingan standalone OP3 dan CPU server yang menyertakan PTQ. [Galeri utama](figures/README.md) memuat grafik perbandingan FP32 dan QAT.

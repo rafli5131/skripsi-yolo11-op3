@@ -25,8 +25,9 @@ TEST = 'experiments/final_test/'
 HARDWARE = 'experiments/hardware_op3/'
 ROS = HARDWARE + 'operator_runs/20261019T132747Z_fp32_berjalan_final/analysis/'
 STABILITY = HARDWARE + 'stability_qat/20261007_ros_qat/'
-MODELS = ['FP32 PyTorch\ntanpa OpenVINO', 'FP32\nOpenVINO',
-          'PTQ INT8\nOpenVINO', 'QAT INT8\nOpenVINO']
+OPENVINO_MODELS = ['FP32 OpenVINO', 'QAT INT8 OpenVINO']
+APPENDIX_MODELS = ['FP32 PyTorch (tanpa OpenVINO)', 'FP32 OpenVINO',
+                   'PTQ INT8 OpenVINO', 'QAT INT8 OpenVINO']
 METRICS = ['precision', 'recall', 'F1', 'mAP50', 'mAP50-95']
 
 
@@ -144,7 +145,7 @@ class Figures:
                   'Skala lokal tiap komponen; TRAIN dan VAL berbagi skala dalam panel yang sama.\n'
                   'Seluruh epoch ditampilkan tanpa smoothing. Nilai loss antarkomponen tidak dijumlahkan.')
 
-    def build(self):
+    def build(self, appendix):
         configure()
         selection = self.data(SEARCH)
         candidates = selection['candidates']
@@ -264,30 +265,40 @@ class Figures:
                       'Skala lokal tiap kondisi; pengulangan sesi, bukan replikasi seed training.\n'
                       'Titik: setiap run (n=3/model/kondisi). Garis pendek: mean; bukan CI/SEM. Tidak ada pasangan run lintas model.')
 
+        self.standalone(OPENVINO_MODELS)
+        self.server(['fp32', 'qat_int8'], ['FP32', 'QAT INT8'])
+        self.stability()
+        self.write_index()
+        appendix.standalone(APPENDIX_MODELS)
+        appendix.server(['fp32', 'ptq_int8', 'qat_int8'], ['FP32', 'PTQ', 'QAT'])
+        appendix.write_index(is_appendix=True)
+
+    def standalone(self, models):
         source = HARDWARE + 'comparison_models/20261007_four_models_run1/comparison_all.csv'
         all_rows = self.rows(source)
         for mode in ['synthetic', 'camera']:
-            subset = [r for r in all_rows if r['mode'] == mode]
+            by_model = {r['model']: r for r in all_rows if r['mode'] == mode}
+            subset = [by_model[model] for model in models]
+            labels = ['FP32 PyTorch\ntanpa OpenVINO' if model.startswith('FP32 PyTorch')
+                      else model.replace(' OpenVINO', '\nOpenVINO')
+                      for model in models]
             for key, title, unit in [('inference_mean_ms', 'Mean inferensi', 'ms'),
                                      ('effective_fps', 'FPS efektif', 'frame/detik'),
                                      ('process_cpu_mean_percent', 'CPU proses', '% multi-core'),
                                      ('rss_mean_mb', 'RSS proses', 'MB desimal')]:
                 self.compare(f'standalone_{mode}_{key}', title + f' standalone NUC12 ({mode})',
-                             MODELS, {'Nilai terukur': [float(r[key]) for r in subset]}, unit,
+                             labels, {'Nilai terukur': [float(r[key]) for r in subset]}, unit,
                              [source], 'Input model 640×640, batch 1, warm-up 30.\n'
                              'Sintetis dan kamera merupakan protokol berbeda; scene kamera antarrun tidak identik.', 3)
-        self.server()
-        self.stability()
-        self.write_index()
 
-    def server(self):
+    def server(self, model_ids, labels):
         sources = [f'experiments/server_openvino/server_benchmark_{k}.csv'
-                   for k in ['fp32', 'ptq_int8', 'qat_int8']]
+                   for k in model_ids]
         fig, axes = plt.subplots(1, 2, figsize=(14, 5.8))
         for ax, key, title in zip(axes, ['inference_ms', 'loop_wall_ms'], ['Inferensi', 'Loop standalone']):
             samples = [[float(r[key]) for r in self.rows(source)] for source in sources]
             ax.boxplot(samples, showfliers=True)
-            ax.set_xticks([1, 2, 3], ['FP32', 'PTQ', 'QAT'])
+            ax.set_xticks(range(1, len(labels) + 1), labels)
             ax.set_title(title)
             ax.set_ylabel('ms')
             style_axis(ax)
@@ -301,7 +312,7 @@ class Figures:
             for i, source in enumerate(sources):
                 sample = np.sort([float(r[key]) for r in self.rows(source)])
                 ax.step(sample, np.arange(1, len(sample)+1)/len(sample), where='post',
-                        color=COLORS[i], linestyle=['-', '--', ':'][i], label=['FP32', 'PTQ', 'QAT'][i])
+                        color=COLORS[i], linestyle=['-', '--', ':'][i], label=labels[i])
             ax.set_xlabel('Latensi (ms)')
             ax.set_ylabel('Proporsi observasi ≤ latensi')
             ax.set_ylim(0, 1.03)
@@ -352,7 +363,7 @@ class Figures:
                   'Sumbu y lokal tiap besaran; semua sampel asli ditampilkan.\n'
                   'Perubahan RSS kecil tetap berlabel MB. Satu run tidak membuktikan ada/tidak ada memory leak.')
 
-    def write_index(self):
+    def write_index(self, is_appendix=False):
         with (self.output / 'chart_selection_audit.csv').open('w', newline='') as stream:
             writer = csv.writer(stream)
             writer.writerow(['figure', 'chart_family', 'decision', 'sources', 'interpretation'])
@@ -379,12 +390,26 @@ class Figures:
                 '![TEST: pembesaran setiap metrik](test_overall_focused.png)', '',
                 '## Seluruh grafik dan sumber', '',
                 '| Grafik | Sumber |', '| --- | --- |']
+        if is_appendix:
+            text = ['# Lampiran grafik eksperimen PTQ INT8', '',
+                    'Grafik pembanding tambahan untuk benchmark standalone NUC12 dan CPU server. '
+                    'Perbandingan utama tersedia di [galeri grafik](../README.md).', '',
+                    'Lihat [lampiran hasil PTQ](../../22_ptq_comparison.md) untuk tabel dan sumber data.', '',
+                    '| Grafik | Sumber |', '| --- | --- |']
+        else:
+            text[3:3] = [
+                'Grafik pengujian membandingkan FP32 dan QAT. TEST memakai checkpoint PyTorch, '
+                'sedangkan standalone, server, dan ROS 2 memakai artefak OpenVINO FP32 dan QAT INT8.', '',
+                'Grafik yang menyertakan PTQ INT8 tersedia di [lampiran](appendix_ptq/README.md).', '',
+            ]
+        source_prefix = '../../../' if is_appendix else '../../'
         for item in self.inventory:
             text.append(f"| [{item['figure']}]({item['figure']}.png) | " + '<br>'.join(
-                f'[{p}](../../{p})' for p in item['sources']) + ' |')
-        text.extend(['', 'Lihat [alasan revisi dan cara menjalankan](../32_revisi_visualisasi_grafik.md).',
+                f'[{p}]({source_prefix}{p})' for p in item['sources']) + ' |')
+        if not is_appendix:
+            text.extend(['', 'Lihat [alasan revisi dan cara menjalankan](../32_revisi_visualisasi_grafik.md).',
                 'Lihat [riset pemilihan grafik dan audit akademis](../33_pemilihan_grafik_akademis.md).', ''])
-        (self.output / 'README.md').write_text('\n'.join(text))
+        (self.output / 'README.md').write_text('\n'.join(text).rstrip() + '\n')
 
 
 def main():
@@ -394,8 +419,9 @@ def main():
     parser.add_argument('--formats', nargs='+', choices=['png', 'svg', 'pdf'], default=['png'])
     args = parser.parse_args()
     builder = Figures(args.repo_root.resolve(), args.output.resolve(), args.formats)
-    builder.build()
-    print(f'{len(builder.inventory)} figures written to {builder.output}')
+    appendix = Figures(builder.root, builder.output / 'appendix_ptq', args.formats)
+    builder.build(appendix)
+    print(f'{len(builder.inventory)} main and {len(appendix.inventory)} appendix figures written to {builder.output}')
 
 
 if __name__ == '__main__':

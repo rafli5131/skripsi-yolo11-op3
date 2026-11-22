@@ -1,6 +1,10 @@
 # Grafik hasil penelitian
 
 Dibuat dari CSV/JSON beku, tanpa training, evaluasi ulang, atau pengukuran robot.
+Grafik pengujian membandingkan FP32 dan QAT. TEST memakai checkpoint PyTorch, sedangkan standalone, server, dan ROS 2 memakai artefak OpenVINO FP32 dan QAT INT8.
+
+Grafik yang menyertakan PTQ INT8 tersedia di [lampiran](appendix_ptq/README.md).
+
 
 Batang absolut dimulai dari nol. Panel titik memakai skala lokal yang tertulis. Skor deteksi ditampilkan dalam persen; selisihnya dalam poin persentase. Perbaikan dan penurunan sama-sama ditampilkan. Ini pembesaran visual, bukan bukti signifikansi.
 
@@ -56,8 +60,8 @@ Batang absolut dimulai dari nol. Panel titik memakai skala lokal yang tertulis. 
 | [standalone_camera_effective_fps](standalone_camera_effective_fps.png) | [experiments/hardware_op3/comparison_models/20261007_four_models_run1/comparison_all.csv](../../experiments/hardware_op3/comparison_models/20261007_four_models_run1/comparison_all.csv) |
 | [standalone_camera_process_cpu_mean_percent](standalone_camera_process_cpu_mean_percent.png) | [experiments/hardware_op3/comparison_models/20261007_four_models_run1/comparison_all.csv](../../experiments/hardware_op3/comparison_models/20261007_four_models_run1/comparison_all.csv) |
 | [standalone_camera_rss_mean_mb](standalone_camera_rss_mean_mb.png) | [experiments/hardware_op3/comparison_models/20261007_four_models_run1/comparison_all.csv](../../experiments/hardware_op3/comparison_models/20261007_four_models_run1/comparison_all.csv) |
-| [server_latency_distribution](server_latency_distribution.png) | [experiments/server_openvino/server_benchmark_fp32.csv](../../experiments/server_openvino/server_benchmark_fp32.csv)<br>[experiments/server_openvino/server_benchmark_ptq_int8.csv](../../experiments/server_openvino/server_benchmark_ptq_int8.csv)<br>[experiments/server_openvino/server_benchmark_qat_int8.csv](../../experiments/server_openvino/server_benchmark_qat_int8.csv) |
-| [server_latency_ecdf](server_latency_ecdf.png) | [experiments/server_openvino/server_benchmark_fp32.csv](../../experiments/server_openvino/server_benchmark_fp32.csv)<br>[experiments/server_openvino/server_benchmark_ptq_int8.csv](../../experiments/server_openvino/server_benchmark_ptq_int8.csv)<br>[experiments/server_openvino/server_benchmark_qat_int8.csv](../../experiments/server_openvino/server_benchmark_qat_int8.csv) |
+| [server_latency_distribution](server_latency_distribution.png) | [experiments/server_openvino/server_benchmark_fp32.csv](../../experiments/server_openvino/server_benchmark_fp32.csv)<br>[experiments/server_openvino/server_benchmark_qat_int8.csv](../../experiments/server_openvino/server_benchmark_qat_int8.csv) |
+| [server_latency_ecdf](server_latency_ecdf.png) | [experiments/server_openvino/server_benchmark_fp32.csv](../../experiments/server_openvino/server_benchmark_fp32.csv)<br>[experiments/server_openvino/server_benchmark_qat_int8.csv](../../experiments/server_openvino/server_benchmark_qat_int8.csv) |
 | [stability_latency](stability_latency.png) | [experiments/hardware_op3/stability_qat/20261007_ros_qat/latency/stability_run_01_frames.csv](../../experiments/hardware_op3/stability_qat/20261007_ros_qat/latency/stability_run_01_frames.csv) |
 | [stability_resources](stability_resources.png) | [experiments/hardware_op3/stability_qat/20261007_ros_qat/resources/stability_run_01.csv](../../experiments/hardware_op3/stability_qat/20261007_ros_qat/resources/stability_run_01.csv) |
 

@@ -15,7 +15,7 @@ pengukuran robot baru. Grafik yang dihasilkan tersedia di [galeri grafik](figure
 | Metrik setiap kandidat QAT | Satu rentang 0–1 meratakan fluktuasi kecil di tiap metrik | Panel per metrik dengan sumbu lokal yang diberi keterangan |
 | RSS dan RAM ROS | Selisih kecil terhadap besar total, ditambah perbedaan kondisi diam/gerak | Batang dari nol dan titik detail pada skala yang sama untuk seluruh perbandingan |
 | Resource runtime | CPU sistem dan proses, atau RAM sistem dan RSS, berbagi satu sumbu padahal besarannya jauh berbeda | Grafik time series dipisahkan menurut cakupan pengukuran |
-| Standalone empat model | Detail PTQ–QAT sulit terbaca bersama nilai baseline yang jauh lebih besar | Konteks dan panel detail dari angka yang sama |
+| Standalone NUC12 dan latensi server | Perbandingan utama FP32 dan QAT INT8 perlu dibaca langsung | Grafik utama memuat kedua model OpenVINO. Perbandingan yang memuat PTQ ada di lampiran. |
 
 ### Contoh selisih yang sekarang terlihat
 
@@ -59,7 +59,7 @@ python scripts/reporting/generate_thesis_figures.py
 python -m unittest scripts.reporting.test_figure_style -v
 ```
 
-Hasil PNG berada di `docs/figures/`. Untuk keluaran vektor:
+Hasil PNG utama berada di `docs/figures/` dan grafik dengan PTQ di `docs/figures/appendix_ptq/`. Untuk keluaran vektor:
 
 ```bash
 python scripts/reporting/generate_thesis_figures.py --output /tmp/thesis-figures --formats png svg pdf
@@ -80,6 +80,8 @@ PR curve dan confusion matrix tidak direkonstruksi dari skor agregat.
 - Kandidat QAT: `qat_c1_*` sampai `qat_c5_*`.
 - TEST: `test_overall_and_delta.png`, `test_overall_focused.png`, `test_class_*.png`.
 - Standalone NUC12: `standalone_synthetic_*` dan `standalone_camera_*`.
+- Latensi server: `server_latency_distribution.png` dan `server_latency_ecdf.png`.
+- Hasil dengan PTQ: [lampiran grafik](figures/appendix_ptq/README.md).
 - ROS final: `ros_*.png`. Stabilitas: `stability_*.png`.
 
 Pilih grafik detail ketika membahas selisih kecil. Konteks besaran tetap ada pada gambar
